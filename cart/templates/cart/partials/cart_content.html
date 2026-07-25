@@ -8,7 +8,64 @@
 
     <div class="lg:col-span-2">
         <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-            <div class="overflow-x-auto">
+            <!-- Mobile Cart View -->
+            <div class="md:hidden divide-y divide-gray-100">
+                {% for item in cart %}
+                <div class="p-4 flex flex-col gap-4">
+                    <div class="flex gap-4 items-start">
+                        <!-- Image -->
+                        <div class="w-20 h-20 rounded-xl bg-gray-100 overflow-hidden shrink-0">
+                            {% if item.product.image %}
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-full h-full object-cover">
+                            {% else %}
+                            <div class="w-full h-full flex items-center justify-center">
+                                <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Details -->
+                        <div class="flex-1">
+                            <a href="{% url 'shop:product_detail' item.product.id item.product.slug %}" class="font-bold text-gray-900 leading-tight line-clamp-2 mb-1">
+                                {{ item.product.name }}
+                            </a>
+                            <div class="text-sm font-medium text-gray-500 mb-2">L.E {{ item.price }}</div>
+                        </div>
+
+                        <!-- Remove Button -->
+                        <form hx-post="{% url 'cart:cart_remove' item.product.id %}" hx-target="#cart-content" hx-swap="innerHTML">
+                            <button type="submit" class="p-2 -mr-2 rounded-lg text-gray-400 hover:text-red-500 transition-colors" title="{% trans 'Remove' %}">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Actions (Qty & Total) -->
+                    <div class="flex items-center justify-between border-t border-gray-50 pt-3">
+                        <form hx-post="{% url 'cart:cart_update' item.product.id %}" hx-target="#cart-content" hx-swap="innerHTML" class="flex items-center gap-2">
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">{% trans "Qty:" %}</span>
+                            <select name="quantity" onchange="this.form.requestSubmit()" class="appearance-none bg-gray-50 border border-gray-200 text-gray-900 text-sm font-bold rounded-lg px-3 py-1.5 focus:border-black focus:ring-1 focus:ring-black outline-none cursor-pointer">
+                                {% for i in "0123456789012345678901" %}
+                                    {% with forloop.counter as qty %}
+                                        {% if qty <= 20 %}
+                                        <option value="{{ qty }}" {% if item.quantity == qty %}selected{% endif %}>{{ qty }}</option>
+                                        {% endif %}
+                                    {% endwith %}
+                                {% endfor %}
+                            </select>
+                            <input type="hidden" name="override" value="True">
+                        </form>
+                        <div class="text-right">
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-0.5">{% trans "Total" %}</span>
+                            <span class="font-extrabold text-black">L.E {{ item.total_price }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Desktop Cart View -->
+            <div class="hidden md:block overflow-x-auto">
                 <table class="w-full">
                     <thead>
                         <tr class="border-b border-gray-200">

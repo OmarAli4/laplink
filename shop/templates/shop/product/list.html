@@ -63,8 +63,19 @@
     <div class="flex flex-col lg:flex-row gap-10">
 
         <!-- Filters Sidebar -->
-        <aside class="lg:w-72 shrink-0">
-            <div class="sticky top-24 space-y-8 max-h-[calc(100vh-8rem)] overflow-y-auto custom-scrollbar pr-2 pb-4">
+        <aside class="lg:w-72 shrink-0" x-data="{ openFilters: false }">
+            
+            <!-- Mobile Toggle Button -->
+            <button type="button" @click="openFilters = !openFilters" class="lg:hidden w-full py-3.5 px-4 mb-6 rounded-xl border border-gray-200 bg-white text-black font-bold flex items-center justify-between shadow-sm focus:outline-none focus:border-black">
+                <span class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                    {% trans "Search & Filters" %}
+                </span>
+                <svg class="w-5 h-5 text-gray-400 transition-transform duration-200" :class="{'rotate-180 text-black': openFilters}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+
+            <div class="sticky top-24 space-y-8 max-h-[calc(100vh-8rem)] overflow-y-auto custom-scrollbar pr-2 pb-4"
+                 :class="{'hidden lg:block': !openFilters, 'block': openFilters}">
                 
                 <form method="GET" action="{% if category %}{% url 'shop:product_list_by_category' category.slug %}{% else %}{% url 'shop:product_list' %}{% endif %}" class="space-y-8">
                     
