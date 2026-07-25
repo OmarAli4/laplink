@@ -15,7 +15,7 @@
      }"
      @robot-start.window="isHovering = true; hoveredTitle = $event.detail.title; if(window.TechSound) window.TechSound.playPop();"
      @robot-stop.window="isHovering = false; hoveredTitle = '';"
-     class="hidden sm:block fixed bottom-6 right-6 z-40 font-sans pointer-events-none transition-transform duration-300 transform-gpu"
+     class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 font-sans pointer-events-none transition-transform duration-300 transform-gpu scale-75 sm:scale-100 origin-bottom-right"
      :class="{ 'robot-home-smooth-patrol': page === 'home' && !isHovering }">
 
     <div class="relative flex flex-col items-end">
