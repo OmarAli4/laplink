@@ -111,8 +111,14 @@ CACHES = {
 ANYMAIL = {
     "RESEND_API_KEY": os.getenv("RESEND_API_KEY", "re_dummy"),
 }
-EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
-DEFAULT_FROM_EMAIL = "Lap Link <noreply@lap-link.com>"
+# Email Configuration (SMTP)
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = f"Lap Link <{EMAIL_HOST_USER}>"
 
 # Redis & Celery (dummy for now)
 REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
