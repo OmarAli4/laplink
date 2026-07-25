@@ -8,6 +8,7 @@ def order_create(request):
     cart = Cart(request)
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
+        express_product_id = request.POST.get('express_product_id')
         if form.is_valid():
             order = form.save(commit=False)
             coupon = None
@@ -21,12 +22,31 @@ def order_create(request):
             
             from .services import CheckoutFacade, InsufficientStockError
             try:
-                CheckoutFacade.process_checkout(
-                    order=order,
-                    cart=cart,
-                    user=request.user if request.user.is_authenticated else None,
-                    coupon=coupon
-                )
+                if express_product_id:
+                    from shop.models import Product
+                    from django.shortcuts import get_object_or_404
+                    product = get_object_or_404(Product, id=express_product_id)
+                    class FakeCart(list):
+                        def clear(self): pass
+                    fake_cart = FakeCart([{'product': product, 'price': product.current_price, 'quantity': 1}])
+                    CheckoutFacade.process_checkout(
+                        order=order,
+                        cart=fake_cart,
+                        user=request.user if request.user.is_authenticated else None,
+                        coupon=coupon
+                    )
+                else:
+                    if len(cart) == 0:
+                        from django.contrib import messages
+                        messages.error(request, 'Your cart is empty.')
+                        return redirect('cart:cart_detail')
+                        
+                    CheckoutFacade.process_checkout(
+                        order=order,
+                        cart=cart,
+                        user=request.user if request.user.is_authenticated else None,
+                        coupon=coupon
+                    )
             except InsufficientStockError as e:
                 from django.contrib import messages
                 messages.error(request, str(e))
