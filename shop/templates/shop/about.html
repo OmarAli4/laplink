@@ -329,16 +329,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
 
     canvas.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX - canvasRect.left;
-        mouseY = e.clientY - canvasRect.top;
+        const scaleX = canvas.width / canvasRect.width;
+        const scaleY = canvas.height / canvasRect.height;
+        mouseX = (e.clientX - canvasRect.left) * scaleX;
+        mouseY = (e.clientY - canvasRect.top) * scaleY;
     });
+
+    canvas.addEventListener('touchmove', (e) => {
+        if(e.touches.length > 0) {
+            const scaleX = canvas.width / canvasRect.width;
+            const scaleY = canvas.height / canvasRect.height;
+            mouseX = (e.touches[0].clientX - canvasRect.left) * scaleX;
+            mouseY = (e.touches[0].clientY - canvasRect.top) * scaleY;
+        }
+    }, { passive: true });
 
     canvas.addEventListener('mouseenter', () => {
         isHovered = true;
         if(window.TechSound) window.TechSound.playPop();
     });
     
+    canvas.addEventListener('touchstart', (e) => {
+        isHovered = true;
+        if(e.touches.length > 0) {
+            const scaleX = canvas.width / canvasRect.width;
+            const scaleY = canvas.height / canvasRect.height;
+            mouseX = (e.touches[0].clientX - canvasRect.left) * scaleX;
+            mouseY = (e.touches[0].clientY - canvasRect.top) * scaleY;
+        }
+        if(window.TechSound) window.TechSound.playPop();
+    }, { passive: true });
+
     canvas.addEventListener('mouseleave', () => { 
+        isHovered = false; 
+    });
+
+    canvas.addEventListener('touchend', () => { 
         isHovered = false; 
     });
 
