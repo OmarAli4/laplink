@@ -1,0 +1,242 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}Lap Link — Premium electronics at unbeatable prices{% endblock %}">
+    <title>{% block title %}Lap Link{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'shop/img/favicon.png' %}">
+
+    <!-- Tailwind CSS (Play CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'Inter', '"Readex Pro"', 'sans-serif'],
+                        display: ['Outfit', '"Plus Jakarta Sans"', 'sans-serif'],
+                        arabic: ['"Readex Pro"', 'Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts — Plus Jakarta Sans, Outfit & Readex Pro (Arabic) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js" as="script">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- HTMX 2.x -->
+    <script src="https://unpkg.com/htmx.org@2.0.4" defer></script>
+
+    <!-- Alpine.js 3.x -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+
+        .htmx-indicator { opacity: 0; transition: opacity 300ms ease-in; }
+        .htmx-request .htmx-indicator, .htmx-request.htmx-indicator { opacity: 1; }
+
+        .fade-me-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .toast-enter { animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .toast-leave { animation: slideOutRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to   { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to   { transform: translateX(100%); opacity: 0; }
+        }
+
+        /* Logo Animations */
+        @keyframes floatAnim {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        .animate-float {
+            animation: floatAnim 3.5s ease-in-out infinite;
+        }
+
+        @keyframes drawLogo {
+            0% { stroke-dashoffset: 300; }
+            50% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: 300; }
+        }
+        .animate-draw-logo {
+            stroke-dasharray: 300;
+            stroke-dashoffset: 300;
+            animation: drawLogo 4s ease-in-out infinite;
+        }
+
+        /* 🌟 Global Entrance & Micro-Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes scaleUp {
+            from { opacity: 0; transform: scale(0.92); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+        .animate-scale-up {
+            animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        .animate-pulse-glow {
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmerSweep {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
+        }
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transform: translateX(-100%);
+            transition: none;
+        }
+        .btn-shine:hover::after {
+            animation: shimmerSweep 1s ease-in-out;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient-text {
+            background-size: 200% auto;
+            animation: gradientMove 4s ease infinite;
+        }
+    </style>
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body class="bg-white text-gray-900 font-sans antialiased min-h-screen flex flex-col"
+      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
+    {% include "shop/partials/loading_screen.html" %}
+    {% include "shop/partials/announcement_bar.html" %}
+    {% include "shop/partials/navbar.html" %}
+
+    <main class="flex-1">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="border-t border-gray-200 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-gray-400">
+                    &copy; {% now "Y" %} Lap Link. {% trans "All rights reserved." %}
+                </p>
+                <div class="flex items-center gap-6">
+                    <a href="{% url 'shop:about' %}" class="text-sm text-gray-400 hover:text-gray-700 transition-colors">
+                        {% trans "About Us" %}
+                    </a>
+                    <a href="#" class="text-sm text-gray-400 hover:text-gray-700 transition-colors">
+                        {% trans "Privacy" %}
+                    </a>
+                    <a href="#" class="text-sm text-gray-400 hover:text-gray-700 transition-colors">
+                        {% trans "Terms" %}
+                    </a>
+                    <a href="#" class="text-sm text-gray-400 hover:text-gray-700 transition-colors">
+                        {% trans "Contact" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div x-data="toastManager()" x-cloak
+         @toast.window="addToast($event.detail)"
+         class="fixed top-20 right-4 z-[100] flex flex-col gap-3 pointer-events-none max-w-sm w-full">
+
+        <template x-for="toast in toasts" :key="toast.id">
+            <div x-show="toast.visible"
+                 x-transition:enter="toast-enter"
+                 x-transition:leave="toast-leave"
+                 class="pointer-events-auto rounded-xl px-5 py-4 shadow-xl shadow-gray-200/50
+                        border backdrop-blur-xl flex items-start gap-3"
+                 :class="{
+                     'bg-emerald-50 border-emerald-200 text-emerald-700': toast.type === 'success',
+                     'bg-red-50 border-red-200 text-red-700': toast.type === 'error',
+                     'bg-gray-50 border-gray-200 text-gray-700': toast.type === 'info'
+                 }">
+                <template x-if="toast.type === 'success'">
+                    <svg class="w-5 h-5 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </template>
+                <template x-if="toast.type === 'error'">
+                    <svg class="w-5 h-5 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </template>
+                <p class="text-sm font-medium" x-text="toast.message"></p>
+            </div>
+        </template>
+    </div>
+
+    <script>
+        function toastManager() {
+            return {
+                toasts: [],
+                addToast({ message = '', type = 'info', duration = 3500 } = {}) {
+                    const id = Date.now();
+                    this.toasts.push({ id, message, type, visible: true });
+                    setTimeout(() => {
+                        const t = this.toasts.find(t => t.id === id);
+                        if (t) t.visible = false;
+                        setTimeout(() => {
+                            this.toasts = this.toasts.filter(t => t.id !== id);
+                        }, 350);
+                    }, duration);
+                }
+            }
+        }
+    </script>
+
+    <!-- Tech Sound Synthesizer -->
+    <script src="{% static 'shop/js/tech_sound.js' %}"></script>
+
+    {% block extra_js %}{% endblock %}
+
+
+    {% include "shop/partials/tech_finder_modal.html" %}
+    {% include "shop/partials/compare_drawer.html" %}
+    {% include "shop/partials/robot_companion.html" %}
+    {% include "shop/partials/express_buy_drawer.html" %}
+</body>
+</html>

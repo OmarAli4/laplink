@@ -1,0 +1,1000 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: you@example.com\n"
+"POT-Creation-Date: 2026-07-10 12:00+0000\n"
+"PO-Revision-Date: 2026-07-10 12:00+0000\n"
+"Last-Translator: you <you@example.com>\n"
+"Language-Team: Arabic <yourteam@example.com>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "404 — Signal Lost"
+msgstr "404 — انقطاع الإشارة"
+
+msgid "SIGNAL_LOST: Target coordinate not found in Cyber Grid."
+msgstr "انقطاع الإشارة: الصفحة المطلوبة غير موجودة في شبكة النظام."
+
+msgid "QUANTUM_ERR: Path collapsed into a singularity."
+msgstr "خطأ كوانتوم: المسار انهار ولم يعد موجوداً."
+
+msgid "SYSTEM_WARN: Autonomous Guardian searching sector 404..."
+msgstr "تحذير النظام: الحارس الذاتي يبحث في القطاع 404..."
+
+msgid "ROBOT_STATUS: Confused. Beep boop? Where is this page?"
+msgstr "حالة الروبوت: مندهش. بيب بوب؟ أين هذه الصفحة؟"
+
+msgid "Recalibrate Navigation"
+msgstr "إعادة توجيه المسار للمترئيسية"
+
+msgid "Browse Catalog"
+msgstr "تصفح الأجهزة والمنتجات"
+
+msgid "Initializing Lap Link Core..."
+msgstr "جاري تهيئة نواة لاب لينك..."
+
+msgid "Loading Product Database..."
+msgstr "جاري تحميل قاعدة بيانات الأجهزة..."
+
+msgid "Calibrating Robot Guardian..."
+msgstr "جاري معايرة الحارس الآلي..."
+
+msgid "System Ready. Welcome."
+msgstr "النظام جاهز. أهلاً بك."
+
+msgid "Product Battle Arena"
+msgstr "حلبة مواجهة الأجهزة والمنتجات"
+
+msgid "HARDWARE DUEL ARENA"
+msgstr "حلبة المواجهة والمقارنة المباشرة"
+
+msgid "Product Battle Mode"
+msgstr "وضع مواجهة المنتجات (Battle)"
+
+msgid ""
+"Select any two flagship devices to compare hardware specs head-to-head in "
+"real time."
+msgstr ""
+"اختر أي جهازين للمقارنة بين المواصفات الفنية وجهاً لوجه في الوقت الفعلي."
+
+msgid "FIGHTER 01"
+msgstr "المقاتل الأول"
+
+msgid "FIGHTER 02"
+msgstr "المقاتل الثاني"
+
+msgid "WINNER"
+msgstr "الفائز"
+
+msgid "Select Contender A:"
+msgstr "اختر المنافس الأول:"
+
+msgid "Select Contender B:"
+msgstr "اختر المنافس الثاني:"
+
+msgid "View Product Details"
+msgstr "عرض تفاصيل الجهاز"
+
+msgid "Technical Spec Head-to-Head"
+msgstr "المقارنة الفنية المباشرة"
+
+msgid "DUEL RESULT DECLARED"
+msgstr "نتيجة المواجهة الحسمية"
+
+msgid "VICTOR: "
+msgstr "البطل الفائز: "
+
+msgid "It's a Tie!"
+msgstr "تعادل التعادل!"
+
+msgid "Battle"
+msgstr "مواجهة ⚔️"
+
+msgid ""
+"Based on algorithmic spec score analysis across RAM, Processor, Storage, "
+"Battery, and Display benchmark metrics."
+msgstr ""
+"بناءً على التحليل الخوارزمي للمواصفات الفنية عبر المعالج، الذاكرة، التخزين، "
+"البطارية، والشاشة."
+
+msgid "POLYGON DISPERSAL & TRIANGULATION ENGINE"
+msgstr "محرك تجميع وتشتيت المثلثات"
+
+msgid "UPTIME_STABILITY"
+msgstr "استقرار التشغيل"
+
+msgid "DISPATCH_LATENCY"
+msgstr "سرعة الاستجابة"
+
+msgid "GENUINE_SEAL"
+msgstr "ختم الأصالة"
+
+msgid "QUANTUM_WARRANTY"
+msgstr "ضمان كوانتوم"
+
+msgid "SYSTEM_PROTOCOL v4.2 • LAP LINK CYBERNETICS"
+msgstr "بروتوكول النظام v4.2 • لاب لينك السايبرانية"
+
+msgid "Engineered For The Future"
+msgstr "مصمم خصيصاً للمستقبل"
+
+msgid ""
+"We set out to build the world's most advanced, intelligent tech store. Where"
+" extreme performance meets seamless automation."
+msgstr ""
+"انطلقنا لبناء المتجر الأكثر تقدماً وذكاءً في العالم. حيث يلتقي الأداء الفائق"
+" مع الأتمتة السلسة."
+
+msgid "Autonomous Tech Guardian"
+msgstr "حارس التكنولوجيا الذاتي"
+
+msgid ""
+"Monitoring 100% genuine inventory, real-time dispatch, and 2-year warranty "
+"validation 24/7."
+msgstr ""
+"مراقبة المخزون الأصلي 100% والشحن المباشر والضمان لمدة عامين على مدار "
+"الساعة."
+
+msgid "AI-Curated Flagship Hardware"
+msgstr "عتاد متطور منتقى بالذكاء الاصطناعي"
+
+msgid "Instant Autonomous Dispatch"
+msgstr "شحن وإرسال تلقائي فوري"
+
+msgid "Quantum Warranty Shield"
+msgstr "درع الضمان الشامل"
+
+msgid "Lap Link Cybernetics Operations Hub"
+msgstr "مركز عمليات لاب لينك السايبرانية"
+
+msgid "Shipping?"
+msgstr "الشحن؟"
+
+msgid "Warranty?"
+msgstr "الضمان؟"
+
+msgid "🚚 Free delivery on orders over L.E 5,000!"
+msgstr "🚚 توصيل مجاني للطلبات أكثر من 5,000 ج.م!"
+
+msgid "🛡️ 2-Year Official Manufacturer Warranty!"
+msgstr "🛡️ ضمان رسمي سنتين من الشركة المصنعة!"
+
+msgid "Hurry! Almost sold out"
+msgstr "سارع! أوشكت أن تنفد الكمية"
+
+msgid "Only"
+msgstr "متبقي"
+
+msgid "left in stock"
+msgstr "قطع فقط في المخزن"
+
+msgid "Items Available"
+msgstr "عناصر متوفرة"
+
+msgid "Official Store Catalog"
+msgstr "كتالوج المتجر الرسمي"
+
+msgid "Products"
+msgstr "منتج"
+
+msgid "Genuine"
+msgstr "أصلي"
+
+msgid "All Devices"
+msgstr "جميع الأجهزة"
+
+msgid "Next-Gen Tech Hub"
+msgstr "مركز التكنولوجيا المتقدمة"
+
+msgid "Catalog Items"
+msgstr "عناصر الكتالوج"
+
+msgid "Devices"
+msgstr "أجهزة"
+
+msgid "Search tech..."
+msgstr "ابحث عن الأجهزة والتقنيات..."
+
+msgid "Products Found"
+msgstr "المنتجات التي تم العثور عليها"
+
+msgid "No products match"
+msgstr "لا توجد منتجات تطابق"
+
+msgid "Available Offers:"
+msgstr "العروض المتوفرة:"
+
+msgid "Live Tracking"
+msgstr "التتبع المباشر"
+
+msgid "Placed on"
+msgstr "تم الطلب في"
+
+msgid "Hardware Inspection"
+msgstr "فحص وتغليف العتاد"
+
+msgid "Out for Delivery"
+msgstr "خرج للتوصيل"
+
+msgid "Package Contents"
+msgstr "محتويات الشحنة"
+
+msgid "Track"
+msgstr "تتبع"
+
+msgid "Buy Now"
+msgstr "شراء الآن"
+
+msgid "Complete Order"
+msgstr "إتمام الطلب"
+
+msgid "Rating Breakdown"
+msgstr "تفاصيل التقاييم"
+
+msgid "Verified Buyer"
+msgstr "مشتري مؤكد"
+
+msgid "WOOHOO! 🚀 TECH PARTY ON LAP LINK!"
+msgstr "وووهووو! 🚀 حفلة التكنولوجيا في لاب لينك!"
+
+msgid "Welcome to Lap Link! Explore Next-Gen Tech!"
+msgstr "مرحباً بك في لاب لينك! اكتشف أحدث التقنيات!"
+
+msgid "Scanning products... Hover to inspect!"
+msgstr "جاري فحص المنتجات... مرر الفأرة للمعاينة!"
+
+msgid "Hardware verified • 2-Year Warranty active! 🛡️"
+msgstr "عتاد مؤكد • ضمان عامين مفعّل! 🛡️"
+
+msgid "Great choices in your cart! Ready for dispatch ⚡"
+msgstr "خيارات رائعة في سلتك! جاهزة للشحن ⚡"
+
+msgid "Safeguarding your top favorite devices! 💖"
+msgstr "نحفظ أجهزتك المفضلة في أمان! 💖"
+
+msgid "Account Secured! Welcome back, Commander 🫡"
+msgstr "حسابك مؤمن! مرحباً بعودتك 🫡"
+
+msgid "Patrol"
+msgstr "دوريات / حراسة"
+
+msgid "Dance"
+msgstr "رقص"
+
+msgid "Float"
+msgstr "طيران / تحليق"
+
+msgid "Disco"
+msgstr "ديسكو / حفل"
+
+msgid "Tap robot to change behavior!"
+msgstr "اضغط على الروبوت لتغيير حركته!"
+
+msgid "Verified"
+msgstr "مؤكد"
+
+msgid "Purchased"
+msgstr "قام بشراء"
+
+msgid "Tech Finder AI"
+msgstr "مساعد التقنية الذكي"
+
+msgid "Find your perfect device in 3 clicks"
+msgstr "اعثر على جهازك المثالي في 3 خطوات"
+
+msgid "Step 1 of 3: Primary Use Case"
+msgstr "الخطوة 1 من 3: الاستخدام الأساسي"
+
+msgid "Gaming & VR"
+msgstr "الألعاب والواقع الافتراضي"
+
+msgid "High FPS & Ray Tracing"
+msgstr "أداء عالي وتتبع الأشعة"
+
+msgid "AI & Coding"
+msgstr "الذكاء الاصطناعي والبرمجة"
+
+msgid "Heavy multitasking & RAM"
+msgstr "مهام متعددة وذاكرة رام قوية"
+
+msgid "Content Creation"
+msgstr "صناعة المحتوى"
+
+msgid "4K Video & 3D Render"
+msgstr "فيديو 4K ورندر ثلاثي الأبعاد"
+
+msgid "Daily Productivity"
+msgstr "الإنتاجية اليومية"
+
+msgid "Battery life & Mobility"
+msgstr "عمر بطارية طويل وخفة في التنقل"
+
+msgid "Step 2 of 3: Target Budget"
+msgstr "الخطوة 2 من 3: الميزانية المستهدفة"
+
+msgid "Budget-Friendly"
+msgstr "ميزانية اقتصادية"
+
+msgid "Under L.E 15,000"
+msgstr "أقل من 15,000 ج.م"
+
+msgid "Mid-Range Power"
+msgstr "أداء متوسط متوازن"
+
+msgid "L.E 15,000 - 45,000"
+msgstr "15,000 - 45,000 ج.م"
+
+msgid "Flagship / Ultra Performance"
+msgstr "أداء فائق وجهاز رائد"
+
+msgid "L.E 45,000+"
+msgstr "45,000+ ج.م"
+
+msgid "Step 3 of 3: Preferred Brand"
+msgstr "الخطوة 3 من 3: العلامة التجارية المفضلة"
+
+msgid "Top AI Match Found!"
+msgstr "تم العثور على أفضل جهاز مناسب لك!"
+
+msgid "Restart Wizard"
+msgstr "إعادة الاختبار"
+
+msgid "Close"
+msgstr "إغلاق"
+
+msgid "Exclusive VIP Offer"
+msgstr "عرض VIP حصري"
+
+msgid "Unlock Your Tech Reward"
+msgstr "افتح مكافأتك التقنية"
+
+msgid ""
+"Tap the wheel below to unlock an instant discount for your first order!"
+msgstr "اضغط على العجلة بالأسفل للحصول على خصم فوري لطلبك الأول!"
+
+msgid "TAP TO SPIN"
+msgstr "اضغط للدوران"
+
+msgid "UNLOCKED!"
+msgstr "تم فتح الخصم!"
+
+msgid "Your Coupon Code:"
+msgstr "كود الخصم الخاص بك:"
+
+msgid "Copy Code"
+msgstr "نسخ الكود"
+
+msgid "Enter code at checkout to claim your 10% discount!"
+msgstr "أدخل الكود عند الدفع للحصول على خصم 10%!"
+
+msgid "Compare Devices"
+msgstr "مقارنة الأجهزة"
+
+msgid "Clear All"
+msgstr "مسح الكل"
+
+msgid "2-Year Official Warranty Included"
+msgstr "شامل ضمان رسمي لمدة سنتين"
+
+msgid "100% Genuine Sealed Hardware"
+msgstr "أجهزة أصلية ومختومة 100%"
+
+msgid "Member Access"
+msgstr "دخول الأعضاء"
+
+msgid "Experience Next-Gen Electronics."
+msgstr "عش تجربة الإلكترونيات الحديثة."
+
+msgid ""
+"Sign in to access your order history, saved wishlist items, and member-"
+"exclusive deals."
+msgstr ""
+"سجل الدخول للوصول إلى سجل طلباتك، قائمة رغباتك المحفوظة، والعروض الحصرية "
+"للأعضاء."
+
+msgid "Instant Order Tracking & Digital Invoices"
+msgstr "تتبع فوري للطلبات وفواتير رقمية"
+
+msgid "2-Year Official Warranty Support"
+msgstr "دعم الضمان الرسمي لمدة سنتين"
+
+msgid "100% Encrypted & Secure Checkout"
+msgstr "دفع مشفر وآمن 100%"
+
+msgid "New Member Perks"
+msgstr "مزايا الأعضاء الجدد"
+
+msgid "Join the Tech Elite."
+msgstr "انضم لنخبة عشاق التقنية."
+
+msgid ""
+"Create your account today and unlock VIP tech deals, priority shipping, and "
+"instant order tracking."
+msgstr "أنشئ حسابك اليوم واحصل على عروض VIP، شحن ذو أولوية، وتتبع فوري لطلبك."
+
+msgid "10% Welcome Discount"
+msgstr "خصم ترحيبي 10%"
+
+msgid "Use promo code LAPLINK10 at checkout"
+msgstr "استخدم كود الخصم LAPLINK10 عند الدفع"
+
+msgid "Priority Dispatch"
+msgstr "شحن ذو أولوية"
+
+msgid "Fast-track processing for all orders"
+msgstr "معالجة سريعة لجميع الطلبات"
+
+msgid "⚡ FREE Express Shipping on all orders over L.E 100!"
+msgstr "⚡ شحن سريع مجاني على جميع الطلبات الأكثر من 100 ج.م!"
+
+msgid "🛡️ 2-Year Official Warranty & 30-Day Money-Back Guarantee"
+msgstr "🛡️ ضمان رسمي لمدة سنتين وضمان استرجاع الأموال خلال 30 يوماً"
+
+msgid "🏷️ Special Deal: Use code LAPLINK10 for 10% off your order!"
+msgstr "🏷️ العرض الخاص: استخدم كود LAPLINK10 للحصول على خصم 10%!"
+
+msgid "Live Store"
+msgstr "متجر مباشر"
+
+msgid "24/7 Tech Support"
+msgstr "دعم فني 24/7"
+
+msgid "Shop Deals"
+msgstr "تسوق العروض"
+
+msgid "Fully secure checkout process."
+msgstr "عملية دفع آمنة 100%."
+
+msgid "2-Year Warranty"
+msgstr "ضمان سنتين"
+
+msgid "30-Day Returns"
+msgstr "إرجاع خلال 30 يوماً"
+
+msgid "About Us"
+msgstr "من نحن"
+
+msgid "Account Details"
+msgstr "تفاصيل الحساب"
+
+msgid "Activity Feed"
+msgstr "سجل النشاطات"
+
+msgid "Add to Cart"
+msgstr "أضف إلى السلة"
+
+msgid "Add to Wishlist"
+msgstr "أضف لقائمة الأمنيات"
+
+msgid "Remove from Wishlist"
+msgstr "إزالة من قائمة الأمنيات"
+
+msgid "All"
+msgstr "الكل"
+
+msgid "All Items"
+msgstr "جميع المنتجات"
+
+msgid "All Products"
+msgstr "جميع المنتجات"
+
+msgid "All rights reserved."
+msgstr "جميع الحقوق محفوظة."
+
+msgid "Any Rating"
+msgstr "أي تقييم"
+
+msgid "Application Management"
+msgstr "إدارة التطبيق"
+
+msgid "Apply"
+msgstr "تطبيق"
+
+msgid "Apply Coupon"
+msgstr "تطبيق الكوبون"
+
+msgid "Apply Filters"
+msgstr "تطبيق التصفية"
+
+msgid "Availability:"
+msgstr "حالة التوفر:"
+
+msgid "Average"
+msgstr "متوسط"
+
+msgid "Be the first to review this product!"
+msgstr "كن أول من يقيم هذا المنتج!"
+
+msgid "Brands"
+msgstr "العلامات التجارية"
+
+msgid "Brand:"
+msgstr "العلامة التجارية:"
+
+msgid "Cancelled"
+msgstr "ملغي"
+
+msgid "Cart"
+msgstr "السلة"
+
+msgid "Catalog"
+msgstr "الكتالوج"
+
+msgid "Categories"
+msgstr "الفئات"
+
+msgid "Checkout"
+msgstr "الدفع"
+
+msgid "Clear"
+msgstr "مسح"
+
+msgid "Clear Filters"
+msgstr "مسح التصفية"
+
+msgid "Complete your order details below"
+msgstr "أكمل تفاصيل طلبك بالأسفل"
+
+msgid "Contact"
+msgstr "اتصل بنا"
+
+msgid "Contact Us"
+msgstr "اتصل بنا"
+
+msgid "Continue Shopping"
+msgstr "متابعة التسوق"
+
+msgid "Coupon Code"
+msgstr "كود الخصم"
+
+msgid "Current Tasks"
+msgstr "المهام الحالية"
+
+msgid "Currently Unavailable"
+msgstr "غير متوفر حالياً"
+
+msgid "Customer Reviews"
+msgstr "تقييمات العملاء"
+
+msgid "Date"
+msgstr "التاريخ"
+
+msgid "Delivered"
+msgstr "تم التوصيل"
+
+msgid "Delivered Today."
+msgstr "التوصيل اليوم."
+
+msgid "Description"
+msgstr "الوصف"
+
+msgid "Discover cutting-edge electronics and gadgets"
+msgstr "اكتشف أحدث الإلكترونيات والأجهزة"
+
+msgid "Done"
+msgstr "مكتمل"
+
+msgid "Efficiency"
+msgstr "الكفاءة"
+
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+msgid "Excellent"
+msgstr "ممتاز"
+
+msgid "Explore Collection"
+msgstr "استكشف المجموعة"
+
+msgid "Featured"
+msgstr "مميز"
+
+msgid "Featured Products"
+msgstr "المنتجات المميزة"
+
+msgid "Finished"
+msgstr "منتهي"
+
+msgid "Free Shipping"
+msgstr "شحن مجاني"
+
+msgid "Full Name"
+msgstr "الاسم الكامل"
+
+msgid "Good"
+msgstr "جيد"
+
+msgid "Guaranteed peace of mind."
+msgstr "راحة بال مضمونة."
+
+msgid "Hello"
+msgstr "مرحباً"
+
+msgid "Highest Rated"
+msgstr "الأعلى تقييماً"
+
+msgid "In Stock"
+msgstr "متوفر"
+
+msgid "In Stock Only"
+msgstr "المتوفر فقط"
+
+msgid "In progress"
+msgstr "قيد التنفيذ"
+
+msgid "Items left in stock"
+msgstr "قطع متبقية في المخزون"
+
+msgid "Last"
+msgstr "السابق"
+
+msgid "Last month"
+msgstr "الشهر الماضي"
+
+msgid "Live Activity"
+msgstr "النشاط المباشر"
+
+msgid "Looks like you haven't added any items yet."
+msgstr "يبدو أنك لم تضف أي منتجات بعد."
+
+msgid "Low Stock Alerts"
+msgstr "تنبيهات نقص المخزون"
+
+msgid "Member Since"
+msgstr "عضو منذ"
+
+msgid "Minimum Rating"
+msgstr "الحد الأدنى للتقييم"
+
+msgid "My Dashboard"
+msgstr "لوحة التحكم الخاصة بي"
+
+msgid "My Wishlist"
+msgstr "قائمة الأمنيات"
+
+msgid "NEW"
+msgstr "جديد"
+
+msgid "Newest Arrivals"
+msgstr "أحدث المنتجات"
+
+msgid "Next-Gen Tech."
+msgstr "تكنولوجيا الجيل القادم."
+
+msgid "No Available Brands"
+msgstr "لا توجد علامات تجارية"
+
+msgid "No Brands Available"
+msgstr "لا توجد علامات تجارية"
+
+msgid "No Categories"
+msgstr "لا توجد فئات"
+
+msgid "No activity yet."
+msgstr "لا يوجد نشاط بعد."
+
+msgid "No featured products available at the moment."
+msgstr "لا توجد منتجات مميزة في الوقت الحالي."
+
+msgid "No orders yet"
+msgstr "لا توجد طلبات بعد"
+
+msgid "No products found."
+msgstr "لم يتم العثور على منتجات."
+
+msgid "No products found in this category."
+msgstr "لم يتم العثور على منتجات في هذه الفئة."
+
+msgid "No recommendations available yet."
+msgstr "لا توجد توصيات بعد."
+
+msgid "No reviews yet"
+msgstr "لا توجد تقييمات بعد"
+
+msgid "No tasks yet. Orders will appear here."
+msgstr "لا توجد مهام بعد. ستظهر الطلبات هنا."
+
+msgid "On Sale Only"
+msgstr "المنتجات المخفضة فقط"
+
+msgid "On all orders over L.E 100."
+msgstr "على جميع الطلبات التي تزيد عن 100 ج.م."
+
+msgid "Order"
+msgstr "الطلب"
+
+msgid "Order Confirmed"
+msgstr "تم تأكيد الطلب"
+
+msgid "Order History"
+msgstr "تاريخ الطلبات"
+
+msgid "Order ID"
+msgstr "رقم الطلب"
+
+msgid "Order Summary"
+msgstr "ملخص الطلب"
+
+msgid "Our latest and greatest additions."
+msgstr "أحدث وأفضل إضافاتنا."
+
+msgid "Out of Stock"
+msgstr "نفذت الكمية"
+
+msgid "Pending"
+msgstr "قيد الانتظار"
+
+msgid "People who bought this also bought"
+msgstr "العملاء الذين اشتروا هذا اشتروا أيضاً"
+
+msgid "Performance"
+msgstr "الأداء"
+
+msgid "Place Order"
+msgstr "تأكيد الطلب"
+
+msgid "Poor"
+msgstr "ضعيف"
+
+msgid "Premium Electronics"
+msgstr "إلكترونيات مميزة"
+
+msgid "Price"
+msgstr "السعر"
+
+msgid "Price: High to Low"
+msgstr "السعر: من الأعلى للأقل"
+
+msgid "Price: Low to High"
+msgstr "السعر: من الأقل للأعلى"
+
+msgid "Privacy"
+msgstr "الخصوصية"
+
+msgid "Proceed to Checkout"
+msgstr "متابعة الدفع"
+
+msgid "Processing"
+msgstr "جاري التجهيز"
+
+msgid "Product"
+msgstr "المنتج"
+
+msgid "Quantity"
+msgstr "الكمية"
+
+msgid "Rating"
+msgstr "التقييم"
+
+msgid "Recommended"
+msgstr "مقترح"
+
+msgid "Register"
+msgstr "إنشاء حساب"
+
+msgid "Restock"
+msgstr "إعادة تخزين"
+
+msgid "Review"
+msgstr "تقييم"
+
+msgid "Review your items and proceed to checkout"
+msgstr "راجع منتجاتك وتابع الدفع"
+
+msgid "SALE"
+msgstr "تخفيض"
+
+msgid "SSL Protected"
+msgstr "محمي بـ SSL"
+
+msgid "Save your favorite items to view them later."
+msgstr "احفظ منتجاتك المفضلة لمشاهدتها لاحقاً."
+
+msgid "Secure Checkout"
+msgstr "دفع آمن"
+
+msgid "Secure Payment"
+msgstr "دفع آمن"
+
+msgid "See what's happening on Lap Link right now."
+msgstr "شاهد ما يحدث على Lap Link الآن."
+
+msgid "Share your thoughts"
+msgstr "شاركنا رأيك"
+
+msgid "Shipped"
+msgstr "تم الشحن"
+
+msgid "Shipping Information"
+msgstr "معلومات الشحن"
+
+msgid "Shop Now"
+msgstr "تسوق الآن"
+
+msgid "Shop by Category"
+msgstr "تسوق حسب الفئة"
+
+msgid "Shopping Cart"
+msgstr "سلة التسوق"
+
+msgid "Showing"
+msgstr "عرض"
+
+msgid "Sign In"
+msgstr "تسجيل الدخول"
+
+msgid "Sign in to write a review and share your experience with others."
+msgstr "سجل الدخول لكتابة تقييم ومشاركة تجربتك مع الآخرين."
+
+msgid "Sort By"
+msgstr "ترتيب حسب"
+
+msgid "Start Shopping"
+msgstr "ابدأ التسوق"
+
+msgid "Status"
+msgstr "الحالة"
+
+msgid "Submit Review"
+msgstr "إرسال التقييم"
+
+msgid "Subtotal"
+msgstr "المجموع الفرعي"
+
+msgid "TAX INCLUDED"
+msgstr "شامل الضريبة"
+
+msgid "Terrible"
+msgstr "سيء جداً"
+
+msgid "Terms"
+msgstr "الشروط"
+
+msgid "Thank you for your order!"
+msgstr "شكراً لطلبك!"
+
+msgid "Thanks for your review!"
+msgstr "شكراً على تقييمك!"
+
+msgid "This month"
+msgstr "هذا الشهر"
+
+msgid "Top Products"
+msgstr "أفضل المنتجات"
+
+msgid "Total"
+msgstr "الإجمالي"
+
+msgid "Total Orders"
+msgstr "إجمالي الطلبات"
+
+msgid "Total Revenue"
+msgstr "إجمالي الإيرادات"
+
+msgid "Track team progress here. You almost reach a goal!"
+msgstr "تتبع تقدم الفريق هنا."
+
+msgid "Tracked"
+msgstr "متتبع"
+
+msgid ""
+"Upgrade your life with our curated selection of premium electronics. From "
+"powerful laptops to cutting-edge smartphones, we have everything you need to"
+" stay connected and productive."
+msgstr ""
+"ارتقِ بحياتك مع تشكيلتنا المختارة من الإلكترونيات المميزة. بدءاً من الحواسيب"
+" المحمولة القوية وحتى الهواتف الذكية المتطورة."
+
+msgid "Username"
+msgstr "اسم المستخدم"
+
+msgid "View"
+msgstr "عرض"
+
+msgid "View All"
+msgstr "عرض الكل"
+
+msgid "View Details"
+msgstr "عرض التفاصيل"
+
+msgid "We'll send a confirmation email shortly."
+msgstr "سنرسل بريد تأكيد إلكتروني قريباً."
+
+msgid "Week"
+msgstr "أسبوع"
+
+msgid "Welcome back,"
+msgstr "مرحباً بعودتك،"
+
+msgid "When you make a purchase, it will appear here."
+msgstr "عندما تقوم بالشراء، سيظهر هنا."
+
+msgid "Write a Review"
+msgstr "كتابة تقييم"
+
+msgid "You have already submitted a review for this product."
+msgstr "لقد قمت بتقييم هذا المنتج مسبقاً."
+
+msgid "Your Order"
+msgstr "طلبك"
+
+msgid "Your cart is empty"
+msgstr "سلة التسوق الخاصة بك فارغة"
+
+msgid "Your cart is empty."
+msgstr "سلة التسوق الخاصة بك فارغة."
+
+msgid "Stars"
+msgstr "نجوم"
+
+msgid "Welcome Back"
+msgstr "مرحباً بعودتك"
+
+msgid "Sign in to your premium account"
+msgstr "سجل الدخول إلى حسابك المميز"
+
+msgid "Don't have an account?"
+msgstr "ليس لديك حساب؟"
+
+msgid "Create one now"
+msgstr "أنشئ واحداً الآن"
+
+msgid "Join the Elite"
+msgstr "انضم إلى النخبة"
+
+msgid "Create your premium account today"
+msgstr "أنشئ حسابك المميز اليوم"
+
+msgid "Create Account"
+msgstr "إنشاء حساب"
+
+msgid "Already a member?"
+msgstr "عضو بالفعل؟"
+
+msgid "Your order #{{ id }} has been placed successfully."
+msgstr "تم تأكيد طلبك رقم {{ id }} بنجاح."
+
+msgid "Explore our {{ name }} collection"
+msgstr "استكشف مجموعتنا من {{ name }}"
+
+msgid "Your saved premium items."
+msgstr "المنتجات المميزة المحفوظة الخاصة بك."
+
+msgid "Accessories"
+msgstr "إكسسوارات"
+
+msgid "Cameras"
+msgstr "كاميرات"
+
+msgid "Gaming"
+msgstr "ألعاب"
+
+msgid "Headphones"
+msgstr "سماعات"
+
+msgid "Laptops"
+msgstr "لابتوبات"
+
+msgid "Smartphones"
+msgstr "هواتف ذكية"
+
+msgid "Your wishlist is empty"
+msgstr "قائمة الأمنيات الخاصة بك فارغة"
+
+msgid "available"
+msgstr "متاح"
+
+msgid "conversion"
+msgstr "تحويل"
+
+msgid "days"
+msgstr "أيام"
+
+msgid "off"
+msgstr "خصم"
+
+msgid "results"
+msgstr "نتائج"

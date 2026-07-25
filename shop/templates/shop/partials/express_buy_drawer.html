@@ -1,0 +1,82 @@
+{# ─────────────────────── 1-CLICK EXPRESS BUY NOW DRAWER ─────────────────────── #}
+{% load i18n %}
+<div x-data="{
+        isOpen: false,
+        product: {},
+        initExpress(data) {
+            this.product = data;
+            this.isOpen = true;
+        }
+     }"
+     @open-express-buy.window="initExpress($event.detail)"
+     x-show="isOpen"
+     x-cloak
+     class="fixed inset-0 z-50 flex items-center justify-end font-sans">
+    
+    <!-- Backdrop -->
+    <div x-show="isOpen"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         @click="isOpen = false"
+         class="absolute inset-0 bg-black/80"></div>
+
+    <!-- Slide-over Drawer -->
+    <div x-show="isOpen"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="translate-x-full"
+         x-transition:enter-end="translate-x-0"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="translate-x-0"
+         x-transition:leave-end="translate-x-full"
+         class="relative w-full max-w-md h-full bg-zinc-950 border-l border-white/10 text-white p-6 sm:p-8 shadow-xl flex flex-col justify-between overflow-y-auto z-10">
+        
+        <div>
+            <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+                <div>
+                    <span class="text-[10px] font-extrabold uppercase tracking-widest text-amber-400">⚡ 1-Click Express Checkout</span>
+                    <h3 class="font-display font-extrabold text-xl text-white tracking-tight" x-text="product.name"></h3>
+                    <div class="text-sm font-bold text-emerald-400" x-text="'L.E ' + product.price"></div>
+                </div>
+                <button @click="isOpen = false" class="text-gray-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors focus:outline-none">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+
+            <!-- Express Form -->
+            <form action="{% url 'orders:order_create' %}" method="post" class="space-y-4">
+                {% csrf_token %}
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">{% trans "First Name" %}</label>
+                    <input type="text" name="first_name" value="{{ request.user.first_name|default:'' }}" required class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-amber-400">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">{% trans "Last Name" %}</label>
+                    <input type="text" name="last_name" value="{{ request.user.last_name|default:'' }}" required class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-amber-400">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">{% trans "Email" %}</label>
+                    <input type="email" name="email" value="{{ request.user.email|default:'' }}" required class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-amber-400">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">{% trans "Address" %}</label>
+                    <input type="text" name="address" required placeholder="Cairo, Egypt" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-amber-400">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">{% trans "City" %}</label>
+                    <input type="text" name="city" required value="Cairo" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-amber-400">
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full py-4 bg-amber-400 text-black font-extrabold text-sm rounded-2xl hover:bg-amber-300 transition-colors uppercase tracking-widest shadow-[0_0_30px_rgba(251,191,36,0.3)]">
+                        ⚡ {% trans "Complete Order" %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

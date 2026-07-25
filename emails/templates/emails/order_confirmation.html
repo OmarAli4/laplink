@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-w: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .greeting {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .order-details {
+            background-color: #f3f4f6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        .order-details h3 {
+            margin-top: 0;
+            font-size: 14px;
+            color: #4b5563;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th {
+            text-align: left;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+            font-size: 12px;
+            color: #6b7280;
+            text-transform: uppercase;
+        }
+        td {
+            padding: 15px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .total-row td {
+            border-bottom: none;
+            padding-top: 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #000000;
+            color: #ffffff;
+            padding: 14px 28px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+        .footer {
+            background-color: #f9fafb;
+            padding: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #6b7280;
+            border-top: 1px solid #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Lap Link</h1>
+            <p style="margin-top: 10px; opacity: 0.8;">Order Confirmation</p>
+        </div>
+        
+        <div class="content">
+            <div class="greeting">Hi {{ order.first_name }},</div>
+            <p>Thank you for your purchase! We're getting your order ready to be shipped. We will notify you when it has been sent.</p>
+            
+            <div class="order-details">
+                <h3>Order #{{ order.id }}</h3>
+                <p style="margin: 0; color: #6b7280; font-size: 14px;">Placed on {{ order.created|date:"M d, Y" }}</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th style="text-align: right;">Qty</th>
+                            <th style="text-align: right;">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.items.all %}
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td style="text-align: right;">{{ item.quantity }}</td>
+                            <td style="text-align: right;">L.E {{ item.get_cost|floatformat:2 }}</td>
+                        </tr>
+                        {% endfor %}
+                        
+                        {% if order.discount %}
+                        <tr>
+                            <td colspan="2" style="text-align: right; color: #ef4444;">Discount</td>
+                            <td style="text-align: right; color: #ef4444;">-L.E {{ order.get_discount_amount|floatformat:2 }}</td>
+                        </tr>
+                        {% endif %}
+                        
+                        <tr class="total-row">
+                            <td colspan="2" style="text-align: right;">Total</td>
+                            <td style="text-align: right;">L.E {{ order.get_total_cost|floatformat:2 }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p style="margin-top: 30px;">If you have any questions about your order, please reply to this email or contact us at support@laplink.com.</p>
+            
+            <center>
+                <!-- Replace with actual domain in production -->
+                <a href="http://127.0.0.1:8000/dashboard/" class="btn">View Order Status</a>
+            </center>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; {% now "Y" %} Lap Link. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

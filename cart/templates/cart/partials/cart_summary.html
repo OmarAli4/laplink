@@ -1,0 +1,97 @@
+{% load i18n %}
+
+<div id="cart-summary"
+     class="bg-white rounded-2xl border border-gray-200 p-6 fade-me-in">
+
+    <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-6">
+        {% trans "Order Summary" %}
+    </h3>
+
+    <div class="space-y-4">
+        <div class="flex items-center justify-between">
+            <span class="text-sm text-gray-500">{% trans "Subtotal" %}</span>
+            <span class="text-sm font-medium text-gray-700">L.E {{ total_before_discount }}</span>
+        </div>
+
+        {% if coupon %}
+        <div class="flex items-center justify-between text-emerald-600">
+            <div class="flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0
+                             010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4
+                             4 0 014-4z"/>
+                </svg>
+                <span class="text-sm">
+                    "{{ coupon_code }}" ({{ discount }}% {% trans "off" %})
+                </span>
+            </div>
+            <span class="text-sm font-medium">-L.E {{ discount_amount }}</span>
+        </div>
+        {% endif %}
+
+        <div class="border-t border-gray-200 pt-4">
+            <div class="flex items-center justify-between">
+                <span class="text-base font-semibold text-gray-900">{% trans "Total" %}</span>
+                <span class="text-2xl font-extrabold text-black">
+                    L.E {{ total_after_discount }}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    {% if coupon_message %}
+    <div class="mt-4 px-4 py-3 rounded-xl bg-emerald-50 border border-emerald-200
+                text-emerald-700 text-sm flex items-center gap-2">
+        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        {{ coupon_message }}
+    </div>
+    {% endif %}
+
+    {% if coupon_error %}
+    <div class="mt-4 px-4 py-3 rounded-xl bg-red-50 border border-red-200
+                text-red-700 text-sm flex items-center gap-2">
+        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+        {{ coupon_error }}
+    </div>
+    {% endif %}
+
+    <a href="{% url 'orders:order_create' %}"
+       class="mt-6 w-full inline-flex items-center justify-center gap-2
+              px-6 py-3.5 rounded-xl font-semibold text-white
+              bg-black hover:bg-gray-800
+              shadow-lg shadow-gray-300/50 hover:shadow-gray-400/50
+              transform hover:-translate-y-0.5
+              transition-all duration-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+        {% trans "Proceed to Checkout" %}
+    </a>
+
+    <div class="mt-5 flex items-center justify-center gap-4 text-gray-400">
+        <div class="flex items-center gap-1.5 text-xs">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0
+                         002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+            {% trans "Secure Checkout" %}
+        </div>
+        <span class="text-gray-300">|</span>
+        <div class="flex items-center gap-1.5 text-xs">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112
+                         2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0
+                         003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+            {% trans "SSL Protected" %}
+        </div>
+    </div>
+</div>

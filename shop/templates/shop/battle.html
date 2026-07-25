@@ -1,0 +1,314 @@
+{% extends "shop/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Product Battle Arena" %} | Lap Link{% endblock %}
+
+{% block content %}
+
+<div class="bg-zinc-950 min-h-screen text-white py-12 px-4 sm:px-6 lg:px-8 font-sans relative overflow-hidden"
+     x-data="{
+        productAId: '{{ product_a.id|default:'' }}',
+        productBId: '{{ product_b.id|default:'' }}',
+        productA: JSON.parse('{{ product_a_json|escapejs }}' || 'null'),
+        productB: JSON.parse('{{ product_b_json|escapejs }}' || 'null'),
+        loadingA: false,
+        loadingB: false,
+
+        async fetchProductA(id) {
+            if (!id) return;
+            this.loadingA = true;
+            try {
+                const url = '{% url "shop:battle_specs_api" 999999 %}'.replace('999999', id);
+                const res = await fetch(url);
+                this.productA = await res.json();
+            } catch(e) {}
+            this.loadingA = false;
+        },
+
+        async fetchProductB(id) {
+            if (!id) return;
+            this.loadingB = true;
+            try {
+                const url = '{% url "shop:battle_specs_api" 999999 %}'.replace('999999', id);
+                const res = await fetch(url);
+                this.productB = await res.json();
+            } catch(e) {}
+            this.loadingB = false;
+        },
+
+        get winner() {
+            if (!this.productA || !this.productB) return null;
+            let scoreA = 0, scoreB = 0;
+            
+            const specsMap = {};
+            ((this.productA && this.productA.specs) || []).forEach(s => {
+                if (s && s.name) specsMap[s.name] = { valA: s.numeric_value || 0, valB: 0 };
+            });
+            ((this.productB && this.productB.specs) || []).forEach(s => {
+                if (s && s.name) {
+                    if (!specsMap[s.name]) specsMap[s.name] = { valA: 0, valB: 0 };
+                    specsMap[s.name].valB = s.numeric_value || 0;
+                }
+            });
+
+            Object.values(specsMap).forEach(s => {
+                if (s.valA > s.valB) scoreA++;
+                else if (s.valB > s.valA) scoreB++;
+            });
+
+            if (parseFloat(this.productA.price) < parseFloat(this.productB.price)) scoreA += 0.5;
+            else if (parseFloat(this.productB.price) < parseFloat(this.productA.price)) scoreB += 0.5;
+
+            if (scoreA > scoreB) return { winner: 'A', name: this.productA.name, score: scoreA, total: Object.keys(specsMap).length };
+            if (scoreB > scoreA) return { winner: 'B', name: this.productB.name, score: scoreB, total: Object.keys(specsMap).length };
+            return { winner: 'TIE', name: `{% trans "It's a Tie!" %}`, score: scoreA, total: Object.keys(specsMap).length };
+        },
+
+        getSpec(prod, specName) {
+            if (!prod || !Array.isArray(prod.specs)) return { value: '—', numeric_value: 0, icon: '⚡', unit: '' };
+            const found = prod.specs.find(s => s && s.name === specName);
+            return found || { value: '—', numeric_value: 0, icon: '⚡', unit: '' };
+        },
+
+        calcBarPct(valA, valB) {
+            const numA = Number(valA) || 0;
+            const numB = Number(valB) || 0;
+            const max = Math.max(numA, numB, 1);
+            return {
+                pctA: Math.min(100, Math.max(8, Math.round((numA / max) * 100))),
+                pctB: Math.min(100, Math.max(8, Math.round((numB / max) * 100)))
+            };
+        },
+
+        get specRows() {
+            if (!this.productA && !this.productB) return [];
+            
+            const namesSet = new Set();
+            if (this.productA && Array.isArray(this.productA.specs)) {
+                this.productA.specs.forEach(s => s && s.name && namesSet.add(s.name));
+            }
+            if (this.productB && Array.isArray(this.productB.specs)) {
+                this.productB.specs.forEach(s => s && s.name && namesSet.add(s.name));
+            }
+            
+            return Array.from(namesSet).map(name => {
+                const specA = this.getSpec(this.productA, name);
+                const specB = this.getSpec(this.productB, name);
+                const bars = this.calcBarPct(specA.numeric_value, specB.numeric_value);
+                return {
+                    name: name,
+                    valueA: specA.value || '—',
+                    iconA: specA.icon || '⚡',
+                    pctA: bars.pctA,
+                    valueB: specB.value || '—',
+                    iconB: specB.icon || '⚡',
+                    pctB: bars.pctB
+                };
+            });
+        }
+     }">
+
+    <!-- Ambient Glowing Orbs (Optimized with radial gradients instead of heavy CSS blur filters) -->
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full pointer-events-none transform-gpu z-0" style="background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, rgba(0,0,0,0) 70%);"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full pointer-events-none transform-gpu z-0" style="background: radial-gradient(circle, rgba(6,182,212,0.15) 0%, rgba(0,0,0,0) 70%);"></div>
+
+    <div class="max-w-6xl mx-auto space-y-10 relative z-10">
+
+        <!-- Banner Header -->
+        <div class="text-center space-y-3">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold uppercase tracking-widest backdrop-blur-md">
+                <span class="animate-pulse">⚔️</span> {% trans "HARDWARE DUEL ARENA" %}
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-white font-display uppercase tracking-wider">
+                {% trans "Product Battle Mode" %}
+            </h1>
+            <p class="text-gray-400 text-sm max-w-xl mx-auto font-medium">
+                {% trans "Select any two flagship devices to compare hardware specs head-to-head in real time." %}
+            </p>
+        </div>
+
+        <!-- ⚔️ ARENA GRID (Product A vs Product B) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- PRODUCT A FIGHTER CARD -->
+            <div class="bg-zinc-900/80 border border-emerald-500/30 rounded-3xl p-6 relative overflow-hidden transition-all duration-300 hover:border-emerald-500/60 shadow-xl"
+                 :class="{ 'ring-2 ring-emerald-500 shadow-[0_0_40px_rgba(16,185,129,0.3)]': winner && winner.winner === 'A' }">
+                
+                <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+                    <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded-full text-xs font-mono font-bold uppercase">
+                        {% trans "FIGHTER 01" %}
+                    </span>
+                    <template x-if="winner && winner.winner === 'A'">
+                        <span class="text-amber-400 font-bold text-xs uppercase tracking-widest flex items-center gap-1 animate-bounce">
+                            👑 {% trans "WINNER" %}
+                        </span>
+                    </template>
+                </div>
+
+                <!-- Product Selector Dropdown -->
+                <div class="mb-6">
+                    <label class="block text-xs font-mono text-gray-400 mb-1.5 uppercase tracking-wider">{% trans "Select Contender A:" %}</label>
+                    <select x-model="productAId" @change="fetchProductA(productAId)"
+                            class="w-full bg-zinc-950 border border-white/15 text-white text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 font-medium">
+                        {% for p in products %}
+                            <option value="{{ p.id }}">{{ p.name }} — L.E {{ p.current_price|floatformat:2 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Product Card Display -->
+                <template x-if="productA">
+                    <div class="text-center space-y-4">
+                        <div class="w-48 h-48 mx-auto bg-zinc-950 rounded-2xl p-4 border border-white/10 flex items-center justify-center relative overflow-hidden group">
+                            <template x-if="productA.image">
+                                <img :src="productA.image" :alt="productA.name" class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105">
+                            </template>
+                            <template x-if="!productA.image">
+                                <div class="text-4xl">💻</div>
+                            </template>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-extrabold text-lg text-white" x-text="productA.name"></h3>
+                            <div class="text-emerald-400 font-cyber font-extrabold text-2xl mt-1" x-text="productA.formatted_price"></div>
+                        </div>
+                        <a :href="productA.url" class="inline-block w-full py-2.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors">
+                            {% trans "View Product Details" %} →
+                        </a>
+                    </div>
+                </template>
+
+            </div>
+
+            <!-- PRODUCT B FIGHTER CARD -->
+            <div class="bg-zinc-900/80 border border-cyan-500/30 rounded-3xl p-6 relative overflow-hidden transition-all duration-300 hover:border-cyan-500/60 shadow-xl"
+                 :class="{ 'ring-2 ring-cyan-500 shadow-[0_0_40px_rgba(6,182,212,0.3)]': winner && winner.winner === 'B' }">
+                
+                <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+                    <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 rounded-full text-xs font-mono font-bold uppercase">
+                        {% trans "FIGHTER 02" %}
+                    </span>
+                    <template x-if="winner && winner.winner === 'B'">
+                        <span class="text-amber-400 font-bold text-xs uppercase tracking-widest flex items-center gap-1 animate-bounce">
+                            👑 {% trans "WINNER" %}
+                        </span>
+                    </template>
+                </div>
+
+                <!-- Product Selector Dropdown -->
+                <div class="mb-6">
+                    <label class="block text-xs font-mono text-gray-400 mb-1.5 uppercase tracking-wider">{% trans "Select Contender B:" %}</label>
+                    <select x-model="productBId" @change="fetchProductB(productBId)"
+                            class="w-full bg-zinc-950 border border-white/15 text-white text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500 font-medium">
+                        {% for p in products %}
+                            <option value="{{ p.id }}" {% if p.id == product_b.id %}selected{% endif %}>{{ p.name }} — L.E {{ p.current_price|floatformat:2 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Product Card Display -->
+                <template x-if="productB">
+                    <div class="text-center space-y-4">
+                        <div class="w-48 h-48 mx-auto bg-zinc-950 rounded-2xl p-4 border border-white/10 flex items-center justify-center relative overflow-hidden group">
+                            <template x-if="productB.image">
+                                <img :src="productB.image" :alt="productB.name" class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105">
+                            </template>
+                            <template x-if="!productB.image">
+                                <div class="text-4xl">📱</div>
+                            </template>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-extrabold text-lg text-white" x-text="productB.name"></h3>
+                            <div class="text-cyan-400 font-cyber font-extrabold text-2xl mt-1" x-text="productB.formatted_price"></div>
+                        </div>
+                        <a :href="productB.url" class="inline-block w-full py-2.5 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors">
+                            {% trans "View Product Details" %} →
+                        </a>
+                    </div>
+                </template>
+
+            </div>
+
+        </div>
+
+        <!-- 📊 SPEC COMPARISON MATRIX -->
+        <div class="bg-zinc-900/90 border border-white/10 rounded-3xl p-6 space-y-6 backdrop-blur-xl">
+            
+            <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <h2 class="text-xl font-extrabold text-white font-display uppercase tracking-wider flex items-center gap-2">
+                    📊 {% trans "Technical Spec Head-to-Head" %}
+                </h2>
+                <div class="text-xs font-mono text-gray-400">
+                    <span class="text-emerald-400 font-bold">█ Fighter 1</span> vs <span class="text-cyan-400 font-bold">█ Fighter 2</span>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <template x-for="row in specRows" :key="row.name">
+                    <div class="space-y-2 bg-zinc-950/60 p-4 rounded-2xl border border-white/5">
+                        
+                        <!-- Header Line: Name & Values -->
+                        <div class="flex items-center justify-between text-xs font-bold">
+                            <span class="text-emerald-400 font-mono flex items-center gap-1.5">
+                                <span x-text="row.iconA"></span> 
+                                <span x-text="row.valueA"></span>
+                            </span>
+                            <span class="text-white uppercase font-display tracking-widest" x-text="row.name"></span>
+                            <span class="text-cyan-400 font-mono flex items-center gap-1.5">
+                                <span x-text="row.valueB"></span> 
+                                <span x-text="row.iconB"></span>
+                            </span>
+                        </div>
+
+                        <!-- Comparative Progress Bars -->
+                        <div class="grid grid-cols-2 gap-3 items-center">
+                            <!-- Fighter A Bar (Right-aligned) -->
+                            <div class="w-full bg-zinc-900 rounded-full h-3 overflow-hidden flex justify-end">
+                                <div class="bg-gradient-to-l from-emerald-400 to-emerald-600 h-full rounded-full transition-all duration-500"
+                                     :style="'width: ' + row.pctA + '%'"></div>
+                            </div>
+                            <!-- Fighter B Bar (Left-aligned) -->
+                            <div class="w-full bg-zinc-900 rounded-full h-3 overflow-hidden flex justify-start">
+                                <div class="bg-gradient-to-r from-cyan-400 to-cyan-600 h-full rounded-full transition-all duration-500"
+                                     :style="'width: ' + row.pctB + '%'"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </template>
+            </div>
+
+        </div>
+
+        <!-- 🏆 WINNER ANNOUNCEMENT CARD -->
+        <template x-if="winner">
+            <div class="bg-gradient-to-r from-emerald-500/20 via-amber-500/20 to-cyan-500/20 border border-amber-500/40 rounded-3xl p-8 text-center space-y-3 relative overflow-hidden shadow-2xl animate-scale-up">
+                <div class="text-4xl animate-bounce">👑</div>
+                <div class="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">
+                    {% trans "DUEL RESULT DECLARED" %}
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-display uppercase tracking-wider" x-text="winner.winner === 'TIE' ? winner.name : 'VICTOR: ' + winner.name">
+                </h2>
+                <p class="text-xs text-gray-300 font-medium max-w-md mx-auto">
+                    {% trans "Based on algorithmic spec score analysis across RAM, Processor, Storage, Battery, and Display benchmark metrics." %}
+                </p>
+            </div>
+        </template>
+
+    </div>
+
+    <!-- COMING SOON OVERLAY -->
+    <div class="fixed inset-0 z-[100] backdrop-blur-xl bg-black/80 flex flex-col items-center justify-center p-4 w-screen h-screen">
+        <div class="text-6xl animate-bounce mb-6">🚧</div>
+        <h2 class="text-4xl sm:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 font-display uppercase tracking-widest text-center">
+            {% trans "COMING SOON" %}
+        </h2>
+        <p class="mt-4 text-gray-300 text-lg sm:text-xl text-center max-w-2xl font-medium">
+            {% trans "The ultimate Product Battle Arena is currently under construction. Get ready to compare hardware specs head-to-head in real time very soon!" %}
+        </p>
+        <a href="{% url 'shop:home' %}" class="mt-8 px-8 py-3 bg-white text-black font-bold rounded-xl hover:scale-105 transition-transform uppercase tracking-wider text-sm shadow-xl shadow-white/10">
+            {% trans "Return to Homepage" %}
+        </a>
+    </div>
+
+</div>
+{% endblock %}

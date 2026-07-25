@@ -1,0 +1,228 @@
+/* ==========================================================================
+   LAP LINK EXECUTIVE CYBER ADMIN THEME - DJANGO UNFOLD & CORE OVERHAUL
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* --- Keyframe Animations --- */
+@keyframes cyberGlowPulse {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(16, 185, 129, 0.15), 0 0 30px rgba(16, 185, 129, 0.05);
+        border-color: rgba(16, 185, 129, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(16, 185, 129, 0.35), 0 0 50px rgba(6, 182, 212, 0.15);
+        border-color: rgba(16, 185, 129, 0.6);
+    }
+}
+
+@keyframes pulseDot {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+@keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(1000%); }
+}
+
+/* --- Global Admin Body & Font Styling --- */
+body, html, .unfold-admin {
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    background-color: #09090b !important;
+    color: #f4f4f5 !important;
+}
+
+code, pre, .font-mono, input, select, textarea, .paginator {
+    font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* Custom Glowing Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(16, 185, 129, 0.4);
+    border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(16, 185, 129, 0.8);
+}
+
+/* --- Unfold & Core Card Enhancements --- */
+.dark .bg-slate-900, 
+.dark .bg-white\/5,
+.unfold-card,
+.module,
+.inline-group {
+    background-color: rgba(15, 23, 42, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 1.25rem !important;
+    backdrop-filter: blur(16px) !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.dark .bg-slate-900:hover,
+.module:hover {
+    border-color: rgba(16, 185, 129, 0.4) !important;
+}
+
+/* --- Cyber Glow Header Banner --- */
+.cyber-header-banner {
+    animation: cyberGlowPulse 4s infinite ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.cyber-header-banner::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.8), rgba(6, 182, 212, 0.8), transparent);
+    animation: scanline 8s infinite linear;
+}
+
+/* --- Data Tables & Changelist Styling --- */
+table, #result_list {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+
+#result_list thead th, 
+table thead th {
+    background-color: rgba(9, 9, 11, 0.95) !important;
+    color: rgba(16, 185, 129, 0.9) !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 0.725rem !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    padding: 1rem 1.25rem !important;
+    border-bottom: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+
+#result_list tbody tr,
+table tbody tr {
+    transition: all 0.2s ease-in-out !important;
+}
+
+#result_list tbody tr:hover,
+table tbody tr:hover {
+    background-color: rgba(16, 185, 129, 0.06) !important;
+}
+
+#result_list tbody td,
+table tbody td {
+    padding: 1rem 1.25rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    color: #e4e4e7 !important;
+    font-size: 0.85rem !important;
+}
+
+/* --- Form Fields & Inputs Styling --- */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="url"],
+input[type="date"],
+input[type="time"],
+select,
+textarea {
+    background-color: #09090b !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #ffffff !important;
+    border-radius: 0.75rem !important;
+    padding: 0.65rem 1rem !important;
+    font-size: 0.85rem !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus {
+    outline: none !important;
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25) !important;
+}
+
+/* Label styling */
+form label,
+.form-row label {
+    color: rgba(156, 163, 175, 1) !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    margin-bottom: 0.35rem !important;
+}
+
+/* --- Micro-Animated Action Buttons --- */
+button[type="submit"], 
+a.bg-primary-600,
+.button,
+.submit-row input[type="submit"] {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    color: #ffffff !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 0.75rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    padding: 0.65rem 1.5rem !important;
+    border-radius: 0.75rem !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25) !important;
+}
+
+button[type="submit"]:hover, 
+a.bg-primary-600:hover,
+.button:hover,
+.submit-row input[type="submit"]:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.45) !important;
+}
+
+button[type="submit"]:active, 
+.submit-row input[type="submit"]:active {
+    transform: translateY(0) scale(0.98) !important;
+}
+
+.submit-row input[name="_delete"],
+a.deletelink {
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.25) !important;
+}
+
+/* --- Sidebar Glow active item --- */
+.dark nav a[data-active="true"],
+.dark nav a.bg-primary-500\/10 {
+    position: relative;
+    border-left: 3px solid #10b981 !important;
+    background: linear-gradient(90deg, rgba(16, 185, 129, 0.15), transparent) !important;
+    color: #10b981 !important;
+    font-weight: 700 !important;
+}
+
+/* --- Live Status Pulse Dots --- */
+.live-pulse-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    border-radius: 9999px;
+    animation: pulseDot 2s infinite ease-in-out;
+}

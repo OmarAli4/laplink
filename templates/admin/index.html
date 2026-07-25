@@ -1,0 +1,29 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static admin_dashboard_tags %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    #content-main > .app-list, #content-main > .module, #content-related {
+        display: none !important;
+    }
+  </style>
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block nav-breadcrumbs %}{% endblock %}
+{% block breadcrumbs %}{% endblock %}
+{% block content_title %}{% endblock %}
+
+{% block content %}
+<div class="w-full h-full text-zinc-200">
+    <div class="text-xs font-mono text-zinc-500 hidden sm:block mb-4">
+        LAP LINK CYBERNETICS • SYSTEM DASHBOARD
+    </div>
+    {% render_dashboard_stats %}
+</div>
+{% endblock %}
+
+{% block sidebar %}{% endblock %}

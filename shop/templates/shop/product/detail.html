@@ -1,0 +1,498 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ product.name }} | Lap Link{% endblock %}
+{% block meta_description %}{{ product.description|truncatewords:25 }}{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-20">
+
+    <!-- Breadcrumbs -->
+    <nav class="mb-8 flex items-center gap-2 text-sm text-gray-400">
+        <a href="{% url 'shop:product_list' %}"
+           class="hover:text-black transition-colors">{% trans "Catalog" %}</a>
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+        {% if product.category %}
+        <a href="{% url 'shop:product_list_by_category' product.category.slug %}"
+           class="hover:text-black transition-colors">{{ product.category.name }}</a>
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+        {% endif %}
+        <span class="text-gray-700">{{ product.name }}</span>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+        <!-- Product Image Gallery -->
+        <div class="relative group" x-data="{ mainImage: '{% if product.image %}{{ product.image.url }}{% endif %}', activeHotspot: null }">
+            <div class="aspect-square rounded-3xl overflow-hidden bg-gray-50 border border-gray-200 shadow-xl shadow-gray-200/40 mb-4 relative">
+                {% if product.image %}
+                <img :src="mainImage"
+                     alt="{{ product.name }}"
+                     class="w-full h-full object-cover group-hover:scale-105
+                            transition-transform duration-700 ease-out"
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 scale-95"
+                     x-transition:enter-end="opacity-100 scale-100">
+                
+                <!-- Hotspot 1: Official Warranty -->
+                <div class="absolute top-1/4 left-1/3 z-20">
+                    <button @click="activeHotspot = activeHotspot === 1 ? null : 1" 
+                            class="w-7 h-7 rounded-full bg-white/90 border-2 border-emerald-500 flex items-center justify-center text-emerald-600 font-bold text-xs shadow-lg animate-pulse hover:scale-125 transition-transform focus:outline-none">
+                        +
+                    </button>
+                    <div x-show="activeHotspot === 1" x-cloak
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 scale-90 translate-y-2"
+                         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                         class="absolute left-8 top-0 w-44 bg-zinc-950/95 border border-white/10 text-white p-2.5 rounded-xl shadow-2xl text-[11px] font-semibold">
+                        🛡️ {% trans "2-Year Official Warranty Included" %}
+                    </div>
+                </div>
+
+                <!-- Hotspot 2: Authentic Hardware -->
+                <div class="absolute bottom-1/3 right-1/4 z-20">
+                    <button @click="activeHotspot = activeHotspot === 2 ? null : 2" 
+                            class="w-7 h-7 rounded-full bg-white/90 border-2 border-indigo-500 flex items-center justify-center text-indigo-600 font-bold text-xs shadow-lg animate-pulse hover:scale-125 transition-transform focus:outline-none">
+                        +
+                    </button>
+                    <div x-show="activeHotspot === 2" x-cloak
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 scale-90 translate-y-2"
+                         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                         class="absolute right-8 top-0 w-44 bg-zinc-950/95 border border-white/10 text-white p-2.5 rounded-xl shadow-2xl text-[11px] font-semibold">
+                        ⚡ {% trans "100% Genuine Sealed Hardware" %}
+                    </div>
+                </div>
+
+                {% else %}
+                <div class="w-full h-full flex items-center justify-center bg-gray-50">
+                    <svg class="w-24 h-24 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2
+                                 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0
+                                 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Thumbnails Carousel -->
+            {% if product.images.exists %}
+            <div class="flex items-center gap-3 overflow-x-auto pb-2 snap-x hide-scrollbar scroll-smooth">
+                <!-- Cover Image Thumbnail -->
+                {% if product.image %}
+                <button @click="mainImage = '{{ product.image.url }}'"
+                        :class="{'ring-2 ring-black opacity-100': mainImage === '{{ product.image.url }}', 'opacity-50 hover:opacity-100': mainImage !== '{{ product.image.url }}'}"
+                        class="relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border border-gray-200 snap-start transition-opacity transition-shadow duration-200 focus:outline-none">
+                    <img src="{{ product.image.url }}" class="w-full h-full object-cover" loading="lazy">
+                </button>
+                {% endif %}
+                
+                <!-- Additional Images Thumbnails -->
+                {% for img in product.images.all %}
+                <button @click="mainImage = '{{ img.image.url }}'"
+                        :class="{'ring-2 ring-black opacity-100': mainImage === '{{ img.image.url }}', 'opacity-50 hover:opacity-100': mainImage !== '{{ img.image.url }}'}"
+                        class="relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border border-gray-200 snap-start transition-opacity transition-shadow duration-200 focus:outline-none">
+                    <img src="{{ img.image.url }}" alt="{{ img.alt_text|default:product.name }}" class="w-full h-full object-cover" loading="lazy">
+                </button>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Product Details -->
+        <div class="flex flex-col justify-center">
+            
+            <div class="flex items-center gap-3 mb-4">
+                {% if product.category %}
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold
+                             uppercase tracking-wider bg-gray-100 text-gray-700 border border-gray-200">
+                    {{ product.category.name }}
+                </span>
+                {% endif %}
+                
+                {% if product.is_on_sale %}
+                <span class="rounded-full bg-red-500 text-white text-xs font-bold tracking-widest uppercase px-3 py-1 shadow-[0_0_15px_rgba(239,68,68,0.3)]">
+                    {% trans "SALE" %} {{ product.discount_percentage }}%
+                </span>
+                {% endif %}
+            </div>
+
+            <div class="flex justify-between items-start gap-4">
+                <h1 class="text-3xl sm:text-5xl font-extrabold text-gray-900 leading-tight tracking-tight">
+                    {{ product.name }}
+                </h1>
+                
+                {% if product.review_count > 0 %}
+                <div class="mt-3 flex items-center gap-2">
+                    <div class="flex items-center">
+                        {% for i in "12345" %}
+                            <svg class="w-5 h-5 {% if forloop.counter <= product.average_rating|floatformat:'0'|add:'0' %}text-yellow-400 fill-current{% else %}text-gray-300{% endif %}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+                        {% endfor %}
+                    </div>
+                    <span class="text-sm font-medium text-gray-500">({{ product.average_rating }}/5 from {{ product.review_count }} reviews)</span>
+                </div>
+                {% endif %}
+                
+                <div class="flex-shrink-0 mt-2">
+                    {% include 'shop/partials/wishlist_heart.html' %}
+                </div>
+            </div>
+
+            <!-- Pricing Block -->
+            <div class="mt-6 flex items-baseline gap-4">
+                {% if product.is_on_sale %}
+                    <span class="text-2xl font-medium text-gray-400 line-through">L.E {{ product.price }}</span>
+                {% endif %}
+                <span class="text-5xl font-extrabold text-black">
+                    L.E {{ product.current_price }}
+                </span>
+                <span class="text-sm text-gray-400 font-medium tracking-wide">{% trans "TAX INCLUDED" %}</span>
+            </div>
+
+            <!-- Alpine.js Countdown -->
+            {% if product.is_on_sale and product.sale_end %}
+            <div x-data="countdown('{{ product.sale_end|date:'c' }}')" x-destroy="destroy()" class="mt-6 inline-flex items-center gap-3 border border-red-200 bg-red-50 rounded-full px-5 py-2.5 shadow-sm">
+                <svg class="w-5 h-5 text-red-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <div class="text-red-600 text-sm font-mono font-bold tracking-widest uppercase">
+                    <span x-text="days"></span>d : <span x-text="hours"></span>h : <span x-text="minutes"></span>m : <span x-text="seconds"></span>s
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Stock Status -->
+            <div class="mt-6">
+                {% if product.stock_quantity > 0 %}
+                    <span class="inline-flex items-center gap-2 text-sm font-bold text-green-600 bg-green-50 px-4 py-1.5 rounded-full border border-green-200">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        {% trans "In Stock" %} ({{ product.stock_quantity }} {% trans "available" %})
+                    </span>
+                    
+                    {% if product.stock_quantity <= 8 %}
+                    <div class="mt-4 p-4 rounded-2xl bg-amber-50 border border-amber-200">
+                        <div class="flex items-center justify-between text-xs font-bold text-amber-900 mb-1.5">
+                            <span class="flex items-center gap-1.5 text-amber-600 animate-pulse">🔥 {% trans "Hurry! Almost sold out" %}</span>
+                            <span>{% trans "Only" %} {{ product.stock_quantity }} {% trans "left in stock" %}</span>
+                        </div>
+                        <div class="w-full h-2 bg-amber-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-amber-500 to-red-500 rounded-full animate-pulse" style="width: {% if product.stock_quantity <= 3 %}85%{% else %}65%{% endif %};"></div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% else %}
+                    <span class="inline-flex items-center gap-2 text-sm font-bold text-red-600 bg-red-50 px-4 py-1.5 rounded-full border border-red-200">
+                        <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                        {% trans "Out of Stock" %}
+                    </span>
+                {% endif %}
+            </div>
+
+            {% if product.description %}
+            <div class="mt-8">
+                <p class="text-gray-500 leading-relaxed text-lg">
+                    {{ product.description|linebreaksbr }}
+                </p>
+            </div>
+            {% endif %}
+
+            <!-- Add to Cart Form -->
+            {% if product.stock_quantity > 0 %}
+            <form hx-post="{% url 'cart:cart_add' product.id %}"
+                  hx-target="#cart-counter"
+                  hx-swap="outerHTML"
+                  class="mt-10 space-y-6">
+
+                <div class="flex items-center gap-4">
+                    <label for="id_quantity" class="text-sm font-bold tracking-widest uppercase text-gray-700">
+                        {% trans "Quantity" %}:
+                    </label>
+                    <div class="relative">
+                        {{ cart_product_form.quantity }}
+                    </div>
+                    {{ cart_product_form.override }}
+                </div>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button type="submit"
+                            class="flex-1 inline-flex items-center justify-center gap-3
+                                   px-8 py-4 rounded-full font-bold text-white text-base tracking-widest uppercase
+                                   bg-black hover:bg-gray-800
+                                   shadow-lg shadow-gray-300/50 hover:shadow-gray-400/50
+                                   transform hover:-translate-y-1 transition-colors transition-transform duration-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/>
+                        </svg>
+                        {% trans "Add to Cart" %}
+                    </button>
+
+                    <button type="button"
+                            @click="$dispatch('open-express-buy', { id: {{ product.id }}, name: '{{ product.name|escapejs }}', price: '{{ product.current_price }}' })"
+                            class="btn-shine flex-1 inline-flex items-center justify-center gap-3
+                                   px-8 py-4 rounded-full font-extrabold text-black text-base tracking-widest uppercase
+                                   bg-amber-400 hover:bg-amber-300
+                                   shadow-xl shadow-amber-400/20 hover:scale-[1.02] transition-colors transition-transform duration-300">
+                        ⚡ {% trans "Buy Now" %}
+                    </button>
+
+                    <a href="{% url 'shop:product_battle' %}?a={{ product.id }}"
+                       class="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full font-extrabold text-zinc-900 border border-zinc-300 hover:border-zinc-900 hover:bg-zinc-900 hover:text-white transition-colors duration-200 text-sm tracking-wider uppercase">
+                        ⚔️ {% trans "Battle" %}
+                    </a>
+                </div>
+
+                    <svg class="htmx-indicator w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10"
+                                stroke="currentColor" stroke-width="4"/>
+                        <path class="opacity-75" fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                    </svg>
+                </button>
+            </form>
+            {% else %}
+            <div class="mt-10">
+                <button disabled
+                        class="w-full sm:w-auto inline-flex items-center justify-center gap-3
+                               px-10 py-4 rounded-full font-bold text-gray-400 text-lg tracking-widest uppercase
+                               bg-gray-100 border border-gray-200 cursor-not-allowed">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                    </svg>
+                    {% trans "Currently Unavailable" %}
+                </button>
+            </div>
+            {% endif %}
+
+            <!-- Features -->
+            <div class="mt-12 grid grid-cols-3 gap-4 border-t border-gray-200 pt-8">
+                <div class="text-center p-4 rounded-3xl bg-gray-50 border border-gray-200 hover:bg-white transition-colors">
+                    <svg class="w-8 h-8 mx-auto text-gray-700 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2
+                                 2 0 002 2h10a2 2 0 002-2V8"/>
+                    </svg>
+                    <span class="text-xs font-bold tracking-widest uppercase text-gray-500">{% trans "Free Shipping" %}</span>
+                </div>
+                <div class="text-center p-4 rounded-3xl bg-gray-50 border border-gray-200 hover:bg-white transition-colors">
+                    <svg class="w-8 h-8 mx-auto text-gray-700 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112
+                                 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0
+                                 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                    <span class="text-xs font-bold tracking-widest uppercase text-gray-500">{% trans "2-Year Warranty" %}</span>
+                </div>
+                <div class="text-center p-4 rounded-3xl bg-gray-50 border border-gray-200 hover:bg-white transition-colors">
+                    <svg class="w-8 h-8 mx-auto text-gray-700 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0
+                                 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357
+                                 2H15"/>
+                    </svg>
+                    <span class="text-xs font-bold tracking-widest uppercase text-gray-500">{% trans "30-Day Returns" %}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="mt-32 pt-16">
+        <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 mb-10">
+            {% trans "People who bought this also bought" %}
+        </h2>
+
+        <div hx-get="{% url 'shop:product_recommender' product.id %}"
+             hx-trigger="revealed"
+             hx-swap="innerHTML transition:true"
+             class="min-h-[200px]">
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+                {% for _ in "123456" %}
+                <div class="animate-pulse">
+                    <div class="aspect-square rounded-3xl bg-gray-100 mb-4 border border-gray-200"></div>
+                    <div class="h-4 rounded-full bg-gray-100 mb-3 w-3/4"></div>
+                    <div class="h-4 rounded-full bg-gray-100 w-1/2"></div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <div class="mt-20 pt-10 border-t border-gray-200">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-8">{% trans "Customer Reviews" %}</h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <!-- Review Form & Rating Breakdown -->
+            <div class="lg:col-span-1 space-y-6">
+                <!-- Rating Distribution Card -->
+                <div class="bg-gray-50 rounded-3xl p-6 border border-gray-100">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-4">{% trans "Rating Breakdown" %}</h3>
+                    <div class="space-y-2">
+                        {% for star, pct in rating_percentages.items %}
+                        <div class="flex items-center gap-3 text-xs">
+                            <span class="w-8 font-bold text-gray-700 flex items-center gap-1">{{ star }}★</span>
+                            <div class="flex-1 h-2 rounded-full bg-gray-200 overflow-hidden">
+                                <div class="h-full bg-amber-400 rounded-full transition-[width] duration-500" style="width: {{ pct }}%;"></div>
+                            </div>
+                            <span class="w-10 text-right font-medium text-gray-500">{{ pct }}%</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Review Form or Call to Action -->
+                <div class="bg-gray-50 rounded-3xl p-8 border border-gray-100 sticky top-24">
+                    {% if request.user.is_authenticated %}
+                        {% if user_has_reviewed %}
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">{% trans "Thanks for your review!" %}</h3>
+                                <p class="text-gray-500 text-sm">{% trans "You have already submitted a review for this product." %}</p>
+                            </div>
+                        {% else %}
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">{% trans "Write a Review" %}</h3>
+                            <form method="post" class="space-y-4">
+                                {% csrf_token %}
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-700 mb-1">{% trans "Rating" %}</label>
+                                    <select name="rating" class="block w-full rounded-xl border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm p-3 border bg-white" required>
+                                        <option value="5">5 - {% trans "Excellent" %}</option>
+                                        <option value="4">4 - {% trans "Good" %}</option>
+                                        <option value="3">3 - {% trans "Average" %}</option>
+                                        <option value="2">2 - {% trans "Poor" %}</option>
+                                        <option value="1">1 - {% trans "Terrible" %}</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-700 mb-1">{% trans "Review" %}</label>
+                                    {{ review_form.content }}
+                                </div>
+                                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black transition-colors">
+                                    {% trans "Submit Review" %}
+                                </button>
+                            </form>
+                        {% endif %}
+                    {% else %}
+                        <div class="text-center">
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">{% trans "Share your thoughts" %}</h3>
+                            <p class="text-gray-500 text-sm mb-6">{% trans "Sign in to write a review and share your experience with others." %}</p>
+                            <a href="{% url 'shop:login' %}?next={{ request.path }}" class="inline-flex w-full justify-center py-3 px-4 border border-gray-300 rounded-xl shadow-sm text-sm font-bold text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+                                {% trans "Sign In" %}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- List of Reviews -->
+            <div class="lg:col-span-2">
+                {% if reviews %}
+                    <div class="space-y-8">
+                        {% for review in reviews %}
+                        <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gray-800 to-black flex items-center justify-center text-white font-bold uppercase">
+                                        {{ review.user.username|make_list|first }}
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center gap-2">
+                                            <h4 class="font-bold text-gray-900">{{ review.user.first_name|default:review.user.username }}</h4>
+                                            {% if review.user.id in verified_user_ids %}
+                                            <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                                                ✓ {% trans "Verified Buyer" %}
+                                            </span>
+                                            {% endif %}
+                                        </div>
+                                        <p class="text-xs text-gray-400">{{ review.created_at|date:"M d, Y" }}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    {% for i in "12345" %}
+                                        <svg class="w-4 h-4 {% if forloop.counter <= review.rating %}text-yellow-400 fill-current{% else %}text-gray-300{% endif %}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% if review.content %}
+                            <p class="text-gray-600 leading-relaxed">{{ review.content|linebreaksbr }}</p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-16 bg-gray-50 rounded-3xl border border-dashed border-gray-300">
+                        <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                        <h3 class="text-lg font-bold text-gray-900 mb-1">{% trans "No reviews yet" %}</h3>
+                        <p class="text-gray-500">{% trans "Be the first to review this product!" %}</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('countdown', (endDateStr) => ({
+        days: '00',
+        hours: '00',
+        minutes: '00',
+        seconds: '00',
+        timer: null,
+        init() {
+            const endDate = new Date(endDateStr).getTime();
+            this.update(endDate);
+            this.timer = setInterval(() => {
+                this.update(endDate);
+            }, 1000);
+        },
+        update(endDate) {
+            const now = new Date().getTime();
+            const distance = endDate - now;
+            if (distance < 0) {
+                clearInterval(this.timer);
+                return;
+            }
+            this.days = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
+            this.hours = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+            this.minutes = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            this.seconds = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+        },
+        destroy() {
+            if (this.timer) clearInterval(this.timer);
+        }
+    }));
+});
+</script>
+<style>
+    #id_quantity {
+        appearance: none;
+        background-color: white; 
+        border: 1px solid rgb(209 213 219); 
+        color: rgb(17 24 39);
+        padding: 0.75rem 3rem 0.75rem 1.5rem;
+        border-radius: 9999px; /* full rounded */
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 1rem center;
+        background-repeat: no-repeat;
+        background-size: 1.5em 1.5em;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    #id_quantity:hover { border-color: rgb(17 24 39 / 0.5); }
+    #id_quantity:focus {
+        outline: none;
+        border-color: rgb(17 24 39);
+        box-shadow: 0 0 0 2px rgb(17 24 39 / 0.1);
+    }
+</style>
+{% endblock %}
+{% endblock %}

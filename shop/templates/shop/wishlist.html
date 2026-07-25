@@ -1,0 +1,113 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Lap Link | {% trans "My Wishlist" %}{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 min-h-screen py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">{% trans "My Wishlist" %}</h1>
+                <p class="mt-2 text-sm text-gray-500">{% trans "Your saved premium items." %}</p>
+            </div>
+            <a href="{% url 'shop:product_list' %}" class="text-sm font-bold text-gray-600 hover:text-black uppercase tracking-wider transition-colors">
+                {% trans "Continue Shopping" %} &rarr;
+            </a>
+        </div>
+
+        {% if wishlist_items %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for item in wishlist_items %}
+            {% with product=item.product %}
+            <div class="group relative bg-white rounded-2xl border border-gray-200 overflow-hidden hover:border-black transition-colors duration-300 hover:shadow-2xl flex flex-col h-full" id="wishlist-item-{{ product.id }}">
+                
+                <!-- Remove Button (HTMX) -->
+                <button hx-post="{% url 'shop:wishlist_toggle' product.id %}?source=wishlist_page"
+                        hx-target="#wishlist-item-{{ product.id }}"
+                        hx-swap="outerHTML"
+                        class="absolute top-3 right-3 z-20 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-red-500 hover:bg-red-50 hover:text-red-600 shadow-sm transition-colors border border-gray-100"
+                        title="Remove from Wishlist">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </button>
+
+                <a href="{{ product.get_absolute_url }}" class="block aspect-[4/3] bg-gray-50 overflow-hidden relative">
+                    {% if product.is_on_sale %}
+                    <span class="absolute top-3 left-3 z-10 rounded-full bg-red-500 text-white text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 shadow-sm">
+                        {% trans "SALE" %} {{ product.discount_percentage }}%
+                    </span>
+                    {% endif %}
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center">
+                        <svg class="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    {% endif %}
+                </a>
+
+                <a href="{{ product.get_absolute_url }}" class="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-semibold text-gray-900 group-hover:text-black transition-colors duration-200 line-clamp-1">
+                            {{ product.name }}
+                        </h3>
+                        {% if product.description %}
+                        <p class="mt-1 text-sm text-gray-500 line-clamp-2">
+                            {{ product.description|truncatewords:10 }}
+                        </p>
+                        {% endif %}
+
+                        {% if product.review_count > 0 %}
+                        <div class="mt-2 flex items-center gap-1">
+                            <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <span class="text-xs font-medium text-gray-500">{{ product.average_rating|floatformat:1 }} ({{ product.review_count }})</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="mt-4 flex items-center justify-between">
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-lg font-bold text-black">L.E {{ product.current_price }}</span>
+                            {% if product.is_on_sale %}
+                                <span class="text-xs font-medium text-gray-400 line-through">L.E {{ product.price }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+                
+                <div class="px-5 pb-5 mt-auto">
+                    <!-- Direct Add to Cart Button -->
+                    <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" class="w-full py-2.5 rounded-xl bg-black text-white text-sm font-bold tracking-widest uppercase hover:bg-gray-800 transition-colors shadow-md shadow-gray-400/20">
+                            {% trans "Add to Cart" %}
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+            {% endwith %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-20 bg-white rounded-3xl border border-gray-200 shadow-sm">
+            <svg class="mx-auto h-16 w-16 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+            <h3 class="mt-4 text-xl font-bold text-gray-900">{% trans "Your wishlist is empty" %}</h3>
+            <p class="mt-2 text-gray-500">{% trans "Save your favorite items to view them later." %}</p>
+            <div class="mt-6">
+                <a href="{% url 'shop:product_list' %}" class="inline-flex items-center px-6 py-3 border border-transparent text-sm font-bold rounded-xl text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black uppercase tracking-widest shadow-lg shadow-gray-400/20 transition-colors transition-transform duration-300">
+                    {% trans "Explore Collection" %}
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

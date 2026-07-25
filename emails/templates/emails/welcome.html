@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Welcome to Lap Link</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 60px 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .content {
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .greeting {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .features {
+            text-align: left;
+            margin: 30px 0;
+            background-color: #f3f4f6;
+            border-radius: 12px;
+            padding: 20px 30px;
+        }
+        .features p {
+            margin: 10px 0;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #000000;
+            color: #ffffff;
+            padding: 14px 32px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .footer {
+            background-color: #f9fafb;
+            padding: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #6b7280;
+            border-top: 1px solid #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Lap Link</h1>
+        </div>
+        
+        <div class="content">
+            <div class="greeting">Welcome to the Club, {{ user.first_name|default:user.username }}!</div>
+            <p>We're thrilled to have you here. Lap Link is your premier destination for the latest premium electronics and cutting-edge tech.</p>
+            
+            <div class="features">
+                <h3 style="margin-top:0; color:#374151;">With your new account, you can:</h3>
+                <p>⚡ Checkout faster with saved details</p>
+                <p>📦 Track your orders in real-time</p>
+                <p>❤️ Create and share your Wishlist</p>
+                <p>⭐ Leave reviews for your favorite products</p>
+            </div>
+            
+            <a href="http://127.0.0.1:8000/" class="btn">Start Shopping</a>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; {% now "Y" %} Lap Link. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

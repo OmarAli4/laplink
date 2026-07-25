@@ -1,0 +1,995 @@
+{% load static %}
+<!-- High-Performance Pure Pitch Black Cybernetic Dashboard with 3D Holographic Quantum Supernova Detonation Stage -->
+<div class="px-6 py-8 mx-auto w-full max-w-[1400px]" x-data="{
+    terminalText: '',
+    fullText: 'SYS_INIT: Booting Lap Link Cybernetic Engine v4.2... Executive Core Online. 100% Hardware Verified.',
+    charIdx: 0,
+    botMessage: 'DJ SENTINEL ONLINE: All systems operating at peak performance.',
+    messages: [
+        '🎧 DJ SENTINEL: Laser-constructing 7-day sales telemetry tracks...',
+        '⚡ QUANTUM ENCRYPTION: 256-bit AES Shielding Active.',
+        '🛡️ STORE CORE HEALTH: 99.8% Nominal. All systems grooving.',
+        '📦 INVENTORY BOT: Stock levels scanned. Low items flagged.'
+    ],
+    msgIndex: 0,
+    showDiagModal: false,
+    diagProgress: 0,
+    diagRunning: false,
+    initTerminal() {
+        const timer = setInterval(() => {
+            if (this.charIdx < this.fullText.length) {
+                this.terminalText += this.fullText[this.charIdx];
+                this.charIdx++;
+            } else {
+                clearInterval(timer);
+            }
+        }, 35);
+    },
+    initBot() {
+        setInterval(() => {
+            this.msgIndex = (this.msgIndex + 1) % this.messages.length;
+            this.botMessage = this.messages[this.msgIndex];
+        }, 6000);
+    },
+    runDiagnostic() {
+        this.showDiagModal = true;
+        this.diagProgress = 0;
+        this.diagRunning = true;
+        let interval = setInterval(() => {
+            this.diagProgress += 25;
+            if (this.diagProgress >= 100) {
+                this.diagProgress = 100;
+                this.diagRunning = false;
+                clearInterval(interval);
+            }
+        }, 120);
+    }
+}" x-init="initTerminal(); initBot();">
+    
+    <!-- 🛸 TERMINAL BANNER WITH RECON DRONE -->
+    <div class="relative max-w-4xl mx-auto mb-8">
+        <div class="absolute -top-5 right-6 z-20 flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-950 border border-cyan-500/50 text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-widest shadow-md">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            🛸 RECON DRONE ACTIVE
+        </div>
+
+        <div class="bg-black border border-emerald-500/30 rounded-2xl p-3.5 font-tech-mono text-xs shadow-2xl flex items-center gap-3">
+            <div class="flex items-center gap-1.5 shrink-0">
+                <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+            </div>
+            <div class="text-emerald-400 font-semibold truncate flex-1">
+                <span class="text-zinc-500">[laplink@core ~]$</span> <span x-text="terminalText"></span><span class="terminal-cursor text-emerald-400 font-bold">█</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🌌 3D HOLOGRAPHIC LOGO PROJECTOR STAGE (PORTED FROM ABOUT US) -->
+    <div class="relative text-center space-y-4 max-w-4xl mx-auto py-6 mb-8 bg-zinc-950/90 border border-emerald-500/30 rounded-3xl p-6 shadow-2xl overflow-hidden group">
+        
+        <!-- Top Status Tag -->
+        <div class="flex items-center justify-center px-4 relative z-20">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black border border-emerald-500/40 text-emerald-400 text-xs font-tech-mono font-bold uppercase tracking-widest shadow-md">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>⚡ GAPLESS LOW-POLY TRIANGULATION ENGINE</span>
+            </div>
+        </div>
+
+        <!-- Hologram Emitter Base Line -->
+        <div class="relative flex items-center justify-center my-6">
+            <!-- Rotating HUD Target Rings -->
+            <div class="absolute w-72 h-36 rounded-full border border-emerald-500/30 border-dashed animate-spin duration-[15000ms] pointer-events-none transform-gpu"></div>
+            <div class="absolute w-96 h-44 rounded-full border border-cyan-500/20 border-dotted animate-spin duration-[22000ms] reverse pointer-events-none transform-gpu"></div>
+
+            <!-- 3D Low-Poly Holographic Triangulation Logo Canvas Banner -->
+            <div class="relative flex justify-center items-center my-2 w-full max-w-full">
+                <canvas id="triangulation-canvas" class="max-w-full h-auto z-10 cursor-pointer" title="Hover to disperse triangles!"></canvas>
+            </div>
+        </div>
+
+        <!-- Interactive Instructions -->
+        <div class="relative z-20 flex items-center justify-center gap-4 pt-2 border-t border-zinc-900">
+            <span class="text-[11px] text-zinc-400 font-mono flex items-center gap-1">
+                <span class="text-emerald-400">💥 INTERACTIVE SHOCKWAVE:</span> Hover the <b class="text-white font-bold">LAP LINK Hologram</b> above to disperse the low-poly fragments!
+            </span>
+        </div>
+    </div>
+
+    <!-- Top Header Banner & DJ Robot Mascot -->
+    <div class="relative bg-zinc-950 border border-zinc-900 p-6 sm:p-8 rounded-[2.5rem] shadow-2xl mb-8 overflow-hidden">
+        
+        <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            
+            <!-- Left Info -->
+            <div class="space-y-3 max-w-xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold uppercase tracking-widest">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    ⚡ QUANTUM CORE v4.2 • DJ ROBOT COMPANION
+                </div>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white font-display tracking-tight uppercase no-underline">
+                    Executive Control 🎧
+                </h1>
+                
+                <!-- Robot Voice Line Bubble -->
+                <div class="flex items-center gap-3 p-3.5 bg-black rounded-2xl border border-zinc-800 text-xs font-mono text-emerald-400">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shrink-0"></span>
+                    <p class="truncate flex-1" x-text="botMessage"></p>
+                </div>
+            </div>
+
+            <!-- Right SVG Dancing Robot Mascot -->
+            <div class="relative flex items-center gap-5 bg-black p-5 rounded-3xl border border-zinc-900 shadow-xl shrink-0 group">
+                
+                <!-- Single Hardware Accelerated HUD Ring -->
+                <div class="absolute -inset-2 rounded-3xl border border-emerald-500/20 border-dashed animate-spin duration-[16000ms] pointer-events-none transform-gpu"></div>
+
+                <!-- Dancing Robot SVG Component -->
+                <div class="relative cursor-pointer p-2.5 rounded-2xl bg-zinc-950 border border-emerald-500/60 shadow-lg robot-dance-active group-hover:scale-105 transition-transform duration-300 transform-gpu" @click="runDiagnostic()" title="Click to run AI Diagnostics">
+                    <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="none">
+                        <line x1="50" y1="15" x2="50" y2="25" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="50" cy="12" r="5" fill="#10b981" class="animate-pulse"/>
+                        <g>
+                            <path d="M 25 40 A 25 25 0 0 1 75 40" stroke="#10b981" stroke-width="4" fill="none"/>
+                            <rect x="18" y="32" width="10" height="16" rx="4" fill="#10b981"/>
+                            <rect x="72" y="32" width="10" height="16" rx="4" fill="#10b981"/>
+                        </g>
+                        <rect x="26" y="24" width="48" height="34" rx="10" fill="#18181b" stroke="currentColor" stroke-width="3"/>
+                        <circle cx="40" cy="38" r="5" fill="#10b981" class="animate-pulse"/>
+                        <circle cx="60" cy="38" r="5" fill="#10b981" class="animate-pulse"/>
+                        <path d="M 38 48 Q 50 56 62 48" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <rect x="30" y="62" width="40" height="30" rx="8" fill="#27272a" stroke="currentColor" stroke-width="3"/>
+                        <rect x="38" y="70" width="24" height="14" rx="4" fill="#09090b"/>
+                        <rect x="42" y="74" width="3" height="6" fill="#10b981" />
+                        <rect x="48" y="72" width="3" height="10" fill="#06b6d4" />
+                        <rect x="54" y="75" width="3" height="5" fill="#f59e0b" />
+                        <g class="robot-arm-left-dance">
+                            <path d="M 30 68 C 18 68, 18 80, 22 86" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/>
+                            <circle cx="22" cy="86" r="4" fill="#a1a1aa"/>
+                        </g>
+                        <g class="robot-arm-right-dance">
+                            <path d="M 70 68 C 82 68, 82 80, 78 86" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/>
+                            <circle cx="78" cy="86" r="4" fill="#a1a1aa"/>
+                        </g>
+                    </svg>
+                    <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full border-2 border-black flex items-center justify-center text-[10px] text-black font-black shadow-md">✓</div>
+                </div>
+
+                <div class="space-y-2 relative z-10">
+                    <div class="text-xs font-mono font-bold text-zinc-300 uppercase tracking-wider">SENTINEL DJ BOT</div>
+                    <div class="text-[11px] font-mono text-emerald-400 font-bold flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        STATUS: DANCING
+                    </div>
+                    <button @click="runDiagnostic()" class="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-mono font-bold uppercase tracking-wider rounded-xl transition-colors shadow-md hover:scale-105">
+                        Run Diagnostics
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Low Stock Alert Section -->
+    {% if low_stock_products %}
+    <div class="bg-zinc-950 border border-rose-500/40 rounded-3xl p-6 mb-8 shadow-xl">
+        <div class="flex items-center justify-between gap-4 mb-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center border border-rose-500/40">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="text-lg font-extrabold text-rose-400 font-display flex items-center gap-2">
+                        ⚠️ Critical Low Inventory Alert
+                    </h2>
+                    <p class="text-xs text-rose-300/80 font-medium">Products requiring immediate stock replenishment</p>
+                </div>
+            </div>
+            <span class="px-3 py-1 bg-rose-500/20 text-rose-300 text-xs font-mono font-bold rounded-full border border-rose-500/40 uppercase tracking-widest">
+                {{ low_stock_products|length }} Items Low
+            </span>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {% for product in low_stock_products %}
+            <div class="flex items-center justify-between bg-black p-3.5 rounded-2xl border border-rose-500/30 shadow-md hover:border-rose-500/70 transition-colors">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="flex-shrink-0 w-9 h-9 rounded-xl bg-rose-500/20 text-rose-400 font-mono font-black text-xs flex items-center justify-center border border-rose-500/30">
+                        {{ product.stock_quantity }}
+                    </div>
+                    <div class="min-w-0">
+                        <h3 class="font-bold text-xs text-white truncate">{{ product.name }}</h3>
+                        <p class="text-[11px] text-rose-400 font-mono font-semibold">Units Remaining</p>
+                    </div>
+                </div>
+                <a href="/manage-store/shop/product/{{ product.id }}/change/" class="shrink-0 px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-mono font-bold uppercase tracking-wider rounded-xl shadow-md transition-colors">
+                    Restock
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Key Metrics Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <!-- Revenue Card -->
+        <div class="bg-zinc-950 border border-zinc-900 p-6 rounded-3xl shadow-xl relative overflow-hidden group hover:border-emerald-500/50 hover:-translate-y-1 transition-all duration-300 transform-gpu">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <span class="px-2 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-mono font-bold rounded-lg border border-emerald-500/30">REVENUE</span>
+            </div>
+            <p class="text-xs text-zinc-400 font-medium mb-1">Total Sales Volume</p>
+            <div class="text-3xl font-black text-white font-mono tracking-tight flex items-baseline gap-1">
+                <span class="text-emerald-500">$</span>
+                <span>{{ total_revenue }}</span>
+            </div>
+        </div>
+
+        <!-- Orders Card -->
+        <div class="bg-zinc-950 border border-zinc-900 p-6 rounded-3xl shadow-xl relative overflow-hidden group hover:border-cyan-500/50 hover:-translate-y-1 transition-all duration-300 transform-gpu">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center border border-cyan-500/30">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                </div>
+                <span class="px-2 py-1 bg-cyan-500/20 text-cyan-400 text-xs font-mono font-bold rounded-lg border border-cyan-500/30">ORDERS</span>
+            </div>
+            <p class="text-xs text-zinc-400 font-medium mb-1">Processed Orders</p>
+            <div class="text-3xl font-black text-white font-mono tracking-tight flex items-baseline gap-1">
+                <span>{{ total_orders }}</span>
+            </div>
+        </div>
+
+        <!-- Products Card -->
+        <div class="bg-zinc-950 border border-zinc-900 p-6 rounded-3xl shadow-xl relative overflow-hidden group hover:border-amber-500/50 hover:-translate-y-1 transition-all duration-300 transform-gpu">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                </div>
+                <span class="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs font-mono font-bold rounded-lg border border-amber-500/30">CATALOG</span>
+            </div>
+            <p class="text-xs text-zinc-400 font-medium mb-1">Active Products</p>
+            <div class="text-3xl font-black text-white font-mono tracking-tight flex items-baseline gap-1">
+                <span>{{ total_products }}</span>
+            </div>
+        </div>
+
+        <!-- Users Card -->
+        <div class="bg-zinc-950 border border-zinc-900 p-6 rounded-3xl shadow-xl relative overflow-hidden group hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-300 transform-gpu">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center border border-purple-500/30">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                </div>
+                <span class="px-2 py-1 bg-purple-500/20 text-purple-400 text-xs font-mono font-bold rounded-lg border border-purple-500/30">CRM</span>
+            </div>
+            <p class="text-xs text-zinc-400 font-medium mb-1">Registered Accounts</p>
+            <div class="text-3xl font-black text-white font-mono tracking-tight flex items-baseline gap-1">
+                <span>{{ total_users }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart & Category Breakdown Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        
+        <!-- 📈 Interactive Chart.js Area with Robot Line Construction -->
+        <div class="lg:col-span-2 bg-zinc-950 border border-zinc-900 rounded-3xl p-6 shadow-xl flex flex-col justify-between relative overflow-hidden">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-zinc-900">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30 shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18"/></svg>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-white font-display">7-Day Sales Telemetry</h2>
+                        <p class="text-xs text-zinc-400 font-mono uppercase tracking-widest">Revenue vs Order Volume</p>
+                    </div>
+                </div>
+
+                <!-- Robot Auto-Build Line Chart Button -->
+                <button onclick="robotBuildChart()" class="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 hover:text-emerald-300 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-colors shadow-md shrink-0">
+                    <span>🤖</span>
+                    <span>Rebuild Line</span>
+                </button>
+            </div>
+
+            <!-- Canvas Container with Robot Construction Laser Overlay -->
+            <div class="relative w-full h-64 overflow-hidden rounded-2xl flex items-center justify-center">
+                
+                <!-- Floating Builder Robot Indicator -->
+                <div id="robot-chart-builder" class="hidden absolute top-2 z-20 transition-all duration-200 transform -translate-x-1/2 pointer-events-none">
+                    <div class="p-1 rounded-xl bg-zinc-950 border border-emerald-400 shadow-md robot-dance-active">
+                        <svg class="w-8 h-8 text-white" viewBox="0 0 100 100" fill="none">
+                            <line x1="50" y1="15" x2="50" y2="25" stroke="currentColor" stroke-width="4"/>
+                            <circle cx="50" cy="12" r="5" fill="#10b981" class="animate-pulse"/>
+                            <rect x="26" y="24" width="48" height="34" rx="10" fill="#18181b" stroke="currentColor" stroke-width="3"/>
+                            <circle cx="40" cy="38" r="5" fill="#10b981"/>
+                            <circle cx="60" cy="38" r="5" fill="#10b981"/>
+                            <rect x="30" y="62" width="40" height="30" rx="8" fill="#27272a" stroke="currentColor" stroke-width="3"/>
+                        </svg>
+                    </div>
+                    <!-- Construction Laser Beam -->
+                    <div class="w-0.5 h-64 bg-gradient-to-b from-emerald-400 via-cyan-400 to-transparent mx-auto shadow-[0_0_12px_#10b981]"></div>
+                </div>
+
+                <!-- Laser Construction Sweep Line -->
+                <div id="robot-chart-laser" class="hidden absolute inset-y-0 left-0 w-2 z-10 bg-emerald-400 shadow-[0_0_25px_#10b981] pointer-events-none transition-all duration-200"></div>
+
+                <canvas id="salesTelemetryChart"></canvas>
+            </div>
+        </div>
+
+        <!-- 🥧 Interactive Category Distribution Doughnut/Pie Chart (Ultra-Thin Sleek Doughnut Arc) -->
+        <div class="bg-zinc-950 border border-zinc-900 rounded-3xl p-6 shadow-xl flex flex-col justify-between relative overflow-hidden">
+            
+            <!-- Perfectly Aligned Header -->
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-zinc-900">
+                <div>
+                    <h2 class="text-lg font-bold text-white font-display">Category Breakdown</h2>
+                    <p class="text-xs text-zinc-400 font-mono uppercase tracking-widest">Inventory Distribution</p>
+                </div>
+
+                <!-- Rebuild Pie Button -->
+                <button onclick="robotBuildPieChart()" class="flex items-center gap-2 px-3 py-1.5 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 hover:text-cyan-300 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-colors shadow-md shrink-0">
+                    <span>🤖</span>
+                    <span>Build Pie</span>
+                </button>
+            </div>
+
+            <!-- Medium Compact Canvas Container (208px x 208px) -->
+            <div class="relative w-52 h-52 mx-auto flex items-center justify-center my-2">
+                
+                <!-- Permanent Center Scout Robot Icon -->
+                <div id="robot-pie-builder" class="absolute z-20 pointer-events-none transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
+                    <div class="p-1.5 rounded-2xl bg-zinc-950/90 border border-cyan-500/60 shadow-md robot-scout-active">
+                        <svg class="w-6 h-6 text-white" viewBox="0 0 100 100" fill="none">
+                            <line x1="50" y1="15" x2="50" y2="25" stroke="currentColor" stroke-width="4"/>
+                            <circle cx="50" cy="12" r="8" stroke="#06b6d4" stroke-width="2" fill="none" class="animate-spin duration-1000"/>
+                            <rect x="26" y="24" width="48" height="34" rx="10" fill="#18181b" stroke="currentColor" stroke-width="3"/>
+                            <circle cx="40" cy="38" r="5" fill="#06b6d4" class="animate-pulse"/>
+                            <circle cx="60" cy="38" r="5" fill="#06b6d4" class="animate-pulse"/>
+                            <path d="M 38 48 Q 50 56 62 48" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+                            <rect x="30" y="62" width="40" height="30" rx="8" fill="#27272a" stroke="currentColor" stroke-width="3"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- HUD Rotating Scanner Arc Overlay (Fitted inside Ultra-Thin Hole) -->
+                <div id="robot-pie-scanner" class="hidden absolute w-36 h-36 rounded-full border-2 border-cyan-400 border-t-transparent shadow-md animate-spin duration-700 pointer-events-none transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 transform-gpu"></div>
+
+                <canvas id="categoryPieChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Order Stream & Quick Links -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-24">
+        
+        <!-- Live Order Stream -->
+        <div class="lg:col-span-2 bg-zinc-950 border border-zinc-900 rounded-3xl p-6 shadow-xl flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between h-12 mb-4 pb-3 border-b border-zinc-900">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30 shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-base font-bold text-white font-display">Live Order Stream</h2>
+                            <p class="text-[10px] text-zinc-400 font-mono uppercase tracking-widest">Real-time processing queue</p>
+                        </div>
+                    </div>
+                    <a href="/manage-store/orders/order/" class="text-xs text-emerald-400 font-bold hover:text-emerald-300 transition-colors uppercase tracking-wider font-mono">View All &rarr;</a>
+                </div>
+                
+                <div class="space-y-3">
+                    {% for order in recent_orders %}
+                    <a href="/manage-store/orders/order/{{ order.id }}/change/" class="block">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-black hover:bg-zinc-900 hover:border-emerald-500/40 rounded-2xl border border-zinc-900 transition-colors duration-150 group cursor-pointer">
+                            <div class="flex items-center gap-4 mb-3 sm:mb-0">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-emerald-600 to-cyan-600 flex items-center justify-center text-white font-black shadow-inner">
+                                    {{ order.first_name|first|upper }}
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">{{ order.first_name }} {{ order.last_name }}</span>
+                                        <span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-400 text-[10px] font-mono font-bold border border-emerald-500/30">PAID</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-[11px] text-zinc-400 font-mono mt-1">
+                                        <span>#{{ order.id }}</span>
+                                        <span class="w-1 h-1 rounded-full bg-zinc-600"></span>
+                                        <span>{{ order.email }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2">
+                                <span class="text-sm font-black text-emerald-400 font-mono">${{ order.get_total_cost }}</span>
+                                <span class="text-[10px] text-zinc-500 font-mono">{{ order.created|timesince }} ago</span>
+                            </div>
+                        </div>
+                    </a>
+                    {% empty %}
+                    <div class="text-center py-8 text-zinc-500 font-mono text-xs">No recent paid orders.</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="bg-zinc-950 border border-zinc-900 rounded-3xl p-6 shadow-xl flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between h-12 mb-4 pb-3 border-b border-zinc-900">
+                    <h2 class="text-base font-bold text-white font-display">System Navigation</h2>
+                    <span class="text-[10px] font-mono text-zinc-500">6 SERVICES</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="/manage-store/shop/product/" class="p-4 bg-black hover:bg-zinc-900 hover:border-emerald-500/40 rounded-2xl border border-zinc-900 transition-colors duration-150 flex flex-col items-center justify-center gap-2 group">
+                        <svg class="w-6 h-6 text-zinc-400 group-hover:text-emerald-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                        <span class="text-xs font-bold text-zinc-300 group-hover:text-white uppercase tracking-wider font-mono">Products</span>
+                    </a>
+                    <a href="/manage-store/orders/order/" class="p-4 bg-black hover:bg-zinc-900 hover:border-emerald-500/40 rounded-2xl border border-zinc-900 transition-colors duration-150 flex flex-col items-center justify-center gap-2 group">
+                        <svg class="w-6 h-6 text-zinc-400 group-hover:text-emerald-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                        <span class="text-xs font-bold text-zinc-300 group-hover:text-white uppercase tracking-wider font-mono">Orders</span>
+                    </a>
+                    <a href="/manage-store/shop/category/" class="p-4 bg-black hover:bg-zinc-900 hover:border-emerald-500/40 rounded-2xl border border-zinc-900 transition-colors duration-150 flex flex-col items-center justify-center gap-2 group">
+                        <svg class="w-6 h-6 text-zinc-400 group-hover:text-emerald-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                        <span class="text-xs font-bold text-zinc-300 group-hover:text-white uppercase tracking-wider font-mono">Categories</span>
+                    </a>
+                    <a href="/manage-store/shop/brand/" class="p-4 bg-black hover:bg-zinc-900 hover:border-emerald-500/40 rounded-2xl border border-zinc-900 transition-colors duration-150 flex flex-col items-center justify-center gap-2 group">
+                        <svg class="w-6 h-6 text-zinc-400 group-hover:text-emerald-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                        <span class="text-xs font-bold text-zinc-300 group-hover:text-white uppercase tracking-wider font-mono">Brands</span>
+                    </a>
+                    <a href="/manage-store/coupons/coupon/" class="p-4 bg-black hover:bg-zinc-900 hover:border-emerald-500/40 rounded-2xl border border-zinc-900 transition-colors duration-150 flex flex-col items-center justify-center gap-2 group">
+                        <svg class="w-6 h-6 text-zinc-400 group-hover:text-emerald-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+                        <span class="text-xs font-bold text-zinc-300 group-hover:text-white uppercase tracking-wider font-mono">Coupons</span>
+                    </a>
+                    <a href="/manage-store/auth/user/" class="p-4 bg-black hover:bg-zinc-900 hover:border-emerald-500/40 rounded-2xl border border-zinc-900 transition-colors duration-150 flex flex-col items-center justify-center gap-2 group">
+                        <svg class="w-6 h-6 text-zinc-400 group-hover:text-emerald-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                        <span class="text-xs font-bold text-zinc-300 group-hover:text-white uppercase tracking-wider font-mono">Users</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🤖🤖 ALWAYS-VISIBLE FIXED BOTTOM DANCING ROBOTS PATROL STAGE -->
+    <div class="fixed bottom-0 left-0 right-0 z-40 bg-black/95 border-t border-emerald-500/40 h-16 flex items-center px-4 shadow-[0_-10px_30px_rgba(0,0,0,0.9)] pointer-events-none">
+        
+        <!-- Center Status Tag -->
+        <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-950 border border-emerald-500/30 text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-widest shadow-md">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            🤖 AUTONOMOUS SENTINEL PATROL • DANCING LIVE
+        </div>
+
+        <!-- Left-to-Right Dancing Robot (Green DJ) -->
+        <div class="absolute left-4 robot-patrol-left-to-right flex items-center pointer-events-auto cursor-pointer" @click="runDiagnostic()" title="Click for Sentinel Diagnostics">
+            <div class="p-1.5 rounded-xl bg-zinc-950 border border-emerald-500/60 shadow-md robot-dance-active">
+                <svg class="w-9 h-9 text-white" viewBox="0 0 100 100" fill="none">
+                    <line x1="50" y1="15" x2="50" y2="25" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="50" cy="12" r="5" fill="#10b981" class="animate-pulse"/>
+                    <g>
+                        <path d="M 25 40 A 25 25 0 0 1 75 40" stroke="#10b981" stroke-width="4" fill="none"/>
+                        <rect x="18" y="32" width="10" height="16" rx="4" fill="#10b981"/>
+                        <rect x="72" y="32" width="10" height="16" rx="4" fill="#10b981"/>
+                    </g>
+                    <rect x="26" y="24" width="48" height="34" rx="10" fill="#18181b" stroke="currentColor" stroke-width="3"/>
+                    <circle cx="40" cy="38" r="5" fill="#10b981" class="animate-pulse"/>
+                    <circle cx="60" cy="38" r="5" fill="#10b981" class="animate-pulse"/>
+                    <path d="M 38 48 Q 50 56 62 48" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+                    <rect x="30" y="62" width="40" height="30" rx="8" fill="#27272a" stroke="currentColor" stroke-width="3"/>
+                    <g class="robot-arm-left-dance">
+                        <path d="M 30 68 C 18 68, 18 80, 22 86" stroke="currentColor" stroke-width="4" fill="none"/>
+                    </g>
+                    <g class="robot-arm-right-dance">
+                        <path d="M 70 68 C 82 68, 82 80, 78 86" stroke="currentColor" stroke-width="4" fill="none"/>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Right-to-Left Dancing Robot (Cyan Scout) -->
+        <div class="absolute right-4 robot-patrol-right-to-left flex items-center pointer-events-auto cursor-pointer" @click="runDiagnostic()" title="Click for Sentinel Diagnostics">
+            <div class="p-1.5 rounded-xl bg-zinc-950 border border-cyan-500/60 shadow-md robot-scout-active">
+                <svg class="w-9 h-9 text-white" viewBox="0 0 100 100" fill="none">
+                    <line x1="50" y1="15" x2="50" y2="25" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="50" cy="12" r="8" stroke="#06b6d4" stroke-width="2" fill="none" class="animate-spin duration-1000"/>
+                    <rect x="26" y="24" width="48" height="34" rx="10" fill="#18181b" stroke="currentColor" stroke-width="3"/>
+                    <circle cx="40" cy="38" r="5" fill="#06b6d4" class="animate-pulse"/>
+                    <circle cx="60" cy="38" r="5" fill="#06b6d4" class="animate-pulse"/>
+                    <path d="M 38 48 Q 50 56 62 48" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+                    <rect x="30" y="62" width="40" height="30" rx="8" fill="#27272a" stroke="currentColor" stroke-width="3"/>
+                    <g class="robot-arm-left-dance">
+                        <path d="M 30 68 C 18 68, 18 80, 22 86" stroke="currentColor" stroke-width="4" fill="none"/>
+                    </g>
+                    <g class="robot-arm-right-dance">
+                        <path d="M 70 68 C 82 68, 82 80, 78 86" stroke="currentColor" stroke-width="4" fill="none"/>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Diagnostic Modal -->
+    <div x-show="showDiagModal" x-transition.opacity class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90" style="display: none;">
+        <div class="bg-zinc-950 border border-emerald-500/40 rounded-3xl p-8 max-w-lg w-full shadow-2xl text-center relative overflow-hidden" @click.outside="showDiagModal = false">
+            <div class="w-20 h-20 mx-auto mb-4 p-2 rounded-2xl bg-black border border-emerald-500/50 shadow-md robot-dance-active">
+                <svg class="w-full h-full text-white" viewBox="0 0 100 100" fill="none">
+                    <line x1="50" y1="15" x2="50" y2="25" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="50" cy="12" r="5" fill="#10b981" class="animate-pulse"/>
+                    <g>
+                        <path d="M 25 40 A 25 25 0 0 1 75 40" stroke="#10b981" stroke-width="4" fill="none"/>
+                        <rect x="18" y="32" width="10" height="16" rx="4" fill="#10b981"/>
+                        <rect x="72" y="32" width="10" height="16" rx="4" fill="#10b981"/>
+                    </g>
+                    <rect x="26" y="24" width="48" height="34" rx="10" fill="#18181b" stroke="currentColor" stroke-width="3"/>
+                    <circle cx="40" cy="38" r="5" fill="#10b981" class="animate-pulse"/>
+                    <circle cx="60" cy="38" r="5" fill="#10b981" class="animate-pulse"/>
+                    <path d="M 38 48 Q 50 56 62 48" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+                    <rect x="30" y="62" width="40" height="30" rx="8" fill="#27272a" stroke="currentColor" stroke-width="3"/>
+                    <rect x="38" y="70" width="24" height="14" rx="4" fill="#09090b"/>
+                    <rect x="42" y="74" width="3" height="6" fill="#10b981" />
+                    <rect x="48" y="72" width="3" height="10" fill="#06b6d4" />
+                    <rect x="54" y="75" width="3" height="5" fill="#f59e0b" />
+                    <g class="robot-arm-left-dance">
+                        <path d="M 30 68 C 18 68, 18 80, 22 86" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/>
+                        <circle cx="22" cy="86" r="4" fill="#a1a1aa"/>
+                    </g>
+                    <g class="robot-arm-right-dance">
+                        <path d="M 70 68 C 82 68, 82 80, 78 86" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/>
+                        <circle cx="78" cy="86" r="4" fill="#a1a1aa"/>
+                    </g>
+                </svg>
+            </div>
+
+            <h3 class="text-2xl font-black text-white font-display uppercase tracking-tight mb-1">SENTINEL-X Diagnostic</h3>
+            <p class="text-xs text-zinc-400 font-mono mb-6">Autonomous System Health Analysis</p>
+
+            <div class="space-y-4 text-left font-mono text-xs mb-6">
+                <div>
+                    <div class="flex justify-between text-zinc-300 mb-1">
+                        <span>Database Query Latency</span>
+                        <span class="text-emerald-400">1.2ms (Optimal)</span>
+                    </div>
+                    <div class="w-full h-2 bg-black rounded-full overflow-hidden border border-zinc-800">
+                        <div class="h-full bg-emerald-500 transition-all duration-150" :style="'width: ' + diagProgress + '%'"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between text-zinc-300 mb-1">
+                        <span>Quantum Cache Integrity</span>
+                        <span class="text-cyan-400">100% Synced</span>
+                    </div>
+                    <div class="w-full h-2 bg-black rounded-full overflow-hidden border border-zinc-800">
+                        <div class="h-full bg-cyan-500 transition-all duration-150" :style="'width: ' + diagProgress + '%'"></div>
+                    </div>
+                </div>
+            </div>
+
+            <button @click="showDiagModal = false" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-mono text-xs font-bold uppercase tracking-wider rounded-xl shadow-md">
+                Close Sentinel Scan
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- 60FPS GPU Keyframe Animations -->
+<style>
+@keyframes robotDanceAnim {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    25% { transform: translate3d(0, -5px, 0) rotate(-4deg); }
+    75% { transform: translate3d(0, -5px, 0) rotate(4deg); }
+}
+@keyframes robotScoutAnim {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    50% { transform: translate3d(0, -4px, 0) rotate(-4deg); }
+}
+@keyframes armLeftWiggle {
+    0%, 100% { transform: rotate(0deg); transform-origin: 30px 68px; }
+    50% { transform: rotate(-30deg); transform-origin: 30px 68px; }
+}
+@keyframes armRightWiggle {
+    0%, 100% { transform: rotate(0deg); transform-origin: 70px 68px; }
+    50% { transform: rotate(30deg); transform-origin: 70px 68px; }
+}
+
+@keyframes robotPatrolLeftToRight {
+    0% { transform: translate3d(0, 0, 0) scaleX(1); }
+    45% { transform: translate3d(calc(85vw - 160px), 0, 0) scaleX(1); }
+    50% { transform: translate3d(calc(85vw - 160px), 0, 0) scaleX(-1); }
+    95% { transform: translate3d(0, 0, 0) scaleX(-1); }
+    100% { transform: translate3d(0, 0, 0) scaleX(1); }
+}
+
+@keyframes robotPatrolRightToLeft {
+    0% { transform: translate3d(0, 0, 0) scaleX(-1); }
+    45% { transform: translate3d(calc(-85vw + 160px), 0, 0) scaleX(-1); }
+    50% { transform: translate3d(calc(-85vw + 160px), 0, 0) scaleX(1); }
+    95% { transform: translate3d(0, 0, 0) scaleX(1); }
+    100% { transform: translate3d(0, 0, 0) scaleX(-1); }
+}
+
+.robot-dance-active { animation: robotDanceAnim 0.7s ease-in-out infinite; will-change: transform; }
+.robot-scout-active { animation: robotScoutAnim 1.2s ease-in-out infinite; will-change: transform; }
+.robot-arm-left-dance { animation: armLeftWiggle 0.5s ease-in-out infinite alternate; }
+.robot-arm-right-dance { animation: armRightWiggle 0.5s ease-in-out infinite alternate; }
+
+.robot-patrol-left-to-right { animation: robotPatrolLeftToRight 14s ease-in-out infinite; will-change: transform; }
+.robot-patrol-right-to-left { animation: robotPatrolRightToLeft 14s ease-in-out infinite; will-change: transform; }
+
+@keyframes logo3DSpin {
+    0% { transform: rotateY(0deg) rotateX(0deg); }
+    100% { transform: rotateY(360deg) rotateX(0deg); }
+}
+.logo-hover-spin:hover {
+    animation: logo3DSpin 2s ease-in-out infinite;
+    will-change: transform;
+}
+</style>
+
+<!-- Fast Charts Initialization & 3D Holographic Canvas Shockwave Engine -->
+<script>
+    let isBuildingChart = false;
+
+    function robotBuildChart() {
+        if (!window.salesChart || isBuildingChart) return;
+        isBuildingChart = true;
+
+        if (window.TechSound) window.TechSound.playPop();
+
+        const finalData = {{ chart_revenue_json|safe }};
+        const currentData = finalData.map(() => 0);
+        window.salesChart.data.datasets[0].data = currentData;
+        window.salesChart.update('none');
+
+        const laserOverlay = document.getElementById('robot-chart-laser');
+        const builderRobot = document.getElementById('robot-chart-builder');
+
+        if (laserOverlay) laserOverlay.classList.remove('hidden');
+        if (builderRobot) builderRobot.classList.remove('hidden');
+
+        let step = 0;
+        const totalSteps = finalData.length;
+        
+        const interval = setInterval(() => {
+            if (step < totalSteps) {
+                window.salesChart.data.datasets[0].data[step] = finalData[step];
+                window.salesChart.update();
+                
+                if (window.TechSound) window.TechSound.playPop();
+
+                if (builderRobot && laserOverlay) {
+                    const percent = ((step + 0.5) / totalSteps) * 100;
+                    builderRobot.style.left = percent + '%';
+                    laserOverlay.style.left = percent + '%';
+                }
+
+                step++;
+            } else {
+                clearInterval(interval);
+                setTimeout(() => {
+                    if (laserOverlay) laserOverlay.classList.add('hidden');
+                    if (builderRobot) builderRobot.classList.add('hidden');
+                    isBuildingChart = false;
+                }, 600);
+            }
+        }, 220);
+    }
+
+    let isBuildingPie = false;
+    function robotBuildPieChart() {
+        if (!window.categoryChart || isBuildingPie) return;
+        isBuildingPie = true;
+
+        if (window.TechSound) window.TechSound.playPop();
+
+        const finalPieData = window.categoryPieRawData || [];
+        const currentPieData = finalPieData.map(() => 0);
+        window.categoryChart.data.datasets[0].data = currentPieData;
+        window.categoryChart.update('none');
+
+        const pieScanner = document.getElementById('robot-pie-scanner');
+        if (pieScanner) pieScanner.classList.remove('hidden');
+
+        let step = 0;
+        const totalSteps = finalPieData.length;
+
+        const interval = setInterval(() => {
+            if (step < totalSteps) {
+                window.categoryChart.data.datasets[0].data[step] = finalPieData[step];
+                window.categoryChart.update();
+
+                if (window.TechSound) window.TechSound.playPop();
+                step++;
+            } else {
+                clearInterval(interval);
+                setTimeout(() => {
+                    if (pieScanner) pieScanner.classList.add('hidden');
+                    isBuildingPie = false;
+                }, 600);
+            }
+        }, 250);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // 1. Initialize Gapless Low-Poly Triangulation Assembly Engine (From About Us)
+        const canvas = document.getElementById('triangulation-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d', { alpha: false });
+            
+            const width = canvas.width = 900;
+            const height = canvas.height = 150;
+            
+            const offCanvas = document.createElement('canvas');
+            offCanvas.width = width;
+            offCanvas.height = height;
+            const offCtx = offCanvas.getContext('2d', { willReadFrequently: true });
+            
+            const triangles = [];
+            let isHovered = false;
+            let mouseX = width / 2;
+            let mouseY = height / 2;
+            
+            function generateGaplessTriangles() {
+                offCtx.clearRect(0, 0, width, height);
+                offCtx.fillStyle = '#ffffff';
+                offCtx.font = '900 78px "Orbitron", Arial, sans-serif';
+                offCtx.textAlign = 'center';
+                offCtx.textBaseline = 'middle';
+                offCtx.fillText('LAP LINK', width / 2, height / 2);
+                
+                const imgData = offCtx.getImageData(0, 0, width, height).data;
+                triangles.length = 0;
+                
+                const cellSize = 10; 
+                
+                for (let y = 0; y < height; y += cellSize) {
+                    for (let x = 0; x < width; x += cellSize) {
+                        const idx = (y * width + x) * 4;
+                        if (imgData[idx + 3] > 60) {
+                            const angle = Math.random() * Math.PI * 2;
+                            const flyDist = 400 + Math.random() * 400;
+                            const startX = Math.cos(angle) * flyDist;
+                            const startY = Math.sin(angle) * flyDist;
+                            
+                            const dispX = (Math.random() - 0.5) * 200;
+                            const dispY = (Math.random() - 0.5) * 200;
+                            
+                            const randColor = Math.random();
+                            let colorStr = 'rgba(52, 211, 153, '; // Brighter Emerald-400
+                            if (randColor > 0.8) colorStr = 'rgba(192, 132, 252, '; // Brighter Purple-400
+                            else if (randColor > 0.4) colorStr = 'rgba(34, 211, 238, '; // Brighter Cyan-400
+                            
+                            const alpha = 0.85 + Math.random() * 0.15; // Increased opacity for brighter pop
+                            const spring = 0.08 + Math.random() * 0.04;
+                            const friction = 0.82 + Math.random() * 0.05;
+                            
+                            triangles.push({
+                                t1: { x: x, y: y }, t2: { x: x + cellSize, y: y }, t3: { x: x, y: y + cellSize },
+                                p1: { x: x + startX, y: y + startY, vx: 0, vy: 0 },
+                                p2: { x: x + cellSize + startX, y: y + startY, vx: 0, vy: 0 },
+                                p3: { x: x + startX, y: y + cellSize + startY, vx: 0, vy: 0 },
+                                dispX: dispX, dispY: dispY, color: colorStr, alpha: alpha,
+                                spring: spring, friction: friction, centerX: x + cellSize/2, centerY: y + cellSize/2
+                            });
+                            triangles.push({
+                                t1: { x: x + cellSize, y: y }, t2: { x: x + cellSize, y: y + cellSize }, t3: { x: x, y: y + cellSize },
+                                p1: { x: x + cellSize + startX, y: y + startY, vx: 0, vy: 0 },
+                                p2: { x: x + cellSize + startX, y: y + cellSize + startY, vx: 0, vy: 0 },
+                                p3: { x: x + startX, y: y + cellSize + startY, vx: 0, vy: 0 },
+                                dispX: dispX, dispY: dispY, color: colorStr, alpha: alpha,
+                                spring: spring, friction: friction, centerX: x + cellSize/2, centerY: y + cellSize/2
+                            });
+                        }
+                    }
+                }
+            }
+            
+            generateGaplessTriangles();
+            if (document.fonts) { document.fonts.ready.then(() => { generateGaplessTriangles(); }); }
+            
+            let canvasRect = canvas.getBoundingClientRect();
+            window.addEventListener('resize', () => { canvasRect = canvas.getBoundingClientRect(); }, { passive: true });
+            window.addEventListener('scroll', () => { canvasRect = canvas.getBoundingClientRect(); }, { passive: true });
+            
+            canvas.addEventListener('mousemove', (e) => {
+                const scaleX = canvas.width / canvasRect.width;
+                const scaleY = canvas.height / canvasRect.height;
+                mouseX = (e.clientX - canvasRect.left) * scaleX;
+                mouseY = (e.clientY - canvasRect.top) * scaleY;
+            });
+            
+            canvas.addEventListener('mouseenter', () => {
+                isHovered = true;
+                if(window.TechSound) window.TechSound.playPop();
+            });
+            
+            canvas.addEventListener('mouseleave', () => { isHovered = false; });
+            
+            let isCanvasVisible = true;
+            let isTabVisible = !document.hidden;
+            let isAnimating = false;
+            
+            const observer = new IntersectionObserver((entries) => {
+                isCanvasVisible = entries[0].isIntersecting;
+                checkAnimation();
+            }, { threshold: 0 });
+            observer.observe(canvas);
+            
+            document.addEventListener('visibilitychange', () => {
+                isTabVisible = !document.hidden;
+                checkAnimation();
+            });
+            
+            function checkAnimation() {
+                const shouldAnimate = isCanvasVisible && isTabVisible;
+                if (shouldAnimate && !isAnimating) {
+                    isAnimating = true;
+                    animateGaplessTriangles();
+                } else if (!shouldAnimate && isAnimating) {
+                    isAnimating = false;
+                }
+            }
+            
+            function animateGaplessTriangles() {
+                if (!isAnimating) return;
+                
+                ctx.fillStyle = '#09090b';
+                ctx.fillRect(0, 0, width, height);
+                
+                for (let i = 0; i < triangles.length; i++) {
+                    const tri = triangles[i];
+                    let dest1X = tri.t1.x, dest1Y = tri.t1.y;
+                    let dest2X = tri.t2.x, dest2Y = tri.t2.y;
+                    let dest3X = tri.t3.x, dest3Y = tri.t3.y;
+                    
+                    if (isHovered) {
+                        const dx = mouseX - tri.centerX;
+                        const dy = mouseY - tri.centerY;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 100) {
+                            const force = (100 - dist) / 100;
+                            const pushX = (dx / dist) * force * -100;
+                            const pushY = (dy / dist) * force * -100;
+                            dest1X += pushX + tri.dispX; dest1Y += pushY + tri.dispY;
+                            dest2X += pushX + tri.dispX; dest2Y += pushY + tri.dispY;
+                            dest3X += pushX + tri.dispX; dest3Y += pushY + tri.dispY;
+                        }
+                    }
+                    
+                    tri.p1.vx += (dest1X - tri.p1.x) * tri.spring; tri.p1.vy += (dest1Y - tri.p1.y) * tri.spring;
+                    tri.p1.vx *= tri.friction; tri.p1.vy *= tri.friction;
+                    tri.p1.x += tri.p1.vx; tri.p1.y += tri.p1.vy;
+                    
+                    tri.p2.vx += (dest2X - tri.p2.x) * tri.spring; tri.p2.vy += (dest2Y - tri.p2.y) * tri.spring;
+                    tri.p2.vx *= tri.friction; tri.p2.vy *= tri.friction;
+                    tri.p2.x += tri.p2.vx; tri.p2.y += tri.p2.vy;
+                    
+                    tri.p3.vx += (dest3X - tri.p3.x) * tri.spring; tri.p3.vy += (dest3Y - tri.p3.y) * tri.spring;
+                    tri.p3.vx *= tri.friction; tri.p3.vy *= tri.friction;
+                    tri.p3.x += tri.p3.vx; tri.p3.y += tri.p3.vy;
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(tri.p1.x, tri.p1.y);
+                    ctx.lineTo(tri.p2.x, tri.p2.y);
+                    ctx.lineTo(tri.p3.x, tri.p3.y);
+                    ctx.closePath();
+                    
+                    ctx.fillStyle = tri.color + tri.alpha + ')';
+                    ctx.fill();
+                    
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)'; // Brighter stroke
+                    ctx.lineWidth = 1.0; // Thicker line
+                    ctx.stroke();
+                }
+                requestAnimationFrame(animateGaplessTriangles);
+            }
+            checkAnimation();
+        }
+
+        // 2. Initialize Line Telemetry Chart
+        const ctxLine = document.getElementById('salesTelemetryChart').getContext('2d');
+        const labelsLine = {{ chart_labels_json|safe }};
+        const revenueData = {{ chart_revenue_json|safe }};
+
+        window.salesChart = new Chart(ctxLine, {
+            type: 'line',
+            data: {
+                labels: labelsLine,
+                datasets: [{
+                    label: 'Daily Revenue ($)',
+                    data: revenueData,
+                    borderColor: '#10b981',
+                    borderWidth: 2.5,
+                    backgroundColor: 'rgba(16, 185, 129, 0.08)',
+                    fill: true,
+                    tension: 0.3,
+                    pointBackgroundColor: '#06b6d4',
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: { duration: 300 },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#09090b',
+                        titleColor: '#10b981',
+                        bodyColor: '#ffffff',
+                        borderColor: '#27272a',
+                        borderWidth: 1,
+                        padding: 10
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(255, 255, 255, 0.03)' },
+                        ticks: { color: '#a1a1aa', font: { family: 'JetBrains Mono', size: 11 } }
+                    },
+                    y: {
+                        grid: { color: 'rgba(255, 255, 255, 0.03)' },
+                        ticks: {
+                            color: '#a1a1aa',
+                            font: { family: 'JetBrains Mono', size: 11 },
+                            callback: function(value) { return '$' + value; }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 3. Initialize Category Inventory Doughnut/Pie Chart (Ultra-Thin Sleek Doughnut Arc: cutout 80%)
+        const ctxPie = document.getElementById('categoryPieChart').getContext('2d');
+        const categoryLabels = [{% for cat in categories %}"{{ cat.name|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %}];
+        const categoryData = [{% for cat in categories %}{{ cat.num_products }}{% if not forloop.last %}, {% endif %}{% endfor %}];
+        window.categoryPieRawData = categoryData;
+
+        window.categoryChart = new Chart(ctxPie, {
+            type: 'doughnut',
+            data: {
+                labels: categoryLabels,
+                datasets: [{
+                    data: categoryData,
+                    backgroundColor: [
+                        '#10b981', // Emerald
+                        '#06b6d4', // Cyan
+                        '#f59e0b', // Amber
+                        '#a855f7', // Purple
+                        '#f43f5e', // Rose
+                        '#6366f1'  // Indigo
+                    ],
+                    borderColor: '#09090b',
+                    borderWidth: 2,
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '80%', // ULTRA-THIN SLEEK RING!
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: '#09090b',
+                        titleColor: '#06b6d4',
+                        bodyColor: '#ffffff',
+                        borderColor: '#27272a',
+                        borderWidth: 1,
+                        padding: 10
+                    }
+                }
+            }
+        });
+
+        // Trigger Robot Progressive Construction for both charts after load
+        setTimeout(() => {
+            robotBuildChart();
+            robotBuildPieChart();
+        }, 500);
+    });
+</script>

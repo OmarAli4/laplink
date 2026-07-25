@@ -1,0 +1,121 @@
+{% extends "shop/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "404 — Signal Lost" %} | Lap Link{% endblock %}
+
+{% block content %}
+<div class="bg-zinc-950 min-h-[85vh] text-white py-16 px-4 sm:px-6 lg:px-8 font-sans relative overflow-hidden flex items-center justify-center"
+     x-data="{
+        errorMsgs: [
+            '{% trans "SIGNAL_LOST: Target coordinate not found in Cyber Grid." %}',
+            '{% trans "QUANTUM_ERR: Path collapsed into a singularity." %}',
+            '{% trans "SYSTEM_WARN: Autonomous Guardian searching sector 404..." %}',
+            '{% trans "ROBOT_STATUS: Confused. Beep boop? Where is this page?" %}'
+        ],
+        activeMsg: '',
+        init() {
+            this.activeMsg = this.errorMsgs[Math.floor(Math.random() * this.errorMsgs.length)];
+            setInterval(() => {
+                this.activeMsg = this.errorMsgs[Math.floor(Math.random() * this.errorMsgs.length)];
+            }, 4000);
+        }
+     }">
+
+    <!-- Glowing Ambient Orbs (Optimized) -->
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full pointer-events-none transform-gpu opacity-50" style="background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, rgba(0,0,0,0) 70%);"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full pointer-events-none transform-gpu opacity-50" style="background: radial-gradient(circle, rgba(6,182,212,0.15) 0%, rgba(0,0,0,0) 70%);"></div>
+
+    <!-- Interactive Static TV Canvas Background -->
+    <canvas id="static-canvas" class="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none z-0"></canvas>
+
+    <div class="max-w-2xl mx-auto text-center space-y-8 relative z-10 animate-fade-in-up">
+
+        <!-- 404 Glitch Number -->
+        <div class="relative inline-block">
+            <h1 class="text-8xl sm:text-9xl font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-purple-500 font-display">
+                404
+            </h1>
+            <div class="absolute -top-3 -right-6 px-3 py-1 bg-red-500/20 border border-red-500/40 text-red-400 rounded-full text-xs font-mono font-bold tracking-widest uppercase animate-pulse">
+                OFFLINE
+            </div>
+        </div>
+
+        <!-- Confused Robot Avatar -->
+        <div class="w-36 h-36 mx-auto rounded-full bg-zinc-900 border border-emerald-500/40 flex items-center justify-center shadow-[0_0_40px_rgba(16,185,129,0.2)] relative group cursor-pointer"
+             @click="if(window.TechSound) window.TechSound.playPop();">
+            <svg class="w-20 h-20 text-emerald-400 transition-transform duration-500 group-hover:scale-110" viewBox="0 0 100 100" fill="none">
+                <line x1="50" y1="15" x2="50" y2="25" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                <circle cx="50" cy="12" r="5" fill="#ef4444" class="animate-ping"/>
+                <rect x="26" y="24" width="48" height="34" rx="10" fill="#18181b" stroke="#10b981" stroke-width="3"/>
+                <!-- Confused ? Eyes -->
+                <text x="35" y="46" fill="#10b981" font-size="18" font-weight="bold">?</text>
+                <text x="55" y="46" fill="#10b981" font-size="18" font-weight="bold">?</text>
+                <path d="M 40 52 Q 50 46 60 52" stroke="#ef4444" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <rect x="30" y="62" width="40" height="30" rx="8" fill="#27272a" stroke="#10b981" stroke-width="3"/>
+            </svg>
+        </div>
+
+        <!-- Terminal Error Log Box -->
+        <div class="bg-zinc-900/90 border border-emerald-500/30 rounded-2xl p-4 font-mono text-xs shadow-xl text-left max-w-lg mx-auto">
+            <div class="flex items-center gap-2 border-b border-white/10 pb-2 mb-3">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+                <span class="text-gray-400 text-[10px] ml-auto uppercase tracking-wider">ERROR_DIAGNOSTIC_v4.04</span>
+            </div>
+            <div class="text-emerald-400 space-y-1">
+                <div><span class="text-gray-500">[laplink@core ~]$</span> locate_page --uri="{{ request.path }}"</div>
+                <div class="text-red-400 font-semibold">[ERROR 404] Page Not Found</div>
+                <div class="text-gray-300 italic pt-1" x-text="activeMsg"></div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+            <a href="{% url 'shop:home' %}"
+               class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-sm uppercase tracking-wider transition-all duration-200 shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 group">
+                <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                {% trans "Recalibrate Navigation" %}
+            </a>
+            
+            <a href="{% url 'shop:product_list' %}"
+               class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-white font-bold text-sm uppercase tracking-wider transition-colors duration-200 flex items-center justify-center gap-2">
+                ⚡ {% trans "Browse Catalog" %}
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('static-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }, { passive: true });
+
+    function generateNoise() {
+        const imgData = ctx.createImageData(width, height);
+        const buffer = new Uint32Array(imgData.data.buffer);
+        const len = buffer.length;
+        for (let i = 0; i < len; i++) {
+            if (Math.random() < 0.1) {
+                buffer[i] = 0xffffffff;
+            }
+        }
+        ctx.putImageData(imgData, 0, 0);
+        requestAnimationFrame(generateNoise);
+    }
+    generateNoise();
+});
+</script>
+{% endblock %}

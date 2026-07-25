@@ -1,0 +1,18 @@
+{% extends "admin/change_list.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="mb-6 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col md:flex-row gap-6 items-center justify-between">
+    <div>
+        <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">{% trans "Total Orders" %}</h2>
+        <p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">{{ total_orders }}</p>
+    </div>
+    <div class="hidden md:block w-px h-12 bg-gray-200 dark:bg-gray-700"></div>
+    <div>
+        <h2 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">{% trans "Total Revenue" %}</h2>
+        <p class="text-3xl font-bold text-emerald-600 dark:text-emerald-400 mt-1">L.E {{ total_revenue|floatformat:2 }}</p>
+    </div>
+</div>
+
+{{ block.super }}
+{% endblock %}

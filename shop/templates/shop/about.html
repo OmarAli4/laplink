@@ -1,0 +1,442 @@
+{% extends "shop/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "About Us" %} | Cybernetic HQ — Lap Link{% endblock %}
+
+{% block extra_css %}
+<!-- Google Tech Monospace & Cyber Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<style>
+.font-cyber {
+    font-family: 'Orbitron', monospace, sans-serif;
+}
+.font-tech-mono {
+    font-family: 'Share Tech Mono', monospace;
+}
+
+/* Glowing Matrix Cursor Animation */
+@keyframes blinkCursor {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.terminal-cursor {
+    animation: blinkCursor 0.8s infinite;
+}
+
+/* Typography Glitch Effect - Optimized without clip rects to save GPU */
+.glitch-text {
+    position: relative;
+    display: inline-block;
+    text-shadow: 0 0 5px rgba(16,185,129,0.8);
+}
+
+/* Low-Poly Triangulation Canvas */
+#triangulation-canvas {
+    width: 100%;
+    max-width: 980px;
+    height: 180px;
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="bg-zinc-950 min-h-screen text-white py-16 px-4 sm:px-6 lg:px-8 font-sans relative overflow-hidden"
+     x-data="{
+        terminalText: '',
+        fullText: 'SYS_INIT: Booting Lap Link Cybernetic Engine v4.2... Core Online. 100% Hardware Verified.',
+        charIdx: 0,
+        initTerminal() {
+            const timer = setInterval(() => {
+                if (this.charIdx < this.fullText.length) {
+                    this.terminalText += this.fullText[this.charIdx];
+                    this.charIdx++;
+                    if(window.TechSound && Math.random() > 0.6) window.TechSound.playPop();
+                } else {
+                    clearInterval(timer);
+                }
+            }, 35);
+        }
+     }"
+     x-init="initTerminal()">
+
+    <!-- Ambient Glowing Cyber Orbs (Optimized with transform-gpu) -->
+    <div class="absolute top-1/4 left-10 w-96 h-96 bg-emerald-500/10 rounded-full blur-[60px] pointer-events-none transform-gpu z-0"></div>
+    <div class="absolute bottom-1/4 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-[60px] pointer-events-none transform-gpu z-0"></div>
+
+    <div class="max-w-7xl mx-auto space-y-16 relative z-10">
+
+        <!-- 🖥️ TERMINAL TYPEWRITER CONSOLE BANNER -->
+        <div class="max-w-3xl mx-auto bg-black/90 border border-emerald-500/30 rounded-2xl p-4 font-tech-mono text-xs shadow-[0_0_30px_rgba(16,185,129,0.15)] flex items-center gap-3">
+            <div class="flex items-center gap-1.5 shrink-0">
+                <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+            </div>
+            <div class="text-emerald-400 font-semibold truncate flex-1">
+                <span class="text-gray-500">[laplink@core ~]$</span> <span x-text="terminalText"></span><span class="terminal-cursor text-emerald-400 font-bold">█</span>
+            </div>
+        </div>
+
+        <!-- 🚀 GAPLESS LOW-POLY TRIANGULATED FONT ASSEMBLY & DISPERSAL HERO -->
+        <div class="relative text-center space-y-4 max-w-5xl mx-auto py-2">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-zinc-900/90 border border-emerald-500/30 text-emerald-400 text-xs font-tech-mono font-bold uppercase tracking-widest mb-2">
+                <span>⚡</span> 
+                <span class="glitch-text" data-text="GAPLESS LOW-POLY TRIANGULATION ENGINE">{% trans "GAPLESS LOW-POLY TRIANGULATION ENGINE" %}</span>
+            </div>
+
+            <!-- Interactive Triangulation Canvas -->
+            <div class="relative flex justify-center items-center my-2">
+                <canvas id="triangulation-canvas" title="Hover to disperse triangles!"></canvas>
+            </div>
+            
+            <p class="text-gray-300 text-base sm:text-lg leading-relaxed font-medium max-w-2xl mx-auto">
+                {% trans "We set out to build the world's most advanced, intelligent tech store. Where extreme performance meets seamless automation." %}
+            </p>
+        </div>
+
+        <!-- ⚡ CYBERNETIC LIVE METRICS COUNTERS -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            <div class="bg-zinc-900/60 border border-white/10 rounded-2xl p-5 text-center font-tech-mono hover:border-emerald-500/50 transition-colors">
+                <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-cyber">99.99%</div>
+                <div class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">{% trans "UPTIME_STABILITY" %}</div>
+            </div>
+
+            <div class="bg-zinc-900/60 border border-white/10 rounded-2xl p-5 text-center font-tech-mono hover:border-cyan-500/50 transition-colors">
+                <div class="text-2xl sm:text-3xl font-extrabold text-cyan-400 font-cyber">&lt;50ms</div>
+                <div class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">{% trans "DISPATCH_LATENCY" %}</div>
+            </div>
+
+            <div class="bg-zinc-900/60 border border-white/10 rounded-2xl p-5 text-center font-tech-mono hover:border-amber-500/50 transition-colors">
+                <div class="text-2xl sm:text-3xl font-extrabold text-amber-400 font-cyber">100%</div>
+                <div class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">{% trans "GENUINE_SEAL" %}</div>
+            </div>
+
+            <div class="bg-zinc-900/60 border border-white/10 rounded-2xl p-5 text-center font-tech-mono hover:border-purple-500/50 transition-colors">
+                <div class="text-2xl sm:text-3xl font-extrabold text-purple-400 font-cyber">2-YEAR</div>
+                <div class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">{% trans "QUANTUM_WARRANTY" %}</div>
+            </div>
+        </div>
+
+        <!-- 🤖 INTERACTIVE ROBOT CORE & HUD MATRIX -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            
+            <!-- Left: Holographic Robot Mascot Core -->
+            <div class="relative bg-zinc-900/95 border border-white/10 rounded-3xl p-8 shadow-2xl flex flex-col items-center justify-center text-center overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-b from-emerald-500/5 to-transparent pointer-events-none"></div>
+                
+                <!-- Rotating HUD Ring -->
+                <div class="relative w-64 h-64 flex items-center justify-center my-6">
+                    <div class="absolute inset-0 border-2 border-dashed border-emerald-500/30 rounded-full animate-spin duration-[20s]"></div>
+                    <div class="absolute inset-4 border border-cyan-500/20 rounded-full animate-ping duration-[3s]"></div>
+
+                    <!-- Glowing Robot Mascot Avatar -->
+                    <div class="w-40 h-40 rounded-full bg-zinc-950 border border-emerald-500/50 flex flex-col items-center justify-center shadow-[0_0_50px_rgba(16,185,129,0.3)] relative z-10 transition-transform duration-500 group-hover:scale-110 cursor-pointer"
+                         @click="if(window.TechSound) window.TechSound.playSuccess();">
+                        <svg class="w-20 h-20 text-white" viewBox="0 0 100 100" fill="none">
+                            <line x1="50" y1="15" x2="50" y2="25" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                            <circle cx="50" cy="12" r="5" fill="#10b981" class="animate-ping"/>
+                            <rect x="26" y="24" width="48" height="34" rx="10" fill="#18181b" stroke="#10b981" stroke-width="3"/>
+                            <circle cx="40" cy="38" r="5" fill="#10b981"/>
+                            <circle cx="60" cy="38" r="5" fill="#10b981"/>
+                            
+                            <!-- Pulsing Cyber Core -->
+                            <path d="M 50 38 L 53 45 L 47 45 Z" fill="#06b6d4" class="animate-pulse"/>
+                            
+                            <path d="M 38 48 Q 50 56 62 48" stroke="#10b981" stroke-width="3" stroke-linecap="round" fill="none"/>
+                            <rect x="30" y="62" width="40" height="30" rx="8" fill="#27272a" stroke="#10b981" stroke-width="3"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="space-y-2 relative z-10">
+                    <div class="text-xs font-tech-mono text-emerald-400 font-bold uppercase tracking-widest">STATUS: ONLINE • SYSTEM_READY</div>
+                    <h3 class="font-cyber text-xl font-bold text-white uppercase tracking-wider">{% trans "Autonomous Tech Guardian" %}</h3>
+                    <p class="text-xs text-gray-400 max-w-sm font-medium">{% trans "Monitoring 100% genuine inventory, real-time dispatch, and 2-year warranty validation 24/7." %}</p>
+                </div>
+            </div>
+
+            <!-- Right: Robotic Terminal Directives -->
+            <div class="space-y-6">
+                <div class="p-6 rounded-3xl bg-zinc-900 border border-white/10 hover:border-emerald-500/40 transition-colors duration-300 group">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-xl shrink-0">🤖</div>
+                        <div>
+                            <div class="text-[10px] font-tech-mono font-bold text-emerald-400 uppercase tracking-widest">DIRECTIVE_01</div>
+                            <h4 class="font-cyber text-base sm:text-lg font-bold text-white mt-0.5 group-hover:text-emerald-400 transition-colors">{% trans "AI-Curated Flagship Hardware" %}</h4>
+                            <p class="text-xs text-gray-400 mt-1 leading-relaxed">{% trans "Every laptop, smartphone, and audio device in our store undergoes rigorous algorithmic quality checks before listing." %}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-3xl bg-zinc-900 border border-white/10 hover:border-cyan-500/40 transition-colors duration-300 group">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-xl shrink-0">⚡</div>
+                        <div>
+                            <div class="text-[10px] font-tech-mono font-bold text-cyan-400 uppercase tracking-widest">DIRECTIVE_02</div>
+                            <h4 class="font-cyber text-base sm:text-lg font-bold text-white mt-0.5 group-hover:text-cyan-400 transition-colors">{% trans "Instant Autonomous Dispatch" %}</h4>
+                            <p class="text-xs text-gray-400 mt-1 leading-relaxed">{% trans "Orders are processed asynchronously in sub-50ms threads and sealed for fast express delivery." %}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-3xl bg-zinc-900 border border-white/10 hover:border-amber-500/40 transition-colors duration-300 group">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-xl shrink-0">🛡️</div>
+                        <div>
+                            <div class="text-[10px] font-tech-mono font-bold text-amber-400 uppercase tracking-widest">DIRECTIVE_03</div>
+                            <h4 class="font-cyber text-base sm:text-lg font-bold text-white mt-0.5 group-hover:text-amber-400 transition-colors">{% trans "Quantum Warranty Shield" %}</h4>
+                            <p class="text-xs text-gray-400 mt-1 leading-relaxed">{% trans "Backed by official 2-year manufacturer guarantees and 100% original hardware verification." %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🗺️ CYBERNETIC GPS MAP FRAME -->
+        <div class="bg-zinc-900/95 border border-white/10 rounded-3xl p-6 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-4">
+                <div>
+                    <span class="text-[10px] font-tech-mono font-bold text-emerald-400 uppercase tracking-widest">HQ_COORDINATES</span>
+                    <h3 class="font-cyber text-lg font-bold text-white uppercase tracking-wider">{% trans "Lap Link Cybernetics Operations Hub" %}</h3>
+                </div>
+                <div class="text-xs font-tech-mono text-gray-400 font-bold">LAT: 30.0924° N • LONG: 31.3147° E</div>
+            </div>
+
+            <div class="w-full h-[380px] rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative">
+                <iframe 
+                    src="https://maps.google.com/maps?q=30.0924472,31.3147667&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0; filter: invert(90%) hue-rotate(180deg);" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 📐 GAPLESS LOW-POLY TRIANGULATION ASSEMBLY & DISPERSAL ENGINE -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('triangulation-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false }); // Optimize canvas rendering
+
+    const width = canvas.width = 980;
+    const height = canvas.height = 180;
+
+    const offCanvas = document.createElement('canvas');
+    offCanvas.width = width;
+    offCanvas.height = height;
+    const offCtx = offCanvas.getContext('2d', { willReadFrequently: true });
+
+    const triangles = [];
+    let isHovered = false;
+    let mouseX = width / 2;
+    let mouseY = height / 2;
+
+    function generateGaplessTriangles() {
+        offCtx.clearRect(0, 0, width, height);
+        offCtx.fillStyle = '#ffffff';
+        offCtx.font = '900 90px "Orbitron", Arial, sans-serif';
+        offCtx.textAlign = 'center';
+        offCtx.textBaseline = 'middle';
+        
+        // Draw the main text.
+        offCtx.fillText('LAP LINK', width / 2, height / 2);
+
+        const imgData = offCtx.getImageData(0, 0, width, height).data;
+        triangles.length = 0;
+        
+        // OPTIMIZED: Larger cell size reduces triangle count by 60%, fixing lag
+        const cellSize = 10; 
+
+        for (let y = 0; y < height; y += cellSize) {
+            for (let x = 0; x < width; x += cellSize) {
+                const idx = (y * width + x) * 4;
+                if (imgData[idx + 3] > 60) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const flyDist = 400 + Math.random() * 400;
+                    const startX = Math.cos(angle) * flyDist;
+                    const startY = Math.sin(angle) * flyDist;
+
+                    const dispX = (Math.random() - 0.5) * 200;
+                    const dispY = (Math.random() - 0.5) * 200;
+
+                    const randColor = Math.random();
+                    let colorStr = 'rgba(16, 185, 129, '; // Emerald
+                    if (randColor > 0.8) colorStr = 'rgba(168, 85, 247, '; // Purple
+                    else if (randColor > 0.4) colorStr = 'rgba(6, 182, 212, '; // Cyan
+
+                    const alpha = 0.7 + Math.random() * 0.3;
+
+                    const spring = 0.08 + Math.random() * 0.04;
+                    const friction = 0.82 + Math.random() * 0.05;
+
+                    triangles.push({
+                        t1: { x: x, y: y },
+                        t2: { x: x + cellSize, y: y },
+                        t3: { x: x, y: y + cellSize },
+                        p1: { x: x + startX, y: y + startY, vx: 0, vy: 0 },
+                        p2: { x: x + cellSize + startX, y: y + startY, vx: 0, vy: 0 },
+                        p3: { x: x + startX, y: y + cellSize + startY, vx: 0, vy: 0 },
+                        dispX: dispX, dispY: dispY,
+                        color: colorStr, alpha: alpha,
+                        spring: spring, friction: friction,
+                        centerX: x + cellSize/2, centerY: y + cellSize/2
+                    });
+
+                    triangles.push({
+                        t1: { x: x + cellSize, y: y },
+                        t2: { x: x + cellSize, y: y + cellSize },
+                        t3: { x: x, y: y + cellSize },
+                        p1: { x: x + cellSize + startX, y: y + startY, vx: 0, vy: 0 },
+                        p2: { x: x + cellSize + startX, y: y + cellSize + startY, vx: 0, vy: 0 },
+                        p3: { x: x + startX, y: y + cellSize + startY, vx: 0, vy: 0 },
+                        dispX: dispX, dispY: dispY,
+                        color: colorStr, alpha: alpha,
+                        spring: spring, friction: friction,
+                        centerX: x + cellSize/2, centerY: y + cellSize/2
+                    });
+                }
+            }
+        }
+    }
+
+    // Generate with fallback font first, then regenerate when Orbitron loads
+    generateGaplessTriangles();
+    if (document.fonts) {
+        document.fonts.ready.then(() => {
+            generateGaplessTriangles(); // triangles.length = 0 is inside the function
+        });
+    }
+
+    let canvasRect = canvas.getBoundingClientRect();
+    window.addEventListener('resize', () => {
+        canvasRect = canvas.getBoundingClientRect();
+    }, { passive: true });
+    window.addEventListener('scroll', () => {
+        canvasRect = canvas.getBoundingClientRect();
+    }, { passive: true });
+
+    canvas.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX - canvasRect.left;
+        mouseY = e.clientY - canvasRect.top;
+    });
+
+    canvas.addEventListener('mouseenter', () => {
+        isHovered = true;
+        if(window.TechSound) window.TechSound.playPop();
+    });
+    
+    canvas.addEventListener('mouseleave', () => { 
+        isHovered = false; 
+    });
+
+    let isCanvasVisible = true;
+    let isTabVisible = !document.hidden;
+    let isAnimating = false;
+
+    const observer = new IntersectionObserver((entries) => {
+        isCanvasVisible = entries[0].isIntersecting;
+        checkAnimation();
+    }, { threshold: 0 });
+    observer.observe(canvas);
+
+    document.addEventListener('visibilitychange', () => {
+        isTabVisible = !document.hidden;
+        checkAnimation();
+    });
+
+    function checkAnimation() {
+        const shouldAnimate = isCanvasVisible && isTabVisible;
+        if (shouldAnimate && !isAnimating) {
+            isAnimating = true;
+            animateGaplessTriangles();
+        } else if (!shouldAnimate && isAnimating) {
+            isAnimating = false;
+        }
+    }
+
+    function animateGaplessTriangles() {
+        if (!isAnimating) return;
+
+        // Fill solid background to avoid alpha blending overhead
+        ctx.fillStyle = '#09090b'; // zinc-950
+        ctx.fillRect(0, 0, width, height);
+
+        for (let i = 0; i < triangles.length; i++) {
+            const tri = triangles[i];
+
+            let dest1X = tri.t1.x, dest1Y = tri.t1.y;
+            let dest2X = tri.t2.x, dest2Y = tri.t2.y;
+            let dest3X = tri.t3.x, dest3Y = tri.t3.y;
+
+            if (isHovered) {
+                const dx = mouseX - tri.centerX;
+                const dy = mouseY - tri.centerY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < 100) {
+                    const force = (100 - dist) / 100;
+                    const pushX = (dx / dist) * force * -100;
+                    const pushY = (dy / dist) * force * -100;
+                    
+                    dest1X += pushX + tri.dispX; dest1Y += pushY + tri.dispY;
+                    dest2X += pushX + tri.dispX; dest2Y += pushY + tri.dispY;
+                    dest3X += pushX + tri.dispX; dest3Y += pushY + tri.dispY;
+                }
+            }
+
+            tri.p1.vx += (dest1X - tri.p1.x) * tri.spring;
+            tri.p1.vy += (dest1Y - tri.p1.y) * tri.spring;
+            tri.p1.vx *= tri.friction;
+            tri.p1.vy *= tri.friction;
+            tri.p1.x += tri.p1.vx;
+            tri.p1.y += tri.p1.vy;
+
+            tri.p2.vx += (dest2X - tri.p2.x) * tri.spring;
+            tri.p2.vy += (dest2Y - tri.p2.y) * tri.spring;
+            tri.p2.vx *= tri.friction;
+            tri.p2.vy *= tri.friction;
+            tri.p2.x += tri.p2.vx;
+            tri.p2.y += tri.p2.vy;
+
+            tri.p3.vx += (dest3X - tri.p3.x) * tri.spring;
+            tri.p3.vy += (dest3Y - tri.p3.y) * tri.spring;
+            tri.p3.vx *= tri.friction;
+            tri.p3.vy *= tri.friction;
+            tri.p3.x += tri.p3.vx;
+            tri.p3.y += tri.p3.vy;
+
+            ctx.beginPath();
+            ctx.moveTo(tri.p1.x, tri.p1.y);
+            ctx.lineTo(tri.p2.x, tri.p2.y);
+            ctx.lineTo(tri.p3.x, tri.p3.y);
+            ctx.closePath();
+
+            ctx.fillStyle = tri.color + tri.alpha + ')';
+            ctx.fill();
+
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+        }
+
+        requestAnimationFrame(animateGaplessTriangles);
+    }
+
+    // Initialize animation state
+    checkAnimation();
+});
+</script>
+{% endblock %}

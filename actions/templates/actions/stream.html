@@ -1,0 +1,51 @@
+{% load i18n %}
+{% load tz %}
+
+{# ─── Monochromatic Activity Stream ─── #}
+{% if actions %}
+<div class="bg-black rounded-3xl p-6 sm:p-8">
+    <h2 class="text-white text-lg font-extrabold tracking-widest uppercase mb-8">
+        {% trans "Activity Feed" %}
+    </h2>
+
+    <div class="relative pl-10">
+        {# Vertical timeline line #}
+        <div class="absolute left-[15px] top-0 bottom-0 w-px bg-white/20"></div>
+
+        <div class="space-y-8">
+            {% for action in actions %}
+            <div class="relative">
+                {# Timeline circle marker #}
+                <div class="absolute -left-10 top-0 h-8 w-8 rounded-full border border-white flex items-center justify-center bg-black z-10">
+                    <span class="text-white text-xs font-bold uppercase">
+                        {{ action.user.username|slice:":1" }}
+                    </span>
+                </div>
+
+                {# Action content #}
+                <div class="pl-2">
+                    <p class="text-white text-sm leading-relaxed">
+                        <span class="font-bold">{{ action.user.username }}</span>
+                        <span class="text-white/60 font-medium">{{ action.verb }}</span>
+                        {% if action.target %}
+                            <span class="inline-block rounded-full bg-white text-black px-2.5 py-0.5 text-xs font-bold align-middle mx-0.5">
+                                {{ action.target }}
+                            </span>
+                        {% endif %}
+                    </p>
+                    <p class="text-white/30 text-[11px] font-medium tracking-wider uppercase mt-1.5">
+                        {% blocktrans with time=action.created|timesince %}{{ time }} ago{% endblocktrans %}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="bg-black rounded-3xl p-8 text-center">
+    <p class="text-white/40 text-sm font-medium tracking-widest uppercase">
+        {% trans "No activity yet." %}
+    </p>
+</div>
+{% endif %}

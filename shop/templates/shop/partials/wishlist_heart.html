@@ -1,0 +1,12 @@
+<button hx-post="{% url 'shop:wishlist_toggle' product.id %}"
+        hx-target="#wishlist-heart-{{ product.id }}"
+        hx-swap="outerHTML"
+        id="wishlist-heart-{{ product.id }}"
+        class="group flex items-center justify-center p-3 rounded-xl border {% if in_wishlist %}border-red-500 bg-red-50{% else %}border-gray-200 bg-white hover:border-gray-300{% endif %} transition-all duration-300 shadow-sm hover:shadow-md"
+        title="{% if in_wishlist %}Remove from Wishlist{% else %}Add to Wishlist{% endif %}">
+    <svg class="w-6 h-6 {% if in_wishlist %}text-red-500 fill-current{% else %}text-gray-400 group-hover:text-red-500{% endif %} transition-colors" 
+         {% if not in_wishlist %}fill="none" stroke="currentColor" stroke-width="2"{% else %}viewBox="0 0 24 24"{% endif %}
+         {% if not in_wishlist %}viewBox="0 0 24 24"{% endif %}>
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+    </svg>
+</button>

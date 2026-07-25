@@ -1,0 +1,93 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Track Order" %} #{{ order.id }} | Lap Link{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- Header -->
+    <div class="bg-zinc-950 border border-white/10 rounded-3xl p-8 text-white shadow-2xl mb-8 relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl"></div>
+
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/10 pb-6 mb-6">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-emerald-400">⚡ {% trans "Live Tracking" %}</span>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">{% trans "Order" %} #{{ order.id }}</h1>
+                <p class="text-xs text-gray-400 mt-1">{% trans "Placed on" %} {{ order.created|date:"N j, Y, P" }}</p>
+            </div>
+
+            <span class="px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider border
+                         {% if order.status == 'delivered' %}bg-emerald-500/20 border-emerald-500 text-emerald-400{% elif order.status == 'shipped' %}bg-blue-500/20 border-blue-500 text-blue-400{% else %}bg-amber-500/20 border-amber-500 text-amber-400{% endif %}">
+                {{ order.get_status_display }}
+            </span>
+        </div>
+
+        <!-- 4-Step Interactive Visual Progress Line -->
+        <div class="py-6">
+            <div class="relative flex items-center justify-between">
+                <!-- Connecting Line -->
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-white/10 z-0"></div>
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-emerald-400 transition-all duration-700 z-0"
+                     style="width: {% if step == 1 %}0%{% elif step == 2 %}33%{% elif step == 3 %}66%{% else %}100%{% endif %};"></div>
+
+                <!-- Step 1: Order Placed -->
+                <div class="relative z-10 flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 1 %}bg-emerald-500 border-emerald-400 text-black shadow-[0_0_20px_rgba(16,185,129,0.5)]{% else %}bg-zinc-900 border-white/20 text-gray-500{% endif %}">
+                        ✓
+                    </div>
+                    <span class="text-xs font-bold mt-2 text-white">{% trans "Order Placed" %}</span>
+                </div>
+
+                <!-- Step 2: Quality Inspection -->
+                <div class="relative z-10 flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 2 %}bg-emerald-500 border-emerald-400 text-black shadow-[0_0_20px_rgba(16,185,129,0.5)]{% else %}bg-zinc-900 border-white/20 text-gray-500{% endif %}">
+                        {% if step >= 2 %}✓{% else %}2{% endif %}
+                    </div>
+                    <span class="text-xs font-bold mt-2 {% if step >= 2 %}text-white{% else %}text-gray-500{% endif %}">{% trans "Hardware Inspection" %}</span>
+                </div>
+
+                <!-- Step 3: Out for Delivery -->
+                <div class="relative z-10 flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 3 %}bg-emerald-500 border-emerald-400 text-black shadow-[0_0_20px_rgba(16,185,129,0.5)]{% else %}bg-zinc-900 border-white/20 text-gray-500{% endif %}">
+                        {% if step >= 3 %}✓{% else %}3{% endif %}
+                    </div>
+                    <span class="text-xs font-bold mt-2 {% if step >= 3 %}text-white{% else %}text-gray-500{% endif %}">{% trans "Out for Delivery" %}</span>
+                </div>
+
+                <!-- Step 4: Delivered -->
+                <div class="relative z-10 flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 4 %}bg-emerald-500 border-emerald-400 text-black shadow-[0_0_20px_rgba(16,185,129,0.5)]{% else %}bg-zinc-900 border-white/20 text-gray-500{% endif %}">
+                        {% if step >= 4 %}✓{% else %}4{% endif %}
+                    </div>
+                    <span class="text-xs font-bold mt-2 {% if step >= 4 %}text-white{% else %}text-gray-500{% endif %}">{% trans "Delivered" %}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Items Summary -->
+    <div class="bg-white rounded-3xl border border-gray-200 p-8 shadow-sm">
+        <h3 class="text-lg font-bold text-gray-900 mb-6">{% trans "Package Contents" %}</h3>
+        <div class="divide-y divide-gray-100">
+            {% for item in order.items.all %}
+            <div class="py-4 flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-14 h-14 object-cover rounded-xl border border-gray-200">
+                    {% else %}
+                    <div class="w-14 h-14 rounded-xl bg-gray-100 flex items-center justify-center text-gray-400">⚡</div>
+                    {% endif %}
+                    <div>
+                        <h4 class="font-bold text-sm text-gray-900">{{ item.product.name }}</h4>
+                        <p class="text-xs text-gray-500">{% trans "Qty:" %} {{ item.quantity }} × L.E {{ item.price }}</p>
+                    </div>
+                </div>
+                <span class="font-bold text-sm text-gray-900">L.E {{ item.get_cost }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

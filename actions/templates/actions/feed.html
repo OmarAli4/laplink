@@ -1,0 +1,20 @@
+{% extends "shop/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Live Activity" %} | Lap Link{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="mb-10 text-center">
+        <h1 class="text-4xl font-extrabold text-gray-900 uppercase tracking-tight">
+            {% trans "Live Activity" %}
+        </h1>
+        <p class="mt-3 text-gray-500 font-medium">
+            {% trans "See what's happening on Lap Link right now." %}
+        </p>
+    </div>
+    
+    {# Include the monochromatic stream template we just built #}
+    {% include "actions/stream.html" with actions=actions %}
+</div>
+{% endblock %}

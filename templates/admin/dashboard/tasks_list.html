@@ -1,0 +1,80 @@
+{% load i18n %}
+
+<!-- ==================== CURRENT TASKS (Recent Orders) ==================== -->
+<div class="bg-slate-900/90 rounded-3xl border border-emerald-500/25 p-6 sm:p-8 shadow-xl backdrop-blur-xl hover:border-emerald-500/40 transition-colors">
+    <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-3">
+            <h2 class="text-xl font-extrabold text-white font-display flex items-center gap-2">
+                🛒 {% trans "Live Customer Order Stream" %}
+            </h2>
+            <span class="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-full uppercase tracking-wider">
+                ⚡ {% trans "Fulfillment" %} {{ completion_pct }}%
+            </span>
+        </div>
+        <a href="{% url 'admin:orders_order_changelist' %}" class="text-xs font-mono font-bold text-emerald-400 hover:underline">
+            {% trans "Manage All Orders" %} →
+        </a>
+    </div>
+
+    {% if recent_orders %}
+    <div class="divide-y divide-slate-800/80">
+        {% for order in recent_orders %}
+        <div class="flex items-center gap-4 py-3.5 px-3 -mx-3 rounded-2xl hover:bg-slate-800/50 transition-all duration-200 group">
+            <!-- Customer Avatar -->
+            <div class="flex-shrink-0 w-10 h-10 rounded-2xl font-bold text-xs flex items-center justify-center border shadow-sm group-hover:scale-105 transition-transform
+                        {% if order.paid %}bg-emerald-500/15 text-emerald-400 border-emerald-500/40 shadow-emerald-500/10{% else %}bg-amber-500/15 text-amber-400 border-amber-500/40 shadow-amber-500/10{% endif %}">
+                {{ order.first_name|first|upper }}{{ order.last_name|first|upper }}
+            </div>
+
+            <!-- Order Info -->
+            <div class="flex-1 min-w-0">
+                <p class="text-sm font-bold text-white truncate flex items-center gap-2">
+                    {{ order.first_name }} {{ order.last_name }}
+                    <span class="text-xs font-mono font-semibold text-emerald-400">#{{ order.id }}</span>
+                </p>
+                <p class="text-xs text-slate-400 truncate font-mono">{{ order.email }}</p>
+            </div>
+
+            <!-- Status Badge (Pill) -->
+            <div class="hidden sm:flex items-center gap-2 flex-shrink-0">
+                {% if order.paid %}
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    {% trans "Paid" %}
+                </span>
+                {% else %}
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                    {% trans "Unpaid" %}
+                </span>
+                {% endif %}
+            </div>
+
+            <!-- Time -->
+            <div class="flex items-center gap-1.5 flex-shrink-0 text-xs font-mono font-medium text-slate-400 tabular-nums">
+                <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                {{ order.created|timesince }}
+            </div>
+
+            <!-- Action Link -->
+            <a href="{% url 'admin:orders_order_change' order.id %}" class="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity p-2 text-slate-400 hover:text-emerald-400 hover:bg-slate-800 rounded-xl" title="Manage Order">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="flex flex-col items-center justify-center py-12 text-center">
+        <div class="w-14 h-14 rounded-2xl bg-slate-800 flex items-center justify-center text-slate-400 mb-3">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+            </svg>
+        </div>
+        <p class="text-sm text-slate-400 font-medium">{% trans "No recent orders. New customer purchases will appear here." %}</p>
+    </div>
+    {% endif %}
+</div>

@@ -1,0 +1,43 @@
+{% load i18n %}
+
+{% if low_stock_products %}
+<div class="bg-rose-950/40 border border-rose-500/40 rounded-3xl p-6 mb-8 backdrop-blur-xl shadow-2xl animate-pulse">
+    <div class="flex items-center justify-between gap-4 mb-4">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center border border-rose-500/40 shadow-inner">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+            </div>
+            <div>
+                <h2 class="text-lg font-extrabold text-rose-400 font-display flex items-center gap-2">
+                    ⚠️ {% trans "Critical Low Inventory Alert" %}
+                </h2>
+                <p class="text-xs text-rose-300/80 font-medium">{% trans "Products requiring immediate stock replenishment" %}</p>
+            </div>
+        </div>
+        <span class="px-3 py-1 bg-rose-500/25 text-rose-300 text-xs font-mono font-bold rounded-full border border-rose-500/40 uppercase tracking-widest">
+            {{ low_stock_products|length }} {% trans "Items Low" %}
+        </span>
+    </div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {% for product in low_stock_products %}
+        <div class="flex items-center justify-between bg-slate-900/90 p-3.5 rounded-2xl border border-rose-500/30 shadow-lg hover:border-rose-500/60 transition-colors">
+            <div class="flex items-center gap-3 min-w-0">
+                <div class="flex-shrink-0 w-9 h-9 rounded-xl bg-rose-500/20 text-rose-400 font-mono font-black text-xs flex items-center justify-center border border-rose-500/30">
+                    {{ product.stock_quantity }}
+                </div>
+                <div class="min-w-0">
+                    <h3 class="font-bold text-xs text-white truncate">{{ product.name }}</h3>
+                    <p class="text-[11px] text-rose-400 font-mono font-semibold">{% trans "Units Remaining" %}</p>
+                </div>
+            </div>
+            <a href="{% url 'admin:shop_product_change' product.id %}" class="shrink-0 px-3 py-1.5 bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 text-white text-xs font-mono font-bold uppercase tracking-wider rounded-xl transition-transform hover:scale-105 active:scale-95 shadow-md">
+                {% trans "Restock" %}
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

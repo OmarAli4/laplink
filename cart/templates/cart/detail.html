@@ -1,0 +1,25 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Shopping Cart" %} | Lap Link{% endblock %}
+{% block meta_description %}Review your shopping cart and proceed to checkout.{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+    <div class="mb-10">
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">
+            {% trans "Shopping Cart" %}
+        </h1>
+        <p class="mt-2 text-gray-500 text-lg">
+            {% trans "Review your items and proceed to checkout" %}
+        </p>
+    </div>
+
+    <div id="cart-content">
+        {% include "cart/partials/cart_content.html" %}
+    </div>
+
+</div>
+{% endblock %}

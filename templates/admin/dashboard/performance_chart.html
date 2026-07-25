@@ -1,0 +1,120 @@
+{% load i18n %}
+
+<!-- ==================== PERFORMANCE LINE CHART ==================== -->
+<div class="bg-slate-900/90 rounded-3xl border border-emerald-500/25 p-6 sm:p-8 mb-8 shadow-xl backdrop-blur-xl hover:border-emerald-500/40 transition-colors">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h2 class="text-xl font-extrabold text-white font-display flex items-center gap-2">
+                📈 {% trans "Sales & Revenue Performance Matrix" %}
+            </h2>
+            <p class="text-xs text-slate-400 font-medium">{% trans "Real-time comparative performance tracking over time" %}</p>
+        </div>
+        <span class="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-4 py-1.5 rounded-full uppercase tracking-widest">
+            ⚡ {% trans "Window" %}: {{ days }} {% trans "Days" %}
+        </span>
+    </div>
+    <div class="relative h-80 w-full">
+        <canvas id="performanceChart"></canvas>
+    </div>
+</div>
+
+<script>
+(function() {
+    const fontFamily = "'JetBrains Mono', 'Outfit', sans-serif";
+    const textColor = '#9ca3af';
+
+    const perfCanvas = document.getElementById('performanceChart');
+    if (!perfCanvas) return;
+    const ctx = perfCanvas.getContext('2d');
+
+    const gradientCurrent = ctx.createLinearGradient(0, 0, 0, 300);
+    gradientCurrent.addColorStop(0, 'rgba(16, 185, 129, 0.4)');
+    gradientCurrent.addColorStop(1, 'rgba(16, 185, 129, 0.0)');
+
+    const gradientPrev = ctx.createLinearGradient(0, 0, 0, 300);
+    gradientPrev.addColorStop(0, 'rgba(6, 182, 212, 0.2)');
+    gradientPrev.addColorStop(1, 'rgba(6, 182, 212, 0.0)');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{ chart_labels|safe|default:"[]" }},
+            datasets: [
+                {
+                    label: '{% trans "Current Period" %}',
+                    data: {{ chart_data_current|safe|default:"[]" }},
+                    borderColor: '#10b981',
+                    backgroundColor: gradientCurrent,
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 4,
+                    pointHoverRadius: 7,
+                    pointBackgroundColor: '#10b981',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                },
+                {
+                    label: '{% trans "Previous Period" %}',
+                    data: {{ chart_data_previous|safe|default:"[]" }},
+                    borderColor: '#06b6d4',
+                    backgroundColor: gradientPrev,
+                    borderWidth: 2,
+                    borderDash: [6, 4],
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 3,
+                    pointHoverRadius: 6,
+                    pointBackgroundColor: '#06b6d4',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { intersect: false, mode: 'index' },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        color: textColor,
+                        font: { family: fontFamily, size: 11, weight: '600' },
+                        usePointStyle: true
+                    }
+                },
+                tooltip: {
+                    backgroundColor: '#0f172a',
+                    titleColor: '#10b981',
+                    bodyColor: '#f1f5f9',
+                    borderColor: 'rgba(16, 185, 129, 0.4)',
+                    borderWidth: 1,
+                    cornerRadius: 12,
+                    padding: { top: 12, bottom: 12, left: 16, right: 16 },
+                    titleFont: { family: fontFamily, weight: '700', size: 11 },
+                    bodyFont: { family: fontFamily, weight: '600', size: 13 },
+                    displayColors: true,
+                    usePointStyle: true,
+                    callbacks: {
+                        label: function(item) {
+                            return '  ' + item.dataset.label + ': L.E ' + item.formattedValue;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { color: 'rgba(255,255,255,0.05)' },
+                    ticks: { color: textColor, font: { family: fontFamily, size: 11 } }
+                },
+                y: {
+                    grid: { color: 'rgba(255,255,255,0.05)' },
+                    ticks: { color: textColor, font: { family: fontFamily, size: 11 } }
+                }
+            }
+        }
+    });
+})();
+</script>

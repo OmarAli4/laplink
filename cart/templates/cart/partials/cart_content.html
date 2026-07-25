@@ -1,0 +1,203 @@
+{% load i18n %}
+
+<!-- Out of Band Swap for the Navigation Cart Icon Counter -->
+<span id="cart-counter" hx-swap-oob="true" class="absolute -top-0.5 -right-0.5 min-w-[20px] h-5 flex items-center justify-center px-1 text-xs font-bold rounded-full bg-black text-white shadow-md shadow-gray-400/30 {% if not cart|length %}hidden{% endif %}" style="animation: badgePop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);">{{ cart|length }}</span>
+
+{% if cart|length > 0 %}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-10 fade-me-in">
+
+    <div class="lg:col-span-2">
+        <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-gray-200">
+                            <th class="px-6 py-4 text-left text-xs font-semibold uppercase
+                                       tracking-wider text-gray-400">
+                                {% trans "Product" %}
+                            </th>
+                            <th class="px-6 py-4 text-center text-xs font-semibold uppercase
+                                       tracking-wider text-gray-400">
+                                {% trans "Quantity" %}
+                            </th>
+                            <th class="px-6 py-4 text-right text-xs font-semibold uppercase
+                                       tracking-wider text-gray-400">
+                                {% trans "Price" %}
+                            </th>
+                            <th class="px-6 py-4 text-right text-xs font-semibold uppercase
+                                       tracking-wider text-gray-400">
+                                {% trans "Total" %}
+                            </th>
+                            <th class="px-6 py-4"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        {% for item in cart %}
+                        <tr class="group hover:bg-gray-50 transition-colors duration-200">
+                            <td class="px-6 py-5">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-16 h-16 rounded-xl bg-gray-100 overflow-hidden shrink-0">
+                                        {% if item.product.image %}
+                                        <img src="{{ item.product.image.url }}"
+                                             alt="{{ item.product.name }}"
+                                             class="w-full h-full object-cover">
+                                        {% else %}
+                                        <div class="w-full h-full flex items-center justify-center">
+                                            <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                                            </svg>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <a href="{% url 'shop:product_detail' item.product.id item.product.slug %}"
+                                           class="font-medium text-gray-900 hover:text-black
+                                                  transition-colors duration-200">
+                                            {{ item.product.name }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="px-6 py-5 text-center">
+                                <form hx-post="{% url 'cart:cart_update' item.product.id %}"
+                                      hx-target="#cart-content"
+                                      hx-swap="innerHTML">
+                                    <select name="quantity"
+                                            onchange="this.form.requestSubmit()"
+                                            class="appearance-none bg-white border border-gray-300
+                                                   text-gray-900 text-sm rounded-lg px-3 py-2
+                                                   cursor-pointer hover:border-gray-900/50
+                                                   focus:border-gray-900 focus:ring-2 focus:ring-gray-900/10
+                                                   focus:outline-none transition-all duration-200">
+                                        {% for i in "0123456789012345678901" %}
+                                            {% with forloop.counter as qty %}
+                                                {% if qty <= 20 %}
+                                                <option value="{{ qty }}"
+                                                        {% if item.quantity == qty %}selected{% endif %}>
+                                                    {{ qty }}
+                                                </option>
+                                                {% endif %}
+                                            {% endwith %}
+                                        {% endfor %}
+                                    </select>
+                                    <input type="hidden" name="override" value="True">
+                                </form>
+                            </td>
+
+                            <td class="px-6 py-5 text-right text-sm text-gray-500">
+                                L.E {{ item.price }}
+                            </td>
+
+                            <td class="px-6 py-5 text-right">
+                                <span class="font-semibold text-gray-900">L.E {{ item.total_price }}</span>
+                            </td>
+
+                            <td class="px-6 py-5 text-right">
+                                <form hx-post="{% url 'cart:cart_remove' item.product.id %}"
+                                      hx-target="#cart-content"
+                                      hx-swap="innerHTML">
+                                    <button type="submit"
+                                            class="p-2 rounded-lg text-gray-400
+                                                   hover:text-red-500 hover:bg-red-50
+                                                   transition-all duration-200"
+                                            title="{% trans 'Remove' %}">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                  d="M19 7l-.867 12.142A2 2 0 0116.138
+                                                     21H7.862a2 2 0 01-1.995-1.858L5 7m5
+                                                     4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1
+                                                     1 0 00-1 1v3M4 7h16"/>
+                                        </svg>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <a href="{% url 'shop:product_list' %}"
+           class="inline-flex items-center gap-2 mt-6 text-sm text-gray-400
+                  hover:text-black transition-colors duration-200">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+            {% trans "Continue Shopping" %}
+        </a>
+    </div>
+
+    <div class="lg:col-span-1 space-y-6">
+
+        <div class="bg-white rounded-2xl border border-gray-200 p-6" x-data="{ couponCode: '' }">
+            <h3 class="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">
+                {% trans "Coupon Code" %}
+            </h3>
+            <form hx-post="{% url 'coupons:apply' %}"
+                  hx-target="#cart-summary"
+                  hx-swap="outerHTML"
+                  class="flex gap-2">
+                {% csrf_token %}
+                <input type="text" name="code" x-model="couponCode"
+                       placeholder="{% trans 'Enter code' %}"
+                       class="flex-1 px-4 py-2.5 rounded-xl bg-white border border-gray-300
+                              text-gray-900 text-sm placeholder-gray-400
+                              focus:border-gray-900 focus:ring-2 focus:ring-gray-900/10
+                              focus:outline-none transition-all duration-200">
+                <button type="submit"
+                        class="px-5 py-2.5 rounded-xl text-sm font-semibold text-white
+                               bg-black hover:bg-gray-800
+                               shadow-md shadow-gray-300/40
+                               transition-all duration-300">
+                    {% trans "Apply" %}
+                </button>
+            </form>
+
+            <!-- 1-Click Active Coupons Wallet -->
+            <div class="mt-4 pt-4 border-t border-gray-100">
+                <div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">{% trans "Available Offers:" %}</div>
+                <div class="flex flex-wrap gap-2">
+                    <button type="button" @click="couponCode = 'LAPLINK10'" class="px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold flex items-center gap-1.5 hover:bg-amber-100 transition-colors">
+                        <span>🏷️ LAPLINK10</span>
+                        <span class="text-[10px] text-amber-600 uppercase font-extrabold">(10% OFF)</span>
+                    </button>
+                    <button type="button" @click="couponCode = 'WELCOME5'" class="px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center gap-1.5 hover:bg-emerald-100 transition-colors">
+                        <span>🎁 WELCOME5</span>
+                        <span class="text-[10px] text-emerald-600 uppercase font-extrabold">(5% OFF)</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        {% include "cart/partials/cart_summary.html" %}
+    </div>
+</div>
+
+{% else %}
+
+<div class="text-center py-20 fade-me-in">
+    <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center">
+        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7
+                     13l-2.293 2.293c-.63.63-.184 1.707.707
+                     1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8
+                     2a2 2 0 100 4 2 2 0 000-4z"/>
+        </svg>
+    </div>
+    <h2 class="text-xl font-semibold text-gray-700 mb-2">{% trans "Your cart is empty" %}</h2>
+    <p class="text-gray-400 mb-8">{% trans "Looks like you haven't added any items yet." %}</p>
+    <a href="{% url 'shop:product_list' %}"
+       class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white
+              bg-black hover:bg-gray-800
+              shadow-lg shadow-gray-300/50 transition-all duration-300">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        {% trans "Start Shopping" %}
+    </a>
+</div>
+{% endif %}

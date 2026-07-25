@@ -1,0 +1,1880 @@
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lap Link — Premium electronics at unbeatable prices">
+    <title>Product Battle Arena | Lap Link</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/static/shop/img/favicon.png">
+
+    <!-- Tailwind CSS (Play CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'Inter', '"Readex Pro"', 'sans-serif'],
+                        display: ['Outfit', '"Plus Jakarta Sans"', 'sans-serif'],
+                        arabic: ['"Readex Pro"', 'Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts — Plus Jakarta Sans, Outfit & Readex Pro (Arabic) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js" as="script">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- HTMX 2.x -->
+    <script src="https://unpkg.com/htmx.org@2.0.4" defer></script>
+
+    <!-- Alpine.js 3.x -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+
+        .htmx-indicator { opacity: 0; transition: opacity 300ms ease-in; }
+        .htmx-request .htmx-indicator, .htmx-request.htmx-indicator { opacity: 1; }
+
+        .fade-me-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .toast-enter { animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .toast-leave { animation: slideOutRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to   { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to   { transform: translateX(100%); opacity: 0; }
+        }
+
+        /* Logo Animations */
+        @keyframes floatAnim {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        .animate-float {
+            animation: floatAnim 3.5s ease-in-out infinite;
+        }
+
+        @keyframes drawLogo {
+            0% { stroke-dashoffset: 300; }
+            50% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: 300; }
+        }
+        .animate-draw-logo {
+            stroke-dasharray: 300;
+            stroke-dashoffset: 300;
+            animation: drawLogo 4s ease-in-out infinite;
+        }
+
+        /* 🌟 Global Entrance & Micro-Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes scaleUp {
+            from { opacity: 0; transform: scale(0.92); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+        .animate-scale-up {
+            animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        .animate-pulse-glow {
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmerSweep {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
+        }
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+            transform: translateX(-100%);
+            transition: none;
+        }
+        .btn-shine:hover::after {
+            animation: shimmerSweep 1s ease-in-out;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient-text {
+            background-size: 200% auto;
+            animation: gradientMove 4s ease infinite;
+        }
+    </style>
+
+    
+</head>
+
+<body class="bg-white text-gray-900 font-sans antialiased min-h-screen flex flex-col"
+      hx-headers='{"X-CSRFToken": "tKueOAdtM8KJduIUx9HZBkSGZgqt9c3JwJ53fVmBTQNZQHqz3aj9eBxL4778bBgi"}'>
+
+    
+<!-- 🚀 CYBER SYSTEM BOOT LOADING SCREEN (Shows once per session) -->
+<div x-data="{
+        showLoader: false,
+        progress: 0,
+        currentStepText: '',
+        steps: [
+            'Initializing Lap Link Core...',
+            'Loading Product Database...',
+            'Calibrating Robot Guardian...',
+            'System Ready. Welcome.'
+        ],
+        init() {
+            // Check if loading screen has already played in this session
+            if (sessionStorage.getItem('laplink_booted')) {
+                return;
+            }
+
+            this.showLoader = true;
+            this.currentStepText = this.steps[0];
+            
+            // Progress counter simulation
+            const interval = setInterval(() => {
+                this.progress += 2;
+                
+                if (this.progress === 25) this.currentStepText = this.steps[1];
+                if (this.progress === 60) this.currentStepText = this.steps[2];
+                if (this.progress === 90) this.currentStepText = this.steps[3];
+
+                if (this.progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        this.showLoader = false;
+                        sessionStorage.setItem('laplink_booted', 'true');
+                        if (window.TechSound) window.TechSound.playSuccess();
+                    }, 400);
+                }
+            }, 25);
+        }
+     }"
+     x-show="showLoader"
+     x-cloak
+     x-transition:leave="transition ease-in duration-500"
+     x-transition:leave-start="opacity-100 scale-100"
+     x-transition:leave-end="opacity-0 scale-105"
+     class="fixed inset-0 z-[9999] bg-zinc-950 text-white flex flex-col items-center justify-center font-sans p-4 select-none">
+
+    <!-- Glowing Background Orbs (Optimized with radial gradients) -->
+    <div class="absolute top-1/3 left-1/4 w-96 h-96 rounded-full pointer-events-none transform-gpu" style="background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, rgba(0,0,0,0) 70%);"></div>
+    <div class="absolute bottom-1/3 right-1/4 w-96 h-96 rounded-full pointer-events-none transform-gpu" style="background: radial-gradient(circle, rgba(6,182,212,0.15) 0%, rgba(0,0,0,0) 70%);"></div>
+
+    <div class="max-w-md w-full text-center space-y-6 relative z-10">
+
+        <!-- Robot Powering-On Avatar -->
+        <div class="w-28 h-28 mx-auto rounded-full bg-zinc-900 border border-emerald-500/50 flex items-center justify-center shadow-[0_0_50px_rgba(16,185,129,0.3)] relative">
+            <div class="absolute inset-0 border-2 border-dashed border-emerald-500/40 rounded-full animate-spin duration-[10s]"></div>
+            
+            <svg class="w-14 h-14 text-emerald-400" viewBox="0 0 100 100" fill="none">
+                <line x1="50" y1="15" x2="50" y2="25" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                <circle cx="50" cy="12" r="5" fill="#10b981" class="animate-ping"/>
+                <rect x="26" y="24" width="48" height="34" rx="10" fill="#18181b" stroke="#10b981" stroke-width="3"/>
+                <circle cx="40" cy="38" r="5" fill="#10b981" class="animate-pulse"/>
+                <circle cx="60" cy="38" r="5" fill="#10b981" class="animate-pulse"/>
+                <path d="M 38 48 Q 50 56 62 48" stroke="#10b981" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <rect x="30" y="62" width="40" height="30" rx="8" fill="#27272a" stroke="#10b981" stroke-width="3"/>
+            </svg>
+        </div>
+
+        <!-- Title -->
+        <div class="space-y-1">
+            <div class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest animate-pulse">
+                ⚡ SYSTEM BOOT SEQUENCE v4.2
+            </div>
+            <h2 class="text-2xl font-extrabold tracking-wider text-white font-display uppercase">
+                LAP LINK CYBERNETICS
+            </h2>
+        </div>
+
+        <!-- Terminal Output Box -->
+        <div class="bg-zinc-900/90 border border-emerald-500/30 rounded-xl p-3.5 font-mono text-xs text-left space-y-2 shadow-xl">
+            <div class="flex items-center justify-between text-gray-400 border-b border-white/10 pb-1.5 text-[10px]">
+                <span>[BOOT LOG]</span>
+                <span x-text="progress + '%'"></span>
+            </div>
+            <div class="text-emerald-400 font-semibold truncate flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping shrink-0"></span>
+                <span x-text="currentStepText"></span>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full bg-zinc-900 border border-white/10 rounded-full h-2 overflow-hidden relative">
+            <div class="bg-gradient-to-r from-emerald-500 via-cyan-400 to-emerald-300 h-full transition-all duration-75 rounded-full shadow-[0_0_12px_rgba(16,185,129,0.8)]"
+                 :style="'width: ' + progress + '%'"></div>
+        </div>
+
+    </div>
+</div>
+
+    
+
+<div x-data="{ 
+        show: true,
+        activeSlide: 0,
+        slides: [
+            '⚡ FREE Express Shipping on all orders over L.E 100!',
+            '🛡️ 2-Year Official Warranty & 30-Day Money-Back Guarantee',
+            '🏷️ Special Deal: Use code LAPLINK10 for 10% off your order!'
+        ],
+        timer: null
+     }" 
+     x-init="timer = setInterval(() => { activeSlide = (activeSlide + 1) % slides.length }, 4500)"
+     x-show="show"
+     x-transition:leave="transition ease-in duration-300"
+     x-transition:leave-start="opacity-100 max-h-12"
+     x-transition:leave-end="opacity-0 max-h-0 py-0"
+     class="relative w-full z-50 bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 border-b border-white/10 text-white text-xs font-semibold py-2.5 px-4 overflow-hidden font-sans">
+    
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <!-- Left spacer for desktop symmetry -->
+        <div class="hidden md:flex items-center gap-3 text-gray-400 text-[11px] font-medium tracking-wider uppercase">
+            <span class="flex items-center gap-1.5 text-emerald-400 font-bold">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Live Store
+            </span>
+            <span class="text-zinc-700">•</span>
+            <span class="text-gray-300">24/7 Tech Support</span>
+        </div>
+
+        <!-- Center Auto-rotating Ticker -->
+        <div class="flex-1 flex justify-center items-center text-center overflow-hidden min-h-[20px]">
+            <template x-for="(slide, index) in slides" :key="index">
+                <div x-show="activeSlide === index"
+                     x-transition:enter="transition ease-out duration-500"
+                     x-transition:enter-start="opacity-0 translate-y-2 scale-95"
+                     x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                     x-transition:leave="transition ease-in duration-300 absolute"
+                     x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                     x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
+                     class="tracking-wide font-medium text-gray-200">
+                    <span x-text="slide"></span>
+                </div>
+            </template>
+        </div>
+
+        <!-- Right Quick Promo / Close Button -->
+        <div class="flex items-center gap-3">
+            <a href="/en/catalog/" class="hidden sm:inline-flex items-center gap-1 text-[11px] font-bold text-white bg-white/10 hover:bg-white/20 border border-white/10 px-3 py-1 rounded-full uppercase tracking-wider transition-colors transition-transform hover:scale-105">
+                <span>Shop Deals</span>
+                <span>&rarr;</span>
+            </a>
+            <button @click="show = false; clearInterval(timer)" class="text-gray-400 hover:text-white p-1 rounded-full hover:bg-white/10 transition-colors focus:outline-none" title="Dismiss">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+    
+
+<nav class="sticky top-0 w-full z-50 bg-zinc-950 sm:bg-zinc-950/80  border-b border-white/10 shadow-lg shadow-black/40 transition-colors transition-transform duration-300 font-sans" 
+     x-data="{ isMenuOpen: false, isBrandMenuOpen: false, isMobileMenuOpen: false, menuTimeout: null, brandTimeout: null }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+            
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <a href="/en/" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center border border-white/10 group-hover:bg-white/20 group-hover:scale-105 group-hover:border-white/20 transition-colors transition-transform duration-300 shadow-inner">
+                        <svg class="w-5 h-5 text-white animate-draw-logo" viewBox="14 14 112 82" fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="miter" stroke-linecap="butt">
+                            <path d="M 50 50 L 20 50 L 20 90 L 80 90 L 80 50 L 70 50" />
+                            <path d="M 70 60 L 60 60 L 60 20 L 120 20 L 120 60 L 90 60" />
+                        </svg>
+                    </div>
+                    <span class="font-display text-white text-xl sm:text-2xl font-extrabold tracking-tight uppercase group-hover:opacity-90 transition-opacity">
+                        Lap Link
+                    </span>
+                </a>
+            </div>
+
+            <!-- Main Navigation (Desktop) -->
+            <div class="hidden lg:flex items-center justify-center space-x-1 font-sans">
+                
+                <!-- All Items (Tech Devices Icon) -->
+                <a href="/en/catalog/" 
+                   class="group flex items-center gap-1.5 text-gray-300 hover:text-white hover:bg-white/10 px-3.5 py-2 rounded-full text-xs sm:text-sm font-bold tracking-wide uppercase transition-colors duration-200">
+                    <svg class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <span>All Items</span>
+                </a>
+
+                <!-- Dynamic Categories Dropdown (Microchip/Processor Icon) -->
+                <div class="relative py-2" 
+                     @mouseenter="clearTimeout(menuTimeout); isMenuOpen = true" 
+                     @mouseleave="menuTimeout = setTimeout(() => isMenuOpen = false, 150)">
+                     
+                    <button class="group text-gray-300 hover:text-white hover:bg-white/10 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase transition-colors transition-transform duration-200 flex items-center gap-1.5 focus:outline-none">
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m14-6h2m-2 6h2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                        </svg>
+                        <span>Categories</span>
+                        <svg class="w-3 h-3 text-gray-400 transition-transform duration-200" :class="{'rotate-180 text-white': isMenuOpen}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+
+                    <div x-show="isMenuOpen" x-cloak
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 translate-y-2 scale-95"
+                         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                         x-transition:leave-end="opacity-0 translate-y-1 scale-95"
+                         class="absolute left-1/2 transform -translate-x-1/2 top-full pt-1 w-64">
+                        <div class="bg-zinc-950/95 border border-white/10 shadow-2xl rounded-2xl p-1.5 overflow-hidden">
+                            
+                            <div class="relative group/category" x-data="{ isFlyoutOpen: false, flyoutTimeout: null }"
+                                 @mouseenter="clearTimeout(flyoutTimeout); isFlyoutOpen = true"
+                                 @mouseleave="flyoutTimeout = setTimeout(() => isFlyoutOpen = false, 150)">
+                                 
+                                <a href="/en/catalog/accessories/" class="flex justify-between items-center px-3.5 py-2 text-xs text-gray-300 hover:text-white hover:bg-white/10 rounded-xl font-semibold tracking-wide uppercase transition-colors duration-200">
+                                    <span>Accessories</span>
+                                    <svg class="w-3.5 h-3.5 opacity-40 group-hover/category:opacity-100 group-hover/category:translate-x-0.5 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </a>
+
+                                <!-- Available Brands Flyout -->
+                                <div x-show="isFlyoutOpen" x-cloak
+                                     x-transition:enter="transition ease-out duration-200"
+                                     x-transition:enter-start="opacity-0 translate-x-2 scale-95"
+                                     x-transition:enter-end="opacity-100 translate-x-0 scale-100"
+                                     x-transition:leave="transition ease-in duration-150"
+                                     x-transition:leave-start="opacity-100 translate-x-0 scale-100"
+                                     x-transition:leave-end="opacity-0 translate-x-1 scale-95"
+                                     class="absolute left-full top-0 pl-1 w-72">
+                                     <div class="bg-zinc-950/95 border border-white/10 shadow-2xl rounded-2xl p-1.5 overflow-hidden">
+                                        
+                                        <a href="/en/catalog/accessories/?brand=samsung" class="flex items-center gap-3 px-3 py-2 hover:bg-white/10 rounded-xl transition-colors duration-200">
+                                            
+                                                <img src="/media/brands/2026/06/23/s.webp" class="w-7 h-7 rounded-lg border border-white/10 object-cover shadow-inner" alt="samsung">
+                                            
+                                            <div class="text-xs text-white font-semibold tracking-tight uppercase">samsung</div>
+                                        </a>
+                                        
+                                     </div>
+                                </div>
+                            </div>
+                            
+                            <div class="relative group/category" x-data="{ isFlyoutOpen: false, flyoutTimeout: null }"
+                                 @mouseenter="clearTimeout(flyoutTimeout); isFlyoutOpen = true"
+                                 @mouseleave="flyoutTimeout = setTimeout(() => isFlyoutOpen = false, 150)">
+                                 
+                                <a href="/en/catalog/cameras/" class="flex justify-between items-center px-3.5 py-2 text-xs text-gray-300 hover:text-white hover:bg-white/10 rounded-xl font-semibold tracking-wide uppercase transition-colors duration-200">
+                                    <span>Cameras</span>
+                                    <svg class="w-3.5 h-3.5 opacity-40 group-hover/category:opacity-100 group-hover/category:translate-x-0.5 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </a>
+
+                                <!-- Available Brands Flyout -->
+                                <div x-show="isFlyoutOpen" x-cloak
+                                     x-transition:enter="transition ease-out duration-200"
+                                     x-transition:enter-start="opacity-0 translate-x-2 scale-95"
+                                     x-transition:enter-end="opacity-100 translate-x-0 scale-100"
+                                     x-transition:leave="transition ease-in duration-150"
+                                     x-transition:leave-start="opacity-100 translate-x-0 scale-100"
+                                     x-transition:leave-end="opacity-0 translate-x-1 scale-95"
+                                     class="absolute left-full top-0 pl-1 w-72">
+                                     <div class="bg-zinc-950/95 border border-white/10 shadow-2xl rounded-2xl p-1.5 overflow-hidden">
+                                        
+                                        <a href="/en/catalog/cameras/?brand=apple2" class="flex items-center gap-3 px-3 py-2 hover:bg-white/10 rounded-xl transition-colors duration-200">
+                                            
+                                                <img src="/media/brands/2026/06/23/ddftfdp-651c58d8-7228-44cd-b20e-b70d0dd1a66d.png" class="w-7 h-7 rounded-lg border border-white/10 object-cover shadow-inner" alt="apple">
+                                            
+                                            <div class="text-xs text-white font-semibold tracking-tight uppercase">apple</div>
+                                        </a>
+                                        
+                                        <a href="/en/catalog/cameras/?brand=samsung" class="flex items-center gap-3 px-3 py-2 hover:bg-white/10 rounded-xl transition-colors duration-200">
+                                            
+                                                <img src="/media/brands/2026/06/23/s.webp" class="w-7 h-7 rounded-lg border border-white/10 object-cover shadow-inner" alt="samsung">
+                                            
+                                            <div class="text-xs text-white font-semibold tracking-tight uppercase">samsung</div>
+                                        </a>
+                                        
+                                     </div>
+                                </div>
+                            </div>
+                            
+                            <div class="relative group/category" x-data="{ isFlyoutOpen: false, flyoutTimeout: null }"
+                                 @mouseenter="clearTimeout(flyoutTimeout); isFlyoutOpen = true"
+                                 @mouseleave="flyoutTimeout = setTimeout(() => isFlyoutOpen = false, 150)">
+                                 
+                                <a href="/en/catalog/gaming/" class="flex justify-between items-center px-3.5 py-2 text-xs text-gray-300 hover:text-white hover:bg-white/10 rounded-xl font-semibold tracking-wide uppercase transition-colors duration-200">
+                                    <span>Gaming</span>
+                                    <svg class="w-3.5 h-3.5 opacity-40 group-hover/category:opacity-100 group-hover/category:translate-x-0.5 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </a>
+
+                                <!-- Available Brands Flyout -->
+                                <div x-show="isFlyoutOpen" x-cloak
+                                     x-transition:enter="transition ease-out duration-200"
+                                     x-transition:enter-start="opacity-0 translate-x-2 scale-95"
+                                     x-transition:enter-end="opacity-100 translate-x-0 scale-100"
+                                     x-transition:leave="transition ease-in duration-150"
+                                     x-transition:leave-start="opacity-100 translate-x-0 scale-100"
+                                     x-transition:leave-end="opacity-0 translate-x-1 scale-95"
+                                     class="absolute left-full top-0 pl-1 w-72">
+                                     <div class="bg-zinc-950/95 border border-white/10 shadow-2xl rounded-2xl p-1.5 overflow-hidden">
+                                        
+                                        <div class="px-3 py-2 text-xs text-gray-500 font-medium tracking-wider uppercase">
+                                            No Available Brands
+                                        </div>
+                                        
+                                     </div>
+                                </div>
+                            </div>
+                            
+                            <div class="relative group/category" x-data="{ isFlyoutOpen: false, flyoutTimeout: null }"
+                                 @mouseenter="clearTimeout(flyoutTimeout); isFlyoutOpen = true"
+                                 @mouseleave="flyoutTimeout = setTimeout(() => isFlyoutOpen = false, 150)">
+                                 
+                                <a href="/en/catalog/headphones/" class="flex justify-between items-center px-3.5 py-2 text-xs text-gray-300 hover:text-white hover:bg-white/10 rounded-xl font-semibold tracking-wide uppercase transition-colors duration-200">
+                                    <span>Headphones</span>
+                                    <svg class="w-3.5 h-3.5 opacity-40 group-hover/category:opacity-100 group-hover/category:translate-x-0.5 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </a>
+
+                                <!-- Available Brands Flyout -->
+                                <div x-show="isFlyoutOpen" x-cloak
+                                     x-transition:enter="transition ease-out duration-200"
+                                     x-transition:enter-start="opacity-0 translate-x-2 scale-95"
+                                     x-transition:enter-end="opacity-100 translate-x-0 scale-100"
+                                     x-transition:leave="transition ease-in duration-150"
+                                     x-transition:leave-start="opacity-100 translate-x-0 scale-100"
+                                     x-transition:leave-end="opacity-0 translate-x-1 scale-95"
+                                     class="absolute left-full top-0 pl-1 w-72">
+                                     <div class="bg-zinc-950/95 border border-white/10 shadow-2xl rounded-2xl p-1.5 overflow-hidden">
+                                        
+                                        <div class="px-3 py-2 text-xs text-gray-500 font-medium tracking-wider uppercase">
+                                            No Available Brands
+                                        </div>
+                                        
+                                     </div>
+                                </div>
+                            </div>
+                            
+                            <div class="relative group/category" x-data="{ isFlyoutOpen: false, flyoutTimeout: null }"
+                                 @mouseenter="clearTimeout(flyoutTimeout); isFlyoutOpen = true"
+                                 @mouseleave="flyoutTimeout = setTimeout(() => isFlyoutOpen = false, 150)">
+                                 
+                                <a href="/en/catalog/laptops/" class="flex justify-between items-center px-3.5 py-2 text-xs text-gray-300 hover:text-white hover:bg-white/10 rounded-xl font-semibold tracking-wide uppercase transition-colors duration-200">
+                                    <span>Laptops</span>
+                                    <svg class="w-3.5 h-3.5 opacity-40 group-hover/category:opacity-100 group-hover/category:translate-x-0.5 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </a>
+
+                                <!-- Available Brands Flyout -->
+                                <div x-show="isFlyoutOpen" x-cloak
+                                     x-transition:enter="transition ease-out duration-200"
+                                     x-transition:enter-start="opacity-0 translate-x-2 scale-95"
+                                     x-transition:enter-end="opacity-100 translate-x-0 scale-100"
+                                     x-transition:leave="transition ease-in duration-150"
+                                     x-transition:leave-start="opacity-100 translate-x-0 scale-100"
+                                     x-transition:leave-end="opacity-0 translate-x-1 scale-95"
+                                     class="absolute left-full top-0 pl-1 w-72">
+                                     <div class="bg-zinc-950/95 border border-white/10 shadow-2xl rounded-2xl p-1.5 overflow-hidden">
+                                        
+                                        <div class="px-3 py-2 text-xs text-gray-500 font-medium tracking-wider uppercase">
+                                            No Available Brands
+                                        </div>
+                                        
+                                     </div>
+                                </div>
+                            </div>
+                            
+                            <div class="relative group/category" x-data="{ isFlyoutOpen: false, flyoutTimeout: null }"
+                                 @mouseenter="clearTimeout(flyoutTimeout); isFlyoutOpen = true"
+                                 @mouseleave="flyoutTimeout = setTimeout(() => isFlyoutOpen = false, 150)">
+                                 
+                                <a href="/en/catalog/smartphones/" class="flex justify-between items-center px-3.5 py-2 text-xs text-gray-300 hover:text-white hover:bg-white/10 rounded-xl font-semibold tracking-wide uppercase transition-colors duration-200">
+                                    <span>Smartphones</span>
+                                    <svg class="w-3.5 h-3.5 opacity-40 group-hover/category:opacity-100 group-hover/category:translate-x-0.5 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </a>
+
+                                <!-- Available Brands Flyout -->
+                                <div x-show="isFlyoutOpen" x-cloak
+                                     x-transition:enter="transition ease-out duration-200"
+                                     x-transition:enter-start="opacity-0 translate-x-2 scale-95"
+                                     x-transition:enter-end="opacity-100 translate-x-0 scale-100"
+                                     x-transition:leave="transition ease-in duration-150"
+                                     x-transition:leave-start="opacity-100 translate-x-0 scale-100"
+                                     x-transition:leave-end="opacity-0 translate-x-1 scale-95"
+                                     class="absolute left-full top-0 pl-1 w-72">
+                                     <div class="bg-zinc-950/95 border border-white/10 shadow-2xl rounded-2xl p-1.5 overflow-hidden">
+                                        
+                                        <div class="px-3 py-2 text-xs text-gray-500 font-medium tracking-wider uppercase">
+                                            No Available Brands
+                                        </div>
+                                        
+                                     </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Brands Dropdown (Verified Tech Seal Icon) -->
+                <div class="relative py-2" 
+                     @mouseenter="clearTimeout(brandTimeout); isBrandMenuOpen = true" 
+                     @mouseleave="brandTimeout = setTimeout(() => isBrandMenuOpen = false, 150)">
+                     
+                    <button class="group text-gray-300 hover:text-white hover:bg-white/10 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase transition-colors transition-transform duration-200 flex items-center gap-1.5 focus:outline-none">
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                        </svg>
+                        <span>Brands</span>
+                        <svg class="w-3 h-3 text-gray-400 transition-transform duration-200" :class="{'rotate-180 text-white': isBrandMenuOpen}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+
+                    <div x-show="isBrandMenuOpen" x-cloak
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 translate-y-2 scale-95"
+                         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                         x-transition:leave-end="opacity-0 translate-y-1 scale-95"
+                         class="absolute left-1/2 transform -translate-x-1/2 top-full pt-1 w-72">
+                        <div class="bg-zinc-950/95 border border-white/10 shadow-2xl rounded-2xl p-1.5 overflow-hidden">
+                            
+                            <a href="/en/catalog/?brand=apple2" class="flex items-center gap-3 px-3 py-2 hover:bg-white/10 rounded-xl transition-colors duration-200">
+                                
+                                    <img src="/media/brands/2026/06/23/ddftfdp-651c58d8-7228-44cd-b20e-b70d0dd1a66d.png" class="w-7 h-7 rounded-lg border border-white/10 object-cover shadow-inner" alt="apple">
+                                
+                                <div class="text-xs text-white font-semibold tracking-tight uppercase">apple</div>
+                            </a>
+                            
+                            <a href="/en/catalog/?brand=samsung" class="flex items-center gap-3 px-3 py-2 hover:bg-white/10 rounded-xl transition-colors duration-200">
+                                
+                                    <img src="/media/brands/2026/06/23/s.webp" class="w-7 h-7 rounded-lg border border-white/10 object-cover shadow-inner" alt="samsung">
+                                
+                                <div class="text-xs text-white font-semibold tracking-tight uppercase">samsung</div>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions (Cart, Wishlist, Tech Finder, Sound, Language, Auth) -->
+            <div class="flex items-center gap-1.5 sm:gap-2">
+                
+                <!-- Tech Finder AI Trigger Button -->
+                <button @click="$dispatch('open-tech-finder')" 
+                        class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider transition-colors" 
+                        title="Find My Ideal Device">
+                    <span>🤖</span>
+                    <span>Tech Finder</span>
+                </button>
+
+                <!-- ⚔️ Product Battle Arena Trigger Button -->
+                <a href="/en/battle/" 
+                   class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider transition-colors" 
+                   title="Compare Product Specs Head-to-Head">
+                    <span>⚔️</span>
+                    <span>Battle</span>
+                </a>
+
+                <!-- Audio Feedback Sound Toggle -->
+                <button x-data="{ soundOn: localStorage.getItem('laplink_sound_enabled') !== 'false' }"
+                        @click="soundOn = window.TechSound.toggle()"
+                        class="p-1.5 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors text-xs"
+                        :title="soundOn ? 'Sound Feedback Enabled' : 'Sound Feedback Disabled'">
+                    <span x-text="soundOn ? '🔊' : '🔇'"></span>
+                </button>
+                
+                
+
+                <!-- Cart (E-Commerce Shopping Trolley Cart Icon) -->
+                <a href="/en/cart/" 
+                   class="relative group flex items-center gap-1.5 bg-white/5 hover:bg-white/15 border border-white/10 hover:border-white/20 px-3 py-1.5 rounded-full transition-colors shadow-sm">
+                    <svg class="w-4.5 h-4.5 text-gray-300 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z" />
+                    </svg>
+                    <span class="text-gray-200 group-hover:text-white text-xs font-bold tracking-wide uppercase transition-colors">
+                        Cart
+                    </span>
+                    <span id="cart-counter"
+                          class="px-1.5 py-0.5 min-w-[18px] text-center text-[10px] font-bold rounded-full bg-white text-black transition-colors shadow-sm hidden">
+                        0
+                    </span>
+                </a>
+
+                <!-- Auth Links (Desktop Only) -->
+                <div class="hidden lg:flex items-center gap-2 border-l border-white/10 pl-3 ml-0.5">
+                    
+                    <!-- Language Switcher -->
+                    <form action="/i18n/setlang/" method="post" class="flex items-center">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="tKueOAdtM8KJduIUx9HZBkSGZgqt9c3JwJ53fVmBTQNZQHqz3aj9eBxL4778bBgi">
+                        <input name="next" type="hidden" value="/en/battle/">
+                        <button type="submit" class="group flex items-center gap-1 px-2.5 py-1.5 rounded-full hover:bg-white/10 text-xs font-bold text-gray-300 hover:text-white uppercase tracking-wider transition-colors">
+                            <svg class="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                            </svg>
+                            
+                                <input name="language" type="hidden" value="ar">
+                                <span>العربية</span>
+                            
+                        </button>
+                    </form>
+
+                    <span class="text-gray-700">|</span>
+
+                    
+                        <a href="/en/login/" class="text-xs sm:text-sm font-bold text-gray-300 hover:text-white uppercase tracking-widest transition-colors transition-transform duration-200 hover:scale-105">
+                            Sign In
+                        </a>
+                        <a href="/en/register/" class="text-xs sm:text-sm font-bold bg-white text-black px-4 py-2 rounded-xl hover:bg-gray-200 transition-colors transition-transform duration-300 uppercase tracking-widest shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] hover:scale-105">
+                            Register
+                        </a>
+                    
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button @click="isMobileMenuOpen = !isMobileMenuOpen" type="button" class="md:hidden text-gray-300 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors transition-transform duration-300 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path x-show="!isMobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        <path x-show="isMobileMenuOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Menu -->
+    <div x-show="isMobileMenuOpen" x-cloak
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 -translate-y-4"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 translate-y-0"
+         x-transition:leave-end="opacity-0 -translate-y-4"
+         class="md:hidden absolute top-full left-0 w-full bg-zinc-950/95  border-b border-white/10 shadow-2xl h-screen overflow-y-auto pb-32">
+        <div class="px-4 pt-4 pb-6 space-y-2 max-w-lg mx-auto">
+            
+            <a href="/en/catalog/" class="flex items-center gap-3 px-4 py-4 text-sm font-bold tracking-widest uppercase text-white hover:bg-white/10 rounded-2xl transition-colors transition-transform duration-200 border border-transparent hover:border-white/10">
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                <span>All Items</span>
+            </a>
+
+            <a href="/en/battle/" class="flex items-center gap-3 px-4 py-4 text-sm font-bold tracking-widest uppercase text-amber-400 hover:bg-white/10 rounded-2xl transition-colors border border-amber-500/20">
+                <span>⚔️</span>
+                <span>Battle Arena</span>
+            </a>
+            
+            <!-- Mobile Categories -->
+            <div x-data="{ openCat: false }" class="space-y-1">
+                <button @click="openCat = !openCat" class="w-full flex justify-between items-center px-4 py-4 text-sm font-bold tracking-widest uppercase text-white hover:bg-white/10 rounded-2xl transition-colors transition-transform duration-200 border border-transparent hover:border-white/10">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m14-6h2m-2 6h2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>
+                        <span>Categories</span>
+                    </div>
+                    <svg class="w-5 h-5 transition-transform duration-300" :class="{'rotate-180': openCat}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="openCat" x-cloak 
+                     x-transition:enter="transition ease-out duration-200"
+                     x-transition:enter-start="opacity-0 -translate-y-2"
+                     x-transition:enter-end="opacity-100 translate-y-0"
+                     class="px-4 py-3 space-y-3 border-l border-white/10 ml-4 mb-4">
+                    
+                        <a href="/en/catalog/accessories/" class="block py-2 text-xs font-bold tracking-widest text-gray-400 hover:text-white uppercase transition-colors">
+                            Accessories
+                        </a>
+                    
+                        <a href="/en/catalog/cameras/" class="block py-2 text-xs font-bold tracking-widest text-gray-400 hover:text-white uppercase transition-colors">
+                            Cameras
+                        </a>
+                    
+                        <a href="/en/catalog/gaming/" class="block py-2 text-xs font-bold tracking-widest text-gray-400 hover:text-white uppercase transition-colors">
+                            Gaming
+                        </a>
+                    
+                        <a href="/en/catalog/headphones/" class="block py-2 text-xs font-bold tracking-widest text-gray-400 hover:text-white uppercase transition-colors">
+                            Headphones
+                        </a>
+                    
+                        <a href="/en/catalog/laptops/" class="block py-2 text-xs font-bold tracking-widest text-gray-400 hover:text-white uppercase transition-colors">
+                            Laptops
+                        </a>
+                    
+                        <a href="/en/catalog/smartphones/" class="block py-2 text-xs font-bold tracking-widest text-gray-400 hover:text-white uppercase transition-colors">
+                            Smartphones
+                        </a>
+                    
+                </div>
+            </div>
+
+            <!-- Mobile Brands -->
+            <div x-data="{ openBrand: false }" class="space-y-1">
+                <button @click="openBrand = !openBrand" class="w-full flex justify-between items-center px-4 py-4 text-sm font-bold tracking-widest uppercase text-white hover:bg-white/10 rounded-2xl transition-colors transition-transform duration-200 border border-transparent hover:border-white/10">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
+                        <span>Brands</span>
+                    </div>
+                    <svg class="w-5 h-5 transition-transform duration-300" :class="{'rotate-180': openBrand}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="openBrand" x-cloak 
+                     x-transition:enter="transition ease-out duration-200"
+                     x-transition:enter-start="opacity-0 -translate-y-2"
+                     x-transition:enter-end="opacity-100 translate-y-0"
+                     class="px-4 py-3 space-y-4 border-l border-white/10 ml-4 mb-4">
+                    
+                        <a href="/en/catalog/?brand=apple2" class="flex items-center gap-4 py-2 text-xs font-bold tracking-widest text-gray-400 hover:text-white uppercase transition-colors">
+                            
+                                <img src="/media/brands/2026/06/23/ddftfdp-651c58d8-7228-44cd-b20e-b70d0dd1a66d.png" class="w-8 h-8 rounded-full border border-white/10 object-cover" alt="apple">
+                            
+                            apple
+                        </a>
+                    
+                        <a href="/en/catalog/?brand=samsung" class="flex items-center gap-4 py-2 text-xs font-bold tracking-widest text-gray-400 hover:text-white uppercase transition-colors">
+                            
+                                <img src="/media/brands/2026/06/23/s.webp" class="w-8 h-8 rounded-full border border-white/10 object-cover" alt="samsung">
+                            
+                            samsung
+                        </a>
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+
+    <main class="flex-1">
+        
+
+<div class="bg-zinc-950 min-h-screen text-white py-12 px-4 sm:px-6 lg:px-8 font-sans relative overflow-hidden"
+     x-data="{
+        productAId: '8',
+        productBId: '17',
+        productA: JSON.parse('{\u0022id\u0022: 8, \u0022name\u0022: \u0022AirPods Pro 3\u0022, \u0022image\u0022: \u0022/media/products/2026/06/24/airpods_pro_3.png\u0022, \u0022price\u0022: \u0022279.00\u0022, \u0022formatted_price\u0022: \u0022L.E 279.00\u0022, \u0022rating\u0022: 0.0, \u0022url\u0022: \u0022/en/product/8/airpods\u002Dpro\u002D3/\u0022, \u0022specs\u0022: [{\u0022name\u0022: \u0022RAM\u0022, \u0022value\u0022: \u002232 GB Unified\u0022, \u0022numeric_value\u0022: 32.0, \u0022unit\u0022: \u0022GB\u0022, \u0022icon\u0022: \u0022\u005Cud83d\u005Cudcbe\u0022}, {\u0022name\u0022: \u0022CPU\u0022, \u0022value\u0022: \u0022Apple M3 Max\u0022, \u0022numeric_value\u0022: 5.0, \u0022unit\u0022: \u0022GHz\u0022, \u0022icon\u0022: \u0022\u005Cu26a1\u0022}, {\u0022name\u0022: \u0022Storage\u0022, \u0022value\u0022: \u00222 TB SSD\u0022, \u0022numeric_value\u0022: 2000.0, \u0022unit\u0022: \u0022GB\u0022, \u0022icon\u0022: \u0022\u005Cud83d\u005Cudcbf\u0022}, {\u0022name\u0022: \u0022Battery\u0022, \u0022value\u0022: \u0022100 Wh\u0022, \u0022numeric_value\u0022: 100.0, \u0022unit\u0022: \u0022Wh\u0022, \u0022icon\u0022: \u0022\u005Cud83d\u005Cudd0b\u0022}, {\u0022name\u0022: \u0022Display\u0022, \u0022value\u0022: \u002216.2 Inch Liquid Retina XDR\u0022, \u0022numeric_value\u0022: 120.0, \u0022unit\u0022: \u0022Hz\u0022, \u0022icon\u0022: \u0022\u005Cud83d\u005Cudda5\u005Cufe0f\u0022}]}' || 'null'),
+        productB: JSON.parse('{\u0022id\u0022: 17, \u0022name\u0022: \u0022Anker 737 Power Bank 24K\u0022, \u0022image\u0022: \u0022/media/products/2026/06/24/anker_737.png\u0022, \u0022price\u0022: \u0022109.99\u0022, \u0022formatted_price\u0022: \u0022L.E 109.99\u0022, \u0022rating\u0022: 0.0, \u0022url\u0022: \u0022/en/product/17/anker\u002D737\u002Dpower\u002Dbank\u002D24k/\u0022, \u0022specs\u0022: [{\u0022name\u0022: \u0022RAM\u0022, \u0022value\u0022: \u002216 GB DDR5\u0022, \u0022numeric_value\u0022: 16.0, \u0022unit\u0022: \u0022GB\u0022, \u0022icon\u0022: \u0022\u005Cud83d\u005Cudcbe\u0022}, {\u0022name\u0022: \u0022CPU\u0022, \u0022value\u0022: \u0022Intel Core i7\u002D13700H\u0022, \u0022numeric_value\u0022: 4.8, \u0022unit\u0022: \u0022GHz\u0022, \u0022icon\u0022: \u0022\u005Cu26a1\u0022}, {\u0022name\u0022: \u0022Storage\u0022, \u0022value\u0022: \u00221 TB NVMe SSD\u0022, \u0022numeric_value\u0022: 1000.0, \u0022unit\u0022: \u0022GB\u0022, \u0022icon\u0022: \u0022\u005Cud83d\u005Cudcbf\u0022}, {\u0022name\u0022: \u0022Battery\u0022, \u0022value\u0022: \u002272 Wh\u0022, \u0022numeric_value\u0022: 72.0, \u0022unit\u0022: \u0022Wh\u0022, \u0022icon\u0022: \u0022\u005Cud83d\u005Cudd0b\u0022}, {\u0022name\u0022: \u0022Display\u0022, \u0022value\u0022: \u002215.6 Inch 144Hz\u0022, \u0022numeric_value\u0022: 144.0, \u0022unit\u0022: \u0022Hz\u0022, \u0022icon\u0022: \u0022\u005Cud83d\u005Cudda5\u005Cufe0f\u0022}]}' || 'null'),
+        loadingA: false,
+        loadingB: false,
+
+        async fetchProductA(id) {
+            if (!id) return;
+            this.loadingA = true;
+            try {
+                const url = '/en/battle/specs/999999/'.replace('999999', id);
+                const res = await fetch(url);
+                this.productA = await res.json();
+            } catch(e) {}
+            this.loadingA = false;
+        },
+
+        async fetchProductB(id) {
+            if (!id) return;
+            this.loadingB = true;
+            try {
+                const url = '/en/battle/specs/999999/'.replace('999999', id);
+                const res = await fetch(url);
+                this.productB = await res.json();
+            } catch(e) {}
+            this.loadingB = false;
+        },
+
+        get winner() {
+            if (!this.productA || !this.productB) return null;
+            let scoreA = 0, scoreB = 0;
+            
+            const specsMap = {};
+            ((this.productA && this.productA.specs) || []).forEach(s => {
+                if (s && s.name) specsMap[s.name] = { valA: s.numeric_value || 0, valB: 0 };
+            });
+            ((this.productB && this.productB.specs) || []).forEach(s => {
+                if (s && s.name) {
+                    if (!specsMap[s.name]) specsMap[s.name] = { valA: 0, valB: 0 };
+                    specsMap[s.name].valB = s.numeric_value || 0;
+                }
+            });
+
+            Object.values(specsMap).forEach(s => {
+                if (s.valA > s.valB) scoreA++;
+                else if (s.valB > s.valA) scoreB++;
+            });
+
+            if (parseFloat(this.productA.price) < parseFloat(this.productB.price)) scoreA += 0.5;
+            else if (parseFloat(this.productB.price) < parseFloat(this.productA.price)) scoreB += 0.5;
+
+            if (scoreA > scoreB) return { winner: 'A', name: this.productA.name, score: scoreA, total: Object.keys(specsMap).length };
+            if (scoreB > scoreA) return { winner: 'B', name: this.productB.name, score: scoreB, total: Object.keys(specsMap).length };
+            return { winner: 'TIE', name: `It's a Tie!`, score: scoreA, total: Object.keys(specsMap).length };
+        },
+
+        getSpec(prod, specName) {
+            if (!prod || !Array.isArray(prod.specs)) return { value: '—', numeric_value: 0, icon: '⚡', unit: '' };
+            const found = prod.specs.find(s => s && s.name === specName);
+            return found || { value: '—', numeric_value: 0, icon: '⚡', unit: '' };
+        },
+
+        calcBarPct(valA, valB) {
+            const numA = Number(valA) || 0;
+            const numB = Number(valB) || 0;
+            const max = Math.max(numA, numB, 1);
+            return {
+                pctA: Math.min(100, Math.max(8, Math.round((numA / max) * 100))),
+                pctB: Math.min(100, Math.max(8, Math.round((numB / max) * 100)))
+            };
+        },
+
+        get specRows() {
+            if (!this.productA && !this.productB) return [];
+            
+            const namesSet = new Set();
+            if (this.productA && Array.isArray(this.productA.specs)) {
+                this.productA.specs.forEach(s => s && s.name && namesSet.add(s.name));
+            }
+            if (this.productB && Array.isArray(this.productB.specs)) {
+                this.productB.specs.forEach(s => s && s.name && namesSet.add(s.name));
+            }
+            
+            return Array.from(namesSet).map(name => {
+                const specA = this.getSpec(this.productA, name);
+                const specB = this.getSpec(this.productB, name);
+                const bars = this.calcBarPct(specA.numeric_value, specB.numeric_value);
+                return {
+                    name: name,
+                    valueA: specA.value || '—',
+                    iconA: specA.icon || '⚡',
+                    pctA: bars.pctA,
+                    valueB: specB.value || '—',
+                    iconB: specB.icon || '⚡',
+                    pctB: bars.pctB
+                };
+            });
+        }
+     }">
+
+    <!-- Ambient Glowing Orbs (Optimized with radial gradients instead of heavy CSS blur filters) -->
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full pointer-events-none transform-gpu z-0" style="background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, rgba(0,0,0,0) 70%);"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full pointer-events-none transform-gpu z-0" style="background: radial-gradient(circle, rgba(6,182,212,0.15) 0%, rgba(0,0,0,0) 70%);"></div>
+
+    <div class="max-w-6xl mx-auto space-y-10 relative z-10">
+
+        <!-- Banner Header -->
+        <div class="text-center space-y-3">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold uppercase tracking-widest backdrop-blur-md">
+                <span class="animate-pulse">⚔️</span> HARDWARE DUEL ARENA
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-white font-display uppercase tracking-wider">
+                Product Battle Mode
+            </h1>
+            <p class="text-gray-400 text-sm max-w-xl mx-auto font-medium">
+                Select any two flagship devices to compare hardware specs head-to-head in real time.
+            </p>
+        </div>
+
+        <!-- ⚔️ ARENA GRID (Product A vs Product B) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- PRODUCT A FIGHTER CARD -->
+            <div class="bg-zinc-900/80 border border-emerald-500/30 rounded-3xl p-6 relative overflow-hidden transition-all duration-300 hover:border-emerald-500/60 shadow-xl"
+                 :class="{ 'ring-2 ring-emerald-500 shadow-[0_0_40px_rgba(16,185,129,0.3)]': winner && winner.winner === 'A' }">
+                
+                <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+                    <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded-full text-xs font-mono font-bold uppercase">
+                        FIGHTER 01
+                    </span>
+                    <template x-if="winner && winner.winner === 'A'">
+                        <span class="text-amber-400 font-bold text-xs uppercase tracking-widest flex items-center gap-1 animate-bounce">
+                            👑 WINNER
+                        </span>
+                    </template>
+                </div>
+
+                <!-- Product Selector Dropdown -->
+                <div class="mb-6">
+                    <label class="block text-xs font-mono text-gray-400 mb-1.5 uppercase tracking-wider">Select Contender A:</label>
+                    <select x-model="productAId" @change="fetchProductA(productAId)"
+                            class="w-full bg-zinc-950 border border-white/15 text-white text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500 font-medium">
+                        
+                            <option value="8">AirPods Pro 3 — L.E 279.00</option>
+                        
+                            <option value="17">Anker 737 Power Bank 24K — L.E 109.99</option>
+                        
+                            <option value="15">Apple Watch Ultra 3 — L.E 799.00</option>
+                        
+                            <option value="9">Bose QuietComfort Ultra — L.E 429.00</option>
+                        
+                            <option value="11">Canon EOS R6 Mark II — L.E 2499.00</option>
+                        
+                            <option value="5">Dell XPS 15 — L.E 1899.99</option>
+                        
+                            <option value="3">Google Pixel 9 Pro — L.E 999.00</option>
+                        
+                            <option value="6">Lenovo ThinkPad X1 Carbon — L.E 1649.00</option>
+                        
+                            <option value="4">MacBook Pro 16&quot; M4 Max — L.E 3499.00</option>
+                        
+                            <option value="13">Nintendo Switch 2 — L.E 449.99</option>
+                        
+                            <option value="12">PlayStation 5 Pro — L.E 699.99</option>
+                        
+                            <option value="2">Samsung Galaxy S25 Ultra — L.E 1299.99</option>
+                        
+                            <option value="16">Samsung T9 Portable SSD 2TB — L.E 179.99</option>
+                        
+                            <option value="10">Sony Alpha A7 IV — L.E 2498.00</option>
+                        
+                            <option value="7">Sony WH-1000XM6 — L.E 399.99</option>
+                        
+                            <option value="14">Xbox Series X — L.E 499.99</option>
+                        
+                            <option value="1">iPhone 16 Pro Max — L.E 1199.99</option>
+                        
+                    </select>
+                </div>
+
+                <!-- Product Card Display -->
+                <template x-if="productA">
+                    <div class="text-center space-y-4">
+                        <div class="w-48 h-48 mx-auto bg-zinc-950 rounded-2xl p-4 border border-white/10 flex items-center justify-center relative overflow-hidden group">
+                            <template x-if="productA.image">
+                                <img :src="productA.image" :alt="productA.name" class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105">
+                            </template>
+                            <template x-if="!productA.image">
+                                <div class="text-4xl">💻</div>
+                            </template>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-extrabold text-lg text-white" x-text="productA.name"></h3>
+                            <div class="text-emerald-400 font-cyber font-extrabold text-2xl mt-1" x-text="productA.formatted_price"></div>
+                        </div>
+                        <a :href="productA.url" class="inline-block w-full py-2.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors">
+                            View Product Details →
+                        </a>
+                    </div>
+                </template>
+
+            </div>
+
+            <!-- PRODUCT B FIGHTER CARD -->
+            <div class="bg-zinc-900/80 border border-cyan-500/30 rounded-3xl p-6 relative overflow-hidden transition-all duration-300 hover:border-cyan-500/60 shadow-xl"
+                 :class="{ 'ring-2 ring-cyan-500 shadow-[0_0_40px_rgba(6,182,212,0.3)]': winner && winner.winner === 'B' }">
+                
+                <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+                    <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 rounded-full text-xs font-mono font-bold uppercase">
+                        FIGHTER 02
+                    </span>
+                    <template x-if="winner && winner.winner === 'B'">
+                        <span class="text-amber-400 font-bold text-xs uppercase tracking-widest flex items-center gap-1 animate-bounce">
+                            👑 WINNER
+                        </span>
+                    </template>
+                </div>
+
+                <!-- Product Selector Dropdown -->
+                <div class="mb-6">
+                    <label class="block text-xs font-mono text-gray-400 mb-1.5 uppercase tracking-wider">Select Contender B:</label>
+                    <select x-model="productBId" @change="fetchProductB(productBId)"
+                            class="w-full bg-zinc-950 border border-white/15 text-white text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500 font-medium">
+                        
+                            <option value="8" >AirPods Pro 3 — L.E 279.00</option>
+                        
+                            <option value="17" selected>Anker 737 Power Bank 24K — L.E 109.99</option>
+                        
+                            <option value="15" >Apple Watch Ultra 3 — L.E 799.00</option>
+                        
+                            <option value="9" >Bose QuietComfort Ultra — L.E 429.00</option>
+                        
+                            <option value="11" >Canon EOS R6 Mark II — L.E 2499.00</option>
+                        
+                            <option value="5" >Dell XPS 15 — L.E 1899.99</option>
+                        
+                            <option value="3" >Google Pixel 9 Pro — L.E 999.00</option>
+                        
+                            <option value="6" >Lenovo ThinkPad X1 Carbon — L.E 1649.00</option>
+                        
+                            <option value="4" >MacBook Pro 16&quot; M4 Max — L.E 3499.00</option>
+                        
+                            <option value="13" >Nintendo Switch 2 — L.E 449.99</option>
+                        
+                            <option value="12" >PlayStation 5 Pro — L.E 699.99</option>
+                        
+                            <option value="2" >Samsung Galaxy S25 Ultra — L.E 1299.99</option>
+                        
+                            <option value="16" >Samsung T9 Portable SSD 2TB — L.E 179.99</option>
+                        
+                            <option value="10" >Sony Alpha A7 IV — L.E 2498.00</option>
+                        
+                            <option value="7" >Sony WH-1000XM6 — L.E 399.99</option>
+                        
+                            <option value="14" >Xbox Series X — L.E 499.99</option>
+                        
+                            <option value="1" >iPhone 16 Pro Max — L.E 1199.99</option>
+                        
+                    </select>
+                </div>
+
+                <!-- Product Card Display -->
+                <template x-if="productB">
+                    <div class="text-center space-y-4">
+                        <div class="w-48 h-48 mx-auto bg-zinc-950 rounded-2xl p-4 border border-white/10 flex items-center justify-center relative overflow-hidden group">
+                            <template x-if="productB.image">
+                                <img :src="productB.image" :alt="productB.name" class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105">
+                            </template>
+                            <template x-if="!productB.image">
+                                <div class="text-4xl">📱</div>
+                            </template>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-extrabold text-lg text-white" x-text="productB.name"></h3>
+                            <div class="text-cyan-400 font-cyber font-extrabold text-2xl mt-1" x-text="productB.formatted_price"></div>
+                        </div>
+                        <a :href="productB.url" class="inline-block w-full py-2.5 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors">
+                            View Product Details →
+                        </a>
+                    </div>
+                </template>
+
+            </div>
+
+        </div>
+
+        <!-- 📊 SPEC COMPARISON MATRIX -->
+        <div class="bg-zinc-900/90 border border-white/10 rounded-3xl p-6 space-y-6 backdrop-blur-xl">
+            
+            <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <h2 class="text-xl font-extrabold text-white font-display uppercase tracking-wider flex items-center gap-2">
+                    📊 Technical Spec Head-to-Head
+                </h2>
+                <div class="text-xs font-mono text-gray-400">
+                    <span class="text-emerald-400 font-bold">█ Fighter 1</span> vs <span class="text-cyan-400 font-bold">█ Fighter 2</span>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <template x-for="row in specRows" :key="row.name">
+                    <div class="space-y-2 bg-zinc-950/60 p-4 rounded-2xl border border-white/5">
+                        
+                        <!-- Header Line: Name & Values -->
+                        <div class="flex items-center justify-between text-xs font-bold">
+                            <span class="text-emerald-400 font-mono flex items-center gap-1.5">
+                                <span x-text="row.iconA"></span> 
+                                <span x-text="row.valueA"></span>
+                            </span>
+                            <span class="text-white uppercase font-display tracking-widest" x-text="row.name"></span>
+                            <span class="text-cyan-400 font-mono flex items-center gap-1.5">
+                                <span x-text="row.valueB"></span> 
+                                <span x-text="row.iconB"></span>
+                            </span>
+                        </div>
+
+                        <!-- Comparative Progress Bars -->
+                        <div class="grid grid-cols-2 gap-3 items-center">
+                            <!-- Fighter A Bar (Right-aligned) -->
+                            <div class="w-full bg-zinc-900 rounded-full h-3 overflow-hidden flex justify-end">
+                                <div class="bg-gradient-to-l from-emerald-400 to-emerald-600 h-full rounded-full transition-all duration-500"
+                                     :style="'width: ' + row.pctA + '%'"></div>
+                            </div>
+                            <!-- Fighter B Bar (Left-aligned) -->
+                            <div class="w-full bg-zinc-900 rounded-full h-3 overflow-hidden flex justify-start">
+                                <div class="bg-gradient-to-r from-cyan-400 to-cyan-600 h-full rounded-full transition-all duration-500"
+                                     :style="'width: ' + row.pctB + '%'"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </template>
+            </div>
+
+        </div>
+
+        <!-- 🏆 WINNER ANNOUNCEMENT CARD -->
+        <template x-if="winner">
+            <div class="bg-gradient-to-r from-emerald-500/20 via-amber-500/20 to-cyan-500/20 border border-amber-500/40 rounded-3xl p-8 text-center space-y-3 relative overflow-hidden shadow-2xl animate-scale-up">
+                <div class="text-4xl animate-bounce">👑</div>
+                <div class="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">
+                    DUEL RESULT DECLARED
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-display uppercase tracking-wider" x-text="winner.winner === 'TIE' ? winner.name : 'VICTOR: ' + winner.name">
+                </h2>
+                <p class="text-xs text-gray-300 font-medium max-w-md mx-auto">
+                    Based on algorithmic spec score analysis across RAM, Processor, Storage, Battery, and Display benchmark metrics.
+                </p>
+            </div>
+        </template>
+
+    </div>
+</div>
+
+    </main>
+
+    <footer class="border-t border-gray-200 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-gray-400">
+                    &copy; 2026 Lap Link. All rights reserved.
+                </p>
+                <div class="flex items-center gap-6">
+                    <a href="/en/about/" class="text-sm text-gray-400 hover:text-gray-700 transition-colors">
+                        About Us
+                    </a>
+                    <a href="#" class="text-sm text-gray-400 hover:text-gray-700 transition-colors">
+                        Privacy
+                    </a>
+                    <a href="#" class="text-sm text-gray-400 hover:text-gray-700 transition-colors">
+                        Terms
+                    </a>
+                    <a href="#" class="text-sm text-gray-400 hover:text-gray-700 transition-colors">
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div x-data="toastManager()" x-cloak
+         @toast.window="addToast($event.detail)"
+         class="fixed top-20 right-4 z-[100] flex flex-col gap-3 pointer-events-none max-w-sm w-full">
+
+        <template x-for="toast in toasts" :key="toast.id">
+            <div x-show="toast.visible"
+                 x-transition:enter="toast-enter"
+                 x-transition:leave="toast-leave"
+                 class="pointer-events-auto rounded-xl px-5 py-4 shadow-xl shadow-gray-200/50
+                        border backdrop-blur-xl flex items-start gap-3"
+                 :class="{
+                     'bg-emerald-50 border-emerald-200 text-emerald-700': toast.type === 'success',
+                     'bg-red-50 border-red-200 text-red-700': toast.type === 'error',
+                     'bg-gray-50 border-gray-200 text-gray-700': toast.type === 'info'
+                 }">
+                <template x-if="toast.type === 'success'">
+                    <svg class="w-5 h-5 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </template>
+                <template x-if="toast.type === 'error'">
+                    <svg class="w-5 h-5 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </template>
+                <p class="text-sm font-medium" x-text="toast.message"></p>
+            </div>
+        </template>
+    </div>
+
+    <script>
+        function toastManager() {
+            return {
+                toasts: [],
+                addToast({ message = '', type = 'info', duration = 3500 } = {}) {
+                    const id = Date.now();
+                    this.toasts.push({ id, message, type, visible: true });
+                    setTimeout(() => {
+                        const t = this.toasts.find(t => t.id === id);
+                        if (t) t.visible = false;
+                        setTimeout(() => {
+                            this.toasts = this.toasts.filter(t => t.id !== id);
+                        }, 350);
+                    }, duration);
+                }
+            }
+        }
+    </script>
+
+    <!-- Tech Sound Synthesizer -->
+    <script src="/static/shop/js/tech_sound.js"></script>
+
+    
+
+
+    
+
+<div x-data="{
+        isOpen: false,
+        step: 1,
+        useCase: 'gaming',
+        budget: 'high',
+        brand: 'all',
+        matches: [],
+        allProducts: [
+            { id: 1, name: 'MacBook Pro 16 M3', price: 'L.E 85,000', score: '99%', useCase: 'creative', budget: 'high', image: '' },
+            { id: 2, name: 'Galaxy S25 Ultra', price: 'L.E 52,000', score: '97%', useCase: 'daily', budget: 'high', image: '' },
+            { id: 3, name: 'Anker 737 Power Bank', price: 'L.E 4,500', score: '95%', useCase: 'daily', budget: 'low', image: '' },
+            { id: 4, name: 'AirPods Pro 3', price: 'L.E 11,500', score: '94%', useCase: 'daily', budget: 'mid', image: '' }
+        ],
+        openWizard() {
+            this.step = 1;
+            this.isOpen = true;
+        },
+        calculateMatch() {
+            this.step = 4; // Result step
+        }
+     }"
+     @open-tech-finder.window="openWizard()"
+     x-show="isOpen"
+     x-cloak
+     class="fixed inset-0 z-50 flex items-center justify-center p-4 font-sans">
+    
+    <!-- Backdrop -->
+    <div x-show="isOpen" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         @click="isOpen = false" 
+         class="absolute inset-0 bg-black/80"></div>
+
+    <!-- Modal Box -->
+    <div x-show="isOpen"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+         x-transition:leave-end="opacity-0 scale-95 translate-y-4"
+         class="relative w-full max-w-xl bg-zinc-950 border border-white/10 rounded-3xl p-6 sm:p-8 shadow-[0_25px_60px_rgba(0,0,0,0.8)] overflow-hidden z-10 text-white">
+        
+        <!-- Header -->
+        <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center border border-white/10 text-emerald-400 text-lg">🤖</div>
+                <div>
+                    <h3 class="font-display font-bold text-lg text-white tracking-tight">Tech Finder AI</h3>
+                    <p class="text-xs text-gray-400">Find your perfect device in 3 clicks</p>
+                </div>
+            </div>
+            <button @click="isOpen = false" class="text-gray-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors focus:outline-none">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+
+        <!-- Step 1: Use Case -->
+        <div x-show="step === 1" class="space-y-4">
+            <label class="block text-xs font-bold uppercase tracking-wider text-gray-400">Step 1 of 3: Primary Use Case</label>
+            <div class="grid grid-cols-2 gap-3">
+                <button @click="useCase = 'gaming'; step = 2" class="p-4 rounded-2xl border border-white/10 bg-zinc-900/60 hover:bg-white/10 text-left transition-colors transition-transform hover:scale-[1.02]">
+                    <div class="text-2xl mb-1">🎮</div>
+                    <div class="font-bold text-sm">Gaming & VR</div>
+                    <div class="text-[11px] text-gray-400">High FPS & Ray Tracing</div>
+                </button>
+
+                <button @click="useCase = 'coding'; step = 2" class="p-4 rounded-2xl border border-white/10 bg-zinc-900/60 hover:bg-white/10 text-left transition-colors transition-transform hover:scale-[1.02]">
+                    <div class="text-2xl mb-1">💻</div>
+                    <div class="font-bold text-sm">AI & Coding</div>
+                    <div class="text-[11px] text-gray-400">Heavy multitasking & RAM</div>
+                </button>
+
+                <button @click="useCase = 'creative'; step = 2" class="p-4 rounded-2xl border border-white/10 bg-zinc-900/60 hover:bg-white/10 text-left transition-colors transition-transform hover:scale-[1.02]">
+                    <div class="text-2xl mb-1">🎨</div>
+                    <div class="font-bold text-sm">Content Creation</div>
+                    <div class="text-[11px] text-gray-400">4K Video & 3D Render</div>
+                </button>
+
+                <button @click="useCase = 'daily'; step = 2" class="p-4 rounded-2xl border border-white/10 bg-zinc-900/60 hover:bg-white/10 text-left transition-colors transition-transform hover:scale-[1.02]">
+                    <div class="text-2xl mb-1">⚡</div>
+                    <div class="font-bold text-sm">Daily Productivity</div>
+                    <div class="text-[11px] text-gray-400">Battery life & Mobility</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 2: Budget -->
+        <div x-show="step === 2" class="space-y-4">
+            <label class="block text-xs font-bold uppercase tracking-wider text-gray-400">Step 2 of 3: Target Budget</label>
+            <div class="space-y-3">
+                <button @click="budget = 'low'; step = 3" class="w-full p-4 rounded-2xl border border-white/10 bg-zinc-900/60 hover:bg-white/10 flex justify-between items-center transition-colors transition-transform hover:scale-[1.01]">
+                    <div>
+                        <div class="font-bold text-sm">Budget-Friendly</div>
+                        <div class="text-[11px] text-gray-400">Under L.E 15,000</div>
+                    </div>
+                    <span class="text-emerald-400 font-bold">L.E &lt;15k</span>
+                </button>
+
+                <button @click="budget = 'mid'; step = 3" class="w-full p-4 rounded-2xl border border-white/10 bg-zinc-900/60 hover:bg-white/10 flex justify-between items-center transition-colors transition-transform hover:scale-[1.01]">
+                    <div>
+                        <div class="font-bold text-sm">Mid-Range Power</div>
+                        <div class="text-[11px] text-gray-400">L.E 15,000 - 45,000</div>
+                    </div>
+                    <span class="text-emerald-400 font-bold">L.E 15k-45k</span>
+                </button>
+
+                <button @click="budget = 'high'; step = 3" class="w-full p-4 rounded-2xl border border-white/10 bg-zinc-900/60 hover:bg-white/10 flex justify-between items-center transition-colors transition-transform hover:scale-[1.01]">
+                    <div>
+                        <div class="font-bold text-sm">Flagship / Ultra Performance</div>
+                        <div class="text-[11px] text-gray-400">L.E 45,000+</div>
+                    </div>
+                    <span class="text-emerald-400 font-bold">L.E 45k+</span>
+                </button>
+            </div>
+            <button @click="step = 1" class="text-xs text-gray-400 hover:text-white font-medium">&larr; Back</button>
+        </div>
+
+        <!-- Step 3: Brand Preference -->
+        <div x-show="step === 3" class="space-y-4">
+            <label class="block text-xs font-bold uppercase tracking-wider text-gray-400">Step 3 of 3: Preferred Brand</label>
+            <div class="grid grid-cols-2 gap-3">
+                <button @click="brand = 'apple'; calculateMatch()" class="p-4 rounded-2xl border border-white/10 bg-zinc-900/60 hover:bg-white/10 text-center font-bold text-sm transition-colors transition-transform hover:scale-105">
+                     Apple Ecosystem
+                </button>
+                <button @click="brand = 'samsung'; calculateMatch()" class="p-4 rounded-2xl border border-white/10 bg-zinc-900/60 hover:bg-white/10 text-center font-bold text-sm transition-colors transition-transform hover:scale-105">
+                    Samsung Galaxy
+                </button>
+                <button @click="brand = 'google'; calculateMatch()" class="p-4 rounded-2xl border border-white/10 bg-zinc-900/60 hover:bg-white/10 text-center font-bold text-sm transition-colors transition-transform hover:scale-105">
+                    Google Pixel
+                </button>
+                <button @click="brand = 'all'; calculateMatch()" class="p-4 rounded-2xl border border-white/10 bg-zinc-900/60 hover:bg-white/10 text-center font-bold text-sm transition-colors transition-transform hover:scale-105">
+                    ⚡ All Brands
+                </button>
+            </div>
+            <button @click="step = 2" class="text-xs text-gray-400 hover:text-white font-medium">&larr; Back</button>
+        </div>
+
+        <!-- Step 4: Results -->
+        <div x-show="step === 4" class="space-y-4">
+            <div class="text-center py-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold uppercase bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                    <span>🎉</span> Top AI Match Found!
+                </span>
+            </div>
+
+            <div class="space-y-3">
+                <template x-for="item in allProducts" :key="item.id">
+                    <div class="p-4 rounded-2xl border border-white/10 bg-zinc-900/80 flex items-center justify-between">
+                        <div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full" x-text="item.score + ' Match'"></span>
+                            <h4 class="font-bold text-sm text-white mt-1" x-text="item.name"></h4>
+                            <div class="text-xs text-gray-400 font-semibold" x-text="item.price"></div>
+                        </div>
+                        <a href="/en/catalog/" class="px-4 py-2 bg-white text-black font-bold text-xs rounded-xl hover:bg-gray-200 transition-colors uppercase tracking-wider">
+                            View
+                        </a>
+                    </div>
+                </template>
+            </div>
+
+            <div class="pt-2 flex justify-between items-center">
+                <button @click="step = 1" class="text-xs text-gray-400 hover:text-white font-medium">&circlearrowleft; Restart Wizard</button>
+                <button @click="isOpen = false" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-white/10 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-colors">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    
+
+<div x-data="{
+        isOpen: false,
+        isSpinning: false,
+        revealed: false,
+        wonCode: 'LAPLINK10',
+        wonDiscount: '10% OFF',
+        init() {
+            if (!localStorage.getItem('laplink_deal_revealed')) {
+                setTimeout(() => { this.isOpen = true; }, 6000);
+            }
+        },
+        spin() {
+            if (this.isSpinning || this.revealed) return;
+            this.isSpinning = true;
+            if (window.TechSound) window.TechSound.playPop();
+            setTimeout(() => {
+                this.isSpinning = false;
+                this.revealed = true;
+                if (window.TechSound) window.TechSound.playSuccess();
+                localStorage.setItem('laplink_deal_revealed', 'true');
+            }, 1800);
+        }
+     }"
+     x-show="isOpen"
+     x-cloak
+     class="fixed inset-0 z-50 flex items-center justify-center p-4 font-sans">
+    
+    <!-- Backdrop -->
+    <div x-show="isOpen" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         @click="isOpen = false" 
+         class="absolute inset-0 bg-black/80"></div>
+
+    <!-- Modal Box -->
+    <div x-show="isOpen"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 scale-90 translate-y-4"
+         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+         class="relative w-full max-w-md bg-zinc-950 border border-white/10 rounded-3xl p-6 sm:p-8 shadow-[0_25px_60px_rgba(0,0,0,0.8)] text-center overflow-hidden z-10 text-white">
+        
+        <button @click="isOpen = false" class="absolute top-4 right-4 text-gray-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors focus:outline-none">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+
+        <div class="mb-4">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-amber-500/10 border border-amber-500/30 text-amber-400">
+                <span>🎁</span> Exclusive VIP Offer
+            </span>
+        </div>
+
+        <h3 class="font-display font-extrabold text-2xl text-white tracking-tight">Unlock Your Tech Reward</h3>
+        <p class="text-xs text-gray-400 mt-1 max-w-xs mx-auto">Tap the wheel below to unlock an instant discount for your first order!</p>
+
+        <!-- Interactive Wheel / Gift Box -->
+        <div class="my-6 flex justify-center items-center">
+            <div @click="spin()" 
+                 class="w-32 h-32 rounded-full bg-gradient-to-tr from-amber-500 via-amber-400 to-amber-200 p-1 cursor-pointer shadow-[0_0_40px_rgba(245,158,11,0.4)] transition-transform duration-300 hover:scale-105 transform-gpu"
+                 :class="{ 'animate-spin': isSpinning }">
+                <div class="w-full h-full rounded-full bg-zinc-950 flex flex-col items-center justify-center border border-white/20">
+                    <span class="text-4xl" x-text="revealed ? '🎉' : '🎁'"></span>
+                    <span class="text-[10px] font-extrabold uppercase tracking-widest text-amber-400 mt-1" x-text="revealed ? 'UNLOCKED!' : 'TAP TO REVEAL'"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Box -->
+        <div x-show="revealed" 
+             x-transition:enter="transition ease-out duration-500"
+             x-transition:enter-start="opacity-0 translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             class="space-y-3">
+            
+            <div class="bg-gradient-to-r from-amber-500/20 via-emerald-500/20 to-amber-500/20 border border-amber-500/40 p-4 rounded-2xl">
+                <div class="text-xs font-bold text-gray-300">CONGRATULATIONS!</div>
+                <div class="text-2xl font-extrabold text-amber-400 my-1 font-mono tracking-widest" x-text="wonCode"></div>
+                <div class="text-xs font-semibold text-emerald-400">Applied 10% Discount to your session!</div>
+            </div>
+
+            <a href="/en/catalog/" @click="isOpen = false" class="block w-full py-3 bg-amber-400 hover:bg-amber-300 text-black font-extrabold text-xs uppercase tracking-widest rounded-xl transition-colors shadow-lg shadow-amber-400/20">
+                Shop Devices Now
+            </a>
+        </div>
+    </div>
+</div>
+
+    
+
+<div x-data="{
+        isOpen: false,
+        items: [],
+        addCompare(product) {
+            if (this.items.some(i => i.id === product.id)) return;
+            if (this.items.length >= 3) {
+                alert('You can compare up to 3 products at a time.');
+                return;
+            }
+            this.items.push(product);
+            this.isOpen = true;
+            if (window.TechSound) window.TechSound.playPop();
+        },
+        removeItem(id) {
+            this.items = this.items.filter(i => i.id !== id);
+            if (this.items.length === 0) this.isOpen = false;
+        },
+        clearAll() {
+            this.items = [];
+            this.isOpen = false;
+        }
+     }"
+     @add-to-compare.window="addCompare($event.detail)"
+     x-show="isOpen && items.length > 0"
+     x-cloak
+     x-transition:enter="transition ease-out duration-400"
+     x-transition:enter-start="opacity-0 translate-y-full"
+     x-transition:enter-end="opacity-100 translate-y-0"
+     x-transition:leave="transition ease-in duration-300"
+     x-transition:leave-start="opacity-100 translate-y-0"
+     x-transition:leave-end="opacity-0 translate-y-full"
+     class="fixed bottom-0 left-0 right-0 z-40 bg-zinc-950/95 border-t border-white/10 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] font-sans">
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
+            <div class="flex items-center gap-2">
+                <span class="text-emerald-400 font-bold text-sm">⚖️ Compare Devices</span>
+                <span class="text-xs text-gray-400 font-medium" x-text="'(' + items.length + '/3 selected)'"></span>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button @click="clearAll()" class="text-xs text-gray-400 hover:text-white font-medium uppercase tracking-wider">Clear All</button>
+                <button @click="isOpen = false" class="text-gray-400 hover:text-white p-1 rounded-full hover:bg-white/10 transition-colors focus:outline-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <template x-for="item in items" :key="item.id">
+                <div class="relative p-3.5 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-white truncate max-w-[180px]" x-text="item.name"></div>
+                        <div class="text-xs font-extrabold text-emerald-400 mt-0.5" x-text="item.price"></div>
+                    </div>
+
+                    <button @click="removeItem(item.id)" class="text-gray-500 hover:text-red-400 p-1.5 rounded-full hover:bg-white/10 transition-colors" title="Remove">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                </div>
+            </template>
+        </div>
+    </div>
+</div>
+
+    
+
+
+
+
+<div x-data="{
+        page: 'general',
+        isHovering: false,
+        hoveredTitle: '',
+        showBubble: false,
+        init() {
+            setTimeout(() => { this.showBubble = true; }, 1500);
+            setTimeout(() => { if(!this.isHovering) this.showBubble = false; }, 6000);
+        }
+     }"
+     @robot-start.window="isHovering = true; hoveredTitle = $event.detail.title; if(window.TechSound) window.TechSound.playPop();"
+     @robot-stop.window="isHovering = false; hoveredTitle = '';"
+     class="hidden sm:block fixed bottom-6 right-6 z-40 font-sans pointer-events-none transition-transform duration-300 transform-gpu"
+     :class="{ 'robot-home-smooth-patrol': page === 'home' && !isHovering }">
+
+    <div class="relative flex flex-col items-end">
+
+        <!-- Speech Bubble -->
+        <div x-show="showBubble || isHovering"
+             x-cloak
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 translate-y-3 scale-90"
+             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+             x-transition:leave-end="opacity-0 translate-y-2 scale-90"
+             class="mb-3 max-w-[220px] bg-zinc-950/95 border border-emerald-500/40 text-white text-xs font-bold p-3 rounded-2xl shadow-[0_10px_35px_rgba(16,185,129,0.3)] pointer-events-auto relative text-center">
+            
+            <!-- Page Specific Mascot Tag -->
+            <template x-if="page === 'home'">
+                <div>
+                    <div class="text-emerald-400 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">🎧 DJ ROBOT • HOST</div>
+                    <div class="text-gray-200" x-text="hoveredTitle ? '🎉 ' + hoveredTitle : 'Welcome to Lap Link! Explore Next-Gen Tech!'"></div>
+                </div>
+            </template>
+
+            <template x-if="page === 'catalog'">
+                <div>
+                    <div class="text-cyan-400 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">🔍 SCOUT ROBOT • RADAR</div>
+                    <div class="text-gray-200" x-text="hoveredTitle ? '🔎 Inspecting: ' + hoveredTitle : 'Scanning products... Hover to inspect!'"></div>
+                </div>
+            </template>
+
+            <template x-if="page === 'detail'">
+                <div>
+                    <div class="text-amber-400 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">🛠️ ENGINEER ROBOT • SPECS</div>
+                    <div class="text-gray-200">Hardware verified • 2-Year Warranty active! 🛡️</div>
+                </div>
+            </template>
+
+            <template x-if="page === 'cart'">
+                <div>
+                    <div class="text-emerald-400 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">📦 COURIER ROBOT • CART</div>
+                    <div class="text-gray-200">Great choices in your cart! Ready for dispatch ⚡</div>
+                </div>
+            </template>
+
+            <template x-if="page === 'wishlist'">
+                <div>
+                    <div class="text-rose-400 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">💖 GUARDIAN ROBOT • WISHLIST</div>
+                    <div class="text-gray-200">Safeguarding your top favorite devices! 💖</div>
+                </div>
+            </template>
+
+            <template x-if="page === 'dashboard'">
+                <div>
+                    <div class="text-indigo-400 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">🛡️ SECURITY AGENT • ACCOUNT</div>
+                    <div class="text-gray-200">Account Secured! Welcome back, Commander 🫡</div>
+                </div>
+            </template>
+
+            <!-- Interactive Quick FAQ Chips inside Speech Bubble -->
+            <div class="mt-2.5 pt-2 border-t border-white/10" x-data="{ customAnswer: '' }">
+                <template x-if="customAnswer">
+                    <div class="text-[11px] text-amber-300 font-extrabold animate-fade-in py-0.5" x-text="customAnswer"></div>
+                </template>
+                <template x-if="!customAnswer">
+                    <div class="flex flex-wrap gap-1 justify-center">
+                        <button type="button" @click="customAnswer = '🚚 Free delivery on orders over L.E 5,000!'; if(window.TechSound) window.TechSound.playPop();" class="px-2 py-0.5 rounded-full bg-white/10 hover:bg-emerald-500/20 text-[10px] text-gray-300 hover:text-emerald-300 transition-colors">
+                            🚚 Shipping?
+                        </button>
+                        <button type="button" @click="customAnswer = '🛡️ 2-Year Official Manufacturer Warranty!'; if(window.TechSound) window.TechSound.playPop();" class="px-2 py-0.5 rounded-full bg-white/10 hover:bg-emerald-500/20 text-[10px] text-gray-300 hover:text-emerald-300 transition-colors">
+                            🛡️ Warranty?
+                        </button>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Bubble Pointer -->
+            <div class="absolute -bottom-2 right-6 w-3 h-3 bg-zinc-950 border-r border-b border-white/10 rotate-45"></div>
+        </div>
+
+        <!-- Robot Body Container -->
+        <div class="pointer-events-auto cursor-pointer p-3 rounded-3xl bg-zinc-950/90 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.7)] transition-all duration-300 hover:scale-110 transform-gpu"
+             :class="{
+                 'robot-dance-active border-emerald-500/60 shadow-[0_0_35px_rgba(16,185,129,0.5)]': page === 'home' || isHovering,
+                 'robot-scout-active border-cyan-500/60 shadow-[0_0_35px_rgba(6,182,212,0.5)]': page === 'catalog' && !isHovering,
+                 'robot-engineer-active border-amber-500/60 shadow-[0_0_35px_rgba(245,158,11,0.5)]': page === 'detail',
+                 'robot-bounce-active border-emerald-500/60 shadow-[0_0_35px_rgba(16,185,129,0.5)]': page === 'cart',
+                 'robot-heart-active border-rose-500/60 shadow-[0_0_35px_rgba(244,63,94,0.5)]': page === 'wishlist',
+                 'robot-security-active border-indigo-500/60 shadow-[0_0_35px_rgba(99,102,241,0.5)]': page === 'dashboard'
+             }"
+             @click="showBubble = !showBubble; if(window.TechSound) window.TechSound.playPop();">
+            
+            <svg class="w-12 h-12 text-white" viewBox="0 0 100 100" fill="none">
+                <!-- Antenna & Glow Light -->
+                <line x1="50" y1="15" x2="50" y2="25" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                <circle cx="50" cy="12" r="5" 
+                        :fill="page === 'home' ? '#10b981' : (page === 'catalog' ? '#06b6d4' : (page === 'detail' ? '#f59e0b' : (page === 'wishlist' ? '#f43f5e' : '#6366f1')))"
+                        class="animate-ping"/>
+
+                <!-- Head Accessories per Page -->
+                <!-- Home: DJ Headset -->
+                <template x-if="page === 'home'">
+                    <g>
+                        <path d="M 25 40 A 25 25 0 0 1 75 40" stroke="#10b981" stroke-width="4" fill="none"/>
+                        <rect x="18" y="32" width="10" height="16" rx="4" fill="#10b981"/>
+                        <rect x="72" y="32" width="10" height="16" rx="4" fill="#10b981"/>
+                    </g>
+                </template>
+
+                <!-- Catalog: Radar Lens -->
+                <template x-if="page === 'catalog'">
+                    <circle cx="50" cy="12" r="8" stroke="#06b6d4" stroke-width="2" fill="none" class="animate-spin transform-gpu duration-1000"/>
+                </template>
+
+                <!-- Detail: Engineer Goggles -->
+                <template x-if="page === 'detail'">
+                    <path d="M 28 36 L 72 36" stroke="#f59e0b" stroke-width="4"/>
+                </template>
+
+                <!-- Wishlist: Floating Heart -->
+                <template x-if="page === 'wishlist'">
+                    <path d="M 50 8 L 53 12 L 47 12 Z" fill="#f43f5e"/>
+                </template>
+
+                <!-- Robot Head -->
+                <rect x="26" y="24" width="48" height="34" rx="10" fill="#18181b" stroke="currentColor" stroke-width="3"/>
+                
+                <!-- Eyes Colors per Page -->
+                <circle cx="40" cy="38" r="5" :fill="page === 'home' ? '#10b981' : (page === 'catalog' ? '#06b6d4' : (page === 'detail' ? '#f59e0b' : (page === 'wishlist' ? '#f43f5e' : '#6366f1')))" class="animate-pulse"/>
+                <circle cx="60" cy="38" r="5" :fill="page === 'home' ? '#10b981' : (page === 'catalog' ? '#06b6d4' : (page === 'detail' ? '#f59e0b' : (page === 'wishlist' ? '#f43f5e' : '#6366f1')))" class="animate-pulse"/>
+                
+                <!-- Smile -->
+                <path d="M 38 48 Q 50 56 62 48" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+                <!-- Robot Body -->
+                <rect x="30" y="62" width="40" height="30" rx="8" fill="#27272a" stroke="currentColor" stroke-width="3"/>
+                <!-- Equalizer / Chest Display -->
+                <rect x="38" y="70" width="24" height="14" rx="4" fill="#09090b"/>
+                <rect x="42" y="74" width="3" height="6" :fill="page === 'catalog' ? '#06b6d4' : '#10b981'" />
+                <rect x="48" y="72" width="3" height="10" :fill="page === 'detail' ? '#f59e0b' : '#3b82f6'" />
+                <rect x="54" y="75" width="3" height="5" :fill="page === 'wishlist' ? '#f43f5e' : '#f59e0b'" />
+
+                <!-- Left Arm -->
+                <g :class="{ 'robot-arm-left-dance': isHovering || page === 'home' || page === 'cart' }">
+                    <path d="M 30 68 C 18 68, 18 80, 22 86" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/>
+                    <circle cx="22" cy="86" r="4" fill="#a1a1aa"/>
+                </g>
+
+                <!-- Right Arm -->
+                <g :class="{ 'robot-arm-right-dance': isHovering || page === 'home' || page === 'cart' }">
+                    <path d="M 70 68 C 82 68, 82 80, 78 86" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/>
+                    <circle cx="78" cy="86" r="4" fill="#a1a1aa"/>
+                </g>
+            </svg>
+        </div>
+    </div>
+</div>
+
+<style>
+/* 🚀 GPU-Accelerated Smooth Animations */
+@keyframes smoothPatrolWalk {
+    0% { transform: translate3d(0, 0, 0); }
+    45% { transform: translate3d(-60vw, 0, 0) scaleX(1); }
+    50% { transform: translate3d(-60vw, 0, 0) scaleX(-1); }
+    95% { transform: translate3d(0, 0, 0) scaleX(-1); }
+    100% { transform: translate3d(0, 0, 0) scaleX(1); }
+}
+
+.robot-home-smooth-patrol {
+    animation: smoothPatrolWalk 16s ease-in-out infinite;
+    will-change: transform;
+}
+
+@keyframes robotDanceAnim {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    25% { transform: translate3d(0, -6px, 0) rotate(-4deg); }
+    75% { transform: translate3d(0, -6px, 0) rotate(4deg); }
+}
+
+@keyframes robotScoutAnim {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    50% { transform: translate3d(0, -4px, 0) rotate(-6deg); }
+}
+
+@keyframes robotEngineerAnim {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -6px, 0) scale(1.04); }
+}
+
+@keyframes robotBounceAnim {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    40% { transform: translate3d(0, -10px, 0); }
+    60% { transform: translate3d(0, -3px, 0); }
+}
+
+@keyframes robotHeartAnim {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(0, -8px, 0) scale(1.05); }
+}
+
+@keyframes robotSecurityAnim {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -2px, 0); }
+}
+
+@keyframes armLeftWiggle {
+    0%, 100% { transform: rotate(0deg); transform-origin: 30px 68px; }
+    50% { transform: rotate(-30deg); transform-origin: 30px 68px; }
+}
+
+@keyframes armRightWiggle {
+    0%, 100% { transform: rotate(0deg); transform-origin: 70px 68px; }
+    50% { transform: rotate(30deg); transform-origin: 70px 68px; }
+}
+
+.robot-dance-active { animation: robotDanceAnim 0.7s ease-in-out infinite; will-change: transform; }
+.robot-scout-active { animation: robotScoutAnim 1.4s ease-in-out infinite; will-change: transform; }
+.robot-engineer-active { animation: robotEngineerAnim 2s ease-in-out infinite; will-change: transform; }
+.robot-bounce-active { animation: robotBounceAnim 1s ease-in-out infinite; will-change: transform; }
+.robot-heart-active { animation: robotHeartAnim 1.6s ease-in-out infinite; will-change: transform; }
+.robot-security-active { animation: robotSecurityAnim 2.2s ease-in-out infinite; will-change: transform; }
+
+.robot-arm-left-dance { animation: armLeftWiggle 0.5s ease-in-out infinite alternate; }
+.robot-arm-right-dance { animation: armRightWiggle 0.5s ease-in-out infinite alternate; }
+</style>
+
+
+
+    
+
+<div x-data="{
+        isOpen: false,
+        product: {},
+        initExpress(data) {
+            this.product = data;
+            this.isOpen = true;
+        }
+     }"
+     @open-express-buy.window="initExpress($event.detail)"
+     x-show="isOpen"
+     x-cloak
+     class="fixed inset-0 z-50 flex items-center justify-end font-sans">
+    
+    <!-- Backdrop -->
+    <div x-show="isOpen"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         @click="isOpen = false"
+         class="absolute inset-0 bg-black/80"></div>
+
+    <!-- Slide-over Drawer -->
+    <div x-show="isOpen"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="translate-x-full"
+         x-transition:enter-end="translate-x-0"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="translate-x-0"
+         x-transition:leave-end="translate-x-full"
+         class="relative w-full max-w-md h-full bg-zinc-950 border-l border-white/10 text-white p-6 sm:p-8 shadow-xl flex flex-col justify-between overflow-y-auto z-10">
+        
+        <div>
+            <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+                <div>
+                    <span class="text-[10px] font-extrabold uppercase tracking-widest text-amber-400">⚡ 1-Click Express Checkout</span>
+                    <h3 class="font-display font-extrabold text-xl text-white tracking-tight" x-text="product.name"></h3>
+                    <div class="text-sm font-bold text-emerald-400" x-text="'L.E ' + product.price"></div>
+                </div>
+                <button @click="isOpen = false" class="text-gray-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors focus:outline-none">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+
+            <!-- Express Form -->
+            <form action="/en/orders/create/" method="post" class="space-y-4">
+                <input type="hidden" name="csrfmiddlewaretoken" value="tKueOAdtM8KJduIUx9HZBkSGZgqt9c3JwJ53fVmBTQNZQHqz3aj9eBxL4778bBgi">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">First Name</label>
+                    <input type="text" name="first_name" value="" required class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-amber-400">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Last Name</label>
+                    <input type="text" name="last_name" value="" required class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-amber-400">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Email</label>
+                    <input type="email" name="email" value="" required class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-amber-400">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Address</label>
+                    <input type="text" name="address" required placeholder="Cairo, Egypt" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-amber-400">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">City</label>
+                    <input type="text" name="city" required value="Cairo" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-amber-400">
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full py-4 bg-amber-400 text-black font-extrabold text-sm rounded-2xl hover:bg-amber-300 transition-colors uppercase tracking-widest shadow-[0_0_30px_rgba(251,191,36,0.3)]">
+                        ⚡ Complete Order
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

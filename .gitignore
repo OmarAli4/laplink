@@ -1,0 +1,31 @@
+# Django
+*.pyc
+__pycache__/
+db.sqlite3
+db.sqlite3-journal
+
+# Environment
+.env
+*.env
+
+# Static & Media (collected)
+staticfiles/
+media/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Compiled translations (regeneratable)
+*.mo
+
+# Temp files
+*.log
+*.pot

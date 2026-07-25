@@ -1,0 +1,144 @@
+{% load i18n %}
+
+<!-- ==================== SPLIT OVERVIEW CARD ==================== -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    
+    <!-- LEFT HALF: PIE/DOUGHNUT CHART -->
+    <div class="bg-slate-900/90 rounded-3xl border border-emerald-500/20 p-6 sm:p-8 shadow-xl backdrop-blur-xl hover:border-emerald-500/40 transition-colors group">
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h2 class="text-xl font-extrabold text-white font-display flex items-center gap-2">
+                    🎯 {% trans "Top Selling Catalog Categories" %}
+                </h2>
+                <p class="text-xs text-slate-400 font-medium">{% trans "Distribution of inventory & sales demand" %}</p>
+            </div>
+            <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-mono font-bold uppercase rounded-full tracking-wider animate-pulse">
+                ⚡ {% trans "Live Demand" %}
+            </span>
+        </div>
+        <div class="relative h-72 w-full flex items-center justify-center">
+            <canvas id="productsChart"></canvas>
+        </div>
+    </div>
+
+    <!-- RIGHT HALF: ANIMATED KPI METRICS -->
+    <div class="flex flex-col space-y-6">
+        
+        <!-- Metric 1: Finished Orders -->
+        <div class="bg-slate-900/90 rounded-3xl border border-emerald-500/25 p-6 sm:p-8 flex-1 flex flex-col justify-center shadow-xl relative overflow-hidden group hover:border-emerald-500/50 transition-all duration-300">
+            <div class="flex items-center space-x-5">
+                <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                    </svg>
+                </div>
+                <div class="min-w-0">
+                    <p class="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest mb-1">{% trans "Orders Completed" %}</p>
+                    <div class="flex items-baseline gap-3">
+                        <p class="text-3xl sm:text-4xl font-black text-white tabular-nums tracking-tight animate-count-up" data-target="{{ total_orders }}">
+                            0
+                        </p>
+                        {% if order_delta > 0 %}
+                        <span class="inline-flex items-center gap-1 text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/30">
+                            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L10 6.414l-3.293 3.293a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+                            +{{ order_delta }}
+                        </span>
+                        {% elif order_delta < 0 %}
+                        <span class="inline-flex items-center gap-1 text-xs font-mono font-bold text-rose-400 bg-rose-500/10 px-2.5 py-1 rounded-full border border-rose-500/30">
+                            <svg class="w-3.5 h-3.5 rotate-180" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L10 6.414l-3.293 3.293a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+                            {{ order_delta }}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metric 2: Tracked Revenue -->
+        <div class="bg-slate-900/90 rounded-3xl border border-cyan-500/25 p-6 sm:p-8 flex-1 flex flex-col justify-center shadow-xl relative overflow-hidden group hover:border-cyan-500/50 transition-all duration-300">
+            <div class="flex items-center space-x-5">
+                <div class="flex-shrink-0 w-14 h-14 rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <div class="min-w-0">
+                    <p class="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest mb-1">{% trans "Tracked Store Revenue" %}</p>
+                    <div class="flex items-baseline gap-3">
+                        <p class="text-3xl sm:text-4xl font-black text-white tabular-nums tracking-tight animate-count-up" data-target="{{ total_revenue }}" data-prefix="L.E ">
+                            L.E 0
+                        </p>
+                        {% if revenue_delta_pct > 0 %}
+                        <span class="inline-flex items-center gap-1 text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/30">
+                            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L10 6.414l-3.293 3.293a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+                            +{{ revenue_delta_pct }}%
+                        </span>
+                        {% elif revenue_delta_pct < 0 %}
+                        <span class="inline-flex items-center gap-1 text-xs font-mono font-bold text-rose-400 bg-rose-500/10 px-2.5 py-1 rounded-full border border-rose-500/30">
+                            <svg class="w-3.5 h-3.5 rotate-180" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L10 6.414l-3.293 3.293a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+                            {{ revenue_delta_pct }}%
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+(function() {
+    const fontFamily = "'JetBrains Mono', 'Outfit', sans-serif";
+    const textColor = '#9ca3af';
+
+    const prodCanvas = document.getElementById('productsChart');
+    if (!prodCanvas) return;
+    const prodCtx = prodCanvas.getContext('2d');
+    
+    new Chart(prodCtx, {
+        type: 'doughnut',
+        data: {
+            labels: {{ chart_labels_products|safe|default:"[]" }},
+            datasets: [{
+                data: {{ chart_data_products|safe|default:"[]" }},
+                backgroundColor: [
+                    '#10b981', '#06b6d4', '#8b5cf6', '#f59e0b', '#ef4444',
+                    '#ec4899', '#3b82f6', '#f97316', '#14b8a6', '#6366f1'
+                ],
+                borderWidth: 0,
+                hoverOffset: 8,
+                spacing: 4,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: textColor,
+                        padding: 14,
+                        usePointStyle: true,
+                        pointStyleWidth: 8,
+                        font: { family: fontFamily, size: 11, weight: '500' }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: '#0f172a',
+                    titleColor: '#10b981',
+                    bodyColor: '#f1f5f9',
+                    borderColor: 'rgba(16, 185, 129, 0.4)',
+                    borderWidth: 1,
+                    cornerRadius: 12,
+                    padding: 12,
+                    titleFont: { family: fontFamily, weight: '700', size: 11 },
+                    bodyFont: { family: fontFamily, weight: '600', size: 13 },
+                }
+            },
+            cutout: '70%'
+        }
+    });
+})();
+</script>
