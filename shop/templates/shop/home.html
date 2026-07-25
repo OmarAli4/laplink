@@ -71,7 +71,7 @@
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  (function initSwiper() {
       if (document.querySelector('.bannerSwiper')) {
           var swiper = new Swiper(".bannerSwiper", {
               loop: true,
@@ -89,7 +89,7 @@
               },
           });
       }
-  });
+  })();
 </script>
 
 <!-- Features Section -->

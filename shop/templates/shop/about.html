@@ -226,7 +226,7 @@
 
 <!-- 📐 GAPLESS LOW-POLY TRIANGULATION ASSEMBLY & DISPERSAL ENGINE -->
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+(function initAboutCanvas() {
     const canvas = document.getElementById('triangulation-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d', { alpha: false }); // Optimize canvas rendering
@@ -463,6 +463,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize animation state
     checkAnimation();
-});
+})();
 </script>
 {% endblock %}
