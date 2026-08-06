@@ -125,14 +125,78 @@
         border: 1px solid #27272a !important;
         color: white !important;
         border-radius: 8px;
-        padding: 8px 12px;
+        padding: 10px 14px;
         font-family: 'JetBrains Mono', monospace;
         font-size: 13px;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        display: block !important;
+        margin-top: 4px;
     }
     input:focus, select:focus, textarea:focus {
         border-color: var(--primary) !important;
         box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2) !important;
         outline: none;
+    }
+
+    /* Login Form Layout */
+    #content-main .form-row, .login #content-main div, body.login #content div {
+        margin-bottom: 16px !important;
+    }
+    #content-main label, .login label, body.login label {
+        display: block !important;
+        color: #a1a1aa !important;
+        font-family: 'Outfit', sans-serif !important;
+        font-size: 13px !important;
+        font-weight: 500 !important;
+        margin-bottom: 6px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+    }
+
+    /* Cyber Submit Buttons */
+    input[type="submit"], .submit-row input, button[type="submit"]:not(#logout-form button) {
+        background-color: #10b981 !important;
+        color: white !important;
+        border: none !important;
+        padding: 10px 32px !important;
+        border-radius: 10px !important;
+        font-family: 'Outfit', sans-serif !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.08em !important;
+        cursor: pointer !important;
+        display: inline-block !important;
+        margin-top: 8px !important;
+        transition: background-color 0.2s ease !important;
+    }
+    input[type="submit"]:hover, .submit-row input:hover, button[type="submit"]:not(#logout-form button):hover {
+        background-color: #059669 !important;
+    }
+
+    /* Content area full width */
+    #content, #content-main, .colM, .colMS {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 24px !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Flex layout for main wrapper */
+    #content-main[x-data] {
+        display: flex !important;
+        min-height: 100vh !important;
+    }
+
+    /* Action links styling */
+    .object-tools a, .addlink, .changelink, a.addlink {
+        color: #10b981 !important;
+        font-weight: 600 !important;
+    }
+    .object-tools a:hover, .addlink:hover, .changelink:hover {
+        color: #34d399 !important;
     }
   </style>
   <script>
