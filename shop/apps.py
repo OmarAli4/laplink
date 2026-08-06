@@ -8,7 +8,13 @@ class ShopConfig(AppConfig):
     def ready(self):
         try:
             from django.contrib.auth.models import User
-            if not User.objects.filter(username='admin').exists():
-                User.objects.create_superuser('admin', 'admin@example.com', 'AdminPass1234')
+            user, created = User.objects.get_or_create(
+                username='admin',
+                defaults={'email': 'admin@example.com', 'is_staff': True, 'is_superuser': True}
+            )
+            user.set_password('AdminPass1234')
+            user.is_staff = True
+            user.is_superuser = True
+            user.save()
         except Exception:
             pass
