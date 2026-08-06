@@ -34,10 +34,6 @@ if csrf_env:
                 CSRF_TRUSTED_ORIGINS.append(item)
 
 INSTALLED_APPS = [
-    'unfold',
-    'unfold.contrib.filters',
-    'unfold.contrib.forms',
-    'unfold.contrib.inlines',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -199,13 +195,4 @@ LOGGING = {
             'propagate': False,
         },
     },
-}
-
-UNFOLD = {
-    "SITE_TITLE": "Lap Link Control Center",
-    "SITE_HEADER": "Lap Link Admin",
-    "SITE_URL": "/",
-    "SHOW_HISTORY": True,
-    "SHOW_VIEW_ON_SITE": True,
-    "THEME": "dark",
 }
