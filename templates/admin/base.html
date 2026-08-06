@@ -119,25 +119,32 @@
     td, th { border-bottom: 1px solid #18181b !important; }
     tr:hover { background-color: rgba(16, 185, 129, 0.05) !important; }
     
-    /* Cyber Inputs */
+    /* Cyber Inputs (Base) */
     input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="url"], select, textarea {
         background-color: #000000 !important;
         border: 1px solid #27272a !important;
         color: white !important;
         border-radius: 8px;
-        padding: 10px 14px;
+        padding: 8px 12px;
         font-family: 'JetBrains Mono', monospace;
         font-size: 13px;
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-        display: block !important;
-        margin-top: 4px;
+        box-sizing: border-box;
     }
     input:focus, select:focus, textarea:focus {
         border-color: var(--primary) !important;
         box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2) !important;
         outline: none;
+    }
+
+    /* Scoped 100% width for forms & login ONLY */
+    .login input[type="text"], .login input[type="password"],
+    .form-row input[type="text"], .form-row input[type="password"], .form-row input[type="email"],
+    .form-row select, .form-row textarea {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        display: block !important;
+        margin-top: 4px;
     }
 
     /* Login Form Layout */
@@ -156,24 +163,130 @@
     }
 
     /* Cyber Submit Buttons */
-    input[type="submit"], .submit-row input, button[type="submit"]:not(#logout-form button) {
+    input[type="submit"], .submit-row input, button[type="submit"]:not(#logout-form button), .button {
         background-color: #10b981 !important;
         color: white !important;
         border: none !important;
-        padding: 10px 32px !important;
-        border-radius: 10px !important;
+        padding: 8px 24px !important;
+        border-radius: 8px !important;
         font-family: 'Outfit', sans-serif !important;
-        font-size: 14px !important;
+        font-size: 13px !important;
         font-weight: 700 !important;
         text-transform: uppercase !important;
         letter-spacing: 0.08em !important;
         cursor: pointer !important;
         display: inline-block !important;
-        margin-top: 8px !important;
         transition: background-color 0.2s ease !important;
     }
-    input[type="submit"]:hover, .submit-row input:hover, button[type="submit"]:not(#logout-form button):hover {
+    input[type="submit"]:hover, .submit-row input:hover, button[type="submit"]:not(#logout-form button):hover, .button:hover {
         background-color: #059669 !important;
+    }
+
+    /* Changelist Layout (Table + Right Filter Sidebar) */
+    #changelist {
+        display: flex !important;
+        flex-direction: row-reverse !important;
+        gap: 24px !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+    }
+    #changelist-form {
+        flex: 1 !important;
+        min-width: 0 !important;
+    }
+    #changelist-filter {
+        width: 240px !important;
+        min-width: 240px !important;
+        background-color: #09090b !important;
+        border: 1px solid #18181b !important;
+        border-radius: 16px !important;
+        padding: 20px !important;
+        box-sizing: border-box !important;
+    }
+    #changelist-filter h2 {
+        color: #10b981 !important;
+        font-family: 'Outfit', sans-serif !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.08em !important;
+        margin-top: 0 !important;
+        margin-bottom: 16px !important;
+    }
+    #changelist-filter h3 {
+        color: #e4e4e7 !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        margin-top: 16px !important;
+        margin-bottom: 8px !important;
+    }
+    #changelist-filter ul {
+        list-style: none !important;
+        padding: 0 !important;
+        margin: 0 0 12px 0 !important;
+    }
+    #changelist-filter li {
+        margin-bottom: 6px !important;
+    }
+    #changelist-filter li a {
+        color: #a1a1aa !important;
+        font-size: 12px !important;
+        transition: color 0.2s !important;
+    }
+    #changelist-filter li.selected a, #changelist-filter li a:hover {
+        color: #10b981 !important;
+        font-weight: 600 !important;
+    }
+
+    /* Toolbar & Search Bar Layout */
+    #toolbar {
+        background-color: #09090b !important;
+        border: 1px solid #18181b !important;
+        border-radius: 12px !important;
+        padding: 12px 16px !important;
+        margin-bottom: 20px !important;
+    }
+    #toolbar form {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        width: 100% !important;
+    }
+    #toolbar input[type="text"] {
+        flex: 1 !important;
+        width: auto !important;
+        display: inline-block !important;
+        margin: 0 !important;
+    }
+    #toolbar input[type="submit"] {
+        margin: 0 !important;
+    }
+
+    /* Actions Bar Layout */
+    .actions {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        margin-bottom: 16px !important;
+        background-color: #09090b !important;
+        border: 1px solid #18181b !important;
+        border-radius: 12px !important;
+        padding: 12px 16px !important;
+    }
+    .actions label {
+        color: #a1a1aa !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+    }
+    .actions select {
+        width: auto !important;
+        display: inline-block !important;
+        margin: 0 !important;
+    }
+    .actions button, .actions input[type="submit"], .actions .button {
+        margin: 0 !important;
     }
 
     /* Content area full width */
