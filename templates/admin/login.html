@@ -1,0 +1,186 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+  /* Reset and override default Django admin login.css */
+  #header, #nav-sidebar, .breadcrumbs { display: none !important; }
+  
+  body {
+    background-color: #000000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 100vh !important;
+    margin: 0 !important;
+    padding: 1.5rem !important;
+    font-family: 'Outfit', sans-serif !important;
+  }
+
+  #container {
+    background: transparent !important;
+    border: none !important;
+    width: 100% !important;
+    max-width: 440px !important;
+    margin: 0 auto !important;
+  }
+
+  #content-main {
+    float: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .login-card {
+    background-color: #09090b !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 1.5rem !important;
+    padding: 2.5rem !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(16, 185, 129, 0.1) !important;
+  }
+
+  .login-form .form-row {
+    padding: 0 !important;
+    margin-bottom: 1.25rem !important;
+    border: none !important;
+    float: none !important;
+    width: 100% !important;
+    clear: both !important;
+  }
+
+  .login-form .form-row label {
+    display: block !important;
+    float: none !important;
+    width: 100% !important;
+    color: #a1a1aa !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .login-form .form-row input[type="text"],
+  .login-form .form-row input[type="password"] {
+    display: block !important;
+    float: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    background-color: #000000 !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #ffffff !important;
+    border-radius: 0.75rem !important;
+    padding: 0.75rem 1rem !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 0.9rem !important;
+    transition: all 0.2s ease-in-out !important;
+  }
+
+  .login-form .form-row input:focus {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25) !important;
+    outline: none !important;
+  }
+
+  .login-form .submit-row {
+    padding: 0 !important;
+    margin-top: 1.5rem !important;
+    background: transparent !important;
+    border: none !important;
+    float: none !important;
+  }
+
+  .login-form .submit-row input[type="submit"] {
+    display: block !important;
+    width: 100% !important;
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    color: #ffffff !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    padding: 0.85rem 1.5rem !important;
+    border-radius: 0.75rem !important;
+    border: none !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3) !important;
+    transition: all 0.2s ease-in-out !important;
+  }
+
+  .login-form .submit-row input[type="submit"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.45) !important;
+  }
+</style>
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block usertools %}{% endblock %}
+{% block nav-breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div class="login-card">
+  <!-- Brand Header -->
+  <div class="text-center mb-8">
+    <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 mb-4 shadow-lg">
+      <svg class="w-7 h-7 text-emerald-400" viewBox="14 14 112 82" fill="none" stroke="currentColor" stroke-width="10">
+        <path d="M 50 50 L 20 50 L 20 90 L 80 90 L 80 50 L 70 50" />
+        <path d="M 70 60 L 60 60 L 60 20 L 120 20 L 120 60 L 90 60" />
+      </svg>
+    </div>
+    <h1 class="text-2xl font-display font-extrabold text-white tracking-tight">LAP LINK</h1>
+    <p class="text-xs font-mono text-emerald-400 mt-1 uppercase tracking-widest">Executive Cybernetics Portal</p>
+  </div>
+
+  {% if form.errors and not form.non_field_errors %}
+  <div class="mb-6 p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-mono">
+    {% if form.errors.items|length == 1 %}
+      {% translate "Please correct the error below." %}
+    {% else %}
+      {% translate "Please correct the errors below." %}
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {% if form.non_field_errors %}
+  {% for error in form.non_field_errors %}
+  <div class="mb-6 p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-mono">
+    {{ error }}
+  </div>
+  {% endfor %}
+  {% endif %}
+
+  <form action="{{ app_path }}" method="post" id="login-form" class="login-form">
+    {% csrf_token %}
+    
+    <div class="form-row">
+      {{ form.username.errors }}
+      <label for="{{ form.username.id_for_label }}">{% translate 'Username' %}</label>
+      <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}" value="{{ form.username.value|default:'' }}" autofocus placeholder="Enter username">
+    </div>
+
+    <div class="form-row">
+      {{ form.password.errors }}
+      <label for="{{ form.password.id_for_label }}">{% translate 'Password' %}</label>
+      <input type="password" name="{{ form.password.name }}" id="{{ form.password.id_for_label }}" placeholder="Enter password">
+      <input type="hidden" name="next" value="{{ next }}">
+    </div>
+
+    {% url 'admin_password_reset' as password_reset_url %}
+    {% if password_reset_url %}
+    <div class="text-right text-xs font-mono mb-4">
+      <a href="{{ password_reset_url }}" class="text-zinc-400 hover:text-emerald-400 transition-colors">{% translate 'Forgotten your password or username?' %}</a>
+    </div>
+    {% endif %}
+
+    <div class="submit-row">
+      <input type="submit" value="{% translate 'Log in' %}">
+    </div>
+  </form>
+</div>
+{% endblock %}
