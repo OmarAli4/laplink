@@ -34,6 +34,7 @@ if csrf_env:
                 CSRF_TRUSTED_ORIGINS.append(item)
 
 INSTALLED_APPS = [
+    'unfold',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

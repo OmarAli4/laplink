@@ -1,4 +1,5 @@
 from django.contrib import admin
+from unfold.admin import ModelAdmin
 from .models import FlashSale, CouponBatch
 
 @admin.action(description="Apply flash sale to products now")
@@ -8,7 +9,7 @@ def trigger_flash_sale_apply(modeladmin, request, queryset):
     modeladmin.message_user(request, "Flash sale discounts applied to products successfully.")
 
 @admin.register(FlashSale)
-class FlashSaleAdmin(admin.ModelAdmin):
+class FlashSaleAdmin(ModelAdmin):
     list_display = ['name', 'discount_percentage', 'start_time', 'end_time', 'is_active']
     list_filter = ['is_active', 'start_time']
     search_fields = ['name']
@@ -22,7 +23,7 @@ def trigger_coupon_generation(modeladmin, request, queryset):
     modeladmin.message_user(request, "Coupons generated successfully.")
 
 @admin.register(CouponBatch)
-class CouponBatchAdmin(admin.ModelAdmin):
+class CouponBatchAdmin(ModelAdmin):
     list_display = ['name', 'prefix', 'quantity', 'discount_percentage', 'generated']
     list_filter = ['generated']
     actions = [trigger_coupon_generation]

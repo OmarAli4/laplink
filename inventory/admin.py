@@ -1,8 +1,9 @@
 from django.contrib import admin
+from unfold.admin import ModelAdmin
 from .models import InventoryLog, PurchaseOrder
 
 @admin.register(InventoryLog)
-class InventoryLogAdmin(admin.ModelAdmin):
+class InventoryLogAdmin(ModelAdmin):
     list_display = ['id', 'product', 'quantity_change', 'reason', 'user', 'timestamp']
     list_filter = ['reason', 'timestamp']
     search_fields = ['product__name', 'user__username', 'note']
@@ -15,7 +16,7 @@ class InventoryLogAdmin(admin.ModelAdmin):
         return False
 
 @admin.register(PurchaseOrder)
-class PurchaseOrderAdmin(admin.ModelAdmin):
+class PurchaseOrderAdmin(ModelAdmin):
     list_display = ['id', 'product', 'supplier_email', 'requested_quantity', 'status', 'created']
     list_filter = ['status', 'created']
     list_editable = ['status']

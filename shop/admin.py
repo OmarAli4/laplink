@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.admin import ModelAdmin, TabularInline
+from unfold.admin import ModelAdmin, TabularInline
 from .models import Category, Product, Banner, Brand, ProductImage, ProductSpec, Announcement
 
 
@@ -110,7 +110,7 @@ class AnnouncementAdmin(ModelAdmin):
 
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.contrib.admin import TabularInline
+from unfold.admin import TabularInline
 from orders.models import Order
 
 
