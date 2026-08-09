@@ -1,0 +1,317 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr"  x-data="theme()" x-bind="themeBindings" x-cloak>
+    <head>
+        <title> 
+    Log in | None
+</title>
+
+        <link href="/static/unfold/fonts/inter/styles.css" rel="stylesheet">
+        <link href="/static/unfold/fonts/material-symbols/styles.css" rel="stylesheet">
+
+        
+
+        
+
+        <link href="/static/unfold/css/styles.css" rel="stylesheet">
+        <link href="/static/unfold/css/simplebar/simplebar.css" rel="stylesheet">
+
+        <script src="/static/unfold/js/alpine/alpine.anchor.js" defer></script>
+        <script src="/static/unfold/js/alpine/alpine.persist.js" defer></script>
+        <script src="/static/unfold/js/alpine/alpine.sort.js" defer></script>
+        <script src="/static/unfold/js/alpine/alpine.resize.js" defer></script>
+        <script src="/static/unfold/js/alpine/alpine.js" defer></script>
+        <script src="/static/unfold/js/htmx/htmx.js"></script>
+        <script src="/static/unfold/js/chart/chart.js"></script>
+
+        
+
+        
+    
+    
+
+
+        
+
+        <script src="/static/unfold/js/app.js"></script>
+
+        
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+
+        
+            <meta name="robots" content="NONE,NOARCHIVE">
+        
+    </head>
+
+    <body class="antialiased bg-base-50 font-sans text-font-default-light text-sm dark:bg-base-900 dark:text-font-default-dark bg-base-50 login dark:bg-base-900" data-admin-utc-offset="0" x-data="{  }" x-init="activeTab = '';">
+        
+            <style id="unfold-theme-colors">
+                :root {
+                    
+
+                    
+                        
+                            --color-base-50: oklch(98.5% .002 247.839);
+                        
+                            --color-base-100: oklch(96.7% .003 264.542);
+                        
+                            --color-base-200: oklch(92.8% .006 264.531);
+                        
+                            --color-base-300: oklch(87.2% .01 258.338);
+                        
+                            --color-base-400: oklch(70.7% .022 261.325);
+                        
+                            --color-base-500: oklch(55.1% .027 264.364);
+                        
+                            --color-base-600: oklch(44.6% .03 256.802);
+                        
+                            --color-base-700: oklch(37.3% .034 259.733);
+                        
+                            --color-base-800: oklch(27.8% .033 256.848);
+                        
+                            --color-base-900: oklch(21% .034 264.665);
+                        
+                            --color-base-950: oklch(13% .028 261.692);
+                        
+                    
+                        
+                            --color-primary-50: oklch(97.7% .014 308.299);
+                        
+                            --color-primary-100: oklch(94.6% .033 307.174);
+                        
+                            --color-primary-200: oklch(90.2% .063 306.703);
+                        
+                            --color-primary-300: oklch(82.7% .119 306.383);
+                        
+                            --color-primary-400: oklch(71.4% .203 305.504);
+                        
+                            --color-primary-500: oklch(62.7% .265 303.9);
+                        
+                            --color-primary-600: oklch(55.8% .288 302.321);
+                        
+                            --color-primary-700: oklch(49.6% .265 301.924);
+                        
+                            --color-primary-800: oklch(43.8% .218 303.724);
+                        
+                            --color-primary-900: oklch(38.1% .176 304.987);
+                        
+                            --color-primary-950: oklch(29.1% .149 302.717);
+                        
+                    
+                        
+                            --color-font-subtle-light: var(--color-base-500);
+                        
+                            --color-font-subtle-dark: var(--color-base-400);
+                        
+                            --color-font-default-light: var(--color-base-600);
+                        
+                            --color-font-default-dark: var(--color-base-300);
+                        
+                            --color-font-important-light: var(--color-base-900);
+                        
+                            --color-font-important-dark: var(--color-base-100);
+                        
+                    
+                }
+            </style>
+        
+
+        
+    <div id="page" class="bg-white flex min-h-screen dark:bg-base-900 ">
+        <div class="flex grow items-center justify-center mx-auto px-4 relative">
+            <div class="w-full sm:w-96">
+                
+    
+
+<div class="border-b border-base-200 mb-8 pb-6 dark:border-base-800">
+    <h1 class="font-semibold">
+        
+            <span class="block text-font-important-light dark:text-font-important-dark">Welcome back to </span>
+        
+
+        <span class="block font-semibold text-primary-600 tracking-tight text-xl dark:text-primary-500">Django site admin</span>
+    </h1>
+</div>
+
+
+    
+
+
+    
+
+    
+
+    <form action="/manage_store/login/" method="post" id="login-form">
+        <input type="hidden" name="csrfmiddlewaretoken" value="sYsjypHPvFwWD8zgW6Qf8eUIT7fhKd7C7EgGrw2rkBeCkAZAfH6u3eH5zsSiD2W6">
+
+        
+
+
+    <div class="form-field flex flex-col group mb-4 ">
+        <div class="flex gap-2 flex-col">
+            
+
+<label for="id_username" class="block font-semibold text-important whitespace-nowrap">
+    Username<span class="text-red-600 dark:text-red-500">*</span>
+</label>
+
+            <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" class="border border-base-200 bg-white font-medium min-w-20 placeholder-base-400 rounded-default shadow-xs text-font-default-light text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 group-[.errors]:border-red-600 focus:group-[.errors]:outline-red-600 dark:bg-base-900 dark:border-base-700 dark:text-font-default-dark dark:group-[.errors]:border-red-500 dark:focus:group-[.errors]:outline-red-500 dark:scheme-dark group-[.primary]:border-transparent disabled:!bg-base-50 dark:disabled:!bg-base-800 px-3 py-2 w-full" required id="id_username">
+        </div>
+
+        
+
+
+        
+
+    </div>
+
+
+
+        
+
+
+    <div class="form-field flex flex-col group mb-4 ">
+        <div class="flex gap-2 flex-col">
+            
+
+<label for="id_password" class="block font-semibold text-important whitespace-nowrap">
+    Password<span class="text-red-600 dark:text-red-500">*</span>
+</label>
+
+            <input type="password" name="password" autocomplete="current-password" class="border border-base-200 bg-white font-medium min-w-20 placeholder-base-400 rounded-default shadow-xs text-font-default-light text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 group-[.errors]:border-red-600 focus:group-[.errors]:outline-red-600 dark:bg-base-900 dark:border-base-700 dark:text-font-default-dark dark:group-[.errors]:border-red-500 dark:focus:group-[.errors]:outline-red-500 dark:scheme-dark group-[.primary]:border-transparent disabled:!bg-base-50 dark:disabled:!bg-base-800 px-3 py-2 w-full" required id="id_password">
+        </div>
+
+        
+
+
+        
+
+    </div>
+
+
+
+        <div class="flex flex-col gap-3 mt-6">
+            <button  type="submit"     
+
+class="font-medium inline-flex group items-center gap-1 relative rounded-default justify-center whitespace-nowrap cursor-pointer
+
+    px-3 py-2
+
+
+    border border-base-200 bg-primary-600 border-transparent text-white hover:bg-primary-600/80
+
+ submit-row w-full" 
+ >
+
+
+
+                Log in <span class="material-symbols-outlined relative right-0 transition-all group-hover:-right-1 text-sm">arrow_forward</span>
+            
+</button>
+
+
+            
+            
+
+            
+        </div>
+    </form>
+
+    
+
+            </div>
+
+            
+
+<div class="absolute flex flex-row items-center justify-between left-0 m-4 right-0 top-0">
+    
+        <a href="/" class="flex font-medium gap-2 group items-center text-sm text-primary-600 dark:text-primary-500">
+            <span class="material-symbols-outlined left-0 relative text-sm transition-all group-hover:-left-1">arrow_back</span> Return to site
+        </a>
+    
+
+    
+        <div class="ml-auto">
+            
+
+
+    <div class="relative" x-data="{ openTheme: false }">
+        <a class="block cursor-pointer h-[18px] leading-none hover:text-base-700 dark:hover:text-base-200" x-on:click="openTheme = !openTheme">
+            <span class="material-symbols-outlined">
+                <span x-text="adminTheme == 'dark' && 'dark_mode' || adminTheme == 'light' && 'light_mode' || 'computer'"></span>
+            </span>
+        </a>
+
+        <nav class="absolute bg-white border border-base-200 flex flex-col leading-none py-1 -right-2 rounded-default shadow-lg top-7 w-40 z-50 dark:bg-base-800 dark:border-base-700" x-cloak x-show="openTheme" x-transition x-on:click.outside="openTheme = false">
+            <a class="cursor-pointer flex flex-row mx-1 px-3 py-1.5 rounded-default hover:bg-base-100 hover:text-base-700 dark:hover:bg-base-700 dark:hover:text-base-200"
+               x-on:click="adminTheme = 'light'"
+               x-bind:class="adminTheme == 'light'  && 'text-primary-600 dark:text-primary-500 dark:hover:text-primary-500! hover:text-primary-600!'">
+                <span class="material-symbols-outlined mr-2">light_mode</span>
+                <span class="leading-none self-center">Light</span>
+            </a>
+
+            <a class="cursor-pointer flex flex-row leading-none mx-1 px-3 py-1.5 rounded-default hover:bg-base-100 hover:text-base-700 dark:hover:bg-base-700 dark:hover:text-base-200"
+               x-on:click="adminTheme = 'dark'"
+               x-bind:class="adminTheme == 'dark' && 'text-primary-600 dark:text-primary-500 dark:hover:text-primary-500! hover:text-primary-600!'">
+                <span class="material-symbols-outlined mr-2">dark_mode</span>
+                <span class="leading-none self-center">Dark</span>
+            </a>
+
+            <a class="cursor-pointer flex flex-row mx-1 px-3 py-1.5 rounded-default hover:bg-base-100 hover:text-base-700 dark:hover:bg-base-700 dark:hover:text-base-200"
+               x-on:click="adminTheme = 'auto'"
+               x-bind:class="adminTheme == 'auto' && 'text-primary-600 dark:text-primary-500 dark:hover:text-primary-500! hover:text-primary-600!'">
+                <span class="material-symbols-outlined mr-2">computer</span>
+                <span class="leading-none self-center">System</span>
+            </a>
+        </nav>
+    </div>
+
+
+        </div>
+    
+</div>
+
+        </div>
+
+        
+    </div>
+
+
+        <div id="modal-overlay" class="backdrop-blur-xs bg-base-900/20 bottom-0 fixed left-0 mr-1 right-0 top-0 z-60 dark:bg-base-900/80"
+     x-cloak
+     x-show="openModal"
+     x-on:keydown.escape.window="openModal = false">
+</div>
+
+<div class="bottom-0 flex items-center justify-center left-0 right-0 fixed top-0 z-70"
+     x-cloak
+     x-show="openModal"
+     x-on:keydown.escape.window="openModal = false">
+    <div id="modal-content" class="bg-white relative rounded-default p-6 w-md dark:bg-base-800" x-on:click.outside="openModal = false"></div>
+</div>
+
+
+        
+
+
+
+
+        <script src="/static/unfold/js/simplebar/simplebar.js"></script>
+    </body>
+</html>
