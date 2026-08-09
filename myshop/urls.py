@@ -8,6 +8,7 @@ admin.site.enable_nav_sidebar = True
 
 urlpatterns = [
     path('manage-store/', admin.site.urls),
+    path('manage_store/', admin.site.urls),
     path('i18n/', include('django.conf.urls.i18n')),
     path('anymail/', include('anymail.urls')),
 ]

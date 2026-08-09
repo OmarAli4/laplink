@@ -144,6 +144,9 @@ textarea {
     border-radius: 0.75rem !important;
     padding: 0.65rem 1rem !important;
     font-size: 0.85rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
     transition: all 0.2s ease-in-out !important;
 }
 
