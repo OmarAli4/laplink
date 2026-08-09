@@ -9,6 +9,7 @@ from django.views.generic import RedirectView
 admin.site.enable_nav_sidebar = True
 
 urlpatterns = [
+    path('manage-store/<path:subpath>', RedirectView.as_view(url='/manage_store/%(subpath)s', permanent=True)),
     path('manage-store/', RedirectView.as_view(url='/manage_store/', permanent=True)),
     path('manage_store/', admin.site.urls),
     path('i18n/', include('django.conf.urls.i18n')),
