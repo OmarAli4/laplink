@@ -94,9 +94,27 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myshop.wsgi.application'
 
+# Persistent Data Directory (for Railway Volumes)
+VOLUME_PATH = os.getenv('RAILWAY_VOLUME_MOUNT_PATH', os.getenv('DATA_DIR'))
+if VOLUME_PATH:
+    DATA_DIR = Path(VOLUME_PATH)
+elif os.getenv('RAILWAY_ENVIRONMENT'):
+    if Path('/app/data').exists():
+        DATA_DIR = Path('/app/data')
+    elif Path('/app/media').exists():
+        DATA_DIR = Path('/app/media')
+    elif Path('/data').exists():
+        DATA_DIR = Path('/data')
+    else:
+        DATA_DIR = Path('/app/media')
+else:
+    DATA_DIR = BASE_DIR
+
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+
 DATABASES = {
     'default': dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        default=f"sqlite:///{DATA_DIR / 'db.sqlite3'}",
         conn_max_age=600
     )
 }
@@ -125,7 +143,8 @@ STORAGES = {
 }
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# If volume is mounted directly at /app/media, store media files directly in DATA_DIR
+MEDIA_ROOT = DATA_DIR if DATA_DIR.name == 'media' else DATA_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
