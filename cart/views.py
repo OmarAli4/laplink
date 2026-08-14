@@ -55,6 +55,12 @@ def cart_add(request, product_id):
 
     # ── Check for Direct Buy Now Redirect ──
     if request.POST.get('buy_now') == 'true' or request.GET.get('buy_now') == 'true':
+        if request.headers.get('HX-Request'):
+            from django.http import HttpResponse
+            from django.urls import reverse
+            response = HttpResponse(status=200)
+            response['HX-Redirect'] = reverse('orders:order_create')
+            return response
         return redirect('orders:order_create')
 
     # ── HTMX Request → return partial ──
