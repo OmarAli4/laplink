@@ -57,7 +57,7 @@ class OrderItemInline(TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(ModelAdmin):
-    list_display = ['id', 'user', 'first_name', 'last_name', 'email', 'status_badge', 'paid_badge', 'created', 'pdf_invoice']
+    list_display = ['id', 'user', 'first_name', 'last_name', 'email', 'phone', 'status_badge', 'paid_badge', 'created', 'pdf_invoice']
     list_filter = ['status', 'paid', 'created', 'updated']
     inlines = [OrderItemInline]
     actions = [export_to_csv, mark_as_shipped, print_packing_slips]
