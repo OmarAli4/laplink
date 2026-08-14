@@ -157,12 +157,12 @@ CACHES = {
 }
 
 # Anymail / Resend settings
+resend_key = os.getenv("RESEND_API_KEY", "").strip()
 ANYMAIL = {
-    "RESEND_API_KEY": os.getenv("RESEND_API_KEY", "re_dummy"),
+    "RESEND_API_KEY": resend_key,
 }
 
-# Use Resend API backend if RESEND_API_KEY is configured in environment, otherwise default to SMTP
-if os.getenv("RESEND_API_KEY"):
+if resend_key:
     EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
 else:
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -170,9 +170,16 @@ else:
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', f"Lap Link <{EMAIL_HOST_USER}>")
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '').strip()
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '').strip()
+
+default_from = os.getenv('DEFAULT_FROM_EMAIL', '').strip()
+if default_from:
+    DEFAULT_FROM_EMAIL = default_from
+elif EMAIL_HOST_USER:
+    DEFAULT_FROM_EMAIL = f"Lap Link <{EMAIL_HOST_USER}>"
+else:
+    DEFAULT_FROM_EMAIL = "Lap Link <onboarding@resend.dev>"
 
 # Redis & Celery (dummy for now)
 REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
