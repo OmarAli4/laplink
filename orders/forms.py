@@ -13,7 +13,7 @@ class OrderCreateForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        fields = ['first_name', 'last_name', 'email', 'phone', 'address', 'city', 'postal_code']
+        fields = ['first_name', 'last_name', 'email', 'phone', 'address', 'city']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
