@@ -109,7 +109,18 @@ def product_list(request, category_slug=None):
         products = products.order_by('-id') # Default ordering
         
     from .models import Brand
-    brands = category.brands.all() if category else Brand.objects.all()
+    brands = Brand.objects.all()
+
+    # 7. Pagination (12 products per page for optimal performance)
+    from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+    paginator = Paginator(products, 12)
+    page_number = request.GET.get('page', 1)
+    try:
+        products_page = paginator.page(page_number)
+    except PageNotAnInteger:
+        products_page = paginator.page(1)
+    except EmptyPage:
+        products_page = paginator.page(paginator.num_pages)
 
     wishlisted_product_ids = []
     if request.user.is_authenticated:
@@ -120,7 +131,7 @@ def product_list(request, category_slug=None):
         'category': category,
         'categories': categories,
         'brands': brands,
-        'products': products,
+        'products': products_page,
         'selected_brands': selected_brands,
         'wishlisted_product_ids': wishlisted_product_ids,
     })

@@ -1,27 +1,37 @@
 {% extends "shop/base.html" %}
 {% load i18n %}
 
-{% block title %}{% trans "Order Confirmed" %} | ElectroShop{% endblock %}
+{% block title %}{% trans "Order Confirmed" %} | Lap Link{% endblock %}
 
 {% block content %}
 <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-emerald-500/10 border border-emerald-500/20
-                flex items-center justify-center">
-        <svg class="w-10 h-10 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-        </svg>
+    <div class="bg-white border border-gray-100 rounded-3xl p-8 sm:p-12 shadow-xl">
+        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-emerald-50 border border-emerald-200
+                    flex items-center justify-center shadow-inner">
+            <svg class="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+            </svg>
+        </div>
+        
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-zinc-900 tracking-tight mb-3">
+            {% trans "Thank you for your order!" %}
+        </h1>
+        
+        <p class="text-zinc-600 text-lg font-medium mb-2">
+            {% blocktrans with id=order.id %}Your order #{{ id }} has been placed successfully.{% endblocktrans %}
+        </p>
+        
+        <p class="text-zinc-500 text-sm mb-8">
+            {% trans "We'll send a confirmation email shortly." %}
+        </p>
+        
+        <a href="{% url 'shop:product_list' %}"
+           class="inline-flex items-center gap-2 px-8 py-4 rounded-full text-xs sm:text-sm font-extrabold uppercase tracking-widest text-white bg-black hover:bg-zinc-800 shadow-xl shadow-black/10 hover:-translate-y-0.5 transition-all duration-300">
+            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span>{% trans "Return to Website & Continue Shopping" %}</span>
+        </a>
     </div>
-    <h1 class="text-3xl font-bold text-white mb-3">{% trans "Thank you for your order!" %}</h1>
-    <p class="text-gray-400 text-lg mb-2">
-        {% blocktrans with id=order.id %}Your order #{{ id }} has been placed successfully.{% endblocktrans %}
-    </p>
-    <p class="text-gray-600 mb-8">{% trans "We'll send a confirmation email shortly." %}</p>
-    <a href="{% url 'shop:product_list' %}"
-       class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white
-              bg-gradient-to-r from-brand-600 to-purple-600
-              hover:from-brand-500 hover:to-purple-500
-              shadow-lg shadow-brand-500/25 transition-all duration-300">
-        {% trans "Continue Shopping" %}
-    </a>
 </div>
 {% endblock %}

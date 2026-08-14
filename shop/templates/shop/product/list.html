@@ -177,6 +177,7 @@
                             <label class="cursor-pointer">
                                 <input type="checkbox" name="brand" value="{{ brand.slug }}" class="sr-only peer" {% if brand.slug in selected_brands %}checked{% endif %}>
                                 <span class="inline-block px-4 py-2 rounded-full border text-sm font-medium transition-colors transition-transform select-none
+                                             peer-checked:bg-black peer-checked:text-white peer-checked:border-black peer-checked:shadow-md
                                              {% if brand.slug in selected_brands %}
                                              border-black bg-black text-white shadow-md
                                              {% else %}
@@ -212,7 +213,7 @@
             <!-- Results Header -->
             <div class="mb-6 flex items-center justify-between">
                 <p class="text-sm text-gray-500 font-medium">
-                    {% trans "Showing" %} <span class="font-bold text-black">{{ products|length }}</span> {% trans "results" %}
+                    {% trans "Showing" %} <span class="font-bold text-black">{{ products.object_list|length }}</span> {% trans "of" %} <span class="font-bold text-black">{{ products.paginator.count }}</span> {% trans "results" %}
                 </p>
             </div>
 
@@ -305,6 +306,42 @@
                 </a>
                 {% endfor %}
             </div>
+
+            <!-- 📄 MODERN PAGINATION CONTROLS -->
+            {% if products.has_other_pages %}
+            <div class="mt-12 flex items-center justify-center gap-2">
+                {% if products.has_previous %}
+                <a href="?page={{ products.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+                   class="px-4 py-2.5 rounded-full border border-gray-200 bg-white text-xs font-bold text-gray-700 hover:bg-black hover:text-white hover:border-black transition-all shadow-sm flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    <span>{% trans "Previous" %}</span>
+                </a>
+                {% endif %}
+
+                <div class="flex items-center gap-1.5 px-2">
+                    {% for i in products.paginator.page_range %}
+                        {% if products.number == i %}
+                        <span class="w-10 h-10 rounded-full bg-black text-white text-xs font-extrabold flex items-center justify-center shadow-md">
+                            {{ i }}
+                        </span>
+                        {% elif i > products.number|add:"-3" and i < products.number|add:"3" %}
+                        <a href="?page={{ i }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+                           class="w-10 h-10 rounded-full border border-gray-200 bg-white text-xs font-bold text-gray-700 hover:bg-gray-100 hover:text-black transition-colors flex items-center justify-center">
+                            {{ i }}
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                {% if products.has_next %}
+                <a href="?page={{ products.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+                   class="px-4 py-2.5 rounded-full border border-gray-200 bg-white text-xs font-bold text-gray-700 hover:bg-black hover:text-white hover:border-black transition-all shadow-sm flex items-center gap-1">
+                    <span>{% trans "Next" %}</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
             {% else %}
             <div class="text-center py-20">
                 <svg class="mx-auto w-16 h-16 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
