@@ -10,48 +10,46 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-<!-- Hero / Slider Section (Full Width, Pure White, Full Image View) -->
-<div class="w-full bg-white border-b border-gray-200 py-3 sm:py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="w-full h-[220px] sm:h-[320px] md:h-[380px] lg:h-[420px] relative bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100">
-            <div class="swiper bannerSwiper h-full w-full">
-                <div class="swiper-wrapper h-full">
-                    {% if banners %}
-                        {% for banner in banners %}
-                        <div class="swiper-slide relative h-full w-full bg-white flex items-center justify-center">
-                            {% if banner.link %}
-                            <a href="{{ banner.link }}" class="block w-full h-full flex items-center justify-center">
-                            {% endif %}
-                            <img src="{{ banner.image.url }}" alt="{{ banner.title }}" class="w-full h-full object-contain p-2 sm:p-4" loading="eager">
-                            {% if banner.link %}
-                            </a>
-                            {% endif %}
-                        </div>
-                        {% endfor %}
-                    {% else %}
-                        <!-- Default Pure White Banners fitting perfectly -->
-                        <div class="swiper-slide relative h-full w-full bg-white flex items-center justify-center">
-                            <a href="{% url 'shop:product_list' %}" class="block w-full h-full flex items-center justify-center">
-                                <img src="{% static 'img/banners/banner_sleeves.jpg' %}" alt="Luxury Laptop Sleeves & Bags" class="w-full h-full object-contain p-2 sm:p-4" loading="eager">
-                            </a>
-                        </div>
-                        <div class="swiper-slide relative h-full w-full bg-white flex items-center justify-center">
-                            <a href="{% url 'shop:product_list' %}" class="block w-full h-full flex items-center justify-center">
-                                <img src="{% static 'img/banners/banner_computer.jpg' %}" alt="Premium Computer Accessories" class="w-full h-full object-contain p-2 sm:p-4" loading="eager">
-                            </a>
-                        </div>
-                        <div class="swiper-slide relative h-full w-full bg-white flex items-center justify-center">
-                            <a href="{% url 'shop:product_list' %}" class="block w-full h-full flex items-center justify-center">
-                                <img src="{% static 'img/banners/banner_mobile.jpg' %}" alt="Fast Charging & Mobile Accessories" class="w-full h-full object-contain p-2 sm:p-4" loading="eager">
-                            </a>
-                        </div>
-                    {% endif %}
-                </div>
-                <!-- Add Pagination & Navigation -->
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-next !text-black drop-shadow-sm"></div>
-                <div class="swiper-button-prev !text-black drop-shadow-sm"></div>
+<!-- Hero / Slider Section (Full Width Edge-to-Edge Pure White) -->
+<div class="w-full bg-white border-b border-gray-200">
+    <div class="w-full h-[220px] sm:h-[320px] md:h-[400px] lg:h-[450px] relative bg-white overflow-hidden">
+        <div class="swiper bannerSwiper h-full w-full">
+            <div class="swiper-wrapper h-full">
+                {% if banners %}
+                    {% for banner in banners %}
+                    <div class="swiper-slide relative h-full w-full bg-white">
+                        {% if banner.link %}
+                        <a href="{{ banner.link }}" class="block w-full h-full">
+                        {% endif %}
+                        <img src="{{ banner.image.url }}" alt="{{ banner.title }}" class="w-full h-full object-cover" loading="eager">
+                        {% if banner.link %}
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <!-- Ultra-Wide Pure White Panoramic Banners -->
+                    <div class="swiper-slide relative h-full w-full bg-white">
+                        <a href="{% url 'shop:product_list' %}" class="block w-full h-full">
+                            <img src="{% static 'img/banners/banner_sleeves.jpg' %}" alt="Luxury Laptop Sleeves & Bags" class="w-full h-full object-cover" loading="eager">
+                        </a>
+                    </div>
+                    <div class="swiper-slide relative h-full w-full bg-white">
+                        <a href="{% url 'shop:product_list' %}" class="block w-full h-full">
+                            <img src="{% static 'img/banners/banner_computer.jpg' %}" alt="Premium Computer Accessories" class="w-full h-full object-cover" loading="eager">
+                        </a>
+                    </div>
+                    <div class="swiper-slide relative h-full w-full bg-white">
+                        <a href="{% url 'shop:product_list' %}" class="block w-full h-full">
+                            <img src="{% static 'img/banners/banner_mobile.jpg' %}" alt="Fast Charging & Mobile Accessories" class="w-full h-full object-cover" loading="eager">
+                        </a>
+                    </div>
+                {% endif %}
             </div>
+            <!-- Add Pagination & Navigation -->
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next !text-black drop-shadow-sm"></div>
+            <div class="swiper-button-prev !text-black drop-shadow-sm"></div>
         </div>
     </div>
 </div>
