@@ -10,26 +10,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
+<!-- Hero / Slider Section (Full Width, Sleek & Bright) -->
 <div class="w-full bg-white border-b border-gray-200">
-    <div class="flex flex-col lg:flex-row w-full h-auto lg:h-[380px]">
-        
-        <!-- Left Half: Animated Black Logo -->
-        <div class="w-full lg:w-1/2 h-[240px] lg:h-full flex items-center justify-center bg-gray-50 relative overflow-hidden">
-            <!-- Subtle floating effect on the container -->
-            <div class="animate-float transform-gpu">
-                <!-- The drawing logo in black -->
-                <svg class="w-36 h-36 lg:w-56 lg:h-56 text-black animate-draw-logo" viewBox="14 14 112 82" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="miter" stroke-linecap="butt">
-                    <path d="M 50 50 L 20 50 L 20 90 L 80 90 L 80 50 L 70 50" />
-                    <path d="M 70 60 L 60 60 L 60 20 L 120 20 L 120 60 L 90 60" />
-                </svg>
-            </div>
-        </div>
-
-        <!-- Right Half: Banner Carousel or Placeholder -->
-        <div class="w-full lg:w-1/2 h-[260px] lg:h-full relative bg-black">
-            {% if banners %}
-            <div class="swiper bannerSwiper h-full w-full">
-                <div class="swiper-wrapper h-full">
+    <div class="w-full h-[260px] sm:h-[360px] md:h-[440px] lg:h-[480px] relative bg-gray-900 overflow-hidden">
+        <div class="swiper bannerSwiper h-full w-full">
+            <div class="swiper-wrapper h-full">
+                {% if banners %}
                     {% for banner in banners %}
                     <div class="swiper-slide relative h-full w-full">
                         {% if banner.link %}
@@ -41,26 +27,30 @@
                         {% endif %}
                     </div>
                     {% endfor %}
-                </div>
-                <!-- Add Pagination -->
-                <div class="swiper-pagination"></div>
-                <!-- Add Navigation -->
-                <div class="swiper-button-next !text-white drop-shadow-sm"></div>
-                <div class="swiper-button-prev !text-white drop-shadow-sm"></div>
+                {% else %}
+                    <!-- Default Bright Creative Banners Tailored to Lap Link Products -->
+                    <div class="swiper-slide relative h-full w-full">
+                        <a href="{% url 'shop:product_list' %}" class="block w-full h-full">
+                            <img src="{% static 'img/banners/banner_sleeves.jpg' %}" alt="Luxury Laptop Sleeves & Bags" class="w-full h-full object-cover">
+                        </a>
+                    </div>
+                    <div class="swiper-slide relative h-full w-full">
+                        <a href="{% url 'shop:product_list' %}" class="block w-full h-full">
+                            <img src="{% static 'img/banners/banner_computer.jpg' %}" alt="Premium Computer Accessories" class="w-full h-full object-cover">
+                        </a>
+                    </div>
+                    <div class="swiper-slide relative h-full w-full">
+                        <a href="{% url 'shop:product_list' %}" class="block w-full h-full">
+                            <img src="{% static 'img/banners/banner_mobile.jpg' %}" alt="Fast Charging & Mobile Accessories" class="w-full h-full object-cover">
+                        </a>
+                    </div>
+                {% endif %}
             </div>
-            {% else %}
-            <div class="w-full h-full bg-gradient-to-br from-gray-900 to-black flex flex-col items-center justify-center text-white p-8 text-center">
-                <div class="animate-fade-in-up">
-                    <h2 class="text-3xl lg:text-5xl font-extrabold mb-4 font-display">{% trans "Welcome to Lap Link" %}</h2>
-                    <p class="text-gray-400 max-w-md mx-auto text-lg">{% trans "The ultimate destination for premium electronics. Explore our featured products below." %}</p>
-                    <a href="#featured" class="inline-block mt-8 px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-colors">
-                        {% trans "Shop Now" %}
-                    </a>
-                </div>
-            </div>
-            {% endif %}
+            <!-- Add Pagination & Navigation -->
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next !text-white drop-shadow-md"></div>
+            <div class="swiper-button-prev !text-white drop-shadow-md"></div>
         </div>
-
     </div>
 </div>
 
