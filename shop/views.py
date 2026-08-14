@@ -54,14 +54,14 @@ def product_list(request, category_slug=None):
     if query:
         products = products.filter(Q(name__icontains=query) | Q(description__icontains=query))
 
-    # 2. Brands List (Multi-select)
-    selected_brands = request.GET.getlist('brand')
+    # 2. Brands List (Multi-select - ignore empty values)
+    selected_brands = [b for b in request.GET.getlist('brand') if b and b.strip()]
     if selected_brands:
         products = products.filter(brand__slug__in=selected_brands)
 
     # 3. Price Range (with secure validation)
-    min_price = request.GET.get('min_price')
-    max_price = request.GET.get('max_price')
+    min_price = request.GET.get('min_price', '').strip()
+    max_price = request.GET.get('max_price', '').strip()
     
     if min_price:
         try:
@@ -76,7 +76,7 @@ def product_list(request, category_slug=None):
             pass
 
     # 4. Flags (On Sale, In Stock)
-    if 'on_sale' in request.GET and request.GET.get('on_sale') == 'true':
+    if request.GET.get('on_sale') == 'true':
         now = timezone.now()
         products = products.filter(
             sale_price__isnull=False,
@@ -88,7 +88,7 @@ def product_list(request, category_slug=None):
         products = products.filter(stock_quantity__gt=0)
         
     # 5. Rating Filter
-    min_rating = request.GET.get('min_rating')
+    min_rating = request.GET.get('min_rating', '').strip()
     if min_rating:
         try:
             products = products.filter(avg_rating__gte=int(min_rating))
