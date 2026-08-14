@@ -53,6 +53,10 @@ def cart_add(request, product_id):
             override_quantity=cd['override'],
         )
 
+    # ── Check for Direct Buy Now Redirect ──
+    if request.POST.get('buy_now') == 'true' or request.GET.get('buy_now') == 'true':
+        return redirect('orders:order_create')
+
     # ── HTMX Request → return partial ──
     if request.headers.get('HX-Request'):
         from django.http import HttpResponse

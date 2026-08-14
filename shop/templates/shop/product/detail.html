@@ -229,8 +229,9 @@
                         {% trans "Add to Cart" %}
                     </button>
 
-                    <button type="button"
-                            @click="$dispatch('open-express-buy', { id: {{ product.id }}, name: '{{ product.name|escapejs }}', price: '{{ product.current_price }}' })"
+                    <button type="submit"
+                            name="buy_now"
+                            value="true"
                             class="btn-shine flex-1 inline-flex items-center justify-center gap-3
                                    px-8 py-4 rounded-full font-extrabold text-black text-base tracking-widest uppercase
                                    bg-amber-400 hover:bg-amber-300
