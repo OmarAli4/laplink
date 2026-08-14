@@ -111,6 +111,10 @@ def product_list(request, category_slug=None):
     from .models import Brand
     brands = Brand.objects.all()
 
+    # Calculate total quantity of items currently in stock (stock_quantity > 0)
+    from django.db.models import Sum
+    total_stock_count = products.filter(stock_quantity__gt=0).aggregate(total=Sum('stock_quantity'))['total'] or 0
+
     # 7. Pagination (12 products per page for optimal performance)
     from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
     paginator = Paginator(products, 12)
@@ -134,6 +138,7 @@ def product_list(request, category_slug=None):
         'products': products_page,
         'selected_brands': selected_brands,
         'wishlisted_product_ids': wishlisted_product_ids,
+        'total_stock_count': total_stock_count,
     })
 
 
