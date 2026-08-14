@@ -1,1 +1,1 @@
-web: python manage.py collectstatic --noinput && python manage.py migrate --noinput && gunicorn myshop.wsgi --log-file -
+web: python manage.py collectstatic --noinput && python manage.py migrate --noinput && python manage.py seed_data && gunicorn myshop.wsgi --log-file -
