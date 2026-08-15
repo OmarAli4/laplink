@@ -476,3 +476,84 @@ def battle_specs_api(request, product_id):
     product = get_object_or_404(Product.objects.prefetch_related('specs'), id=product_id, available=True)
     return JsonResponse(serialize_product_battle(product))
 
+
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def tech_finder_chat(request):
+    """
+    Handle natural language queries for AI Tech Finder and return matched product JSON payload.
+    """
+    from .ai_service import ask_ai_tech_finder
+    
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST request required'}, status=405)
+    
+    try:
+        data = json.loads(request.body.decode('utf-8'))
+        prompt = data.get('prompt', '').strip()
+    except Exception:
+        prompt = request.POST.get('prompt', '').strip()
+        
+    if not prompt:
+        return JsonResponse({'error': 'Prompt is required'}, status=400)
+        
+    ai_result = ask_ai_tech_finder(prompt)
+    if not ai_result.get('success'):
+        return JsonResponse({'error': ai_result.get('error', 'Could not find a match')}, status=400)
+        
+    rec_data = ai_result['data']
+    product_ids = rec_data.get('product_ids', [])
+    if not product_ids and rec_data.get('product_id'):
+        product_ids = [rec_data['product_id']]
+        
+    db_products = {p.id: p for p in Product.objects.filter(id__in=product_ids, available=True).select_related('category', 'brand').prefetch_related('specs')}
+    
+    products_list = []
+    for pid in product_ids:
+        if pid in db_products:
+            p = db_products[pid]
+            specs_list = [{'name': s.name, 'value': s.value, 'icon': s.icon} for s in p.specs.all()[:3]]
+            products_list.append({
+                'id': p.id,
+                'name': p.name,
+                'image': p.image.url if p.image else '',
+                'price': float(p.current_price),
+                'formatted_price': f"L.E {p.current_price:,.2f}",
+                'is_on_sale': p.is_on_sale,
+                'original_price': f"L.E {p.price:,.2f}" if p.is_on_sale else None,
+                'url': p.get_absolute_url(),
+                'brand': p.brand.name if p.brand else '',
+                'specs': specs_list
+            })
+            
+    if not products_list:
+        p = Product.objects.filter(available=True).first()
+        if p:
+            specs_list = [{'name': s.name, 'value': s.value, 'icon': s.icon} for s in p.specs.all()[:3]]
+            products_list.append({
+                'id': p.id,
+                'name': p.name,
+                'image': p.image.url if p.image else '',
+                'price': float(p.current_price),
+                'formatted_price': f"L.E {p.current_price:,.2f}",
+                'is_on_sale': p.is_on_sale,
+                'original_price': f"L.E {p.price:,.2f}" if p.is_on_sale else None,
+                'url': p.get_absolute_url(),
+                'brand': p.brand.name if p.brand else '',
+                'specs': specs_list
+            })
+        else:
+            return JsonResponse({'error': 'No products currently available'}, status=404)
+
+    return JsonResponse({
+        'success': True,
+        'product': products_list[0],
+        'products': products_list,
+        'is_multi': len(products_list) > 1,
+        'match_score': rec_data.get('match_score', 95),
+        'ai_message': rec_data.get('ai_message', ''),
+        'highlights': rec_data.get('highlights', []),
+        'is_ai': ai_result.get('is_ai', False)
+    })
+

@@ -34,6 +34,9 @@ urlpatterns = [
     path('battle/', views.product_battle, name='product_battle'),
     path('battle/specs/<int:product_id>/', views.battle_specs_api, name='battle_specs_api'),
 
+    # AI Tech Finder
+    path('tech-finder/chat/', views.tech_finder_chat, name='tech_finder_chat'),
+
     # Preview 404
     path('preview-404/', views.preview_404, name='preview_404'),
 ]
