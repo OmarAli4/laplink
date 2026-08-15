@@ -251,3 +251,136 @@ def evaluate_product_duel(product_a_id: int, product_b_id: int):
         "success": False,
         "error": _(f"AI Duel Referee temporarily unavailable: {last_error}")
     }
+
+
+import base64
+
+def analyze_product_images_with_vision(product_id: int):
+    """
+    Multimodal AI Vision analysis for a product across all its photos (Cover + Gallery).
+    Automatically extracts accurate colors, materials, and form factor,
+    and updates ProductSpec in the database.
+    """
+    load_dotenv(override=True)
+    from .models import Product, ProductSpec
+    
+    product = Product.objects.filter(id=product_id).prefetch_related('images', 'specs').first()
+    if not product:
+        return {"success": False, "error": "Product not found"}
+        
+    api_key = os.getenv("GEMINI_API_KEY", "").strip()
+    if not api_key:
+        return {"success": False, "error": "Gemini API key missing"}
+
+    def read_image_to_part(field):
+        if not field:
+            return None
+        try:
+            if hasattr(field, 'path') and os.path.exists(field.path):
+                with open(field.path, 'rb') as f:
+                    data = f.read()
+                    mime = 'image/webp' if field.name.lower().endswith('.webp') else 'image/jpeg'
+                    return {'inline_data': {'mime_type': mime, 'data': base64.b64encode(data).decode('utf-8')}}
+            if hasattr(field, 'open'):
+                field.open('rb')
+                data = field.read()
+                mime = 'image/webp' if field.name.lower().endswith('.webp') else 'image/jpeg'
+                return {'inline_data': {'mime_type': mime, 'data': base64.b64encode(data).decode('utf-8')}}
+        except Exception as e:
+            print(f"[Vision read error]: {e}")
+        return None
+
+    # Collect all image files
+    image_parts = []
+    
+    # 1. Main cover image
+    cover_part = read_image_to_part(product.image)
+    if cover_part:
+        image_parts.append(cover_part)
+            
+    # 2. Gallery images
+    for gallery_img in product.images.all()[:4]:
+        gal_part = read_image_to_part(gallery_img.image)
+        if gal_part:
+            image_parts.append(gal_part)
+                
+    if not image_parts:
+        return {"success": False, "error": "No valid image files found for product"}
+
+    prompt = (
+        f"Analyze all attached photos for the product '{product.name}' in category '{product.category.name if product.category else ''}'.\n"
+        "Carefully inspect the visual details across all images (colors, angles, materials, size, form-factor).\n"
+        "Return ONLY a valid JSON object matching this schema:\n"
+        "{\n"
+        '  "primary_color": "<string: main dominant color in Arabic & English, e.g. نبيتي أحمر / Burgundy Red>",\n'
+        '  "color_palette": ["<color 1 in Arabic/English>", "<color 2>"],\n'
+        '  "item_type": "<string: specific form factor e.g. شنطة كروس لابتوب / Crossbody Laptop Bag>",\n'
+        '  "material": "<string: material if visible e.g. قماش مقاوم للماء / Water-resistant Fabric>",\n'
+        '  "visual_features": ["<feature 1>", "<feature 2>"],\n'
+        '  "arabic_summary": "<string: 1 short sentence in Egyptian Arabic summarizing what the item is and its color>"\n'
+        "}"
+    )
+
+    contents_parts = [{'text': prompt}] + image_parts
+    payload = {
+        "contents": [{"parts": contents_parts}],
+        "generationConfig": {
+            "response_mime_type": "application/json",
+            "temperature": 0.1,
+            "maxOutputTokens": 800
+        }
+    }
+
+    models_to_try = ['gemini-flash-lite-latest', 'gemini-flash-latest']
+    for model_name in models_to_try:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
+        try:
+            req = urllib.request.Request(
+                url,
+                data=json.dumps(payload).encode('utf-8'),
+                headers={
+                    'Content-Type': 'application/json',
+                    'x-goog-api-key': api_key
+                }
+            )
+            with urllib.request.urlopen(req, timeout=16) as response:
+                result = json.loads(response.read().decode('utf-8'))
+                raw_text = result['candidates'][0]['content']['parts'][0]['text'].strip()
+                if '```json' in raw_text:
+                    raw_text = raw_text.split('```json')[1].split('```')[0].strip()
+                elif '```' in raw_text:
+                    raw_text = raw_text.split('```')[1].split('```')[0].strip()
+                    
+                vision_data = json.loads(raw_text)
+                
+                # Auto-save/update ProductSpec records
+                if vision_data.get('primary_color'):
+                    ProductSpec.objects.update_or_create(
+                        product=product,
+                        name='Color',
+                        defaults={'value': vision_data['primary_color'], 'icon': '🎨'}
+                    )
+                if vision_data.get('material'):
+                    ProductSpec.objects.update_or_create(
+                        product=product,
+                        name='Material',
+                        defaults={'value': vision_data['material'], 'icon': '🧵'}
+                    )
+                if vision_data.get('item_type'):
+                    ProductSpec.objects.update_or_create(
+                        product=product,
+                        name='Type',
+                        defaults={'value': vision_data['item_type'], 'icon': '📦'}
+                    )
+                    
+                # Append visual summary to description if short
+                if vision_data.get('arabic_summary') and (not product.description or len(product.description) < 40):
+                    product.description = f"{product.description} {vision_data['arabic_summary']}".strip()
+                    product.save(update_fields=['description'])
+                    
+                return {"success": True, "data": vision_data, "is_ai": True}
+        except Exception as e:
+            print(f"[Vision Analysis Gemini {model_name} Error]: {e}")
+            continue
+
+    return {"success": False, "error": "Vision API could not process images"}

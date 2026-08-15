@@ -45,6 +45,16 @@ class ProductAdmin(ModelAdmin):
     list_filter = ['available', 'is_featured', 'category', 'brand', 'created']
     search_fields = ['name', 'description']
     prepopulated_fields = {'slug': ('name',)}
+    @admin.action(description="🤖 Run AI Vision Tagging (Extract Colors & Specs)")
+    def run_ai_vision_tagging(self, request, queryset):
+        from .ai_service import analyze_product_images_with_vision
+        success_count = 0
+        for product in queryset:
+            res = analyze_product_images_with_vision(product.id)
+            if res.get('success'):
+                success_count += 1
+        self.message_user(request, f"AI Vision successfully analyzed and tagged {success_count} products.")
+
     @admin.action(description="Decrease Price by 10%% (Sale)")
     def apply_10_percent_discount(self, request, queryset):
         for product in queryset:
@@ -59,7 +69,7 @@ class ProductAdmin(ModelAdmin):
             product.save(update_fields=['price'])
         self.message_user(request, "Price increased by 10% for selected products.")
 
-    actions = [apply_10_percent_discount, increase_10_percent_price]
+    actions = [run_ai_vision_tagging, apply_10_percent_discount, increase_10_percent_price]
     inlines = [ProductImageInline, ProductSpecInline]
     
     fieldsets = (
