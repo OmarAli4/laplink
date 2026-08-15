@@ -12,12 +12,12 @@ load_dotenv(override=True)
 
 def get_in_stock_catalog():
     """
-    Extract a compact, token-efficient JSON list of available in-stock products with specs.
+    Extract a comprehensive JSON list of available in-stock products with specs, categories, and descriptions.
     """
     products = Product.objects.filter(available=True).select_related('category', 'brand').prefetch_related('specs')
     catalog = []
     for p in products:
-        specs_dict = {s.name: s.value for s in p.specs.all()[:6]}
+        specs_dict = {s.name: s.value for s in p.specs.all()}
         catalog.append({
             "id": p.id,
             "name": p.name,
@@ -25,7 +25,7 @@ def get_in_stock_catalog():
             "category": p.category.name if p.category else "",
             "price": float(p.current_price),
             "specs": specs_dict,
-            "description": p.description[:120] if p.description else ""
+            "description": p.description[:400] if p.description else ""
         })
     return catalog
 
@@ -33,7 +33,7 @@ def get_in_stock_catalog():
 def ask_ai_tech_finder(user_prompt: str):
     """
     Pure Google Gemini LLM API Recommendation Engine.
-    Directly analyzes user intent, use-case, and constraints using Gemini AI.
+    Directly analyzes user intent, use-case, and constraints across all store inventory.
     """
     load_dotenv(override=True)
     catalog = get_in_stock_catalog()
@@ -52,21 +52,25 @@ def ask_ai_tech_finder(user_prompt: str):
 
     # Gemini System Instruction
     system_instruction = (
-        "You are Lap Link AI Finder, an elite AI tech matchmaker in Egypt. "
-        "A customer has asked: '" + user_prompt + "'.\n"
-        "Here is our store's current in-stock product catalog:\n"
+        "You are Lap Link AI Finder, an elite AI tech matchmaker in Egypt.\n"
+        "Our store sells all tech categories: Laptops, Laptop Bags & Sleeves (شنط وجرابات), Mobile Accessories, Cables, Chargers, and Computer Peripherals.\n\n"
+        "A customer has asked: '" + user_prompt + "'.\n\n"
+        "Here is our complete in-stock product catalog:\n"
         f"{json.dumps(catalog, ensure_ascii=False)}\n\n"
         "Instructions:\n"
-        "1. Analyze the customer's request carefully (intent, use-case, brand preference, budget, and single vs plural/all request).\n"
-        "2. If the customer asks for a specific brand (e.g. Apple), ONLY return products of that brand strictly. Do NOT include other brands.\n"
-        "3. If the customer asks for 'all laptops' or multiple options, return all matching product IDs in `product_ids`. If they ask for 1 specific laptop, return only that 1 product ID in `product_ids`.\n"
-        "4. Reply in the EXACT same language and dialect as the customer (e.g. friendly Egyptian Arabic if Arabic, or English if English).\n"
-        "5. Return ONLY a valid JSON object matching this schema:\n"
+        "1. Search across ALL product categories (Laptops, Bags, Accessories, Chargers, etc.) for products matching the customer's intent, category, color, brand, or budget.\n"
+        "2. If the user asks for a category (e.g. 'شنطة', 'bag', 'جراب', 'شاحن', 'لابتوب'), inspect all products in that category and match the closest items.\n"
+        "3. If the user asks for a specific brand (e.g. Apple, Elite, Bange, ASUS, Lenovo), ONLY return products of that brand strictly.\n"
+        "4. If the user asks for 'all' or plural items (e.g. 'كل اللابات', 'كل الشنط'), return all matching product IDs in `product_ids`.\n"
+        "5. If matching products are found, return their IDs in `product_ids`.\n"
+        "6. If NO matching product exists in the catalog, return `product_ids: []`, `product_id: null`, `match_score: 0`, and politely explain what is currently available in friendly Egyptian Arabic.\n"
+        "7. Reply in the EXACT same dialect as the customer (friendly, polite Egyptian Arabic if Arabic, or English if English).\n"
+        "8. Return ONLY a valid JSON object matching this schema:\n"
         "{\n"
-        '  "product_ids": [<list of matched integer product IDs meeting the criteria strictly, e.g. [2]>],\n'
-        '  "product_id": <int: ID of the primary/best selected product>,\n'
-        '  "match_score": <int: score 85-99>,\n'
-        '  "ai_message": "<string: 2-3 friendly sentences in customer language explaining why these laptops were selected>",\n'
+        '  "product_ids": [<list of matched integer product IDs from catalog, e.g. [1, 2] or [] if none>],\n'
+        '  "product_id": <int or null: primary matched product ID>,\n'
+        '  "match_score": <int: 0 if no match, 80-99 if match>,\n'
+        '  "ai_message": "<string: 2-3 friendly sentences in customer language explaining the recommendation or noting what is in stock>",\n'
         '  "highlights": ["<string: key highlight 1>", "<string: key highlight 2>", "<string: key highlight 3>"]\n'
         "}"
     )
