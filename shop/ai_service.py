@@ -71,7 +71,7 @@ def ask_ai_tech_finder(user_prompt: str):
         "}"
     )
 
-    models_to_try = ['gemini-flash-lite-latest', 'gemini-flash-latest', 'gemini-pro-latest']
+    models_to_try = ['gemini-flash-lite-latest', 'gemini-flash-latest']
     
     last_error = None
     for model_name in models_to_try:
@@ -148,7 +148,7 @@ def evaluate_product_duel(product_a_id: int, product_b_id: int):
     if product_a.category_id != product_b.category_id:
         return {
             "success": False,
-            "error": _("Both products must be in the same category for comparison.")
+            "error": _("Duel comparison is only allowed between products in the same category.")
         }
 
     specs_a = {s.name: s.value for s in product_a.specs.all()}
@@ -175,7 +175,7 @@ def evaluate_product_duel(product_a_id: int, product_b_id: int):
     if not api_key:
         return {
             "success": False,
-            "error": _("Gemini API key missing. Please configure GEMINI_API_KEY in .env.")
+            "error": _("Gemini API key is missing.")
         }
 
     system_instruction = (
@@ -208,7 +208,7 @@ def evaluate_product_duel(product_a_id: int, product_b_id: int):
         "}"
     )
 
-    models_to_try = ['gemini-flash-lite-latest', 'gemini-flash-latest', 'gemini-pro-latest']
+    models_to_try = ['gemini-flash-lite-latest', 'gemini-flash-latest']
     last_error = None
     for model_name in models_to_try:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
