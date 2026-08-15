@@ -127,3 +127,123 @@ def ask_ai_tech_finder(user_prompt: str):
         "success": False,
         "error": _(f"AI service temporarily unavailable: {last_error}")
     }
+
+
+def evaluate_product_duel(product_a_id: int, product_b_id: int):
+    """
+    AI Battle Referee that analyzes two products in the same category head-to-head.
+    Returns winner, scores, category criteria scores, punchy Egyptian Arabic verdict, and best-for guidance.
+    """
+    load_dotenv(override=True)
+    product_a = Product.objects.filter(id=product_a_id, available=True).select_related('category', 'brand').prefetch_related('specs').first()
+    product_b = Product.objects.filter(id=product_b_id, available=True).select_related('category', 'brand').prefetch_related('specs').first()
+    
+    if not product_a or not product_b:
+        return {
+            "success": False,
+            "error": _("One or both products were not found.")
+        }
+        
+    # Strictly enforce same category check
+    if product_a.category_id != product_b.category_id:
+        return {
+            "success": False,
+            "error": _("Both products must be in the same category for comparison.")
+        }
+
+    specs_a = {s.name: s.value for s in product_a.specs.all()}
+    specs_b = {s.name: s.value for s in product_b.specs.all()}
+    
+    prod_a_info = {
+        "id": product_a.id,
+        "name": product_a.name,
+        "brand": product_a.brand.name if product_a.brand else "",
+        "category": product_a.category.name if product_a.category else "",
+        "price": float(product_a.current_price),
+        "specs": specs_a
+    }
+    prod_b_info = {
+        "id": product_b.id,
+        "name": product_b.name,
+        "brand": product_b.brand.name if product_b.brand else "",
+        "category": product_b.category.name if product_b.category else "",
+        "price": float(product_b.current_price),
+        "specs": specs_b
+    }
+
+    api_key = os.getenv("GEMINI_API_KEY", "").strip()
+    if not api_key:
+        return {
+            "success": False,
+            "error": _("Gemini API key missing. Please configure GEMINI_API_KEY in .env.")
+        }
+
+    system_instruction = (
+        f"You are the Ultimate AI Tech Referee for Lap Link Egypt. "
+        f"A customer is comparing two devices in the '{product_a.category.name}' category in a head-to-head battle.\n\n"
+        f"Contender A: {json.dumps(prod_a_info, ensure_ascii=False)}\n\n"
+        f"Contender B: {json.dumps(prod_b_info, ensure_ascii=False)}\n\n"
+        "Instructions:\n"
+        "1. Perform an expert, unbiased comparison between Contender A and Contender B.\n"
+        "2. Judge which device wins overall or if it is a draw/tie.\n"
+        "3. Evaluate across 4 core dimensions relevant to their hardware: Performance/Processing, Display/Design, Battery/Mobility, Value-For-Money.\n"
+        "4. Write an authentic, natural, friendly Egyptian Arabic technical verdict explaining clearly which device wins and who should buy each.\n"
+        "5. Return ONLY a valid JSON object matching this schema:\n"
+        "{\n"
+        '  "winner": "<string: \'A\', \'B\', or \'TIE\'>",\n'
+        '  "winner_name": "<string: exact name of winning product or \'تعادل متقارب\'>",\n'
+        '  "score_a": <int: score 60-99>,\n'
+        '  "score_b": <int: score 60-99>,\n'
+        '  "verdict_summary": "<string: 2-3 sentences in Egyptian Arabic explaining the battle outcome and technical reasons clearly>",\n'
+        '  "criteria": [\n'
+        '    {"title": "الأداء والمعالجة (Performance)", "winner": "<string: \'A\', \'B\', or \'TIE\'>", "reason": "<string: short 1-line reason>"},\n'
+        '    {"title": "الشاشة وجودة العرض (Display)", "winner": "<string: \'A\', \'B\', or \'TIE\'>", "reason": "<string: short 1-line reason>"},\n'
+        '    {"title": "البطارية والتنقل (Mobility)", "winner": "<string: \'A\', \'B\', or \'TIE\'>", "reason": "<string: short 1-line reason>"},\n'
+        '    {"title": "القيمة مقابل السعر (Value)", "winner": "<string: \'A\', \'B\', or \'TIE\'>", "reason": "<string: short 1-line reason>"}\n'
+        '  ],\n'
+        '  "strengths_a": ["<string: key advantage 1>", "<string: key advantage 2>", "<string: key advantage 3>"],\n'
+        '  "strengths_b": ["<string: key advantage 1>", "<string: key advantage 2>", "<string: key advantage 3>"],\n'
+        '  "best_for_a": "<string: مين يشتري جهاز A>",\n'
+        '  "best_for_b": "<string: مين يشتري جهاز B>"\n'
+        "}"
+    )
+
+    models_to_try = ['gemini-flash-latest', 'gemini-flash-lite-latest', 'gemini-2.5-flash-lite']
+    last_error = None
+    for model_name in models_to_try:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
+        payload = {
+            "contents": [{"parts": [{"text": system_instruction}]}],
+            "generationConfig": {
+                "response_mime_type": "application/json",
+                "temperature": 0.2,
+                "maxOutputTokens": 1200
+            }
+        }
+        try:
+            req = urllib.request.Request(
+                url,
+                data=json.dumps(payload).encode('utf-8'),
+                headers={
+                    'Content-Type': 'application/json',
+                    'x-goog-api-key': api_key
+                }
+            )
+            with urllib.request.urlopen(req, timeout=14) as response:
+                result = json.loads(response.read().decode('utf-8'))
+                raw_text = result['candidates'][0]['content']['parts'][0]['text'].strip()
+                if '```json' in raw_text:
+                    raw_text = raw_text.split('```json')[1].split('```')[0].strip()
+                elif '```' in raw_text:
+                    raw_text = raw_text.split('```')[1].split('```')[0].strip()
+                parsed_data = json.loads(raw_text)
+                return {"success": True, "duel": parsed_data, "is_ai": True}
+        except Exception as e:
+            last_error = e
+            print(f"[AI Duel Referee Gemini {model_name} Error]: {e}")
+            continue
+
+    return {
+        "success": False,
+        "error": _(f"AI Duel Referee temporarily unavailable: {last_error}")
+    }

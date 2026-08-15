@@ -420,18 +420,54 @@ def preview_404(request):
 
 # --- Product Battle / Duel Mode ---
 from django.http import JsonResponse
+import re
+
+def extract_numeric_spec_score(name, value, existing_numeric=None):
+    if existing_numeric and float(existing_numeric) > 0:
+        return float(existing_numeric)
+    if not value:
+        return 0.0
+    val_lower = str(value).lower()
+    
+    # 1. Check direct numbers (e.g. 18 GB, 16GB, 8GB, 14.2 Inch, 120Hz, 8+ Hours)
+    match = re.search(r'(\d+(?:\.\d+)?)', val_lower)
+    if match:
+        num = float(match.group(1))
+        if 'ram' in name.lower() or 'gb' in val_lower:
+            return num
+        if 'tb' in val_lower:
+            return num * 1024
+        if 'core' in val_lower or 'نواة' in val_lower:
+            return num * 8
+        if 'hz' in val_lower:
+            return num
+        if num > 0 and num < 5000:
+            return num
+            
+    # 2. Benchmark qualitative keywords
+    score = 50.0
+    if any(k in val_lower for k in ['m3', 'm2 pro', 'i9', 'ryzen 9', 'rtx 40', 'retina', 'oled', '4k', 'liquid retina']):
+        score = 95.0
+    elif any(k in val_lower for k in ['m2', 'm1', 'i7', 'ryzen 7', 'rtx 30', 'qhd', '2k', '144hz']):
+        score = 80.0
+    elif any(k in val_lower for k in ['i5', 'ryzen 5', 'rtx 20', 'gtx 16', 'fhd', '1080p', 'ips']):
+        score = 65.0
+    elif any(k in val_lower for k in ['i3', 'ryzen 3', 'celeron', 'hd']):
+        score = 45.0
+    return score
 
 def serialize_product_battle(product):
     if not product:
         return None
     specs_data = []
     for spec in product.specs.all():
+        num_val = extract_numeric_spec_score(spec.name, spec.value, spec.numeric_value)
         specs_data.append({
             'name': spec.name,
             'value': spec.value,
-            'numeric_value': spec.numeric_value or 0,
-            'unit': spec.unit,
-            'icon': spec.icon,
+            'numeric_value': num_val,
+            'unit': spec.unit or '',
+            'icon': spec.icon or '⚡',
         })
     image_url = product.image.url if product.image else ''
     return {
@@ -447,27 +483,55 @@ def serialize_product_battle(product):
 
 
 def product_battle(request):
-    """Display the interactive Product Battle Arena page."""
-    products = Product.objects.filter(available=True).select_related('category', 'brand').order_by('name')
+    """
+    Display the interactive Product Battle Arena page.
+    Strictly restricts comparisons to products within the same selected category.
+    """
+    from .models import Category
+    
+    # Get all categories with available products
+    categories = Category.objects.filter(products__available=True).distinct().order_by('name')
+    
+    cat_id = request.GET.get('category')
+    selected_category = None
+    if cat_id:
+        selected_category = categories.filter(id=cat_id).first()
+    if not selected_category and categories.exists():
+        selected_category = categories.first()
+        
+    category_products = Product.objects.filter(category=selected_category, available=True).select_related('category', 'brand').order_by('name') if selected_category else Product.objects.none()
     
     product_a_id = request.GET.get('a')
     product_b_id = request.GET.get('b')
     
-    product_a = Product.objects.filter(id=product_a_id, available=True).prefetch_related('specs').first() if product_a_id else None
-    product_b = Product.objects.filter(id=product_b_id, available=True).prefetch_related('specs').first() if product_b_id else None
+    product_a = category_products.filter(id=product_a_id).prefetch_related('specs').first() if product_a_id else None
+    product_b = category_products.filter(id=product_b_id).prefetch_related('specs').first() if product_b_id else None
     
-    # Defaults if none selected
-    if not product_a and products.exists():
-        product_a = products.first()
-    if not product_b and products.count() > 1:
-        product_b = products[1]
+    # Defaults if none selected within category
+    if not product_a and category_products.exists():
+        product_a = category_products.first()
+    if not product_b and category_products.count() > 1:
+        product_b = category_products[1]
+    elif not product_b and category_products.exists():
+        product_b = category_products.first()
+
+    # Pre-evaluate AI Duel Verdict on server side for instant zero-latency render
+    from .ai_service import evaluate_product_duel
+    initial_verdict = None
+    if product_a and product_b and product_a.id != product_b.id:
+        res = evaluate_product_duel(product_a.id, product_b.id)
+        if res.get('success'):
+            initial_verdict = res.get('duel')
 
     return render(request, 'shop/battle.html', {
-        'products': products,
+        'categories': categories,
+        'selected_category': selected_category,
+        'products': category_products,
         'product_a': product_a,
         'product_b': product_b,
         'product_a_json': json.dumps(serialize_product_battle(product_a)),
         'product_b_json': json.dumps(serialize_product_battle(product_b)),
+        'ai_verdict_json': json.dumps(initial_verdict),
     })
 
 
@@ -478,6 +542,37 @@ def battle_specs_api(request, product_id):
 
 
 from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def battle_ai_verdict(request):
+    """
+    API endpoint that accepts product_a_id and product_b_id (via POST or GET) and returns AI Referee Verdict.
+    """
+    from .ai_service import evaluate_product_duel
+    
+    prod_a_id = 0
+    prod_b_id = 0
+    
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            prod_a_id = int(data.get('product_a_id', 0))
+            prod_b_id = int(data.get('product_b_id', 0))
+        except Exception:
+            prod_a_id = int(request.POST.get('product_a_id', 0))
+            prod_b_id = int(request.POST.get('product_b_id', 0))
+    else:
+        prod_a_id = int(request.GET.get('product_a_id', 0) or request.GET.get('a', 0))
+        prod_b_id = int(request.GET.get('product_b_id', 0) or request.GET.get('b', 0))
+        
+    if not prod_a_id or not prod_b_id:
+        return JsonResponse({'error': 'Both product_a_id and product_b_id are required'}, status=400)
+        
+    res = evaluate_product_duel(prod_a_id, prod_b_id)
+    if not res.get('success'):
+        return JsonResponse({'error': res.get('error', 'Could not evaluate duel')}, status=400)
+        
+    return JsonResponse(res)
 
 @csrf_exempt
 def tech_finder_chat(request):

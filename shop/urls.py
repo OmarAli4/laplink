@@ -33,6 +33,7 @@ urlpatterns = [
     # Product Battle / Duel Arena
     path('battle/', views.product_battle, name='product_battle'),
     path('battle/specs/<int:product_id>/', views.battle_specs_api, name='battle_specs_api'),
+    path('battle/ai-verdict/', views.battle_ai_verdict, name='battle_ai_verdict'),
 
     # AI Tech Finder
     path('tech-finder/chat/', views.tech_finder_chat, name='tech_finder_chat'),
