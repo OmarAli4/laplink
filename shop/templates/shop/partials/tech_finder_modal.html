@@ -1,4 +1,4 @@
-﻿{# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ ULTRA-MODERN WHITE CONVERSATIONAL AI TECH FINDER MODAL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ #}
+{# ─────────────────────── ULTRA-MODERN WHITE CONVERSATIONAL AI TECH FINDER MODAL ─────────────────────── #}
 {% load i18n %}
 {% load static %}
 
@@ -97,7 +97,7 @@
         <div class="flex items-center justify-between pb-4 border-b border-gray-100 shrink-0">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-2xl bg-black text-white flex items-center justify-center font-bold text-lg shadow-sm">
-                    ðŸ¤–
+                    🤖
                 </div>
                 <div>
                     <div class="flex items-center gap-2">
@@ -106,7 +106,7 @@
                             Live AI
                         </span>
                     </div>
-                    <p class="text-xs text-gray-500 font-medium">{% trans "Smart hardware matcher â€¢ Ask in natural language" %}</p>
+                    <p class="text-xs text-gray-500 font-medium">{% trans "Smart hardware matcher • Ask in natural language" %}</p>
                 </div>
             </div>
             <button @click="isOpen = false" class="text-gray-400 hover:text-black p-2 rounded-full hover:bg-gray-100 transition-colors focus:outline-none" title="Close">
@@ -125,7 +125,7 @@
                            x-model="prompt"
                            @keydown.enter.prevent="askAI()"
                            :disabled="isLoading"
-                           placeholder="{% trans "e.g. Ø¹Ø§ÙˆØ² Ù„Ø§Ø¨ØªÙˆØ¨ Ø¬ÙŠÙ…Ù†Ø¬ ÙÙŠ Ø­Ø¯ÙˆØ¯ 20 Ø£Ù„Ù Ø¬Ù†ÙŠÙ‡..." %}"
+                           placeholder="{% trans "e.g. عاوز لابتوب جيمنج في حدود 20 ألف جنيه..." %}"
                            class="w-full bg-gray-50/90 border border-gray-200 focus:border-black focus:bg-white focus:ring-4 focus:ring-black/5 rounded-2xl py-3.5 pl-4 pr-12 text-sm text-gray-900 placeholder-gray-400 focus:outline-none transition-all shadow-inner font-medium">
                     
                     <button @click="askAI()"
@@ -141,31 +141,31 @@
                 <!-- Minimalist One-Click Quick Suggestions -->
                 <div x-show="!result && !isLoading" class="space-y-2 pt-1">
                     <span class="text-[11px] font-bold uppercase tracking-wider text-gray-400">
-                        âš¡ {% trans "Popular Prompts:" %}
+                        ⚡ {% trans "Popular Prompts:" %}
                     </span>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        <button @click="setPromptAndAsk('Ø¹Ø§ÙˆØ² Ù„Ø§Ø¨ØªÙˆØ¨ Ø¬ÙŠÙ…Ù†Ø¬ Ù„Ù„Ø£Ù„Ø¹Ø§Ø¨ ÙˆÙ…ÙˆÙ†ØªØ§Ø¬ ÙÙŠ Ø­Ø¯ÙˆØ¯ 22 Ø£Ù„Ù Ø¬Ù†ÙŠÙ‡')"
+                        <button @click="setPromptAndAsk('عاوز لابتوب جيمنج للألعاب ومونتاج في حدود 22 ألف جنيه')"
                                 class="flex items-center gap-2 p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 border border-gray-200/80 text-left transition-all hover:scale-[1.01] group">
-                            <span class="text-base shrink-0">ðŸŽ®</span>
-                            <span class="text-xs font-semibold text-gray-700 group-hover:text-black line-clamp-1">Ù„Ø§Ø¨ØªÙˆØ¨ Ø¬ÙŠÙ…Ù†Ø¬ Ø¨Ù€ 22 Ø£Ù„Ù</span>
+                            <span class="text-base shrink-0">🎮</span>
+                            <span class="text-xs font-semibold text-gray-700 group-hover:text-black line-clamp-1">لابتوب جيمنج بـ 22 ألف</span>
                         </button>
                         
-                        <button @click="setPromptAndAsk('Ù…Ø­ØªØ§Ø¬ Ø¬Ù‡Ø§Ø² Ø³Ø±ÙŠØ¹ Ø¬Ø¯Ø§Ù‹ Ù„Ù„Ø¨Ø±Ù…Ø¬Ø© ÙˆÙƒØªØ§Ø¨Ø© Ø§Ù„ÙƒÙˆØ¯ ÙˆØ±Ø§Ù…Ø§Øª Ø¹Ø§Ù„ÙŠØ©')"
+                        <button @click="setPromptAndAsk('محتاج جهاز سريع جداً للبرمجة وكتابة الكود ورامات عالية')"
                                 class="flex items-center gap-2 p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 border border-gray-200/80 text-left transition-all hover:scale-[1.01] group">
-                            <span class="text-base shrink-0">ðŸ’»</span>
-                            <span class="text-xs font-semibold text-gray-700 group-hover:text-black line-clamp-1">Ø¬Ù‡Ø§Ø² Ø³Ø±ÙŠØ¹ Ù„Ù„Ø¨Ø±Ù…Ø¬Ø© ÙˆÙƒÙˆØ¯</span>
+                            <span class="text-base shrink-0">💻</span>
+                            <span class="text-xs font-semibold text-gray-700 group-hover:text-black line-clamp-1">جهاز سريع للبرمجة وكود</span>
                         </button>
 
-                        <button @click="setPromptAndAsk('Ù„Ø§Ø¨ØªÙˆØ¨ Ù„Ù„Ù…ÙˆÙ†ØªØ§Ø¬ ÙˆØªØ¹Ø¯ÙŠÙ„ Ø§Ù„ÙÙŠØ¯ÙŠÙˆ ÙˆØ´Ø§Ø´Ø© Ø¯Ù‚ÙŠÙ‚Ø© Ø§Ù„Ø£Ù„ÙˆØ§Ù†')"
+                        <button @click="setPromptAndAsk('لابتوب للمونتاج وتعديل الفيديو وشاشة دقيقة الألوان')"
                                 class="flex items-center gap-2 p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 border border-gray-200/80 text-left transition-all hover:scale-[1.01] group">
-                            <span class="text-base shrink-0">ðŸŽ¨</span>
-                            <span class="text-xs font-semibold text-gray-700 group-hover:text-black line-clamp-1">Ù…ÙˆÙ†ØªØ§Ø¬ ÙˆØ¬Ø±Ø§ÙÙŠÙƒ ÙˆØ´Ø§Ø´Ø© Ø£Ù„ÙˆØ§Ù†</span>
+                            <span class="text-base shrink-0">🎨</span>
+                            <span class="text-xs font-semibold text-gray-700 group-hover:text-black line-clamp-1">مونتاج وجرافيك وشاشة ألوان</span>
                         </button>
 
-                        <button @click="setPromptAndAsk('Ù„Ø§Ø¨ ØªÙˆØ¨ Ø®ÙÙŠÙ Ù„Ù„Ø¯Ø±Ø§Ø³Ø© ÙˆØ§Ù„Ø¬Ø§Ù…Ø¹Ø© ÙˆØ¨Ø·Ø§Ø±ÙŠØ© ØªØ¯ÙˆÙ… Ø·ÙˆÙŠÙ„Ø§Ù‹')"
+                        <button @click="setPromptAndAsk('لاب توب خفيف للدراسة والجامعة وبطارية تدوم طويلاً')"
                                 class="flex items-center gap-2 p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 border border-gray-200/80 text-left transition-all hover:scale-[1.01] group">
-                            <span class="text-base shrink-0">ðŸ”‹</span>
-                            <span class="text-xs font-semibold text-gray-700 group-hover:text-black line-clamp-1">Ø®ÙÙŠÙ Ù„Ù„Ø¯Ø±Ø§Ø³Ø© ÙˆØ¨Ø·Ø§Ø±ÙŠØ© Ù‚ÙˆÙŠØ©</span>
+                            <span class="text-base shrink-0">🔋</span>
+                            <span class="text-xs font-semibold text-gray-700 group-hover:text-black line-clamp-1">خفيف للدراسة وبطارية قوية</span>
                         </button>
                     </div>
                 </div>
@@ -184,7 +184,7 @@
 
             <!-- Error Notification -->
             <div x-show="errorMessage" x-cloak class="p-3.5 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2.5 font-medium">
-                <span class="text-base">âš ï¸</span>
+                <span class="text-base">⚠️</span>
                 <span x-text="errorMessage"></span>
             </div>
 
@@ -194,7 +194,7 @@
                     <div class="p-4 rounded-2xl bg-amber-50/90 border border-amber-200/80 space-y-2.5 text-start">
                         <div class="flex items-center justify-between">
                             <span class="inline-flex items-center gap-1.5 text-xs font-extrabold text-amber-800 uppercase tracking-wider">
-                                ðŸ¤– {% trans "AI Advisor Note" %}
+                                🤖 {% trans "AI Advisor Note" %}
                             </span>
                             <span class="px-2.5 py-0.5 rounded-full bg-amber-600 text-white text-xs font-black tracking-wide shadow-sm">
                                 {% trans "Store Inventory" %}
@@ -205,52 +205,18 @@
                 </div>
             </template>
 
-<style>
-/* â”€â”€ Nano-Tech Materialize: clean, fast, premium â”€â”€ */
-@keyframes nanoMaterialize {
-    0% { clip-path: circle(0% at 50% 40%); opacity: 0; }
-    60% { clip-path: circle(75% at 50% 40%); opacity: 1; }
-    100% { clip-path: circle(150% at 50% 40%); opacity: 1; }
-}
-@keyframes nanoSweep {
-    0% { transform: translateX(-100%) skewX(-15deg); }
-    100% { transform: translateX(200%) skewX(-15deg); }
-}
-@keyframes nanoFadeUp {
-    0% { opacity: 0; transform: translateY(8px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-.nano-reveal {
-    animation: nanoMaterialize 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-.nano-card {
-    position: relative;
-    overflow: hidden;
-    animation: nanoFadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.nano-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.7) 50%, transparent 60%);
-    animation: nanoSweep 0.8s 0.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    pointer-events: none;
-    z-index: 5;
-}
-</style>
-
             <!-- Recommendation Result -->
             <template x-if="result && result.product">
-                <div class="space-y-4 pt-1 nano-reveal">
-
-                    <!-- AI Insight Bubble -->
+                <div class="space-y-4 pt-1 animate-fade-in-up">
+                    
+                    <!-- AI Insight Bubble (Light Card) -->
                     <div class="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/70 space-y-2.5">
                         <div class="flex items-center justify-between">
                             <span class="inline-flex items-center gap-1.5 text-xs font-extrabold text-emerald-800 uppercase tracking-wider">
-                                ðŸ¤– {% trans "Recommendation" %}
+                                🤖 {% trans "Recommendation" %}
                             </span>
                             <span class="px-2.5 py-0.5 rounded-full bg-emerald-600 text-white text-xs font-black tracking-wide shadow-sm"
-                                  x-text="`âœ¨ ${result.match_score}% Match`"></span>
+                                  x-text="`✨ ${result.match_score}% Match`"></span>
                         </div>
                         <p dir="auto" class="text-xs sm:text-sm text-gray-900 leading-relaxed font-medium text-start" x-text="result.ai_message"></p>
                         
@@ -259,45 +225,46 @@
                             <div class="pt-2 border-t border-emerald-200/50 flex flex-wrap gap-1.5">
                                 <template x-for="hl in result.highlights" :key="hl">
                                     <span dir="auto" class="inline-flex items-center gap-1 text-[11px] px-2.5 py-1 rounded-lg bg-white border border-emerald-200 text-emerald-950 font-semibold shadow-xs text-start">
-                                        <span class="text-emerald-600">âœ”</span> <span x-text="hl"></span>
+                                        <span class="text-emerald-600">✔</span> <span x-text="hl"></span>
                                     </span>
                                 </template>
                             </div>
                         </template>
                     </div>
 
-                    <!-- Product Cards -->
+                    <!-- Clean White Product Cards (Loops through all matched products) -->
                     <div class="space-y-3">
                         <template x-for="(prod, idx) in (result.products || [result.product])" :key="prod.id">
-                            <div :style="`animation-delay: ${idx * 100}ms`"
-                                 class="nano-card p-4 rounded-2xl bg-white border border-gray-200 hover:border-emerald-300 hover:shadow-md transition-all flex flex-col sm:flex-row items-center gap-4">
-
-                                <!-- Image -->
-                                <div class="w-full sm:w-24 h-24 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center p-2 shrink-0 overflow-hidden">
+                            <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200/80 hover:border-gray-300 transition-all flex flex-col sm:flex-row items-center gap-4">
+                                
+                                <!-- Image Container -->
+                                <div class="w-full sm:w-24 h-24 rounded-xl bg-white border border-gray-100 flex items-center justify-center p-2 shrink-0 overflow-hidden shadow-xs">
                                     <template x-if="prod.image">
-                                        <img :src="prod.image" :alt="prod.name" class="w-full h-full object-contain">
+                                        <img :src="prod.image" :alt="prod.name" class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
                                     </template>
                                     <template x-if="!prod.image">
-                                        <div class="text-gray-400 text-2xl">ðŸ’»</div>
+                                        <div class="text-gray-400 text-2xl">💻</div>
                                     </template>
                                 </div>
 
-                                <!-- Info -->
-                                <div class="flex-1 w-full space-y-2 relative z-10">
+                                <!-- Product Info & Actions -->
+                                <div class="flex-1 w-full space-y-2">
                                     <div>
                                         <div class="text-[10px] font-bold uppercase tracking-widest text-emerald-600" x-text="prod.brand"></div>
                                         <a :href="prod.url" dir="auto" class="font-bold text-sm text-gray-900 hover:text-emerald-600 transition-colors line-clamp-1 text-start block" x-text="prod.name"></a>
                                     </div>
 
+                                    <!-- Specs Chips -->
                                     <template x-if="prod.specs && prod.specs.length">
                                         <div class="flex flex-wrap gap-1">
                                             <template x-for="sp in prod.specs" :key="sp.name">
-                                                <span dir="auto" class="px-2 py-0.5 rounded-md bg-gray-50 border border-gray-200 text-[10px] font-medium text-gray-700 shadow-2xs"
-                                                      x-text="`${sp.icon || 'âš¡'} ${sp.name}: ${sp.value}`"></span>
+                                                <span dir="auto" class="px-2 py-0.5 rounded-md bg-white border border-gray-200 text-[10px] font-medium text-gray-700 shadow-2xs"
+                                                      x-text="`${sp.icon || '⚡'} ${sp.name}: ${sp.value}`"></span>
                                             </template>
                                         </div>
                                     </template>
 
+                                    <!-- Price & Buttons -->
                                     <div class="flex items-center justify-between pt-2 border-t border-gray-200/60 flex-wrap gap-2">
                                         <div>
                                             <div class="text-sm sm:text-base font-black text-gray-900" x-text="prod.formatted_price"></div>
@@ -305,16 +272,19 @@
                                                 <div class="text-[10px] text-gray-400 line-through" x-text="prod.original_price"></div>
                                             </template>
                                         </div>
+
                                         <div class="flex items-center gap-2">
                                             <a :href="prod.url" class="px-3 py-1 rounded-xl bg-white border border-gray-200 text-gray-800 hover:bg-gray-100 text-xs font-bold transition-all shadow-2xs">
                                                 {% trans "Details" %}
                                             </a>
+                                            
+                                            <!-- Express Buy Now -->
                                             <form :action="`/cart/add/${prod.id}/`" method="POST" class="inline">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="quantity" value="1">
                                                 <input type="hidden" name="override" value="False">
                                                 <button type="submit" name="buy_now" value="true" class="px-3.5 py-1 rounded-xl bg-black hover:bg-gray-800 text-white text-xs font-extrabold tracking-wide uppercase transition-all shadow-sm active:scale-95">
-                                                    {% trans "Buy Now âš¡" %}
+                                                    {% trans "Buy Now ⚡" %}
                                                 </button>
                                             </form>
                                         </div>
@@ -324,16 +294,16 @@
                         </template>
                     </div>
 
-                    <!-- Reset -->
+                    <!-- Reset Link -->
                     <div class="text-center pt-1">
                         <button @click="reset()" class="text-xs text-gray-400 hover:text-black font-medium underline underline-offset-4 transition-colors">
-                            ðŸ”„ {% trans "Ask another question" %}
+                            🔄 {% trans "Ask another question" %}
                         </button>
                     </div>
+
                 </div>
             </template>
 
         </div>
     </div>
 </div>
-
