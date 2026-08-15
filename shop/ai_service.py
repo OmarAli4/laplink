@@ -52,7 +52,7 @@ def ask_ai_tech_finder(user_prompt: str):
 
     # Gemini System Instruction
     system_instruction = (
-        "You are Lap Link AI Tech Finder, an elite tech store assistant in Egypt. "
+        "You are Lap Link AI Finder, an elite AI tech matchmaker in Egypt. "
         "A customer has asked: '" + user_prompt + "'.\n"
         "Here is our store's current in-stock product catalog:\n"
         f"{json.dumps(catalog, ensure_ascii=False)}\n\n"
