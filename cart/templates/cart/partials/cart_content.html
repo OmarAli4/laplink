@@ -97,7 +97,9 @@
                                         {% if item.product.image %}
                                         <img src="{{ item.product.image.url }}"
                                              alt="{{ item.product.name }}"
-                                             class="w-full h-full object-cover">
+                                             class="w-full h-full object-cover"
+                                             loading="lazy"
+                                             decoding="async">
                                         {% else %}
                                         <div class="w-full h-full flex items-center justify-center">
                                             <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -22,7 +22,7 @@
                             {% if banner.link %}
                             <a href="{{ banner.link }}" class="block w-full h-full">
                             {% endif %}
-                            <img src="{{ banner.image.url }}" alt="{{ banner.title }}" class="w-full h-full object-cover" loading="eager">
+                            <img src="{{ banner.image.url }}" alt="{{ banner.title }}" class="w-full h-full object-cover" {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
                             {% if banner.link %}
                             </a>
                             {% endif %}
@@ -32,7 +32,10 @@
                         <!-- Slide 1: Laptop Sleeves & Bags -->
                         <div class="swiper-slide relative h-full w-full bg-white overflow-hidden">
                             <a href="{% url 'shop:product_list' %}" class="block w-full h-full relative group">
-                                <img src="{% static 'img/banners/banner_sleeves.jpg' %}" alt="Luxury Laptop Sleeves & Bags" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <picture>
+                                    <source srcset="{% static 'img/banners/banner_sleeves.webp' %}" type="image/webp">
+                                    <img src="{% static 'img/banners/banner_sleeves.jpg' %}" alt="Luxury Laptop Sleeves & Bags" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="eager" fetchpriority="high" decoding="async">
+                                </picture>
                                 <div class="absolute bottom-5 left-5 sm:bottom-6 sm:left-6 z-10">
                                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-[0.2em] shadow-md border border-white/10">
                                         ✨ {% trans "Laptop Sleeves & Bags" %}
@@ -43,7 +46,10 @@
                         <!-- Slide 2: Computer Accessories -->
                         <div class="swiper-slide relative h-full w-full bg-white overflow-hidden">
                             <a href="{% url 'shop:product_list' %}" class="block w-full h-full relative group">
-                                <img src="{% static 'img/banners/banner_computer.jpg' %}" alt="Premium Computer Accessories" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <picture>
+                                    <source srcset="{% static 'img/banners/banner_computer.webp' %}" type="image/webp">
+                                    <img src="{% static 'img/banners/banner_computer.jpg' %}" alt="Premium Computer Accessories" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
+                                </picture>
                                 <div class="absolute bottom-5 left-5 sm:bottom-6 sm:left-6 z-10">
                                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-[0.2em] shadow-md border border-white/10">
                                         ⚡ {% trans "Computer Essentials" %}
@@ -54,7 +60,10 @@
                         <!-- Slide 3: Mobile Accessories -->
                         <div class="swiper-slide relative h-full w-full bg-white overflow-hidden">
                             <a href="{% url 'shop:product_list' %}" class="block w-full h-full relative group">
-                                <img src="{% static 'img/banners/banner_mobile.jpg' %}" alt="Fast Charging & Mobile Accessories" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <picture>
+                                    <source srcset="{% static 'img/banners/banner_mobile.webp' %}" type="image/webp">
+                                    <img src="{% static 'img/banners/banner_mobile.jpg' %}" alt="Fast Charging & Mobile Accessories" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
+                                </picture>
                                 <div class="absolute bottom-5 left-5 sm:bottom-6 sm:left-6 z-10">
                                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-[0.2em] shadow-md border border-white/10">
                                         🔋 {% trans "Fast Charging Gear" %}

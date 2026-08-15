@@ -1,5 +1,55 @@
+import io
+import os
+from PIL import Image
+from django.core.files.base import ContentFile
 from django.db import models
 from django.urls import reverse
+
+
+def optimize_image_to_webp(image_field, max_dimension=1200, quality=82):
+    """
+    Optimizes an uploaded image file:
+    1. Resizes large dimensions (max_dimension px on longest side).
+    2. Converts to modern WebP format.
+    3. Retains alpha transparency if RGBA / P mode.
+    4. Replaces the file with the compressed WebP ContentFile.
+    """
+    if not image_field or not hasattr(image_field, 'file'):
+        return
+    try:
+        if image_field.name and image_field.name.lower().endswith('.webp'):
+            return
+
+        img = Image.open(image_field)
+        
+        # Handle orientation if EXIF metadata present
+        try:
+            from PIL import ImageOps
+            img = ImageOps.exif_transpose(img)
+        except Exception:
+            pass
+
+        # Handle color modes
+        if img.mode in ('RGBA', 'LA') or (img.mode == 'P' and 'transparency' in img.info):
+            img = img.convert('RGBA')
+        else:
+            img = img.convert('RGB')
+
+        # Resize if oversized
+        if img.width > max_dimension or img.height > max_dimension:
+            img.thumbnail((max_dimension, max_dimension), Image.Resampling.LANCZOS)
+
+        output_io = io.BytesIO()
+        img.save(output_io, format='WEBP', quality=quality, method=6, optimize=True)
+        output_io.seek(0)
+
+        # Generate new filename with .webp
+        base_name, _ = os.path.splitext(image_field.name)
+        new_name = f"{base_name}.webp"
+
+        image_field.save(new_name, ContentFile(output_io.getvalue()), save=False)
+    except Exception as e:
+        print(f"[Image Optimization Error]: {e}")
 
 
 class Category(models.Model):
@@ -28,6 +78,11 @@ class Brand(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if self.logo:
+            optimize_image_to_webp(self.logo, max_dimension=400, quality=85)
+        super().save(*args, **kwargs)
 
 
 class Product(models.Model):
@@ -100,6 +155,11 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('shop:product_detail', args=[self.id, self.slug])
 
+    def save(self, *args, **kwargs):
+        if self.image:
+            optimize_image_to_webp(self.image, max_dimension=1200, quality=82)
+        super().save(*args, **kwargs)
+
 
 class Banner(models.Model):
     title = models.CharField(max_length=200, help_text="Internal name for the banner")
@@ -114,6 +174,11 @@ class Banner(models.Model):
     def __str__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        if self.image:
+            optimize_image_to_webp(self.image, max_dimension=1600, quality=82)
+        super().save(*args, **kwargs)
+
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
@@ -126,6 +191,11 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return f"Image for {self.product.name}"
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            optimize_image_to_webp(self.image, max_dimension=1200, quality=82)
+        super().save(*args, **kwargs)
 
 
 class Wishlist(models.Model):

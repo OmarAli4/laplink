@@ -212,7 +212,7 @@
                         <div class="text-center space-y-4">
                             <div class="w-44 h-44 mx-auto bg-zinc-950 rounded-2xl p-4 border border-white/10 flex items-center justify-center relative overflow-hidden group">
                                 <template x-if="productA.image">
-                                    <img :src="productA.image" :alt="productA.name" class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105">
+                                    <img :src="productA.image" :alt="productA.name" class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy" decoding="async">
                                 </template>
                                 <template x-if="!productA.image">
                                     <div class="text-4xl">💻</div>
@@ -284,7 +284,7 @@
                         <div class="text-center space-y-4">
                             <div class="w-44 h-44 mx-auto bg-zinc-950 rounded-2xl p-4 border border-white/10 flex items-center justify-center relative overflow-hidden group">
                                 <template x-if="productB.image">
-                                    <img :src="productB.image" :alt="productB.name" class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105">
+                                    <img :src="productB.image" :alt="productB.name" class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy" decoding="async">
                                 </template>
                                 <template x-if="!productB.image">
                                     <div class="text-4xl">💻</div>
