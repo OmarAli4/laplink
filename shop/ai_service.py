@@ -71,7 +71,7 @@ def ask_ai_tech_finder(user_prompt: str):
         "}"
     )
 
-    models_to_try = ['gemini-flash-latest', 'gemini-flash-lite-latest', 'gemini-2.5-flash-lite']
+    models_to_try = ['gemini-flash-lite-latest', 'gemini-flash-latest', 'gemini-pro-latest']
     
     last_error = None
     for model_name in models_to_try:
@@ -108,16 +108,16 @@ def ask_ai_tech_finder(user_prompt: str):
                 
                 # Ensure product_ids array exists
                 if 'product_ids' not in parsed_data and 'product_id' in parsed_data:
-                    parsed_data['product_ids'] = [parsed_data['product_id']]
+                    parsed_data['product_ids'] = [parsed_data['product_id']] if parsed_data['product_id'] else []
                 elif 'product_id' not in parsed_data and parsed_data.get('product_ids'):
                     parsed_data['product_id'] = parsed_data['product_ids'][0]
                     
-                # Verify at least one product exists in our catalog
+                # Validate against in-stock catalog
                 valid_ids = [pid for pid in parsed_data.get('product_ids', []) if any(p['id'] == pid for p in catalog)]
-                if valid_ids:
-                    parsed_data['product_ids'] = valid_ids
-                    parsed_data['product_id'] = valid_ids[0]
-                    return {"success": True, "data": parsed_data, "is_ai": True}
+                parsed_data['product_ids'] = valid_ids
+                parsed_data['product_id'] = valid_ids[0] if valid_ids else None
+                
+                return {"success": True, "data": parsed_data, "is_ai": True}
         except Exception as e:
             last_error = e
             print(f"[AI Tech Finder Gemini {model_name} Error]: {e}")
@@ -208,7 +208,7 @@ def evaluate_product_duel(product_a_id: int, product_b_id: int):
         "}"
     )
 
-    models_to_try = ['gemini-flash-latest', 'gemini-flash-lite-latest', 'gemini-2.5-flash-lite']
+    models_to_try = ['gemini-flash-lite-latest', 'gemini-flash-latest', 'gemini-pro-latest']
     last_error = None
     for model_name in models_to_try:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"

@@ -188,6 +188,23 @@
                 <span x-text="errorMessage"></span>
             </div>
 
+            <!-- No Direct Match AI Note -->
+            <template x-if="result && !result.product && result.ai_message">
+                <div class="space-y-4 pt-1 animate-fade-in-up">
+                    <div class="p-4 rounded-2xl bg-amber-50/90 border border-amber-200/80 space-y-2.5 text-start">
+                        <div class="flex items-center justify-between">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-extrabold text-amber-800 uppercase tracking-wider">
+                                🤖 {% trans "AI Advisor Note" %}
+                            </span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-amber-600 text-white text-xs font-black tracking-wide shadow-sm">
+                                {% trans "Store Inventory" %}
+                            </span>
+                        </div>
+                        <p dir="auto" class="text-xs sm:text-sm text-gray-900 leading-relaxed font-medium text-start" x-text="result.ai_message"></p>
+                    </div>
+                </div>
+            </template>
+
             <!-- Recommendation Result -->
             <template x-if="result && result.product">
                 <div class="space-y-4 pt-1 animate-fade-in-up">

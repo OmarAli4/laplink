@@ -622,32 +622,13 @@ def tech_finder_chat(request):
                 'specs': specs_list
             })
             
-    if not products_list:
-        p = Product.objects.filter(available=True).first()
-        if p:
-            specs_list = [{'name': s.name, 'value': s.value, 'icon': s.icon} for s in p.specs.all()[:3]]
-            products_list.append({
-                'id': p.id,
-                'name': p.name,
-                'image': p.image.url if p.image else '',
-                'price': float(p.current_price),
-                'formatted_price': f"L.E {p.current_price:,.2f}",
-                'is_on_sale': p.is_on_sale,
-                'original_price': f"L.E {p.price:,.2f}" if p.is_on_sale else None,
-                'url': p.get_absolute_url(),
-                'brand': p.brand.name if p.brand else '',
-                'specs': specs_list
-            })
-        else:
-            return JsonResponse({'error': 'No products currently available'}, status=404)
-
     return JsonResponse({
         'success': True,
-        'product': products_list[0],
+        'product': products_list[0] if products_list else None,
         'products': products_list,
         'is_multi': len(products_list) > 1,
-        'match_score': rec_data.get('match_score', 95),
-        'ai_message': rec_data.get('ai_message', ''),
+        'match_score': rec_data.get('match_score', 95) if products_list else 0,
+        'ai_message': rec_data.get('ai_message', 'للأسف مفيش منتج متطابق مع طلبك متاح حالياً.'),
         'highlights': rec_data.get('highlights', []),
         'is_ai': ai_result.get('is_ai', False)
     })
