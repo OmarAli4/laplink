@@ -78,14 +78,11 @@
         }
 
         @keyframes drawLogo {
-            0% { stroke-dashoffset: 300; }
-            50% { stroke-dashoffset: 0; }
-            100% { stroke-dashoffset: 300; }
+            0%, 100% { opacity: 0.85; }
+            50% { opacity: 1; }
         }
         .animate-draw-logo {
-            stroke-dasharray: 300;
-            stroke-dashoffset: 300;
-            animation: drawLogo 4s ease-in-out infinite;
+            animation: drawLogo 3s ease-in-out infinite;
         }
 
         /* 🌟 Global Entrance & Micro-Animations */
