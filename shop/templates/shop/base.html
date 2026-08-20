@@ -80,21 +80,24 @@
         /* Cross-Browser Logo Stroke Drawing Animation (iOS Safari, Chrome, Firefox) */
         @keyframes drawLogoStroke {
             0% { stroke-dashoffset: 0; }
-            35% { stroke-dashoffset: 100; }
+            35% { stroke-dashoffset: 180; }
             70% { stroke-dashoffset: 0; }
             100% { stroke-dashoffset: 0; }
         }
         @-webkit-keyframes drawLogoStroke {
             0% { stroke-dashoffset: 0; }
-            35% { stroke-dashoffset: 100; }
+            35% { stroke-dashoffset: 180; }
             70% { stroke-dashoffset: 0; }
             100% { stroke-dashoffset: 0; }
         }
         .logo-path, .animate-draw-logo path {
-            stroke-dasharray: 100;
+            stroke-dasharray: 180;
             stroke-dashoffset: 0;
             -webkit-animation: drawLogoStroke 4s ease-in-out infinite;
             animation: drawLogoStroke 4s ease-in-out infinite;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            will-change: stroke-dashoffset;
         }
 
         /* 🌟 Global Entrance & Micro-Animations */
