@@ -85,9 +85,33 @@ class Brand(models.Model):
         super().save(*args, **kwargs)
 
 
+class SubCategory(models.Model):
+    category = models.ForeignKey(Category, related_name='subcategories', on_delete=models.CASCADE)
+    name = models.CharField(max_length=150)
+    name_ar = models.CharField(max_length=150, blank=True)
+    slug = models.SlugField(max_length=150)
+    icon = models.CharField(max_length=30, blank=True, default="⚡", help_text="Emoji or icon code, e.g. 🖱️, ⌨️, 🎧, 🎒")
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order', 'name']
+        verbose_name = 'Subcategory'
+        verbose_name_plural = 'Subcategories'
+        unique_together = ('category', 'slug')
+
+    def __str__(self):
+        return f"{self.category.name} → {self.name}"
+
+    def get_absolute_url(self):
+        return f"{reverse('shop:product_list_by_category', args=[self.category.slug])}?subcategory={self.slug}"
+
+
 class Product(models.Model):
     category = models.ForeignKey(
         Category, related_name='products', on_delete=models.CASCADE
+    )
+    subcategory = models.ForeignKey(
+        SubCategory, related_name='products', on_delete=models.SET_NULL, null=True, blank=True
     )
     brand = models.ForeignKey(
         Brand, related_name='products', on_delete=models.SET_NULL, null=True, blank=True
@@ -112,6 +136,7 @@ class Product(models.Model):
             models.Index(fields=['id', 'slug']),
             models.Index(fields=['available', 'is_featured']),
             models.Index(fields=['available', 'category']),
+            models.Index(fields=['available', 'subcategory']),
             models.Index(fields=['available', 'brand']),
             models.Index(fields=['created']),
         ]

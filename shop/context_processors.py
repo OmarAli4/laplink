@@ -3,10 +3,10 @@ from .models import Category, Brand, Announcement
 
 def category_navbar(request):
     """
-    Global context processor to pre-fetch categories and brands
+    Global context processor to pre-fetch categories, subcategories, and brands
     for the luxury Alpine.js dropdown menus.
     """
-    categories = Category.objects.prefetch_related('brands').all()
+    categories = Category.objects.prefetch_related('subcategories', 'brands').all()
     brands = Brand.objects.all()
     announcements = Announcement.objects.filter(is_active=True).order_by('order')
     

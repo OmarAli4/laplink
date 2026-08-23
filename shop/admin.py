@@ -1,16 +1,45 @@
 from django.contrib import admin
 from unfold.admin import ModelAdmin, TabularInline
-from .models import Category, Product, Banner, Brand, ProductImage, ProductSpec, Announcement
+from .models import Category, SubCategory, Product, Banner, Brand, ProductImage, ProductSpec, Announcement
 
 
 from django.utils.html import format_html
 
 
+class SubCategoryInline(TabularInline):
+    model = SubCategory
+    extra = 2
+    prepopulated_fields = {'slug': ('name',)}
+
+
 @admin.register(Category)
 class CategoryAdmin(ModelAdmin):
-    list_display = ['name', 'slug']
+    list_display = ['name', 'slug', 'subcategories_count']
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ['name']
+    inlines = [SubCategoryInline]
+
+    def subcategories_count(self, obj):
+        return obj.subcategories.count()
+    subcategories_count.short_description = "Subcategories"
+
+
+@admin.register(SubCategory)
+class SubCategoryAdmin(ModelAdmin):
+    list_display = ['icon_display', 'name', 'name_ar', 'category', 'slug', 'order', 'products_count']
+    list_display_links = ['icon_display', 'name']
+    list_editable = ['order']
+    list_filter = ['category']
+    search_fields = ['name', 'name_ar', 'category__name']
+    prepopulated_fields = {'slug': ('name',)}
+
+    def icon_display(self, obj):
+        return format_html('<span class="text-xl">{}</span>', obj.icon or '⚡')
+    icon_display.short_description = "Icon"
+
+    def products_count(self, obj):
+        return obj.products.count()
+    products_count.short_description = "Products"
 
 
 @admin.register(Brand)
@@ -39,10 +68,10 @@ class ProductSpecInline(TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(ModelAdmin):
-    list_display = ['product_preview', 'name', 'category', 'brand', 'price', 'stock_quantity', 'availability_badge', 'featured_badge']
+    list_display = ['product_preview', 'name', 'category', 'subcategory', 'brand', 'price', 'stock_quantity', 'availability_badge', 'featured_badge']
     list_display_links = ['product_preview', 'name']
     list_editable = ['price', 'stock_quantity']
-    list_filter = ['available', 'is_featured', 'category', 'brand', 'created']
+    list_filter = ['available', 'is_featured', 'category', 'subcategory', 'brand', 'created']
     search_fields = ['name', 'description']
     prepopulated_fields = {'slug': ('name',)}
     @admin.action(description="🤖 Run AI Vision Tagging (Extract Colors & Specs)")

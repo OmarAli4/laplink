@@ -39,11 +39,11 @@ from decimal import Decimal, InvalidOperation
 from django.utils import timezone
 
 def product_list(request, category_slug=None):
-    """List products, optionally filtered by category and GET parameters."""
+    """List products, optionally filtered by category, subcategory, and GET parameters."""
     category = None
-    categories = Category.objects.prefetch_related('brands').all()
+    categories = Category.objects.prefetch_related('subcategories', 'brands').all()
     from django.db.models import Avg, Q
-    products = Product.objects.filter(available=True).select_related('category', 'brand').annotate(avg_rating=Avg('reviews__rating'))
+    products = Product.objects.filter(available=True).select_related('category', 'subcategory', 'brand').annotate(avg_rating=Avg('reviews__rating'))
 
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
@@ -54,7 +54,12 @@ def product_list(request, category_slug=None):
     if query:
         products = products.filter(Q(name__icontains=query) | Q(description__icontains=query))
 
-    # 2. Brands List (Multi-select - ignore empty values)
+    # 2. Subcategory Filter
+    selected_subcategory = request.GET.get('subcategory', '').strip()
+    if selected_subcategory:
+        products = products.filter(subcategory__slug=selected_subcategory)
+
+    # 3. Brands List (Multi-select - ignore empty values)
     selected_brands = [b for b in request.GET.getlist('brand') if b and b.strip()]
     if selected_brands:
         products = products.filter(brand__slug__in=selected_brands)
@@ -137,6 +142,7 @@ def product_list(request, category_slug=None):
         'brands': brands,
         'products': products_page,
         'selected_brands': selected_brands,
+        'selected_subcategory': selected_subcategory,
         'wishlisted_product_ids': wishlisted_product_ids,
         'total_stock_count': total_stock_count,
     })

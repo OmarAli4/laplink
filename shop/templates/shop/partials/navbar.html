@@ -69,7 +69,7 @@
                                     <svg class="w-3.5 h-3.5 opacity-40 group-hover/category:opacity-100 group-hover/category:translate-x-0.5 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                 </a>
 
-                                <!-- Available Brands Flyout -->
+                                <!-- Available Subcategories / Product Types Flyout -->
                                 <div x-show="isFlyoutOpen" x-cloak
                                      x-transition:enter="transition ease-out duration-200"
                                      x-transition:enter-start="opacity-0 translate-x-2 scale-95"
@@ -77,23 +77,27 @@
                                      x-transition:leave="transition ease-in duration-150"
                                      x-transition:leave-start="opacity-100 translate-x-0 scale-100"
                                      x-transition:leave-end="opacity-0 translate-x-1 scale-95"
-                                     class="absolute left-full top-0 pl-1 w-72">
+                                     class="absolute left-full top-0 pl-1 w-64">
                                      <div class="bg-zinc-950/95 border border-white/10 shadow-2xl rounded-2xl p-1.5 overflow-hidden">
-                                        {% for brand in category.brands.all %}
-                                        <a href="{% url 'shop:product_list_by_category' category.slug %}?brand={{ brand.slug }}" class="flex items-center gap-3 px-3 py-2 hover:bg-white/10 rounded-xl transition-colors duration-200">
-                                            {% if brand.logo %}
-                                                <img src="{{ brand.logo.url }}" class="w-7 h-7 rounded-lg border border-white/10 object-cover shadow-inner" alt="{{ brand.name }}">
-                                            {% else %}
-                                                <div class="w-7 h-7 rounded-lg border border-white/10 flex items-center justify-center bg-zinc-900 text-gray-300 font-bold uppercase shadow-inner text-xs">
-                                                    {{ brand.name|slice:":1" }}
-                                                </div>
-                                            {% endif %}
-                                            <div class="text-xs text-white font-semibold tracking-tight uppercase">{{ brand.name }}</div>
+                                        <div class="px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-widest text-emerald-400/80 border-b border-white/5 mb-1 flex items-center justify-between">
+                                            <span>{% trans "Types & Items" %}</span>
+                                            <span class="text-[9px] text-gray-500 font-mono">{{ category.subcategories.count }}</span>
+                                        </div>
+                                        {% for subcat in category.subcategories.all %}
+                                        <a href="{{ subcat.get_absolute_url }}" class="flex items-center justify-between px-3 py-2 hover:bg-white/10 rounded-xl transition-colors duration-200 group/sub">
+                                            <div class="flex items-center gap-2.5">
+                                                <span class="text-base group-hover/sub:scale-110 transition-transform duration-200">{{ subcat.icon|default:"⚡" }}</span>
+                                                <span class="text-xs text-gray-200 group-hover/sub:text-white font-semibold tracking-tight uppercase">
+                                                    {% if request.LANGUAGE_CODE == 'ar' and subcat.name_ar %}{{ subcat.name_ar }}{% else %}{{ subcat.name }}{% endif %}
+                                                </span>
+                                            </div>
+                                            <svg class="w-3.5 h-3.5 opacity-0 group-hover/sub:opacity-100 group-hover/sub:translate-x-0.5 text-emerald-400 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                         </a>
                                         {% empty %}
-                                        <div class="px-3 py-2 text-xs text-gray-500 font-medium tracking-wider uppercase">
-                                            {% trans "No Available Brands" %}
-                                        </div>
+                                        <a href="{{ category.get_absolute_url }}" class="flex items-center gap-2 px-3 py-2 text-xs text-gray-400 hover:text-white rounded-xl">
+                                            <span>📦</span>
+                                            <span>{% trans "View all items" %}</span>
+                                        </a>
                                         {% endfor %}
                                      </div>
                                 </div>
@@ -326,9 +330,28 @@
                      x-transition:enter-end="opacity-100 translate-y-0"
                      class="px-4 py-3 space-y-3 border-l border-white/10 ml-4 mb-4">
                     {% for category in navbar_categories %}
-                        <a href="{{ category.get_absolute_url }}" class="block py-2 text-xs font-bold tracking-widest text-gray-400 hover:text-white uppercase transition-colors">
-                            {% trans category.name %}
-                        </a>
+                        <div x-data="{ openSub: false }" class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <a href="{{ category.get_absolute_url }}" class="py-1 text-xs font-bold tracking-wider text-white uppercase hover:text-emerald-400 transition-colors">
+                                    {% trans category.name %}
+                                </a>
+                                {% if category.subcategories.exists %}
+                                <button @click="openSub = !openSub" class="p-1 text-gray-400 hover:text-white transition-colors">
+                                    <svg class="w-4 h-4 transition-transform duration-200" :class="{'rotate-180': openSub}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </button>
+                                {% endif %}
+                            </div>
+                            {% if category.subcategories.exists %}
+                            <div x-show="openSub" x-cloak class="pl-3 py-1 space-y-2 border-l border-white/10">
+                                {% for subcat in category.subcategories.all %}
+                                <a href="{{ subcat.get_absolute_url }}" class="flex items-center gap-2 py-1 text-xs text-gray-400 hover:text-white transition-colors">
+                                    <span>{{ subcat.icon|default:"⚡" }}</span>
+                                    <span>{% if request.LANGUAGE_CODE == 'ar' and subcat.name_ar %}{{ subcat.name_ar }}{% else %}{{ subcat.name }}{% endif %}</span>
+                                </a>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
                     {% endfor %}
                 </div>
             </div>
