@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
 from .models import Category, Product
 
 # If using Redis for recommendations:
@@ -10,21 +11,62 @@ from .models import Category, Product
 
 
 def home(request):
-    """Display the home page with featured products and banners."""
+    """Display the luxury Scrollytelling home page with curated ecosystem chapters and real-time gear."""
     from .models import Banner
     banners = Banner.objects.filter(active=True)
-    featured_products = Product.objects.filter(available=True, is_featured=True).select_related('category', 'brand').order_by('-id')[:4]
-    categories = Category.objects.all()
     
+    # 1. Featured Products (up to 8 items, graceful fallback)
+    featured_products = list(Product.objects.filter(available=True, is_featured=True).select_related('category', 'subcategory', 'brand').order_by('-id')[:8])
+    if len(featured_products) < 4:
+        extra_prods = Product.objects.filter(available=True).exclude(id__in=[p.id for p in featured_products]).select_related('category', 'subcategory', 'brand').order_by('-id')[:8 - len(featured_products)]
+        featured_products.extend(list(extra_prods))
+
+    # 2. Curated Storytelling Chapters
+    # Act 1.1: Power & Hyper-Charging
+    power_products = Product.objects.filter(
+        available=True
+    ).filter(
+        Q(category__slug__iexact='mobile-accessories') | Q(name__icontains='charger') | Q(name__icontains='cable') | Q(name__icontains='gan')
+    ).select_related('category', 'subcategory', 'brand').order_by('-id')[:4]
+
+    # Act 1.2: Bags & Armor
+    bag_products = Product.objects.filter(
+        available=True
+    ).filter(
+        Q(category__slug__iexact='bags') | Q(name__icontains='backpack') | Q(name__icontains='sleeve') | Q(name__icontains='bange')
+    ).select_related('category', 'subcategory', 'brand').order_by('-id')[:4]
+
+    # Act 1.3: Desk & Creativity
+    desk_products = Product.objects.filter(
+        available=True
+    ).filter(
+        Q(category__slug__in=['Computer-accessories', 'graphic-tablet']) | Q(name__icontains='mouse') | Q(name__icontains='keyboard') | Q(name__icontains='tablet')
+    ).select_related('category', 'subcategory', 'brand').order_by('-id')[:4]
+
+    # Act 1.4: Next-Gen Networking
+    network_products = Product.objects.filter(
+        available=True
+    ).filter(
+        Q(category__slug__iexact='Network') | Q(name__icontains='router') | Q(name__icontains='mesh') | Q(name__icontains='tp-link')
+    ).select_related('category', 'subcategory', 'brand').order_by('-id')[:4]
+
+    categories = Category.objects.prefetch_related('subcategories').all()
+    total_catalog_count = Product.objects.filter(available=True).count()
+
     wishlisted_product_ids = []
     if request.user.is_authenticated:
         from .models import Wishlist
-        wishlisted_product_ids = Wishlist.objects.filter(user=request.user).values_list('product_id', flat=True)
+        wishlisted_product_ids = list(Wishlist.objects.filter(user=request.user).values_list('product_id', flat=True))
 
     return render(request, 'shop/home.html', {
         'banners': banners,
         'featured_products': featured_products,
+        'power_products': power_products,
+        'bag_products': bag_products,
+        'desk_products': desk_products,
+        'network_products': network_products,
         'categories': categories,
+        'total_catalog_count': total_catalog_count,
         'wishlisted_product_ids': wishlisted_product_ids,
     })
 
