@@ -73,7 +73,42 @@ class ProductAdmin(ModelAdmin):
     list_editable = ['price', 'stock_quantity']
     list_filter = ['available', 'is_featured', 'category', 'subcategory', 'brand', 'created']
     search_fields = ['name', 'description']
-    prepopulated_fields = {'slug': ('name',)}
+    @admin.action(description="✨ Standardize Titles with AI (Clean English Format)")
+    def standardize_titles_with_ai(self, request, queryset):
+        from .ai_service import batch_standardize_product_titles
+        from django.utils.text import slugify
+
+        products_list = list(queryset.select_related('category', 'brand').prefetch_related('specs'))
+        batch_size = 15
+        total_updated = 0
+
+        for i in range(0, len(products_list), batch_size):
+            batch = products_list[i:i + batch_size]
+            payload = []
+            for p in batch:
+                specs_dict = {s.name: s.value for s in p.specs.all()[:5]}
+                payload.append({
+                    'id': p.id,
+                    'name': p.name,
+                    'category': p.category.name if p.category else '',
+                    'brand': p.brand.name if p.brand else '',
+                    'description': p.description[:200] if p.description else '',
+                    'specs': specs_dict
+                })
+            
+            title_map = batch_standardize_product_titles(payload)
+            for p in batch:
+                new_title = title_map.get(p.id)
+                if new_title and new_title != p.name:
+                    p.name = new_title
+                    new_slug = slugify(new_title)
+                    if new_slug:
+                        p.slug = new_slug[:190]
+                    p.save(update_fields=['name', 'slug'])
+                    total_updated += 1
+
+        self.message_user(request, f"Successfully standardized {total_updated} product titles into clean English format.")
+
     @admin.action(description="🤖 Run AI Vision Tagging (Extract Colors & Specs)")
     def run_ai_vision_tagging(self, request, queryset):
         from .ai_service import analyze_product_images_with_vision
@@ -98,7 +133,7 @@ class ProductAdmin(ModelAdmin):
             product.save(update_fields=['price'])
         self.message_user(request, "Price increased by 10% for selected products.")
 
-    actions = [run_ai_vision_tagging, apply_10_percent_discount, increase_10_percent_price]
+    actions = [standardize_titles_with_ai, run_ai_vision_tagging, apply_10_percent_discount, increase_10_percent_price]
     inlines = [ProductImageInline, ProductSpecInline]
     
     fieldsets = (

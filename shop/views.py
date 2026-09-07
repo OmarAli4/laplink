@@ -151,8 +151,8 @@ def product_list(request, category_slug=None):
 def product_detail(request, id, slug):
     """Display a single product with add-to-cart form."""
     product = get_object_or_404(
-        Product.objects.select_related('category', 'brand').prefetch_related('images'),
-        id=id, slug=slug, available=True
+        Product.objects.select_related('category', 'subcategory', 'brand').prefetch_related('images'),
+        id=id, available=True
     )
     # Import here to avoid circular imports
     from cart.forms import CartAddProductForm

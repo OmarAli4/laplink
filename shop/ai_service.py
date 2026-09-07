@@ -384,3 +384,69 @@ def analyze_product_images_with_vision(product_id: int):
             continue
 
     return {"success": False, "error": "Vision API could not process images"}
+
+
+def batch_standardize_product_titles(products_batch):
+    """
+    Standardizes a batch of product titles into clean, premium English e-commerce titles using Gemini Flash (Free Tier).
+    Input: list of dicts [{'id': 1, 'name': '...', 'category': '...', 'brand': '...', 'specs': '...'}]
+    Output: dict {id: new_clean_title}
+    """
+    load_dotenv(override=True)
+    api_key = os.getenv("GEMINI_API_KEY", "").strip()
+    if not api_key or not products_batch:
+        return {}
+
+    prompt = (
+        "You are an elite E-Commerce Catalog & Taxonomy Specialist.\n"
+        "Your task is to re-title and standardize tech product names into clean, premium, luxury English e-commerce titles.\n\n"
+        "Rules:\n"
+        "1. Formula: [Brand] [Model / Series] [Clear Product Type] [Key Spec / Size]\n"
+        "2. Title Case only (Never ALL CAPS, never all lowercase).\n"
+        "3. Concise & High-converting: between 30 and 65 characters.\n"
+        "4. Always preserve exact model codes (e.g. CA-299, GS70, 1905, Archer C50, CH-5082, M2) so customers searching for exact models can still find them.\n"
+        "5. If product type is missing or cryptic (e.g. 'Elite-gs70' in Bags -> 'Elite GS70 Laptop Sleeve 15.6\"'; 'Bange 1905' in Bags -> 'Bange 1905 Anti-Theft Backpack'; 'micm2' in Computer Accessories -> 'Wireless Lavalier Microphone M2'), deduce the actual item type from category, description, and specs.\n"
+        "6. Fix brand capitalization (e.g. TP-Link, Logitech, Mcdodo, Bange, Arctic Hunter, Ugreen, Anker, Huion, Wacom, Veikk, Hollyland).\n"
+        "7. Output MUST be in English only.\n\n"
+        f"Products to standardize:\n{json.dumps(products_batch, ensure_ascii=False)}\n\n"
+        "Return ONLY a valid JSON array of objects:\n"
+        "[\n"
+        '  {"id": <int>, "standardized_name": "<string: clean premium English title>"}\n'
+        "]"
+    )
+
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {
+            "response_mime_type": "application/json",
+            "temperature": 0.1,
+            "maxOutputTokens": 2000
+        }
+    }
+
+    models_to_try = ['gemini-flash-lite-latest', 'gemini-flash-latest']
+    for model_name in models_to_try:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
+        try:
+            req = urllib.request.Request(
+                url,
+                data=json.dumps(payload).encode('utf-8'),
+                headers={
+                    'Content-Type': 'application/json',
+                    'x-goog-api-key': api_key
+                }
+            )
+            with urllib.request.urlopen(req, timeout=20) as response:
+                result = json.loads(response.read().decode('utf-8'))
+                raw_text = result['candidates'][0]['content']['parts'][0]['text'].strip()
+                if '```json' in raw_text:
+                    raw_text = raw_text.split('```json')[1].split('```')[0].strip()
+                elif '```' in raw_text:
+                    raw_text = raw_text.split('```')[1].split('```')[0].strip()
+                items = json.loads(raw_text)
+                return {item['id']: item['standardized_name'] for item in items if 'id' in item and 'standardized_name' in item}
+        except Exception as e:
+            print(f"[Title Standardizer Gemini {model_name} Error]: {e}")
+            continue
+    return {}
+
