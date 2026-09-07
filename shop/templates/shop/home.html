@@ -213,74 +213,42 @@
                 <!-- CHAPTER 1: POWER -->
                 <div x-show="activeChapter === 'power'" 
                      x-transition:enter="transition ease-out duration-400 transform opacity-0 translate-y-4"
-                     x-transition:enter-end="opacity-100 translate-y-0"
-                     class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                     x-transition:enter-end="opacity-100 translate-y-0">
                     
-                    <!-- Chapter Story Narrative Card -->
-                    <div class="lg:col-span-4 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/50">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-bold uppercase tracking-wider mb-4 border border-amber-200">
-                            <span>Gallium Nitride (GaN) Power</span>
-                        </div>
-                        <h3 class="text-2xl sm:text-3xl font-bold font-display text-slate-900 mb-3">
-                            Hyper-Charging Station.
-                        </h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                            Replace heavy power bricks with compact GaN adapters. Charge laptops, tablets, and phones simultaneously at peak protocol speeds with Active ThermalGuard protection.
-                        </p>
-                        
-                        <!-- Animated Spec Metric Bars -->
-                        <div class="space-y-4 pt-4 border-t border-slate-100">
-                            <div>
-                                <div class="flex items-center justify-between text-xs mb-1.5">
-                                    <span class="text-slate-500 font-medium">Protocol Standard</span>
-                                    <span class="text-blue-600 font-mono font-semibold">PD 3.0 / PPS / QC 4+</span>
-                                </div>
-                                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                                    <div class="h-full bg-blue-600 rounded-full w-full transition-all duration-1000"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex items-center justify-between text-xs mb-1.5">
-                                    <span class="text-slate-500 font-medium">Multi-Port Delivery</span>
-                                    <span class="text-slate-900 font-mono font-semibold">Up to 100W Fast Charge</span>
-                                </div>
-                                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                                    <div class="h-full bg-amber-500 rounded-full w-[95%] transition-all duration-1000"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex items-center justify-between text-xs mb-1.5">
-                                    <span class="text-slate-500 font-medium">Thermal Safety System</span>
-                                    <span class="text-emerald-600 font-mono font-semibold">Active Auto Cutoff</span>
-                                </div>
-                                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                                    <div class="h-full bg-emerald-500 rounded-full w-[100%] transition-all duration-1000"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <a href="{% url 'shop:product_list' %}?category=mobile-accessories" class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors">
-                            <span>Browse All Chargers & Cables</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                        </a>
-                    </div>
-
-                    <!-- Products Showcase Grid -->
-                    <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {% for product in power_products %}
                         <a href="{% url 'shop:product_detail' product.id product.slug %}" 
-                           class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-slate-300 rounded-2xl p-4 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/60">
-                            <div class="aspect-square w-full rounded-xl bg-slate-50 overflow-hidden relative mb-4 flex items-center justify-center p-3">
+                           @mouseenter="$dispatch('robot-start', { title: '{{ product.name|escapejs }}' })"
+                           @mouseleave="$dispatch('robot-stop')"
+                           class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-slate-300 rounded-3xl p-4 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-xl hover:shadow-slate-200/60 shadow-sm">
+                            <div class="aspect-square w-full rounded-2xl bg-slate-50 overflow-hidden relative mb-4 flex items-center justify-center p-3">
                                 {% if product.image %}
                                 <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy">
                                 {% else %}
                                 <div class="w-12 h-12 text-slate-300">⚡</div>
                                 {% endif %}
                                 {% if product.is_on_sale %}
-                                <span class="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-red-500 text-white text-[10px] font-bold shadow-sm">
+                                <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md bg-red-500 text-white text-[10px] font-bold shadow-sm">
                                     -{{ product.discount_percentage }}%
                                 </span>
                                 {% endif %}
+
+                                <!-- Wishlist Button -->
+                                <div class="absolute top-2.5 right-2.5 z-20">
+                                    <button hx-post="{% url 'shop:wishlist_toggle' product.id %}"
+                                            hx-target="#wishlist-power-btn-{{ product.id }}"
+                                            id="wishlist-power-btn-{{ product.id }}"
+                                            hx-swap="outerHTML"
+                                            class="group flex items-center justify-center w-8 h-8 rounded-full border {% if product.id in wishlisted_product_ids %}border-red-500 bg-red-50{% else %}border-slate-200 bg-white/95 backdrop-blur-sm hover:border-slate-300{% endif %} transition-all duration-200 shadow-sm hover:scale-110"
+                                            title="{% if product.id in wishlisted_product_ids %}Remove from Wishlist{% else %}Add to Wishlist{% endif %}"
+                                            onclick="event.preventDefault();">
+                                        <svg class="w-4 h-4 {% if product.id in wishlisted_product_ids %}text-red-500 fill-current{% else %}text-slate-400 group-hover:text-red-500{% endif %} transition-colors" 
+                                             {% if product.id not in wishlisted_product_ids %}fill="none" stroke="currentColor" stroke-width="2"{% else %}viewBox="0 0 24 24"{% endif %}
+                                             {% if product.id not in wishlisted_product_ids %}viewBox="0 0 24 24"{% endif %}>
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                             <div>
                                 <span class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">
@@ -289,22 +257,30 @@
                                 <h4 class="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 mt-0.5">
                                     {{ product.name }}
                                 </h4>
-                                <div class="mt-3 flex items-baseline justify-between pt-2 border-t border-slate-100">
+                                <div class="mt-4 flex items-baseline justify-between pt-3 border-t border-slate-100">
                                     <span class="text-base font-bold text-slate-900 font-mono">
                                         L.E {{ product.current_price }}
                                     </span>
-                                    <span class="text-xs font-semibold text-blue-600 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                                        <span>View Gear</span>
-                                        <span>&rarr;</span>
+                                    <span class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-black group-hover:text-white text-slate-700 flex items-center justify-center transition-colors duration-200 shadow-sm">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                        </svg>
                                     </span>
                                 </div>
                             </div>
                         </a>
                         {% empty %}
-                        <div class="col-span-2 text-center py-10 text-slate-400 bg-white rounded-2xl border border-slate-200">
+                        <div class="col-span-full text-center py-10 text-slate-400 bg-white rounded-3xl border border-slate-200">
                             Check our complete catalog for the latest GaN chargers.
                         </div>
                         {% endfor %}
+                    </div>
+
+                    <div class="mt-8 text-center">
+                        <a href="{% url 'shop:product_list' %}?category=mobile-accessories" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 text-sm font-semibold text-slate-800 hover:text-black hover:bg-slate-50 transition-all shadow-sm">
+                            <span>Browse All Chargers & Cables</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
                     </div>
 
                 </div>
@@ -312,98 +288,74 @@
                 <!-- CHAPTER 2: TACTICAL ARMOR -->
                 <div x-show="activeChapter === 'armor'" 
                      x-transition:enter="transition ease-out duration-400 transform opacity-0 translate-y-4"
-                     x-transition:enter-end="opacity-100 translate-y-0"
-                     class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                     x-transition:enter-end="opacity-100 translate-y-0">
                     
-                    <!-- Chapter Story Narrative Card -->
-                    <div class="lg:col-span-4 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/50">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-50 text-cyan-700 text-xs font-bold uppercase tracking-wider mb-4 border border-cyan-200">
-                            <span>Mobile Defense Systems</span>
-                        </div>
-                        <h3 class="text-2xl sm:text-3xl font-bold font-display text-slate-900 mb-3">
-                            Armor For Your Hardware.
-                        </h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                            Engineered for daily commute and travel. High-density water-resistant Oxford fabric, anti-theft hidden pockets, TSA-ready flat layout, and 360° EVA bumper protection.
-                        </p>
-                        
-                        <!-- Animated Spec Metric Bars -->
-                        <div class="space-y-4 pt-4 border-t border-slate-100">
-                            <div>
-                                <div class="flex items-center justify-between text-xs mb-1.5">
-                                    <span class="text-slate-500 font-medium">Exterior Fabric</span>
-                                    <span class="text-cyan-700 font-mono font-semibold">1680D Ballistic Nylon</span>
-                                </div>
-                                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                                    <div class="h-full bg-cyan-500 rounded-full w-[96%] transition-all duration-1000"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex items-center justify-between text-xs mb-1.5">
-                                    <span class="text-slate-500 font-medium">Drop Cushioning</span>
-                                    <span class="text-slate-900 font-mono font-semibold">CornerArmor™ 360°</span>
-                                </div>
-                                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                                    <div class="h-full bg-blue-600 rounded-full w-[92%] transition-all duration-1000"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex items-center justify-between text-xs mb-1.5">
-                                    <span class="text-slate-500 font-medium">Weather Resistance</span>
-                                    <span class="text-emerald-600 font-mono font-semibold">YKK Sealed Zippers</span>
-                                </div>
-                                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                                    <div class="h-full bg-emerald-500 rounded-full w-[100%] transition-all duration-1000"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <a href="{% url 'shop:product_list' %}?category=bags" class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan-600 hover:text-cyan-700 transition-colors">
-                            <span>Browse All Backpacks & Sleeves</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                        </a>
-                    </div>
-
-                    <!-- Products Showcase Grid -->
-                    <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {% for product in bag_products %}
                         <a href="{% url 'shop:product_detail' product.id product.slug %}" 
-                           class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-slate-300 rounded-2xl p-4 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/60">
-                            <div class="aspect-square w-full rounded-xl bg-slate-50 overflow-hidden relative mb-4 flex items-center justify-center p-3">
+                           @mouseenter="$dispatch('robot-start', { title: '{{ product.name|escapejs }}' })"
+                           @mouseleave="$dispatch('robot-stop')"
+                           class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-slate-300 rounded-3xl p-4 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-xl hover:shadow-slate-200/60 shadow-sm">
+                            <div class="aspect-square w-full rounded-2xl bg-slate-50 overflow-hidden relative mb-4 flex items-center justify-center p-3">
                                 {% if product.image %}
                                 <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy">
                                 {% else %}
                                 <div class="w-12 h-12 text-slate-300">🛡️</div>
                                 {% endif %}
                                 {% if product.is_on_sale %}
-                                <span class="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-red-500 text-white text-[10px] font-bold shadow-sm">
+                                <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md bg-red-500 text-white text-[10px] font-bold shadow-sm">
                                     -{{ product.discount_percentage }}%
                                 </span>
                                 {% endif %}
+
+                                <!-- Wishlist Button -->
+                                <div class="absolute top-2.5 right-2.5 z-20">
+                                    <button hx-post="{% url 'shop:wishlist_toggle' product.id %}"
+                                            hx-target="#wishlist-armor-btn-{{ product.id }}"
+                                            id="wishlist-armor-btn-{{ product.id }}"
+                                            hx-swap="outerHTML"
+                                            class="group flex items-center justify-center w-8 h-8 rounded-full border {% if product.id in wishlisted_product_ids %}border-red-500 bg-red-50{% else %}border-slate-200 bg-white/95 backdrop-blur-sm hover:border-slate-300{% endif %} transition-all duration-200 shadow-sm hover:scale-110"
+                                            title="{% if product.id in wishlisted_product_ids %}Remove from Wishlist{% else %}Add to Wishlist{% endif %}"
+                                            onclick="event.preventDefault();">
+                                        <svg class="w-4 h-4 {% if product.id in wishlisted_product_ids %}text-red-500 fill-current{% else %}text-slate-400 group-hover:text-red-500{% endif %} transition-colors" 
+                                             {% if product.id not in wishlisted_product_ids %}fill="none" stroke="currentColor" stroke-width="2"{% else %}viewBox="0 0 24 24"{% endif %}
+                                             {% if product.id not in wishlisted_product_ids %}viewBox="0 0 24 24"{% endif %}>
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                             <div>
                                 <span class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">
                                     {{ product.brand.name|default:"Bange & Wiwu Armor" }}
                                 </span>
-                                <h4 class="text-sm font-semibold text-slate-900 group-hover:text-cyan-600 transition-colors line-clamp-2 mt-0.5">
+                                <h4 class="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 mt-0.5">
                                     {{ product.name }}
                                 </h4>
-                                <div class="mt-3 flex items-baseline justify-between pt-2 border-t border-slate-100">
+                                <div class="mt-4 flex items-baseline justify-between pt-3 border-t border-slate-100">
                                     <span class="text-base font-bold text-slate-900 font-mono">
                                         L.E {{ product.current_price }}
                                     </span>
-                                    <span class="text-xs font-semibold text-cyan-600 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                                        <span>View Gear</span>
-                                        <span>&rarr;</span>
+                                    <span class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-black group-hover:text-white text-slate-700 flex items-center justify-center transition-colors duration-200 shadow-sm">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                        </svg>
                                     </span>
                                 </div>
                             </div>
                         </a>
                         {% empty %}
-                        <div class="col-span-2 text-center py-10 text-slate-400 bg-white rounded-2xl border border-slate-200">
+                        <div class="col-span-full text-center py-10 text-slate-400 bg-white rounded-3xl border border-slate-200">
                             Check our complete catalog for tactical bags and sleeves.
                         </div>
                         {% endfor %}
+                    </div>
+
+                    <div class="mt-8 text-center">
+                        <a href="{% url 'shop:product_list' %}?category=bags" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 text-sm font-semibold text-slate-800 hover:text-black hover:bg-slate-50 transition-all shadow-sm">
+                            <span>Browse All Backpacks & Sleeves</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
                     </div>
 
                 </div>
@@ -411,98 +363,74 @@
                 <!-- CHAPTER 3: PRO WORKSPACE -->
                 <div x-show="activeChapter === 'workspace'" 
                      x-transition:enter="transition ease-out duration-400 transform opacity-0 translate-y-4"
-                     x-transition:enter-end="opacity-100 translate-y-0"
-                     class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                     x-transition:enter-end="opacity-100 translate-y-0">
                     
-                    <!-- Chapter Story Narrative Card -->
-                    <div class="lg:col-span-4 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/50">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-xs font-bold uppercase tracking-wider mb-4 border border-purple-200">
-                            <span>Creative Precision Gear</span>
-                        </div>
-                        <h3 class="text-2xl sm:text-3xl font-bold font-display text-slate-900 mb-3">
-                            The Pro Studio Workspace.
-                        </h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                            Tailored for creators, software developers, and designers. Tactile mechanical keyboards, ergonomic vertical mice, multi-port USB-C docks, and graphic tablets.
-                        </p>
-                        
-                        <!-- Animated Spec Metric Bars -->
-                        <div class="space-y-4 pt-4 border-t border-slate-100">
-                            <div>
-                                <div class="flex items-center justify-between text-xs mb-1.5">
-                                    <span class="text-slate-500 font-medium">Stylus Sensitivity</span>
-                                    <span class="text-purple-700 font-mono font-semibold">8192 Pressure Levels</span>
-                                </div>
-                                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                                    <div class="h-full bg-purple-600 rounded-full w-[98%] transition-all duration-1000"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex items-center justify-between text-xs mb-1.5">
-                                    <span class="text-slate-500 font-medium">Dual Connectivity</span>
-                                    <span class="text-slate-900 font-mono font-semibold">Bluetooth 5.3 + 2.4GHz</span>
-                                </div>
-                                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                                    <div class="h-full bg-indigo-500 rounded-full w-[94%] transition-all duration-1000"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex items-center justify-between text-xs mb-1.5">
-                                    <span class="text-slate-500 font-medium">Ergonomic Profile</span>
-                                    <span class="text-emerald-600 font-mono font-semibold">57° Natural Hand Angle</span>
-                                </div>
-                                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                                    <div class="h-full bg-emerald-500 rounded-full w-[100%] transition-all duration-1000"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <a href="{% url 'shop:product_list' %}?category=Computer-accessories" class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-purple-600 hover:text-purple-700 transition-colors">
-                            <span>Browse Studio Peripherals</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                        </a>
-                    </div>
-
-                    <!-- Products Showcase Grid -->
-                    <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {% for product in desk_products %}
                         <a href="{% url 'shop:product_detail' product.id product.slug %}" 
-                           class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-slate-300 rounded-2xl p-4 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/60">
-                            <div class="aspect-square w-full rounded-xl bg-slate-50 overflow-hidden relative mb-4 flex items-center justify-center p-3">
+                           @mouseenter="$dispatch('robot-start', { title: '{{ product.name|escapejs }}' })"
+                           @mouseleave="$dispatch('robot-stop')"
+                           class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-slate-300 rounded-3xl p-4 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-xl hover:shadow-slate-200/60 shadow-sm">
+                            <div class="aspect-square w-full rounded-2xl bg-slate-50 overflow-hidden relative mb-4 flex items-center justify-center p-3">
                                 {% if product.image %}
                                 <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy">
                                 {% else %}
                                 <div class="w-12 h-12 text-slate-300">🎨</div>
                                 {% endif %}
                                 {% if product.is_on_sale %}
-                                <span class="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-red-500 text-white text-[10px] font-bold shadow-sm">
+                                <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md bg-red-500 text-white text-[10px] font-bold shadow-sm">
                                     -{{ product.discount_percentage }}%
                                 </span>
                                 {% endif %}
+
+                                <!-- Wishlist Button -->
+                                <div class="absolute top-2.5 right-2.5 z-20">
+                                    <button hx-post="{% url 'shop:wishlist_toggle' product.id %}"
+                                            hx-target="#wishlist-workspace-btn-{{ product.id }}"
+                                            id="wishlist-workspace-btn-{{ product.id }}"
+                                            hx-swap="outerHTML"
+                                            class="group flex items-center justify-center w-8 h-8 rounded-full border {% if product.id in wishlisted_product_ids %}border-red-500 bg-red-50{% else %}border-slate-200 bg-white/95 backdrop-blur-sm hover:border-slate-300{% endif %} transition-all duration-200 shadow-sm hover:scale-110"
+                                            title="{% if product.id in wishlisted_product_ids %}Remove from Wishlist{% else %}Add to Wishlist{% endif %}"
+                                            onclick="event.preventDefault();">
+                                        <svg class="w-4 h-4 {% if product.id in wishlisted_product_ids %}text-red-500 fill-current{% else %}text-slate-400 group-hover:text-red-500{% endif %} transition-colors" 
+                                             {% if product.id not in wishlisted_product_ids %}fill="none" stroke="currentColor" stroke-width="2"{% else %}viewBox="0 0 24 24"{% endif %}
+                                             {% if product.id not in wishlisted_product_ids %}viewBox="0 0 24 24"{% endif %}>
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                             <div>
                                 <span class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">
                                     {{ product.brand.name|default:"Huion & Logitech Gear" }}
                                 </span>
-                                <h4 class="text-sm font-semibold text-slate-900 group-hover:text-purple-600 transition-colors line-clamp-2 mt-0.5">
+                                <h4 class="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 mt-0.5">
                                     {{ product.name }}
                                 </h4>
-                                <div class="mt-3 flex items-baseline justify-between pt-2 border-t border-slate-100">
+                                <div class="mt-4 flex items-baseline justify-between pt-3 border-t border-slate-100">
                                     <span class="text-base font-bold text-slate-900 font-mono">
                                         L.E {{ product.current_price }}
                                     </span>
-                                    <span class="text-xs font-semibold text-purple-600 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                                        <span>View Gear</span>
-                                        <span>&rarr;</span>
+                                    <span class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-black group-hover:text-white text-slate-700 flex items-center justify-center transition-colors duration-200 shadow-sm">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                        </svg>
                                     </span>
                                 </div>
                             </div>
                         </a>
                         {% empty %}
-                        <div class="col-span-2 text-center py-10 text-slate-400 bg-white rounded-2xl border border-slate-200">
+                        <div class="col-span-full text-center py-10 text-slate-400 bg-white rounded-3xl border border-slate-200">
                             Check our complete catalog for workspace peripherals.
                         </div>
                         {% endfor %}
+                    </div>
+
+                    <div class="mt-8 text-center">
+                        <a href="{% url 'shop:product_list' %}?category=Computer-accessories" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 text-sm font-semibold text-slate-800 hover:text-black hover:bg-slate-50 transition-all shadow-sm">
+                            <span>Browse Studio Peripherals</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
                     </div>
 
                 </div>
@@ -510,98 +438,74 @@
                 <!-- CHAPTER 4: GIGABIT MESH -->
                 <div x-show="activeChapter === 'network'" 
                      x-transition:enter="transition ease-out duration-400 transform opacity-0 translate-y-4"
-                     x-transition:enter-end="opacity-100 translate-y-0"
-                     class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                     x-transition:enter-end="opacity-100 translate-y-0">
                     
-                    <!-- Chapter Story Narrative Card -->
-                    <div class="lg:col-span-4 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/50">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold uppercase tracking-wider mb-4 border border-emerald-200">
-                            <span>Zero-Latency Networking</span>
-                        </div>
-                        <h3 class="text-2xl sm:text-3xl font-bold font-display text-slate-900 mb-3">
-                            Gigabit Mesh Matrix.
-                        </h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                            Whole-space wireless coverage without dead zones. Wi-Fi 6 OFDMA technology for low multiplayer gaming ping, 4K streaming, and seamless mesh roaming.
-                        </p>
-                        
-                        <!-- Animated Spec Metric Bars -->
-                        <div class="space-y-4 pt-4 border-t border-slate-100">
-                            <div>
-                                <div class="flex items-center justify-between text-xs mb-1.5">
-                                    <span class="text-slate-500 font-medium">Wi-Fi Standard</span>
-                                    <span class="text-emerald-700 font-mono font-semibold">Wi-Fi 6 (802.11ax)</span>
-                                </div>
-                                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                                    <div class="h-full bg-emerald-500 rounded-full w-[98%] transition-all duration-1000"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex items-center justify-between text-xs mb-1.5">
-                                    <span class="text-slate-500 font-medium">Mesh Architecture</span>
-                                    <span class="text-slate-900 font-mono font-semibold">Zero-Drop Roaming</span>
-                                </div>
-                                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                                    <div class="h-full bg-blue-600 rounded-full w-[95%] transition-all duration-1000"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex items-center justify-between text-xs mb-1.5">
-                                    <span class="text-slate-500 font-medium">Security Standard</span>
-                                    <span class="text-blue-600 font-mono font-semibold">WPA3 Enterprise</span>
-                                </div>
-                                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                                    <div class="h-full bg-blue-500 rounded-full w-[100%] transition-all duration-1000"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <a href="{% url 'shop:product_list' %}?category=Network" class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 hover:text-emerald-700 transition-colors">
-                            <span>Browse Routers & Mesh Units</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                        </a>
-                    </div>
-
-                    <!-- Products Showcase Grid -->
-                    <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {% for product in network_products %}
                         <a href="{% url 'shop:product_detail' product.id product.slug %}" 
-                           class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-slate-300 rounded-2xl p-4 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/60">
-                            <div class="aspect-square w-full rounded-xl bg-slate-50 overflow-hidden relative mb-4 flex items-center justify-center p-3">
+                           @mouseenter="$dispatch('robot-start', { title: '{{ product.name|escapejs }}' })"
+                           @mouseleave="$dispatch('robot-stop')"
+                           class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-slate-300 rounded-3xl p-4 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-xl hover:shadow-slate-200/60 shadow-sm">
+                            <div class="aspect-square w-full rounded-2xl bg-slate-50 overflow-hidden relative mb-4 flex items-center justify-center p-3">
                                 {% if product.image %}
                                 <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy">
                                 {% else %}
                                 <div class="w-12 h-12 text-slate-300">🌐</div>
                                 {% endif %}
                                 {% if product.is_on_sale %}
-                                <span class="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-red-500 text-white text-[10px] font-bold shadow-sm">
+                                <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md bg-red-500 text-white text-[10px] font-bold shadow-sm">
                                     -{{ product.discount_percentage }}%
                                 </span>
                                 {% endif %}
+
+                                <!-- Wishlist Button -->
+                                <div class="absolute top-2.5 right-2.5 z-20">
+                                    <button hx-post="{% url 'shop:wishlist_toggle' product.id %}"
+                                            hx-target="#wishlist-network-btn-{{ product.id }}"
+                                            id="wishlist-network-btn-{{ product.id }}"
+                                            hx-swap="outerHTML"
+                                            class="group flex items-center justify-center w-8 h-8 rounded-full border {% if product.id in wishlisted_product_ids %}border-red-500 bg-red-50{% else %}border-slate-200 bg-white/95 backdrop-blur-sm hover:border-slate-300{% endif %} transition-all duration-200 shadow-sm hover:scale-110"
+                                            title="{% if product.id in wishlisted_product_ids %}Remove from Wishlist{% else %}Add to Wishlist{% endif %}"
+                                            onclick="event.preventDefault();">
+                                        <svg class="w-4 h-4 {% if product.id in wishlisted_product_ids %}text-red-500 fill-current{% else %}text-slate-400 group-hover:text-red-500{% endif %} transition-colors" 
+                                             {% if product.id not in wishlisted_product_ids %}fill="none" stroke="currentColor" stroke-width="2"{% else %}viewBox="0 0 24 24"{% endif %}
+                                             {% if product.id not in wishlisted_product_ids %}viewBox="0 0 24 24"{% endif %}>
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                             <div>
                                 <span class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">
                                     {{ product.brand.name|default:"TP-Link Infrastructure" }}
                                 </span>
-                                <h4 class="text-sm font-semibold text-slate-900 group-hover:text-emerald-600 transition-colors line-clamp-2 mt-0.5">
+                                <h4 class="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 mt-0.5">
                                     {{ product.name }}
                                 </h4>
-                                <div class="mt-3 flex items-baseline justify-between pt-2 border-t border-slate-100">
+                                <div class="mt-4 flex items-baseline justify-between pt-3 border-t border-slate-100">
                                     <span class="text-base font-bold text-slate-900 font-mono">
                                         L.E {{ product.current_price }}
                                     </span>
-                                    <span class="text-xs font-semibold text-emerald-600 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                                        <span>View Gear</span>
-                                        <span>&rarr;</span>
+                                    <span class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-black group-hover:text-white text-slate-700 flex items-center justify-center transition-colors duration-200 shadow-sm">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                        </svg>
                                     </span>
                                 </div>
                             </div>
                         </a>
                         {% empty %}
-                        <div class="col-span-2 text-center py-10 text-slate-400 bg-white rounded-2xl border border-slate-200">
+                        <div class="col-span-full text-center py-10 text-slate-400 bg-white rounded-3xl border border-slate-200">
                             Check our complete catalog for Wi-Fi routers & adapters.
                         </div>
                         {% endfor %}
+                    </div>
+
+                    <div class="mt-8 text-center">
+                        <a href="{% url 'shop:product_list' %}?category=Network" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 text-sm font-semibold text-slate-800 hover:text-black hover:bg-slate-50 transition-all shadow-sm">
+                            <span>Browse Routers & Mesh Units</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
                     </div>
 
                 </div>
