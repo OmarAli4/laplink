@@ -1,0 +1,1430 @@
+[
+  {
+    "id": 262,
+    "old_slug": "mcdodo-ch-5082-45w-power-delivery-usb-c-charger",
+    "old_name": "Mcdodo CH-5082 45W Power Delivery USB C Charger",
+    "new_name": "Mcdodo CH-5082 45W Power Delivery USB C Charger"
+  },
+  {
+    "id": 261,
+    "old_slug": "mcdodo-ca-299-high-speed-usb-4-data-cable-4-thunderbolt-34-40gbs-pd31-charge-240w",
+    "old_name": "Mcdodo CA-299 High-Speed USB 4 Data Cable 4 Thunderbolt 3/4 40Gb/s PD3.1 Charge 240W",
+    "new_name": "Mcdodo CA-299 High-Speed USB 4 Data Cable 4 Thunderbolt 3/4 40Gb/s PD3.1 Charge 240W"
+  },
+  {
+    "id": 260,
+    "old_slug": "mcdodo-ch-092-33w-dual-port-fast-charger-eu-plug",
+    "old_name": "Mcdodo CH-092 33W Dual Port Fast Charger (EU Plug)",
+    "new_name": "Mcdodo CH-092 33W Dual Port Fast Charger (EU Plug)"
+  },
+  {
+    "id": 259,
+    "old_slug": "mcdodo-ch-402-20w-pd-fast-charger",
+    "old_name": "Mcdodo CH-402 20W PD Fast Charger",
+    "new_name": "Mcdodo CH-402 20W PD Fast Charger"
+  },
+  {
+    "id": 258,
+    "old_slug": "mcdodo-ca-563-fast-charge-pd-usb-c-to-lightning-cable-36w-1m",
+    "old_name": "Mcdodo CA-563 Fast Charge PD USB-C to lightning CAble 36W 1M",
+    "new_name": "Mcdodo CA-563 Fast Charge PD USB-C to lightning CAble 36W 1M"
+  },
+  {
+    "id": 257,
+    "old_slug": "mcdodo-ca-285-36w-pd-type-c-to-lightning-data-cable-12m",
+    "old_name": "Mcdodo CA-285  36W PD Type-C to Lightning Data Cable 1.2M",
+    "new_name": "Mcdodo CA-285 36W PD Type-C to Lightning Data Cable 1.2M"
+  },
+  {
+    "id": 256,
+    "old_slug": "mcdodo-ca-564-60w-pd-fast-charge-type-c-to-type-c-cable1m",
+    "old_name": "Mcdodo CA-564 60W PD Fast Charge Type-C to Type-C Cable1M",
+    "new_name": "Mcdodo CA-564 60W PD Fast Charge Type-C to Type-C Cable1M"
+  },
+  {
+    "id": 255,
+    "old_slug": "mcdodo-ca-340-90-100w-type-c-to-type-c-transparent-data-cable-12m",
+    "old_name": "Mcdodo CA-340 90° 100W Type-C to Type-C Transparent Data Cable 1.2M",
+    "new_name": "Mcdodo CA-340 90° 100W Type-C to Type-C Transparent Data Cable 1.2M"
+  },
+  {
+    "id": 254,
+    "old_slug": "mcdodo-ca-313-type-c-to-type-c-mobile-cable-fast-charge-65w-pd",
+    "old_name": "Mcdodo CA-313 Type-C to Type-C Mobile Cable Fast Charge 65W PD",
+    "new_name": "Mcdodo CA-313 Type-C to Type-C Mobile Cable Fast Charge 65W PD"
+  },
+  {
+    "id": 253,
+    "old_slug": "mcdodo-ca-6540-3a-us-a-to-lightning-cable",
+    "old_name": "Mcdodo CA-6540 3A US-A to Lightning Cable",
+    "new_name": "Mcdodo CA-6540 3A US-A to Lightning Cable"
+  },
+  {
+    "id": 252,
+    "old_slug": "mcdodo-ca-6940-usb-c-to-lightning-cable-36-watt-12-m",
+    "old_name": "Mcdodo CA-6940 USB-C to Lightning Cable 36 Watt 1.2 M",
+    "new_name": "Mcdodo CA-6940 USB-C to Lightning Cable 36 Watt 1.2 M"
+  },
+  {
+    "id": 251,
+    "old_slug": "mcdodo-ca-5580-type-c-to-type-c-100w-12m",
+    "old_name": "Mcdodo CA-5580 TYPE-C TO TYPE-C 100W 1.2M",
+    "new_name": "Mcdodo CA-5580 TYPE-C TO TYPE-C 100W 1.2M"
+  },
+  {
+    "id": 250,
+    "old_slug": "mcdodo-ca-3640-usb-a-to-lightning-cable-12-m",
+    "old_name": "Mcdodo CA-3640 USB-A to Lightning Cable 1.2 M",
+    "new_name": "Mcdodo CA-3640 USB-A to Lightning Cable 1.2 M"
+  },
+  {
+    "id": 249,
+    "old_slug": "mcdodo-ca-3460-usb-c-to-usb-c-cable-pd-100w-12m",
+    "old_name": "Mcdodo CA-3460 USB-C to USB-C cable PD 100W 1.2m",
+    "new_name": "Mcdodo CA-3460 USB-C to USB-C cable PD 100W 1.2m"
+  },
+  {
+    "id": 248,
+    "old_slug": "mcdodo-ca-3650-usb-a-to-usb-c-cable12m-100w",
+    "old_name": "Mcdodo CA-3650 USB-A To USB-C Cable1.2M 100w",
+    "new_name": "Mcdodo CA-3650 USB-A To USB-C Cable1.2M 100w"
+  },
+  {
+    "id": 247,
+    "old_slug": "mcdodo-ca-8780-2in1-100w-type-c-to-lightning-type-c-pd-charge",
+    "old_name": "Mcdodo CA-8780 2in1 100W Type-C TO Lightning &amp; Type-C PD Charge",
+    "new_name": "Mcdodo CA-8780 2in1 100W Type-C TO Lightning & Type-C PD Charge"
+  },
+  {
+    "id": 246,
+    "old_slug": "mcdodo-ca-6430-type-c-to-usb-led-data-cable",
+    "old_name": "Mcdodo CA-6430 Type-C to USB LED Data Cable",
+    "new_name": "Mcdodo CA-6430 Type-C to USB LED Data Cable"
+  },
+  {
+    "id": 245,
+    "old_slug": "tp-link-deco-s7-ac1900-whole-home-mesh-wi-fi-system",
+    "old_name": "TP-Link Deco S7 AC1900 Whole Home Mesh Wi-Fi System",
+    "new_name": "TP-Link Deco S7 AC1900 Whole Home Mesh Wi-Fi System"
+  },
+  {
+    "id": 244,
+    "old_slug": "tp-link-deco-x20-ax1800-whole-home-mesh-wi-fi-6-system",
+    "old_name": "TP-Link Deco X20 AX1800 Whole Home Mesh Wi-Fi 6 System",
+    "new_name": "TP-Link Deco X20 AX1800 Whole Home Mesh Wi-Fi 6 System"
+  },
+  {
+    "id": 243,
+    "old_slug": "tp-link-deco-x10-ax1500-whole-home-mesh-wi-fi-6-system",
+    "old_name": "TP-Link Deco X10  AX1500 Whole Home Mesh Wi-Fi 6 System",
+    "new_name": "TP-Link Deco X10 AX1500 Whole Home Mesh Wi-Fi 6 System"
+  },
+  {
+    "id": 242,
+    "old_slug": "tp-link-deco-x20-ax1800-whole-home-mesh-wi-fi-6-system",
+    "old_name": "TP-Link Deco X20 AX1800 Whole Home Mesh Wi-Fi 6 System",
+    "new_name": "TP-Link Deco X20 AX1800 Whole Home Mesh Wi-Fi 6 System"
+  },
+  {
+    "id": 241,
+    "old_slug": "tp-link-td-w9950-300-mbps-wireless-n-vdsladsl-modem-router",
+    "old_name": "TP-Link TD-W9950 300 Mbps Wireless N VDSL/ADSL Modem Router",
+    "new_name": "TP-Link TD-W9950 300 Mbps Wireless N VDSL/ADSL Modem Router"
+  },
+  {
+    "id": 240,
+    "old_slug": "tp-link-archer-vr300-ac1200-wireless-vdsladsl-modem-router",
+    "old_name": "TP-Link Archer VR300 AC1200 Wireless VDSL/ADSL Modem Router",
+    "new_name": "TP-Link Archer VR300 AC1200 Wireless VDSL/ADSL Modem Router"
+  },
+  {
+    "id": 239,
+    "old_slug": "tp-link-archer-c50-ac1200-wireless-dual-band-router",
+    "old_name": "TP-Link Archer C50 AC1200 Wireless Dual Band Router",
+    "new_name": "TP-Link Archer C50 AC1200 Wireless Dual Band Router"
+  },
+  {
+    "id": 238,
+    "old_slug": "tp-link-archer-c54-new-ac1200-dual-band-wi-fi-router",
+    "old_name": "TP-Link Archer C54 New AC1200 Dual Band Wi-Fi Router",
+    "new_name": "TP-Link Archer C54 New AC1200 Dual Band Wi-Fi Router"
+  },
+  {
+    "id": 237,
+    "old_slug": "tp-link-tl-wpa4220-kit-av600-powerline-wi-fi-kit",
+    "old_name": "TP-Link TL-WPA4220 KIT AV600 Powerline Wi-Fi Kit",
+    "new_name": "TP-Link TL-WPA4220 KIT AV600 Powerline Wi-Fi Kit"
+  },
+  {
+    "id": 236,
+    "old_slug": "tp-link-tl-wr840n-300-mbps-wireless-n-router",
+    "old_name": "TP-Link TL-WR840N 300 Mbps Wireless N Router",
+    "new_name": "TP-Link TL-WR840N 300 Mbps Wireless N Router"
+  },
+  {
+    "id": 235,
+    "old_slug": "tp-link-ls1008g-8-port-101001000mbps-desktop-switch",
+    "old_name": "TP-Link LS1008G 8-Port 10/100/1000Mbps Desktop Switch",
+    "new_name": "TP-Link LS1008G 8-Port 10/100/1000Mbps Desktop Switch"
+  },
+  {
+    "id": 234,
+    "old_slug": "tp-link-ls1005g5-port-101001000mbps-desktop-switch",
+    "old_name": "TP-Link LS1005G5-Port 10/100/1000Mbps Desktop Switch",
+    "new_name": "TP-Link LS1005G5-Port 10/100/1000Mbps Desktop Switch"
+  },
+  {
+    "id": 233,
+    "old_slug": "tp-link-ls1008-8-port-10100mbps-desktop-switch",
+    "old_name": "TP-Link LS1008 8-Port 10/100Mbps Desktop Switch",
+    "new_name": "TP-Link LS1008 8-Port 10/100Mbps Desktop Switch"
+  },
+  {
+    "id": 232,
+    "old_slug": "tp-link-ls1005-5-port-10100mbps-desktop-switch",
+    "old_name": "TP-Link LS1005 5-Port 10/100Mbps Desktop Switch",
+    "new_name": "TP-Link LS1005 5-Port 10/100Mbps Desktop Switch"
+  },
+  {
+    "id": 231,
+    "old_slug": "tp-link-archer-c24-ac750-dual-band-wi-fi-router",
+    "old_name": "TP-Link Archer C24 AC750 Dual-Band Wi-Fi Router",
+    "new_name": "TP-Link Archer C24 AC750 Dual-Band Wi-Fi Router"
+  },
+  {
+    "id": 230,
+    "old_slug": "tp_link-tl-wa850re-300mbps-wi-fi-range-extender",
+    "old_name": "TP_Link TL-WA850RE 300Mbps Wi-Fi Range Extender",
+    "new_name": "TP-Link TL-WA850RE 300Mbps Wi-Fi Range Extender"
+  },
+  {
+    "id": 229,
+    "old_slug": "tp_link-tl-wa855re-300mbps-wifi-range-extender",
+    "old_name": "TP_Link TL-WA855RE 300Mbps WiFi Range Extender",
+    "new_name": "TP-Link TL-WA855RE 300Mbps WiFi Range Extender"
+  },
+  {
+    "id": 228,
+    "old_slug": "tp-link-tl-wn722n-wireless-usb-adapter-with-antenna-150mbps",
+    "old_name": "TP-Link TL-WN722N Wireless USB Adapter With Antenna 150Mbps",
+    "new_name": "TP-Link TL-WN722N Wireless USB Adapter With Antenna 150Mbps"
+  },
+  {
+    "id": 227,
+    "old_slug": "tp-link-tl-wn823n-300mbps-mini-wireless-n-usb-adapter",
+    "old_name": "TP LINK TL-WN823N 300Mbps Mini Wireless N USB Adapter",
+    "new_name": "TP LINK TL-WN823N 300Mbps Mini Wireless N USB Adapter"
+  },
+  {
+    "id": 226,
+    "old_slug": "tp-link-tl-wn725n-wireless-usb-adapter-150mbps",
+    "old_name": "TP-Link TL-WN725N Wireless USB Adapter 150Mbps",
+    "new_name": "TP-Link TL-WN725N Wireless USB Adapter 150Mbps"
+  },
+  {
+    "id": 225,
+    "old_slug": "tp-link-re315-ac1200-mesh-wi-fi-range-extender",
+    "old_name": "TP-LINK RE315 AC1200 Mesh Wi-Fi Range Extender",
+    "new_name": "TP-LINK RE315 AC1200 Mesh Wi-Fi Range Extender"
+  },
+  {
+    "id": 224,
+    "old_slug": "tp-link-re200-ac750-wi-fi-router-range-extender",
+    "old_name": "TP-Link RE200 AC750 Wi-Fi router Range Extender",
+    "new_name": "TP-Link RE200 AC750 Wi-Fi router Range Extender"
+  },
+  {
+    "id": 223,
+    "old_slug": "ac750-wi-fi-range-extender-re-205",
+    "old_name": "AC750 Wi-Fi Range Extender Re 205",
+    "new_name": "TP-Link RE205 AC750 Dual Band Wi-Fi Range Extender"
+  },
+  {
+    "id": 222,
+    "old_slug": "one-by-wacom-m",
+    "old_name": "ONE BY WACOM M",
+    "new_name": "Wacom One by Wacom Medium Graphics Tablet (CTL-672)"
+  },
+  {
+    "id": 221,
+    "old_slug": "veikk-a50-graphics-drawing-tablet",
+    "old_name": "VEIKK A50 Graphics Drawing Tablet",
+    "new_name": "VEIKK A50 Graphics Drawing Tablet"
+  },
+  {
+    "id": 220,
+    "old_slug": "veikk-a30-graphics-drawing-tablet-with-4-touch-keys",
+    "old_name": "VEIKK A30 Graphics Drawing Tablet with 4 Touch Keys",
+    "new_name": "VEIKK A30 Graphics Drawing Tablet with 4 Touch Keys"
+  },
+  {
+    "id": 219,
+    "old_slug": "huion-kamvas-12-pro",
+    "old_name": "HUION KAMVAS 12 PRO",
+    "new_name": "HUION KAMVAS 12 PRO"
+  },
+  {
+    "id": 218,
+    "old_slug": "huion-h610x-graphics-tablet",
+    "old_name": "HUION H610X Graphics Tablet",
+    "new_name": "HUION H610X Graphics Tablet"
+  },
+  {
+    "id": 217,
+    "old_slug": "huion-inspiroy-h640p-graphics-drawing-tablet",
+    "old_name": "HUION Inspiroy H640P Graphics Drawing Tablet",
+    "new_name": "HUION Inspiroy H640P Graphics Drawing Tablet"
+  },
+  {
+    "id": 216,
+    "old_slug": "huion-inspiroy-h430p-graphic-drawing-tablet",
+    "old_name": "HUION Inspiroy H430P Graphic Drawing Tablet",
+    "new_name": "HUION Inspiroy H430P Graphic Drawing Tablet"
+  },
+  {
+    "id": 215,
+    "old_slug": "huion-inspiroy-h950p-graphics-drawing-tablet",
+    "old_name": "HUION Inspiroy H950P Graphics Drawing Tablet",
+    "new_name": "HUION Inspiroy H950P Graphics Drawing Tablet"
+  },
+  {
+    "id": 214,
+    "old_slug": "huion-inspiroy-hs611",
+    "old_name": "Huion Inspiroy HS611",
+    "new_name": "Huion Inspiroy HS611"
+  },
+  {
+    "id": 213,
+    "old_slug": "huion-inspiroy-ink-h320m-graphic-drawing-tablet",
+    "old_name": "HUION Inspiroy Ink H320M Graphic Drawing Tablet",
+    "new_name": "HUION Inspiroy Ink H320M Graphic Drawing Tablet"
+  },
+  {
+    "id": 212,
+    "old_slug": "huion-hs64-graphics-drawing-tablet",
+    "old_name": "HUION HS64 Graphics Drawing Tablet",
+    "new_name": "HUION HS64 Graphics Drawing Tablet"
+  },
+  {
+    "id": 211,
+    "old_slug": "huion-hs610-pen-tablet",
+    "old_name": "Huion HS610 Pen Tablet",
+    "new_name": "Huion HS610 Pen Tablet"
+  },
+  {
+    "id": 210,
+    "old_slug": "logitech-g305-black-lightspeed-wireless-gaming-mouse",
+    "old_name": "Logitech G305 Black Lightspeed Wireless Gaming Mouse",
+    "new_name": "Logitech G305 Black Lightspeed Wireless Gaming Mouse"
+  },
+  {
+    "id": 209,
+    "old_slug": "m240-silent-bluetooth-mouse",
+    "old_name": "M240 Silent Bluetooth Mouse",
+    "new_name": "Logitech M240 Silent Wireless Bluetooth Mouse"
+  },
+  {
+    "id": 208,
+    "old_slug": "logitech-h390-usb-headset",
+    "old_name": "Logitech H390 USB Headset",
+    "new_name": "Logitech H390 USB Headset"
+  },
+  {
+    "id": 207,
+    "old_slug": "logitech-b100-optical-usb-mouse",
+    "old_name": "Logitech B100 Optical USB Mouse",
+    "new_name": "Logitech B100 Optical USB Mouse"
+  },
+  {
+    "id": 206,
+    "old_slug": "logitech-mk270-wireless-keyboard-and-mouse-combo",
+    "old_name": "Logitech MK270 Wireless Keyboard and Mouse Combo",
+    "new_name": "Logitech MK270 Wireless Keyboard and Mouse Combo"
+  },
+  {
+    "id": 205,
+    "old_slug": "logitech-wireless-mouse-m185",
+    "old_name": "Logitech Wireless Mouse M185",
+    "new_name": "Logitech Wireless Mouse M185"
+  },
+  {
+    "id": 204,
+    "old_slug": "logitech-m90-optical-wired-mouse",
+    "old_name": "Logitech M90 Optical Wired Mouse",
+    "new_name": "Logitech M90 Optical Wired Mouse"
+  },
+  {
+    "id": 203,
+    "old_slug": "logitech-m171-wireless-mouse-24-ghz-wireless-wireless-range-black",
+    "old_name": "Logitech M171 Wireless Mouse 2.4 Ghz wireless Wireless range, Black",
+    "new_name": "Logitech M171 Wireless Mouse 2.4 Ghz wireless Wireless range, Black"
+  },
+  {
+    "id": 202,
+    "old_slug": "logitech-r400-wireless-presentation-remote",
+    "old_name": "Logitech R400 Wireless Presentation Remote",
+    "new_name": "Logitech R400 Wireless Presentation Remote"
+  },
+  {
+    "id": 201,
+    "old_slug": "logitech-mk220-wireless-keyboard-and-mouse-combo",
+    "old_name": "Logitech MK220 Wireless Keyboard and Mouse Combo",
+    "new_name": "Logitech MK220 Wireless Keyboard and Mouse Combo"
+  },
+  {
+    "id": 200,
+    "old_slug": "logitech-mk120-corded-keyboard-and-mouse-combo",
+    "old_name": "Logitech MK120 Corded Keyboard and Mouse Combo",
+    "new_name": "Logitech MK120 Corded Keyboard and Mouse Combo"
+  },
+  {
+    "id": 199,
+    "old_slug": "logitech-m190-wireless-mouse",
+    "old_name": "Logitech M190  Wireless Mouse",
+    "new_name": "Logitech M190 Wireless Mouse"
+  },
+  {
+    "id": 198,
+    "old_slug": "logitech-h111-over-the-head-stereo-headset-for-live-chat-and-music",
+    "old_name": "Logitech H111 Over-the-Head Stereo Headset for Live Chat and Music",
+    "new_name": "Logitech H111 Over-the-Head Stereo Headset for Live Chat and Music"
+  },
+  {
+    "id": 197,
+    "old_slug": "snzou-all-metal-folding-tabletop-stand-sn-539",
+    "old_name": "SNZOU All-Metal Folding Tabletop Stand SN-539",
+    "new_name": "SNZOU All-Metal Folding Tabletop Stand SN-539"
+  },
+  {
+    "id": 196,
+    "old_slug": "snzou-surroundx-wireless-soundbar-360-audio-sn-25",
+    "old_name": "SNZOU SurroundX Wireless Soundbar (360° Audio) | SN-25",
+    "new_name": "SNZOU SurroundX Wireless Soundbar (360° Audio) | SN-25"
+  },
+  {
+    "id": 195,
+    "old_slug": "snzou-bassblast-portable-bluetooth-speaker-sn-21",
+    "old_name": "SNZOU BassBlast Portable Bluetooth Speaker | SN-21",
+    "new_name": "SNZOU BassBlast Portable Bluetooth Speaker | SN-21"
+  },
+  {
+    "id": 194,
+    "old_slug": "snzou-buds4-6-mic-anc-enc-sn-27",
+    "old_name": "SNZOU BUDS4 6 mic ANC &amp; ENC SN-27",
+    "new_name": "SNZOU BUDS4 6 mic ANC & ENC SN-27"
+  },
+  {
+    "id": 193,
+    "old_slug": "snzou-audiobridge-lightning-to-35mm-adapter-sn-202",
+    "old_name": "SNZOU AudioBridge Lightning to 3.5mm Adapter | SN-202",
+    "new_name": "SNZOU AudioBridge Lightning to 3.5mm Adapter | SN-202"
+  },
+  {
+    "id": 192,
+    "old_slug": "sanzou-aux-lightning-type-c-2-in-1-sn-87",
+    "old_name": "SANZOU Aux – Lightning – Type C 2 in 1 |SN-87",
+    "new_name": "SNZOU Aux – Lightning – Type C 2 in 1 |SN-87"
+  },
+  {
+    "id": 191,
+    "old_slug": "snzou-lightning-to-35mm-aux-cable-hifi-soundline-sn-89",
+    "old_name": "SNZOU Lightning to 3.5mm AUX Cable HiFi SoundLine | SN-89",
+    "new_name": "SNZOU Lightning to 3.5mm AUX Cable HiFi SoundLine | SN-89"
+  },
+  {
+    "id": 190,
+    "old_slug": "sanzou-type-c-to-35mm-aux-cable-hifi-soundline-sn-88",
+    "old_name": "SANZOU Type-C to 3.5mm AUX Cable HiFi SoundLine | SN-88",
+    "new_name": "SNZOU Type-C to 3.5mm AUX Cable HiFi SoundLine | SN-88"
+  },
+  {
+    "id": 189,
+    "old_slug": "sanzou-aux-35mm-sn-90",
+    "old_name": "SANZOU AUX – 3.5mm SN-90",
+    "new_name": "SNZOU AUX – 3.5mm SN-90"
+  },
+  {
+    "id": 188,
+    "old_slug": "sanzou-thor-series-type-c-to-type-c-sn-133",
+    "old_name": "SANZOU THOR Series Type-C to Type-C SN-133",
+    "new_name": "SNZOU THOR Series Type-C to Type-C SN-133"
+  },
+  {
+    "id": 187,
+    "old_slug": "snzou-3a-usb-a-to-lightning-cable-quickcharge-sn-122",
+    "old_name": "SNZOU 3A USB-A to Lightning Cable QuickCharge | SN-122",
+    "new_name": "SNZOU 3A USB-A to Lightning Cable QuickCharge | SN-122"
+  },
+  {
+    "id": 186,
+    "old_slug": "snzou-140w-usb-a-to-type-c-cable-hypercharge-sn-135",
+    "old_name": "SNZOU 140W USB-A to Type-C Cable HyperCharge |SN-135",
+    "new_name": "SNZOU 140W USB-A to Type-C Cable HyperCharge |SN-135"
+  },
+  {
+    "id": 185,
+    "old_slug": "snzou-3a-usb-a-to-type-c-cable-prosync-sn-121",
+    "old_name": "SNZOU 3A USB-A to Type-C Cable ProSync  | SN-121",
+    "new_name": "SNZOU 3A USB-A to Type-C Cable ProSync | SN-121"
+  },
+  {
+    "id": 184,
+    "old_slug": "snzou-27w-type-c-to-lightning-cable-powersync-sn-134",
+    "old_name": "SNZOU  27W Type-C to Lightning Cable PowerSync | SN-134",
+    "new_name": "SNZOU 27W Type-C to Lightning Cable PowerSync | SN-134"
+  },
+  {
+    "id": 183,
+    "old_slug": "snzou-27w-type-c-to-lightning-cable-quickcharge-sn-124",
+    "old_name": "SNZOU 27W Type-C to Lightning Cable QuickCharge | SN-124",
+    "new_name": "SNZOU 27W Type-C to Lightning Cable QuickCharge | SN-124"
+  },
+  {
+    "id": 182,
+    "old_slug": "snzou-type-c-to-type-c-60w-pd-fast-charging-data-cable-with-led-indicator-sn-155",
+    "old_name": "SNZOU Type-C to Type-C 60W PD Fast Charging Data Cable with LED Indicator |SN-155",
+    "new_name": "SNZOU Type-C to Type-C 60W PD Fast Charging Data Cable with LED Indicator |SN-155"
+  },
+  {
+    "id": 181,
+    "old_slug": "snzou-turbolink-100w-type-c-to-type-c-cable-sn-123",
+    "old_name": "SNZOU 100W Type-C to Type-C Cable turbolink | SN-123",
+    "new_name": "SNZOU 100W Type-C to Type-C Cable turbolink | SN-123"
+  },
+  {
+    "id": 180,
+    "old_slug": "snzou-turbocharge-45w-dual-port-car-charger-sn-336",
+    "old_name": "SNZOU TurboCharge 45W Dual Port Car Charger | SN-336",
+    "new_name": "SNZOU TurboCharge 45W Dual Port Car Charger | SN-336"
+  },
+  {
+    "id": 179,
+    "old_slug": "snzou-power-bank-20000-mah-225w-sn-940",
+    "old_name": "SNZOU Power Bank 20000 mAh 22.5W SN-940",
+    "new_name": "SNZOU Power Bank 20000 mAh 22.5W SN-940"
+  },
+  {
+    "id": 178,
+    "old_slug": "snzou-powerpack-45w-20000mah-power-bank-sn-939",
+    "old_name": "SNZOU PowerPack 45W 20,000mAh Power Bank | SN-939",
+    "new_name": "SNZOU PowerPack 45W 20,000mAh Power Bank | SN-939"
+  },
+  {
+    "id": 177,
+    "old_slug": "snzou-quickcharge-25w-charger-with-cable-sn-398",
+    "old_name": "SNZOU QuickCharge 25W Charger with Cable | SN-398",
+    "new_name": "SNZOU QuickCharge 25W Charger with Cable | SN-398"
+  },
+  {
+    "id": 176,
+    "old_slug": "snzou-nanofast-20w-gan-charger-sn-368",
+    "old_name": "SNZOU NanoFast 20W GaN Charger | SN-368",
+    "new_name": "SNZOU NanoFast 20W GaN Charger | SN-368"
+  },
+  {
+    "id": 154,
+    "old_slug": "elite-gs70",
+    "old_name": "Elite-gs70",
+    "new_name": "Elite GS70 Waterproof Laptop Sleeve (15.6\")"
+  },
+  {
+    "id": 153,
+    "old_slug": "elite-gs60",
+    "old_name": "Elite-gs60",
+    "new_name": "Elite GS60 Shockproof Protective Laptop Sleeve (14\")"
+  },
+  {
+    "id": 152,
+    "old_slug": "elite-gs50",
+    "old_name": "Elite-gs50",
+    "new_name": "Elite GS50 Slim Protective Laptop Sleeve (13.3\")"
+  },
+  {
+    "id": 151,
+    "old_slug": "elite-133-shining",
+    "old_name": "Elite-gs40",
+    "new_name": "Elite GS40 Premium Shining Laptop Sleeve (13.3\")"
+  },
+  {
+    "id": 150,
+    "old_slug": "elite-gs1004",
+    "old_name": "Elite-gs1004",
+    "new_name": "Elite GS1004 Multi-Pocket Laptop Sleeve (15.6\")"
+  },
+  {
+    "id": 149,
+    "old_slug": "elite-gs234",
+    "old_name": "Elite-gs234",
+    "new_name": "Elite GS234 Water-Resistant Laptop Handbag (15.6\")"
+  },
+  {
+    "id": 148,
+    "old_slug": "elite-gs205",
+    "old_name": "Elite-gs205",
+    "new_name": "Elite GS205 Protective Laptop Sleeve (14\")"
+  },
+  {
+    "id": 147,
+    "old_slug": "elite-gs124-colourful",
+    "old_name": "Elite-gs124 Colourful",
+    "new_name": "Elite GS124 Colorful Protective Laptop Sleeve (15.6\")"
+  },
+  {
+    "id": 146,
+    "old_slug": "elite-gs104-colourful",
+    "old_name": "Elite-gs104 Colourful",
+    "new_name": "Elite GS104 Slim Protective Laptop Sleeve (14\")"
+  },
+  {
+    "id": 145,
+    "old_slug": "elite-gs110",
+    "old_name": "Elite-gs110",
+    "new_name": "Elite GS110 Shockproof Protective Laptop Sleeve (15.6\")"
+  },
+  {
+    "id": 144,
+    "old_slug": "elite-gs98",
+    "old_name": "Elite-gs98",
+    "new_name": "Elite GS98 Minimalist Protective Laptop Sleeve (13.3\")"
+  },
+  {
+    "id": 143,
+    "old_slug": "elite-gs99",
+    "old_name": "Elite-gs99",
+    "new_name": "Elite GS99 Slim Protective Laptop Sleeve (14\")"
+  },
+  {
+    "id": 142,
+    "old_slug": "elite-gs94",
+    "old_name": "Elite-gs94",
+    "new_name": "Elite GS94 Water-Resistant Laptop Sleeve (15.6\")"
+  },
+  {
+    "id": 141,
+    "old_slug": "elite-gs95",
+    "old_name": "Elite-gs95",
+    "new_name": "Elite GS95 Shockproof Laptop Sleeve (15.6\")"
+  },
+  {
+    "id": 140,
+    "old_slug": "chantria-00778",
+    "old_name": "chantria-00778",
+    "new_name": "Chantria CH-00778 Protective Laptop Sleeve (15.6\")"
+  },
+  {
+    "id": 139,
+    "old_slug": "arctic-hunter-00889",
+    "old_name": "Arctic Hunter-00889",
+    "new_name": "Arctic Hunter B00889 Waterproof Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 138,
+    "old_slug": "arctic-hunter-00345",
+    "old_name": "Arctic Hunter-00345",
+    "new_name": "Arctic Hunter XB00345 Anti-Theft Crossbody Sling Bag"
+  },
+  {
+    "id": 137,
+    "old_slug": "arctic-hunter-00877",
+    "old_name": "Arctic Hunter-00877",
+    "new_name": "Arctic Hunter B00877 Business Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 136,
+    "old_slug": "arctic-hunter-00872",
+    "old_name": "Arctic Hunter-00872",
+    "new_name": "Arctic Hunter B00872 Business Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 135,
+    "old_slug": "arctic-hunter-00681",
+    "old_name": "Arctic Hunter-00681",
+    "new_name": "Arctic Hunter B00681 Business Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 134,
+    "old_slug": "arctic-hunter-00559",
+    "old_name": "Arctic Hunter-00559",
+    "new_name": "Arctic Hunter B00559 Business Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 133,
+    "old_slug": "arctic-hunter-00555",
+    "old_name": "Arctic Hunter-00555",
+    "new_name": "Arctic Hunter B00555 Business Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 132,
+    "old_slug": "arctic-hunter-00542",
+    "old_name": "Arctic Hunter-00542",
+    "new_name": "Arctic Hunter B00542 Business Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 131,
+    "old_slug": "arctic-hunter-00536",
+    "old_name": "Arctic Hunter-00536",
+    "new_name": "Arctic Hunter B00536 Business Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 130,
+    "old_slug": "arctic-hunter-00534",
+    "old_name": "Arctic Hunter-00534",
+    "new_name": "Arctic Hunter B00534 Business Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 129,
+    "old_slug": "arctic-hunter-00530",
+    "old_name": "Arctic Hunter-00530",
+    "new_name": "Arctic Hunter B00530 Business Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 128,
+    "old_slug": "arctic-hunter-00529",
+    "old_name": "Arctic Hunter-00529",
+    "new_name": "Arctic Hunter B00529 Business Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 127,
+    "old_slug": "arctic-hunter-00518",
+    "old_name": "Arctic Hunter-00518",
+    "new_name": "Arctic Hunter B00518 Business Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 126,
+    "old_slug": "arctic-hunter-00382",
+    "old_name": "Arctic Hunter-00382",
+    "new_name": "Arctic Hunter B00382 Business Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 125,
+    "old_slug": "arctic-hunter-00187",
+    "old_name": "Arctic Hunter-00187",
+    "new_name": "Arctic Hunter B00187 Business Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 124,
+    "old_slug": "arctic-hunter-00120",
+    "old_name": "Arctic Hunter-00120",
+    "new_name": "Arctic Hunter B00120 Business Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 123,
+    "old_slug": "anker-powerexpand-usb-c-to-hdmi-adapter",
+    "old_name": "Anker PowerExpand+ USB-C to HDMI Adapter",
+    "new_name": "Anker PowerExpand+ USB-C to HDMI Adapter"
+  },
+  {
+    "id": 122,
+    "old_slug": "anker-huge-power-slim-60w",
+    "old_name": "Anker-Huge Power Slim 60W",
+    "new_name": "Anker PowerPort Atom III Slim 60W 4-Port Charger"
+  },
+  {
+    "id": 121,
+    "old_slug": "anker-pencil-pro-stylus-pen-tom-and-jerry",
+    "old_name": "Anker Pencil Pro Stylus Pen Tom and Jerry",
+    "new_name": "Anker Pencil Pro Stylus Pen Tom and Jerry"
+  },
+  {
+    "id": 120,
+    "old_slug": "anker-hdmi-switch",
+    "old_name": "Anker HDMI Switch 2-in-1",
+    "new_name": "Anker HDMI Switch 2-in-1"
+  },
+  {
+    "id": 119,
+    "old_slug": "anker-usb-c-hub-5-in-1-usb-c-connector-with-4k-hdmi-100w",
+    "old_name": "Anker USB-C Hub 5-in-1 USB-C Connector with 4K HDMI &amp; 100W",
+    "new_name": "Anker USB-C Hub 5-in-1 USB-C Connector with 4K HDMI & 100W"
+  },
+  {
+    "id": 118,
+    "old_slug": "ankerusbchub",
+    "old_name": "Anker USB-C Hub (8-in-1)",
+    "new_name": "Anker USB-C Hub (8-in-1)"
+  },
+  {
+    "id": 117,
+    "old_slug": "anker-wall-charger-5-in-1-white",
+    "old_name": "Anker Wall Charger (5-in-1) White",
+    "new_name": "Anker Wall Charger (5-in-1) White"
+  },
+  {
+    "id": 116,
+    "old_slug": "anker-webcame-c200",
+    "old_name": "Anker PowerConf C200 webcam",
+    "new_name": "Anker PowerConf C200 webcam"
+  },
+  {
+    "id": 115,
+    "old_slug": "anker-power-conf",
+    "old_name": "Anker PowerConf Bluetooth Speakerphone",
+    "new_name": "Anker PowerConf Bluetooth Speakerphone"
+  },
+  {
+    "id": 114,
+    "old_slug": "anker-life-u2i",
+    "old_name": "Anker SoundCore Life U2i, Crystal clear calls, 22-Hours play time, Black",
+    "new_name": "Anker SoundCore Life U2i, Crystal clear calls, 22-Hours play time, Black"
+  },
+  {
+    "id": 113,
+    "old_slug": "anker-motion-3000",
+    "old_name": "Anker Soundcore Motion 300 Portable Bluetooth Speaker | A3135011",
+    "new_name": "Anker Soundcore Motion 300 Portable Bluetooth Speaker | A3135011"
+  },
+  {
+    "id": 112,
+    "old_slug": "anker-flare-2",
+    "old_name": "Anker Soundcore Flare 2 Bluetooth Speaker",
+    "new_name": "Anker Soundcore Flare 2 Bluetooth Speaker"
+  },
+  {
+    "id": 111,
+    "old_slug": "anker-pb-eh11-20k",
+    "old_name": "Anker Zolo Power Bank 20,000mAH 22.5W Built-In USB-C Cable-A110EH11",
+    "new_name": "Anker Zolo Power Bank 20,000mAH 22.5W Built-In USB-C Cable-A110EH11"
+  },
+  {
+    "id": 110,
+    "old_slug": "anker-pb-eh11",
+    "old_name": "Anker Zolo Power Bank 10,000mAH 22.5W Built-In USB-C Cable - A110DH11",
+    "new_name": "Anker Zolo Power Bank 10,000mAH 22.5W Built-In USB-C Cable - A110DH11"
+  },
+  {
+    "id": 109,
+    "old_slug": "ankerusbtc5h213ft",
+    "old_name": "ANKER.USB.TC.5H21.3FT",
+    "new_name": "Anker 310 USB-C to USB-C Fast Charging Cable 60W (0.9m)"
+  },
+  {
+    "id": 108,
+    "old_slug": "anker-ctoc-3h11",
+    "old_name": "Anker-USB-C to USB-C Cable 60W 1m Durable braided-3H11",
+    "new_name": "Anker 310 USB-C to USB-C Braided Cable 60W (1m)"
+  },
+  {
+    "id": 107,
+    "old_slug": "anker-3h11",
+    "old_name": "ANKER- USB-C to USB A 2.0 cable 6ft-3H11",
+    "new_name": "Anker 310 USB-A to USB-C Fast Charging Cable (1.8m)"
+  },
+  {
+    "id": 106,
+    "old_slug": "anker-plug-27w",
+    "old_name": "ANKER- PLUG 27W",
+    "new_name": "Anker 312 USB-C Fast Wall Charger 27W"
+  },
+  {
+    "id": 105,
+    "old_slug": "anker-47w-duol-tc",
+    "old_name": "ANKER- 47W DUOL-TC",
+    "new_name": "Anker 523 Nano 3 Dual USB-C GaN Charger 47W"
+  },
+  {
+    "id": 104,
+    "old_slug": "anker-l11",
+    "old_name": "Anker-Zolo Wall Charger 30W usb c port black L11",
+    "new_name": "Anker Zolo USB-C Fast Wall Charger 30W"
+  },
+  {
+    "id": 103,
+    "old_slug": "anker-g21",
+    "old_name": "Anker 312 Charger 25W G21",
+    "new_name": "Anker 312 Charger 25W G21"
+  },
+  {
+    "id": 102,
+    "old_slug": "anker-9l23",
+    "old_name": "ANKER-  PowerPort 20W USB-C-9L23",
+    "new_name": "Anker PowerPort III 20W USB-C Cube Fast Charger"
+  },
+  {
+    "id": 99,
+    "old_slug": "anker",
+    "old_name": "Anker-A2727 PowerDrive 2 Alloy Metal Mini Dual USB Car Charger",
+    "new_name": "Anker PowerDrive 2 Alloy 24W Metal Dual USB Car Charger"
+  },
+  {
+    "id": 98,
+    "old_slug": "ugreen10133",
+    "old_name": "UGREEN.10133",
+    "new_name": "Ugreen 10133 HDMI to DVI 24+1 Bi-Directional Cable (3m)"
+  },
+  {
+    "id": 97,
+    "old_slug": "ugreen65014",
+    "old_name": "UGREEN.65014",
+    "new_name": "Ugreen 65014 20W PD USB-C Fast Wall Charger"
+  },
+  {
+    "id": 96,
+    "old_slug": "ugreen10335",
+    "old_name": "UGREEN.10335",
+    "new_name": "Ugreen 10335 USB 3.0 Male to Female Extension Cable (1m)"
+  },
+  {
+    "id": 95,
+    "old_slug": "ugreen65053",
+    "old_name": "UGREEN.65053",
+    "new_name": "Ugreen 65053 USB-C to USB-C Fast Charging Cable 100W (1.5m)"
+  },
+  {
+    "id": 94,
+    "old_slug": "ugreen65736",
+    "old_name": "UGREEN.65736",
+    "new_name": "Ugreen 65736 Nexode 45W Dual USB-C GaN Fast Charger"
+  },
+  {
+    "id": 93,
+    "old_slug": "ugreen30205",
+    "old_name": "UGREEN.30205",
+    "new_name": "Ugreen 30205 USB 3.0 to 2.5\" SATA HDD/SSD Adapter Cable"
+  },
+  {
+    "id": 92,
+    "old_slug": "ugreen65251",
+    "old_name": "UGREEN.65251",
+    "new_name": "Ugreen 65251 30W USB-C GaN Fast Wall Charger"
+  },
+  {
+    "id": 91,
+    "old_slug": "ugreen60126",
+    "old_name": "UGREEN.60126",
+    "new_name": "Ugreen 60126 Fast Charging USB-C to USB-C Cable 60W (1m)"
+  },
+  {
+    "id": 90,
+    "old_slug": "ugreen50150",
+    "old_name": "UGREEN.50150",
+    "new_name": "Ugreen 50150 MFi-Certified USB-C to Lightning Cable (1m)"
+  },
+  {
+    "id": 89,
+    "old_slug": "ugreen65908",
+    "old_name": "UGREEN.65908",
+    "new_name": "Ugreen 65908 60W Dual Port Fast Car Charger PD + QC"
+  },
+  {
+    "id": 88,
+    "old_slug": "micm2s",
+    "old_name": "HOLLYLAND LARK M2S Wireless Lavalier Microphone",
+    "new_name": "HOLLYLAND LARK M2S Wireless Lavalier Microphone"
+  },
+  {
+    "id": 87,
+    "old_slug": "micm2",
+    "old_name": "HOLLYLAND LARK M2 Wireless Lavalier Microphone",
+    "new_name": "HOLLYLAND LARK M2 Wireless Lavalier Microphone"
+  },
+  {
+    "id": 86,
+    "old_slug": "mica1-duo",
+    "old_name": "HOLLYLAND LARK A1 Combo Wireless Lavalier Microphone Duo",
+    "new_name": "HOLLYLAND LARK A1 Combo Wireless Lavalier Microphone Duo"
+  },
+  {
+    "id": 85,
+    "old_slug": "mica1",
+    "old_name": "HOLLYLAND LARK A1 Wireless Lavalier Microphone",
+    "new_name": "HOLLYLAND LARK A1 Wireless Lavalier Microphone"
+  },
+  {
+    "id": 84,
+    "old_slug": "ugcm868",
+    "old_name": "UGREEN.cm868",
+    "new_name": "Ugreen CM868 Bluetooth 5.4 USB Audio & Data Dongle"
+  },
+  {
+    "id": 83,
+    "old_slug": "ug90722",
+    "old_name": "UGREEN.90722",
+    "new_name": "Ugreen 90722 Nexode 65W GaN 3-Port Fast Wall Charger"
+  },
+  {
+    "id": 82,
+    "old_slug": "ug90416",
+    "old_name": "UGREEN.90416",
+    "new_name": "Ugreen 90416 Foldable Desktop Phone & Tablet Stand"
+  },
+  {
+    "id": 81,
+    "old_slug": "ug90264",
+    "old_name": "UGREEN.90264",
+    "new_name": "Ugreen 90264 HiTune T3 Active Noise Cancelling Wireless Earbuds"
+  },
+  {
+    "id": 80,
+    "old_slug": "ug80432",
+    "old_name": "UGREEN.80432",
+    "new_name": "Ugreen 80432 Adjustable Ergonomic Aluminum Laptop Stand"
+  },
+  {
+    "id": 79,
+    "old_slug": "ug80191",
+    "old_name": "UGREEN.80191",
+    "new_name": "Ugreen 80191 USB-C to 4K 60Hz HDMI Aluminum Adapter"
+  },
+  {
+    "id": 78,
+    "old_slug": "ug70892",
+    "old_name": "UGREEN.70892",
+    "new_name": "Ugreen 70892 4-Port USB 3.0 Ultra-Slim Data Hub"
+  },
+  {
+    "id": 77,
+    "old_slug": "ug70444",
+    "old_name": "UGREEN.70444",
+    "new_name": "Ugreen 70444 6-in-1 USB-C Multifunction Hub with 4K HDMI"
+  },
+  {
+    "id": 76,
+    "old_slug": "ug60554",
+    "old_name": "UGREEN.60554",
+    "new_name": "Ugreen 60554 9-in-1 USB-C Docking Station with Dual HDMI"
+  },
+  {
+    "id": 75,
+    "old_slug": "ug60515",
+    "old_name": "UGREEN.60515",
+    "new_name": "Ugreen 60515 5-in-1 USB-C Hub with 4K HDMI & 100W PD"
+  },
+  {
+    "id": 74,
+    "old_slug": "ug50923",
+    "old_name": "UGREEN.50923",
+    "new_name": "Ugreen 50923 USB-C to 3.5mm Hi-Fi Headphone Jack Adapter"
+  },
+  {
+    "id": 73,
+    "old_slug": "ug50737",
+    "old_name": "UGREEN.50737",
+    "new_name": "Ugreen 50737 Cat7 Shielded 10Gbps RJ45 Ethernet Cable (2m)"
+  },
+  {
+    "id": 72,
+    "old_slug": "ug50307",
+    "old_name": "UGREEN.50307",
+    "new_name": "Ugreen 50307 Cat6 Gigabit RJ45 Ethernet Patch Cable (3m)"
+  },
+  {
+    "id": 71,
+    "old_slug": "ug45520",
+    "old_name": "UGREEN.45520",
+    "new_name": "Ugreen 45520 2.4GHz Wireless Ergonomic Optical Mouse"
+  },
+  {
+    "id": 70,
+    "old_slug": "ug40417",
+    "old_name": "UGREEN.40417",
+    "new_name": "Ugreen 40417 DVI 24+5 Male to VGA Female Adapter Converter"
+  },
+  {
+    "id": 69,
+    "old_slug": "ug40363",
+    "old_name": "UGREEN.40363",
+    "new_name": "Ugreen 40363 DisplayPort to HDMI 4K Adapter Cable (1.5m)"
+  },
+  {
+    "id": 68,
+    "old_slug": "ug40179",
+    "old_name": "UGREEN.40179",
+    "new_name": "Ugreen 40179 USB to 3.5mm External Stereo Sound Card Adapter"
+  },
+  {
+    "id": 67,
+    "old_slug": "ug35998",
+    "old_name": "UGREEN.35998",
+    "new_name": "Ugreen 35998 MagSafe Magnetic Wireless Fast Charger 15W"
+  },
+  {
+    "id": 66,
+    "old_slug": "ug35629",
+    "old_name": "UGREEN.35629",
+    "new_name": "Ugreen 35629 Dual USB Fast Car Charger 24W"
+  },
+  {
+    "id": 65,
+    "old_slug": "ug35574",
+    "old_name": "UGREEN.35574",
+    "new_name": "Ugreen 35574 3.5mm Audio Stereo Y-Splitter Cable (20cm)"
+  },
+  {
+    "id": 64,
+    "old_slug": "ug30843",
+    "old_name": "UGREEN.30843",
+    "new_name": "Ugreen 30843 2.5\" SATA to USB 3.0 External Hard Drive Enclosure"
+  },
+  {
+    "id": 63,
+    "old_slug": "ug30753",
+    "old_name": "UGREEN.30753",
+    "new_name": "Ugreen 30753 USB 3.0 SD & MicroSD Multi-Card Reader"
+  },
+  {
+    "id": 62,
+    "old_slug": "ug30205",
+    "old_name": "UGREEN.30205",
+    "new_name": "Ugreen 30205 USB 3.0 to 2.5\" SATA HDD/SSD Adapter Cable"
+  },
+  {
+    "id": 61,
+    "old_slug": "ug25248",
+    "old_name": "UGREEN.25248",
+    "new_name": "Ugreen 25248 Nexode Mini 20W USB-C PD Fast Charger"
+  },
+  {
+    "id": 60,
+    "old_slug": "ug25158",
+    "old_name": "UGREEN.25158",
+    "new_name": "Ugreen 25158 Nexode 100W 4-Port GaN Fast Desktop Charger"
+  },
+  {
+    "id": 59,
+    "old_slug": "ug20846",
+    "old_name": "UGREEN.20846",
+    "new_name": "Ugreen 20846 3.5mm Male to Male Hi-Fi Aux Audio Cable (1m)"
+  },
+  {
+    "id": 58,
+    "old_slug": "ug20164",
+    "old_name": "UGREEN.20164",
+    "new_name": "Ugreen 20164 HDMI Male to Female 4K Extension Cable (1m)"
+  },
+  {
+    "id": 57,
+    "old_slug": "ug20162",
+    "old_name": "UGREEN.20162",
+    "new_name": "Ugreen 20162 Micro HDMI to HDMI 4K Adapter Converter"
+  },
+  {
+    "id": 56,
+    "old_slug": "ug20106",
+    "old_name": "UGREEN.20106",
+    "new_name": "Ugreen 20106 Fast Charging Micro USB Cable (1m)"
+  },
+  {
+    "id": 55,
+    "old_slug": "ug15495",
+    "old_name": "UGREEN.15495",
+    "new_name": "Ugreen 15495 90-Degree Right Angle USB-C to USB-C Cable 100W (2m)"
+  },
+  {
+    "id": 54,
+    "old_slug": "ug15117",
+    "old_name": "UGREEN.15117",
+    "new_name": "Ugreen 15117 Nexode Mini 30W USB-C GaN Fast Charger"
+  },
+  {
+    "id": 53,
+    "old_slug": "ug11262",
+    "old_name": "UGREEN.11262",
+    "new_name": "Ugreen 11262 Cat6 Gigabit Ethernet Flat RJ45 Cable (2m)"
+  },
+  {
+    "id": 52,
+    "old_slug": "ug10903",
+    "old_name": "UGREEN.10903",
+    "new_name": "Ugreen 10903 6-in-1 USB-C Multifunction Hub 4K 60Hz"
+  },
+  {
+    "id": 51,
+    "old_slug": "ug10739",
+    "old_name": "UGREEN.10739",
+    "new_name": "Ugreen 10739 3.5mm Male to Female Aux Extension Cable (1m)"
+  },
+  {
+    "id": 50,
+    "old_slug": "ug10387",
+    "old_name": "UGREEN.10387",
+    "new_name": "Ugreen 10387 USB 2.0 to Mini USB Fast Charging Cable (1m)"
+  },
+  {
+    "id": 48,
+    "old_slug": "ug10351",
+    "old_name": "UGREEN.10351",
+    "new_name": "Ugreen 10351 USB 3.0 Type-A Male to Male Cable (1m)"
+  },
+  {
+    "id": 47,
+    "old_slug": "ug10309",
+    "old_name": "UGREEN.10309",
+    "new_name": "Ugreen 10309 USB 2.0 to RS232 DB9 Serial Cable (1m)"
+  },
+  {
+    "id": 46,
+    "old_slug": "ug10211",
+    "old_name": "UGREEN.10211",
+    "new_name": "Ugreen 10211 DisplayPort 1.2 to DisplayPort 4K Cable (2m)"
+  },
+  {
+    "id": 45,
+    "old_slug": "ug10170",
+    "old_name": "UGREEN.10170",
+    "new_name": "Ugreen 10170 Ultra High Speed HDMI 2.1 8K Cable (2m)"
+  },
+  {
+    "id": 44,
+    "old_slug": "ug10130",
+    "old_name": "UGREEN.10130",
+    "new_name": "Ugreen 10130 HDMI to DVI-D Bi-Directional Cable (1.5m)"
+  },
+  {
+    "id": 43,
+    "old_slug": "ug10129",
+    "old_name": "UGREEN.10129",
+    "new_name": "Ugreen 10129 High-Speed 4K HDMI Cable with Ethernet (1m)"
+  },
+  {
+    "id": 42,
+    "old_slug": "bange-1908d",
+    "old_name": "Bange 1908D",
+    "new_name": "Bange 1908D Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 41,
+    "old_slug": "bange-1905",
+    "old_name": "Bange 1905",
+    "new_name": "Bange 1905 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 40,
+    "old_slug": "bange-g66",
+    "old_name": "Bange G66",
+    "new_name": "Bange G66 Anti-Theft Crossbody Shoulder Bag"
+  },
+  {
+    "id": 39,
+    "old_slug": "bange-g65",
+    "old_name": "Bange G65",
+    "new_name": "Bange G65 Anti-Theft Crossbody Shoulder Bag"
+  },
+  {
+    "id": 38,
+    "old_slug": "bange-22201",
+    "old_name": "Bange 22201",
+    "new_name": "Bange 22201 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 37,
+    "old_slug": "bange-22196",
+    "old_name": "Bange 22196",
+    "new_name": "Bange 22196 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 36,
+    "old_slug": "bange-22188",
+    "old_name": "Bange 22188",
+    "new_name": "Bange 22188 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 35,
+    "old_slug": "bange-22085",
+    "old_name": "Bange 22085",
+    "new_name": "Bange 22085 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 34,
+    "old_slug": "bange-22005",
+    "old_name": "Bange 22005",
+    "new_name": "Bange 22005 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 33,
+    "old_slug": "bange-7876",
+    "old_name": "Bange 7876",
+    "new_name": "Bange 7876 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 32,
+    "old_slug": "bange-7875",
+    "old_name": "Bange 7875",
+    "new_name": "Bange 7875 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 31,
+    "old_slug": "bange-7663",
+    "old_name": "Bange 7663",
+    "new_name": "Bange 7663 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 30,
+    "old_slug": "bange-7529",
+    "old_name": "Bange 7529",
+    "new_name": "Bange 7529 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 29,
+    "old_slug": "bange-7306",
+    "old_name": "Bange 7306",
+    "new_name": "Bange 7306 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 28,
+    "old_slug": "bange-7277",
+    "old_name": "Bange 7277",
+    "new_name": "Bange 7277 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 27,
+    "old_slug": "bange-7267",
+    "old_name": "Bange 7267",
+    "new_name": "Bange 7267 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 26,
+    "old_slug": "bange-7261",
+    "old_name": "Bange 7261",
+    "new_name": "Bange 7261 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 25,
+    "old_slug": "bange-7252",
+    "old_name": "Bange 7252",
+    "new_name": "Bange 7252 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 24,
+    "old_slug": "bange-7239",
+    "old_name": "Bange 7239",
+    "new_name": "Bange 7239 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 23,
+    "old_slug": "bange-7216",
+    "old_name": "Bange 7216",
+    "new_name": "Bange 7216 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 22,
+    "old_slug": "bange-7213",
+    "old_name": "Bange 7213",
+    "new_name": "Bange 7213 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 21,
+    "old_slug": "bange-7210",
+    "old_name": "Bange 7210",
+    "new_name": "Bange 7210 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 20,
+    "old_slug": "bange-7082",
+    "old_name": "Bange 7082",
+    "new_name": "Bange 7082 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 19,
+    "old_slug": "bange-6803",
+    "old_name": "Bange 6803",
+    "new_name": "Bange 6803 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 18,
+    "old_slug": "bange-6802",
+    "old_name": "Bange 6802",
+    "new_name": "Bange 6802 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 17,
+    "old_slug": "bange-6801",
+    "old_name": "Bange 6801",
+    "new_name": "Bange 6801 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 16,
+    "old_slug": "bange-3076",
+    "old_name": "Bange 3076",
+    "new_name": "Bange 3076 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 15,
+    "old_slug": "Bange3068",
+    "old_name": "Bange 3068",
+    "new_name": "Bange 3068 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 14,
+    "old_slug": "bange-3065",
+    "old_name": "Bange 3065",
+    "new_name": "Bange 3065 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 13,
+    "old_slug": "bange-3029",
+    "old_name": "Bange 3029",
+    "new_name": "Bange 3029 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 12,
+    "old_slug": "bange-2913",
+    "old_name": "Bange 2913",
+    "new_name": "Bange 2913 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 11,
+    "old_slug": "bange-2888",
+    "old_name": "Bange 2888",
+    "new_name": "Bange 2888 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 10,
+    "old_slug": "bange-2809",
+    "old_name": "Bange 2809",
+    "new_name": "Bange 2809 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 9,
+    "old_slug": "bange-2581",
+    "old_name": "Bange 2581",
+    "new_name": "Bange 2581 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 8,
+    "old_slug": "bange-2559",
+    "old_name": "Bange 2559",
+    "new_name": "Bange 2559 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 7,
+    "old_slug": "bange-2517",
+    "old_name": "Bange 2517",
+    "new_name": "Bange 2517 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 6,
+    "old_slug": "bange-2378",
+    "old_name": "Bange 2378",
+    "new_name": "Bange 2378 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 5,
+    "old_slug": "bange-1916",
+    "old_name": "Bange 1916",
+    "new_name": "Bange 1916 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 4,
+    "old_slug": "bange-1901",
+    "old_name": "Bange 1901",
+    "new_name": "Bange 1901 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 3,
+    "old_slug": "bange-7225",
+    "old_name": "Bange 7225",
+    "new_name": "Bange 7225 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 2,
+    "old_slug": "bange-6803",
+    "old_name": "Bange 6803",
+    "new_name": "Bange 6803 Waterproof Travel Laptop Backpack (15.6\")"
+  },
+  {
+    "id": 1,
+    "old_slug": "bange-1908",
+    "old_name": "Bange 1908",
+    "new_name": "Bange 1908 Waterproof Travel Laptop Backpack (15.6\")"
+  }
+]
