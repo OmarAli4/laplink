@@ -1,0 +1,320 @@
+{# ─────────────────────── SHOP BY CATEGORY CAROUSEL ─────────────────────── #}
+{% load static %}
+{% load i18n %}
+
+<section class="relative z-20 py-8 sm:py-12 bg-white border-b border-slate-200/80 overflow-hidden"
+         x-data="{
+             isDragging: false,
+             startX: 0,
+             scrollLeft: 0,
+             canScrollLeft: false,
+             canScrollRight: true,
+             init() {
+                 this.$nextTick(() => {
+                     this.checkScroll();
+                 });
+             },
+             checkScroll() {
+                 const el = this.$refs.slider;
+                 if (!el) return;
+                 const isRtl = document.dir === 'rtl' || document.documentElement.dir === 'rtl';
+                 if (isRtl) {
+                     this.canScrollLeft = Math.abs(el.scrollLeft) < (el.scrollWidth - el.clientWidth - 10);
+                     this.canScrollRight = Math.abs(el.scrollLeft) > 10;
+                 } else {
+                     this.canScrollLeft = el.scrollLeft > 10;
+                     this.canScrollRight = el.scrollLeft < (el.scrollWidth - el.clientWidth - 10);
+                 }
+             },
+             scroll(direction) {
+                 const el = this.$refs.slider;
+                 if (!el) return;
+                 const isRtl = document.dir === 'rtl' || document.documentElement.dir === 'rtl';
+                 const step = 320;
+                 let move = direction === 'next' ? step : -step;
+                 if (isRtl) {
+                     move = direction === 'next' ? -step : step;
+                 }
+                 el.scrollBy({ left: move, behavior: 'smooth' });
+                 setTimeout(() => this.checkScroll(), 350);
+             },
+             startDrag(e) {
+                 this.isDragging = true;
+                 this.startX = e.pageX - this.$refs.slider.offsetLeft;
+                 this.scrollLeft = this.$refs.slider.scrollLeft;
+             },
+             stopDrag() {
+                 this.isDragging = false;
+             },
+             onDrag(e) {
+                 if (!this.isDragging) return;
+                 e.preventDefault();
+                 const x = e.pageX - this.$refs.slider.offsetLeft;
+                 const walk = (x - this.startX) * 1.5;
+                 this.$refs.slider.scrollLeft = this.scrollLeft - walk;
+                 this.checkScroll();
+             }
+         }">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header: Title & Navigation Controls -->
+        <div class="flex items-center justify-between mb-6 sm:mb-8">
+            <div class="flex items-center gap-3">
+                <div class="w-2 h-7 bg-blue-600 rounded-full hidden sm:block"></div>
+                <div>
+                    <h2 class="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight font-display text-slate-900">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            تسوق حسب الفئة
+                        {% else %}
+                            Shop by category
+                        {% endif %}
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            استكشف أحدث الأجهزة والتكنولوجيا بضمان معتمد وأفضل الأسعار
+                        {% else %}
+                            Explore authentic hardware, certified gear, and lifestyle tech
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Controls (Slider Arrows + View All Link) -->
+            <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                <a href="{% url 'shop:product_list' %}" 
+                   class="hidden md:inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-blue-600 hover:text-blue-800 transition-colors px-3 py-1.5 rounded-full hover:bg-blue-50/80 mr-2">
+                    <span>{% trans "All Items" %}</span>
+                    <svg class="w-3.5 h-3.5 {% if LANGUAGE_CODE == 'ar' %}rotate-180{% endif %}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+
+                <!-- Prev Button -->
+                <button type="button"
+                        @click="scroll('prev')"
+                        :disabled="!canScrollLeft"
+                        :class="!canScrollLeft ? 'opacity-30 cursor-not-allowed' : 'hover:bg-slate-100 hover:scale-105 active:scale-95 text-slate-800 shadow-sm'"
+                        class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center transition-all duration-200 focus:outline-none"
+                        aria-label="Previous categories">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="{% if LANGUAGE_CODE == 'ar' %}M9 5l7 7-7 7{% else %}M15 19l-7-7 7-7{% endif %}"/>
+                    </svg>
+                </button>
+
+                <!-- Next Button -->
+                <button type="button"
+                        @click="scroll('next')"
+                        :disabled="!canScrollRight"
+                        :class="!canScrollRight ? 'opacity-30 cursor-not-allowed' : 'hover:bg-slate-100 hover:scale-105 active:scale-95 text-slate-800 shadow-sm'"
+                        class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center transition-all duration-200 focus:outline-none"
+                        aria-label="Next categories">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="{% if LANGUAGE_CODE == 'ar' %}M15 19l-7-7 7-7{% else %}M9 5l7 7-7 7{% endif %}"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Horizontal Categories Slider -->
+        <div class="relative group/slider">
+            
+            <!-- Subtle Left Fade Shadow on Overflow -->
+            <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-r from-white to-transparent z-10 transition-opacity duration-300"
+                 :class="canScrollLeft ? 'opacity-100' : 'opacity-0'"></div>
+
+            <!-- Scrollable Track -->
+            <div x-ref="slider"
+                 @scroll.passive="checkScroll()"
+                 @mousedown="startDrag($event)"
+                 @mouseleave="stopDrag()"
+                 @mouseup="stopDrag()"
+                 @mousemove="onDrag($event)"
+                 class="flex items-start gap-4 sm:gap-6 lg:gap-8 overflow-x-auto no-scrollbar scroll-smooth py-3 px-1 cursor-grab active:cursor-grabbing select-none"
+                 style="-webkit-overflow-scrolling: touch;">
+
+                <!-- 1. عروض التقسيط (Installments) -->
+                <a href="{% url 'shop:product_list' %}?installments=1" 
+                   class="group flex-shrink-0 flex flex-col items-center text-center w-[92px] sm:w-[108px] lg:w-[120px] transition-transform duration-300">
+                    <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-300 group-hover:scale-105 group-hover:shadow-md group-hover:border-blue-400/50 group-hover:bg-blue-50/30">
+                        <img src="{% static 'img/categories/installments.webp' %}" 
+                             alt="عروض التقسيط" 
+                             class="w-full h-full object-contain filter drop-shadow transition-transform duration-300 group-hover:scale-110" 
+                             loading="eager">
+                        <span class="absolute -top-1.5 -right-1.5 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider bg-blue-600 text-white rounded-full shadow-sm">
+                            20 سنة
+                        </span>
+                    </div>
+                    <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2.5 leading-snug line-clamp-2">
+                        {% if LANGUAGE_CODE == 'ar' %}عروض التقسيط{% else %}Installments{% endif %}
+                    </span>
+                </a>
+
+                <!-- 2. الاستبدال (Trade-In) -->
+                <a href="{% url 'shop:product_list' %}?filter=tradein" 
+                   class="group flex-shrink-0 flex flex-col items-center text-center w-[92px] sm:w-[108px] lg:w-[120px] transition-transform duration-300">
+                    <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-300 group-hover:scale-105 group-hover:shadow-md group-hover:border-blue-400/50 group-hover:bg-blue-50/30">
+                        <img src="{% static 'img/categories/tradein.webp' %}" 
+                             alt="الاستبدال" 
+                             class="w-full h-full object-contain filter drop-shadow transition-transform duration-300 group-hover:scale-110" 
+                             loading="eager">
+                        <span class="absolute -top-1.5 -right-1.5 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider bg-emerald-600 text-white rounded-full shadow-sm">
+                            جدد جهازك
+                        </span>
+                    </div>
+                    <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2.5 leading-snug line-clamp-2">
+                        {% if LANGUAGE_CODE == 'ar' %}الاستبدال{% else %}Trade-In{% endif %}
+                    </span>
+                </a>
+
+                <!-- 3. التلفزيونات والشاشات (TVs & ValU) -->
+                <a href="{% url 'shop:product_list' %}?q=tv" 
+                   class="group flex-shrink-0 flex flex-col items-center text-center w-[92px] sm:w-[108px] lg:w-[120px] transition-transform duration-300">
+                    <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-300 group-hover:scale-105 group-hover:shadow-md group-hover:border-blue-400/50 group-hover:bg-blue-50/30">
+                        <img src="{% static 'img/categories/valu.webp' %}" 
+                             alt="التلفزيونات" 
+                             class="w-full h-full object-contain filter drop-shadow transition-transform duration-300 group-hover:scale-110" 
+                             loading="eager">
+                    </div>
+                    <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2.5 leading-snug line-clamp-2">
+                        {% if LANGUAGE_CODE == 'ar' %}التلفزيونات{% else %}TVs & Displays{% endif %}
+                    </span>
+                </a>
+
+                <!-- 4. اكسسوارات المكتب (Desk & Hubs) -->
+                <a href="{% url 'shop:product_list' %}?q=hub" 
+                   class="group flex-shrink-0 flex flex-col items-center text-center w-[92px] sm:w-[108px] lg:w-[120px] transition-transform duration-300">
+                    <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-300 group-hover:scale-105 group-hover:shadow-md group-hover:border-blue-400/50 group-hover:bg-blue-50/30">
+                        <img src="{% static 'img/categories/desk_hubs.webp' %}" 
+                             alt="اكسسوارات المكتب" 
+                             class="w-full h-full object-contain filter drop-shadow transition-transform duration-300 group-hover:scale-110" 
+                             loading="eager">
+                    </div>
+                    <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2.5 leading-snug line-clamp-2">
+                        {% if LANGUAGE_CODE == 'ar' %}اكسسوارات المكتب{% else %}Desk & Hubs{% endif %}
+                    </span>
+                </a>
+
+                <!-- 5. اجهزة منزلية صغيرة (Smart & Home Devices) -->
+                <a href="{% url 'shop:product_list' %}?q=home" 
+                   class="group flex-shrink-0 flex flex-col items-center text-center w-[92px] sm:w-[108px] lg:w-[120px] transition-transform duration-300">
+                    <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-300 group-hover:scale-105 group-hover:shadow-md group-hover:border-blue-400/50 group-hover:bg-blue-50/30">
+                        <img src="{% static 'img/categories/small_appliances.webp' %}" 
+                             alt="اجهزة منزلية صغيرة" 
+                             class="w-full h-full object-contain filter drop-shadow transition-transform duration-300 group-hover:scale-110" 
+                             loading="eager">
+                    </div>
+                    <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2.5 leading-snug line-clamp-2">
+                        {% if LANGUAGE_CODE == 'ar' %}اجهزة منزلية صغيرة{% else %}Small Appliances{% endif %}
+                    </span>
+                </a>
+
+                <!-- 6. منتجات المطبخ (Kitchen Appliances) -->
+                <a href="{% url 'shop:product_list' %}?q=kitchen" 
+                   class="group flex-shrink-0 flex flex-col items-center text-center w-[92px] sm:w-[108px] lg:w-[120px] transition-transform duration-300">
+                    <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-300 group-hover:scale-105 group-hover:shadow-md group-hover:border-blue-400/50 group-hover:bg-blue-50/30">
+                        <img src="{% static 'img/categories/kitchen.webp' %}" 
+                             alt="منتجات المطبخ" 
+                             class="w-full h-full object-contain filter drop-shadow transition-transform duration-300 group-hover:scale-110" 
+                             loading="eager">
+                    </div>
+                    <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2.5 leading-snug line-clamp-2">
+                        {% if LANGUAGE_CODE == 'ar' %}منتجات المطبخ{% else %}Kitchen Products{% endif %}
+                    </span>
+                </a>
+
+                <!-- 7. لابتوبات (Laptops) -->
+                <a href="{% url 'shop:product_list' %}?category=laptops" 
+                   class="group flex-shrink-0 flex flex-col items-center text-center w-[92px] sm:w-[108px] lg:w-[120px] transition-transform duration-300">
+                    <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-300 group-hover:scale-105 group-hover:shadow-md group-hover:border-blue-400/50 group-hover:bg-blue-50/30">
+                        <img src="{% static 'img/categories/laptops.webp' %}" 
+                             alt="لابتوبات" 
+                             class="w-full h-full object-contain filter drop-shadow transition-transform duration-300 group-hover:scale-110" 
+                             loading="eager">
+                        <span class="absolute -top-1.5 -right-1.5 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider bg-rose-600 text-white rounded-full shadow-sm animate-pulse">
+                            HOT
+                        </span>
+                    </div>
+                    <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2.5 leading-snug line-clamp-2">
+                        {% if LANGUAGE_CODE == 'ar' %}لابتوبات{% else %}Laptops{% endif %}
+                    </span>
+                </a>
+
+                <!-- 8. تابلت (Tablets) -->
+                <a href="{% url 'shop:product_list' %}?q=tablet" 
+                   class="group flex-shrink-0 flex flex-col items-center text-center w-[92px] sm:w-[108px] lg:w-[120px] transition-transform duration-300">
+                    <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-300 group-hover:scale-105 group-hover:shadow-md group-hover:border-blue-400/50 group-hover:bg-blue-50/30">
+                        <img src="{% static 'img/categories/tablets.webp' %}" 
+                             alt="تابلت" 
+                             class="w-full h-full object-contain filter drop-shadow transition-transform duration-300 group-hover:scale-110" 
+                             loading="eager">
+                    </div>
+                    <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2.5 leading-snug line-clamp-2">
+                        {% if LANGUAGE_CODE == 'ar' %}تابلت{% else %}Tablets{% endif %}
+                    </span>
+                </a>
+
+                <!-- 9. ساعات ذكية (Smart Watches) -->
+                <a href="{% url 'shop:product_list' %}?q=watch" 
+                   class="group flex-shrink-0 flex flex-col items-center text-center w-[92px] sm:w-[108px] lg:w-[120px] transition-transform duration-300">
+                    <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-300 group-hover:scale-105 group-hover:shadow-md group-hover:border-blue-400/50 group-hover:bg-blue-50/30">
+                        <img src="{% static 'img/categories/smartwatches.webp' %}" 
+                             alt="ساعات ذكية" 
+                             class="w-full h-full object-contain filter drop-shadow transition-transform duration-300 group-hover:scale-110" 
+                             loading="eager">
+                    </div>
+                    <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2.5 leading-snug line-clamp-2">
+                        {% if LANGUAGE_CODE == 'ar' %}ساعات ذكية{% else %}Smart Watches{% endif %}
+                    </span>
+                </a>
+
+                <!-- 10. سماعات اير بودز (Earbuds) -->
+                <a href="{% url 'shop:product_list' %}?q=earbud" 
+                   class="group flex-shrink-0 flex flex-col items-center text-center w-[92px] sm:w-[108px] lg:w-[120px] transition-transform duration-300">
+                    <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-300 group-hover:scale-105 group-hover:shadow-md group-hover:border-blue-400/50 group-hover:bg-blue-50/30">
+                        <img src="{% static 'img/categories/earbuds.webp' %}" 
+                             alt="سماعات اير بودز" 
+                             class="w-full h-full object-contain filter drop-shadow transition-transform duration-300 group-hover:scale-110" 
+                             loading="eager">
+                    </div>
+                    <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2.5 leading-snug line-clamp-2">
+                        {% if LANGUAGE_CODE == 'ar' %}سماعات اير بودز{% else %}Earbuds{% endif %}
+                    </span>
+                </a>
+
+                <!-- 11. سماعات الرأس (Headphones) -->
+                <a href="{% url 'shop:product_list' %}?q=headphone" 
+                   class="group flex-shrink-0 flex flex-col items-center text-center w-[92px] sm:w-[108px] lg:w-[120px] transition-transform duration-300">
+                    <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-300 group-hover:scale-105 group-hover:shadow-md group-hover:border-blue-400/50 group-hover:bg-blue-50/30">
+                        <img src="{% static 'img/categories/headphones.webp' %}" 
+                             alt="سماعات الرأس" 
+                             class="w-full h-full object-contain filter drop-shadow transition-transform duration-300 group-hover:scale-110" 
+                             loading="eager">
+                    </div>
+                    <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2.5 leading-snug line-clamp-2">
+                        {% if LANGUAGE_CODE == 'ar' %}سماعات الرأس{% else %}Headphones{% endif %}
+                    </span>
+                </a>
+
+                <!-- 12. شواحن وباور بانك (Chargers & Power) -->
+                <a href="{% url 'shop:product_list' %}?q=charger" 
+                   class="group flex-shrink-0 flex flex-col items-center text-center w-[92px] sm:w-[108px] lg:w-[120px] transition-transform duration-300">
+                    <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-slate-50 border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-300 group-hover:scale-105 group-hover:shadow-md group-hover:border-blue-400/50 group-hover:bg-blue-50/30">
+                        <img src="{% static 'img/categories/chargers.webp' %}" 
+                             alt="شواحن وباور بانك" 
+                             class="w-full h-full object-contain filter drop-shadow transition-transform duration-300 group-hover:scale-110" 
+                             loading="eager">
+                    </div>
+                    <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2.5 leading-snug line-clamp-2">
+                        {% if LANGUAGE_CODE == 'ar' %}شواحن وباور بانك{% else %}Power & Chargers{% endif %}
+                    </span>
+                </a>
+
+            </div>
+
+            <!-- Subtle Right Fade Shadow on Overflow -->
+            <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-l from-white to-transparent z-10 transition-opacity duration-300"
+                 :class="canScrollRight ? 'opacity-100' : 'opacity-0'"></div>
+
+        </div>
+
+    </div>
+</section>
