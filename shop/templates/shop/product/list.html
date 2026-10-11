@@ -134,19 +134,19 @@
                 <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider hidden sm:inline">{% trans "Sort By:" %}</span>
                 <select onchange="window.location.href = this.value" 
                         class="py-2.5 pl-3.5 pr-8 rounded-2xl border border-slate-200 bg-white text-xs font-semibold text-slate-800 shadow-sm cursor-pointer appearance-none focus:outline-none focus:border-black">
-                    <option value="?{% for key, val in request.GET.items %}{% if key != 'sort' and key != 'page' %}{{ key }}={{ val }}&{% endif %}{% endfor %}sort=">
+                    <option value="?{% for key, vals in request.GET.lists %}{% if key != 'sort' and key != 'page' %}{% for v in vals %}{{ key }}={{ v|urlencode }}&{% endfor %}{% endif %}{% endfor %}sort=">
                         {% trans "Recommended" %}
                     </option>
-                    <option value="?{% for key, val in request.GET.items %}{% if key != 'sort' and key != 'page' %}{{ key }}={{ val }}&{% endif %}{% endfor %}sort=newest" {% if request.GET.sort == 'newest' %}selected{% endif %}>
+                    <option value="?{% for key, vals in request.GET.lists %}{% if key != 'sort' and key != 'page' %}{% for v in vals %}{{ key }}={{ v|urlencode }}&{% endfor %}{% endif %}{% endfor %}sort=newest" {% if request.GET.sort == 'newest' %}selected{% endif %}>
                         {% trans "Newest Arrivals" %}
                     </option>
-                    <option value="?{% for key, val in request.GET.items %}{% if key != 'sort' and key != 'page' %}{{ key }}={{ val }}&{% endif %}{% endfor %}sort=rating" {% if request.GET.sort == 'rating' %}selected{% endif %}>
+                    <option value="?{% for key, vals in request.GET.lists %}{% if key != 'sort' and key != 'page' %}{% for v in vals %}{{ key }}={{ v|urlencode }}&{% endfor %}{% endif %}{% endfor %}sort=rating" {% if request.GET.sort == 'rating' %}selected{% endif %}>
                         {% trans "Highest Rated" %}
                     </option>
-                    <option value="?{% for key, val in request.GET.items %}{% if key != 'sort' and key != 'page' %}{{ key }}={{ val }}&{% endif %}{% endfor %}sort=price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>
+                    <option value="?{% for key, vals in request.GET.lists %}{% if key != 'sort' and key != 'page' %}{% for v in vals %}{{ key }}={{ v|urlencode }}&{% endfor %}{% endif %}{% endfor %}sort=price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>
                         {% trans "Price: Low to High" %}
                     </option>
-                    <option value="?{% for key, val in request.GET.items %}{% if key != 'sort' and key != 'page' %}{{ key }}={{ val }}&{% endif %}{% endfor %}sort=price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>
+                    <option value="?{% for key, vals in request.GET.lists %}{% if key != 'sort' and key != 'page' %}{% for v in vals %}{{ key }}={{ v|urlencode }}&{% endfor %}{% endif %}{% endfor %}sort=price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>
                         {% trans "Price: High to Low" %}
                     </option>
                 </select>
@@ -247,6 +247,15 @@
             <!-- Product Grid Container (Scrollytelling 60fps) -->
             <div class="flex-1">
                 
+                {% if search_scope_expanded and category %}
+                <div class="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-xs sm:text-sm flex items-center gap-3 shadow-sm">
+                    <span class="text-base">ℹ️</span>
+                    <span>
+                        {% blocktrans with name=category.name %}No results in {{ name }} — showing results from the whole store.{% endblocktrans %}
+                    </span>
+                </div>
+                {% endif %}
+
                 {% if products %}
                 <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                     {% for product in products %}
@@ -365,7 +374,7 @@
                     </div>
 
                     {% if products.has_next %}
-                    <a href="?page={{ products.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+                    <a href="?page={{ products.next_page_number }}{% for key, vals in request.GET.lists %}{% if key != 'page' %}{% for v in vals %}&{{ key }}={{ v|urlencode }}{% endfor %}{% endif %}{% endfor %}"
                        class="px-4 py-2.5 rounded-2xl border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:bg-black hover:text-white hover:border-black transition-all shadow-sm flex items-center gap-1">
                         <span>{% trans "Next" %}</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
@@ -380,12 +389,21 @@
                     <div class="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mx-auto mb-4 border border-slate-200 text-2xl">
                         🔍
                     </div>
+                    {% if search_query %}
+                    <h3 class="text-lg font-bold text-slate-900 mb-1">{% trans "No products found for" %} "{{ search_query }}"</h3>
+                    <p class="text-slate-500 text-sm max-w-sm mx-auto mb-6">{% trans "Try checking for typos or searching for a broader term." %}</p>
+                    <a href="?{% for key, vals in request.GET.lists %}{% if key != 'q' and key != 'page' %}{% for v in vals %}{{ key }}={{ v|urlencode }}&{% endfor %}{% endif %}{% endfor %}" 
+                       class="inline-flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-black text-white text-xs font-semibold hover:bg-slate-800 transition-colors shadow-sm">
+                        <span>{% trans "Clear Search" %}</span>
+                    </a>
+                    {% else %}
                     <h3 class="text-lg font-bold text-slate-900 mb-1">{% trans "No products match your criteria" %}</h3>
                     <p class="text-slate-500 text-sm max-w-sm mx-auto mb-6">{% trans "Try clearing some filters or searching for different keywords." %}</p>
                     <a href="{% if category %}{% url 'shop:product_list_by_category' category.slug %}{% else %}{% url 'shop:product_list' %}{% endif %}" 
                        class="inline-flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-black text-white text-xs font-semibold hover:bg-slate-800 transition-colors shadow-sm">
                         <span>{% trans "Reset All Filters" %}</span>
                     </a>
+                    {% endif %}
                 </div>
                 {% endif %}
 

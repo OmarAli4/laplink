@@ -91,14 +91,31 @@ def product_list(request, category_slug=None):
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
         
-    # 1. Search Query
+    # 1. Search Query (smart hybrid search)
     query = request.GET.get('q', '').strip()
+    search_scope_expanded = False
     if query:
-        products = products.filter(Q(name__icontains=query) | Q(description__icontains=query))
+        from .search import search as smart_search
+        selected_subcategory = request.GET.get('subcategory', '').strip()
+        result = smart_search(
+            query,
+            category=category,
+            subcategory_slug=selected_subcategory or None
+        )
+        if result.scope_expanded:
+            # Re-base queryset on the whole store (dropping initial category filter)
+            products = Product.objects.filter(available=True).select_related(
+                'category', 'subcategory', 'brand'
+            ).annotate(avg_rating=Avg('reviews__rating'))
+            search_scope_expanded = True
+        products = products.filter(id__in=result.ids)
+        relevance_order = result.ids
+    else:
+        relevance_order = None
 
     # 2. Subcategory Filter
     selected_subcategory = request.GET.get('subcategory', '').strip()
-    if selected_subcategory:
+    if selected_subcategory and not search_scope_expanded:
         products = products.filter(subcategory__slug=selected_subcategory)
 
     # 3. Brands List (Multi-select - ignore empty values)
@@ -152,6 +169,13 @@ def product_list(request, category_slug=None):
         products = products.order_by('-created')
     elif sort_by == 'rating':
         products = products.order_by('-avg_rating', '-created')
+    elif relevance_order:
+        from django.db.models import Case, When, IntegerField
+        preserved = Case(
+            *[When(id=pid, then=pos) for pos, pid in enumerate(relevance_order)],
+            output_field=IntegerField()
+        )
+        products = products.order_by(preserved)
     else:
         products = products.order_by('-id') # Default ordering
         
@@ -187,6 +211,8 @@ def product_list(request, category_slug=None):
         'selected_subcategory': selected_subcategory,
         'wishlisted_product_ids': wishlisted_product_ids,
         'total_stock_count': total_stock_count,
+        'search_query': query,
+        'search_scope_expanded': search_scope_expanded,
     })
 
 
@@ -447,11 +473,18 @@ def search_autocomplete(request):
     query = request.GET.get('q', '').strip()
     products = []
     if len(query) >= 2:
-        from django.db.models import Q
-        products = Product.objects.filter(
-            Q(name__icontains=query) | Q(description__icontains=query),
-            available=True
-        ).select_related('category', 'brand')[:5]
+        from .search import search as smart_search
+        from django.db.models import Case, When, IntegerField
+        res = smart_search(query, limit=5)
+        if res.ids:
+            preserved = Case(
+                *[When(id=pid, then=pos) for pos, pid in enumerate(res.ids)],
+                output_field=IntegerField()
+            )
+            products = Product.objects.filter(
+                id__in=res.ids,
+                available=True
+            ).select_related('category', 'brand').order_by(preserved)
     return render(request, 'shop/partials/search_dropdown.html', {'products': products, 'query': query})
 
 
