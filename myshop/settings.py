@@ -156,6 +156,16 @@ CACHES = {
     }
 }
 
+# Smart Search settings
+SEARCH_EMBED_MODEL = os.getenv('SEARCH_EMBED_MODEL', 'gemini-embedding-001')
+SEARCH_EMBED_DIM = int(os.getenv('SEARCH_EMBED_DIM', '768'))
+SEARCH_TAG_MODELS = ['gemini-flash-lite-latest', 'gemini-flash-latest']
+SEARCH_SEMANTIC_MIN_SIM = float(os.getenv('SEARCH_SEMANTIC_MIN_SIM', '0.0'))  # calibrated in Phase 9.3
+SEARCH_RRF_K = 60
+SEARCH_ENABLE_SEMANTIC = os.getenv('SEARCH_ENABLE_SEMANTIC', 'true').lower() == 'true'
+SEARCH_ENABLE_LLM_FALLBACK = os.getenv('SEARCH_ENABLE_LLM_FALLBACK', 'false').lower() == 'true'
+SEARCH_AUTO_INDEX_ON_SAVE = os.getenv('SEARCH_AUTO_INDEX_ON_SAVE', 'true').lower() == 'true'
+
 # Anymail / Resend settings
 resend_key = os.getenv("RESEND_API_KEY", "").strip()
 ANYMAIL = {
