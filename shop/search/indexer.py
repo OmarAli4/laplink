@@ -3,6 +3,7 @@ Indexing engine for LapLink Smart Search.
 Builds searchable documents, content hashes, and integrates with Gemini embedding/tagging.
 Uses Product.objects.filter().update() to prevent cascading signals or redundant image processing.
 """
+import time
 import json
 import hashlib
 import logging
@@ -181,6 +182,8 @@ def index_products(queryset: QuerySet, force: bool = False, use_ai: bool = True)
                 "description": src.get("description", "")[:400],
             })
         
+        if i > 0:
+            time.sleep(1.0)
         tags_data = gemini.generate_tags(payload)
         if tags_data:
             tag_results.update(tags_data)

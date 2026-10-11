@@ -78,13 +78,21 @@ def embed_documents(texts: List[str]) -> Optional[List[List[float]]]:
                 req = urllib.request.Request(
                     url,
                     data=json.dumps(payload).encode('utf-8'),
-                    headers={'Content-Type': 'application/json'}
+                    headers={
+                        'Content-Type': 'application/json',
+                        'x-goog-api-key': api_key
+                    }
                 )
                 with urllib.request.urlopen(req, timeout=30) as resp:
                     data = json.loads(resp.read().decode('utf-8'))
                     break
             except urllib.error.HTTPError as e:
-                logger.warning("Gemini batchEmbedContents HTTP error: %s (attempt %s)", e.code, attempt + 1)
+                err_body = ""
+                try:
+                    err_body = e.read().decode('utf-8')
+                except Exception:
+                    pass
+                logger.warning("Gemini batchEmbedContents HTTP error: %s (attempt %s): %s", e.code, attempt + 1, err_body[:200])
                 if e.code in (429, 500, 503) and attempt == 0:
                     time.sleep(2)
                     continue
@@ -145,7 +153,10 @@ def embed_query(text: str) -> Optional[List[float]]:
         req = urllib.request.Request(
             url,
             data=json.dumps(payload).encode('utf-8'),
-            headers={'Content-Type': 'application/json'}
+            headers={
+                'Content-Type': 'application/json',
+                'x-goog-api-key': api_key
+            }
         )
         with urllib.request.urlopen(req, timeout=4.0) as resp:
             data = json.loads(resp.read().decode('utf-8'))
@@ -201,7 +212,10 @@ def generate_tags(products: List[Dict[str, Any]]) -> Optional[Dict[int, Dict[str
             req = urllib.request.Request(
                 url,
                 data=json.dumps(payload).encode('utf-8'),
-                headers={'Content-Type': 'application/json'}
+                headers={
+                    'Content-Type': 'application/json',
+                    'x-goog-api-key': api_key
+                }
             )
             with urllib.request.urlopen(req, timeout=30) as resp:
                 result = json.loads(resp.read().decode('utf-8'))
@@ -224,8 +238,18 @@ def generate_tags(products: List[Dict[str, Any]]) -> Optional[Dict[int, Dict[str
                             "tags_ar": [str(t).strip() for t in it.get('tags_ar', []) if str(t).strip()],
                         }
                 return out
+        except urllib.error.HTTPError as e:
+            err_body = ""
+            try:
+                err_body = e.read().decode('utf-8')
+            except Exception:
+                pass
+            logger.warning("Gemini generate_tags HTTP error %s on model %s: %s", e.code, model_name, err_body[:300])
+            if e.code in (429, 500, 503):
+                time.sleep(3)
+            continue
         except Exception as e:
-            logger.warning("Gemini generate_tags error on model %s: %s", model_name, type(e).__name__)
+            logger.warning("Gemini generate_tags error on model %s: %s", model_name, e)
             continue
 
     return None
