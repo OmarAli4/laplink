@@ -130,6 +130,16 @@ class Product(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    # --- Smart search index (managed automatically, do not edit by hand) ---
+    search_text = models.TextField(blank=True, editable=False,
+        help_text="Normalized searchable document built from name, brand, category, specs, description, tags")
+    search_tags = models.TextField(blank=True,
+        help_text="AI-generated search keywords (English + Arabic), comma separated. Editable by staff.")
+    search_embedding = models.JSONField(null=True, blank=True, editable=False)
+    search_hash = models.CharField(max_length=64, blank=True, editable=False, db_index=True,
+        help_text="SHA-256 of the source content used for the current tags/embedding")
+    search_indexed_at = models.DateTimeField(null=True, blank=True, editable=False)
+
     class Meta:
         ordering = ['name']
         indexes = [

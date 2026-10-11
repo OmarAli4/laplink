@@ -135,16 +135,21 @@ class ProductAdmin(ModelAdmin):
 
     actions = [standardize_titles_with_ai, run_ai_vision_tagging, apply_10_percent_discount, increase_10_percent_price]
     inlines = [ProductImageInline, ProductSpecInline]
+    readonly_fields = ['search_indexed_at']
     
     fieldsets = (
         ('General Information', {
-            'fields': ('category', 'brand', 'name', 'slug', 'image', 'description')
+            'fields': ('category', 'subcategory', 'brand', 'name', 'slug', 'image', 'description')
         }),
         ('Pricing & Stock', {
             'fields': ('price', 'sale_price', 'sale_start', 'sale_end', 'stock_quantity', 'available')
         }),
         ('Display Settings', {
             'fields': ('is_featured',)
+        }),
+        ('Smart Search', {
+            'classes': ('collapse',),
+            'fields': ('search_tags', 'search_indexed_at')
         }),
     )
 
