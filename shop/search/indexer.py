@@ -160,9 +160,9 @@ def index_products(queryset: QuerySet, force: bool = False, use_ai: bool = True)
         _safe_invalidate_cache()
         return stats
 
-    # Process AI tagging in chunks of 10
+    # Process AI tagging in chunks of 5
     tag_results: Dict[int, Dict[str, Any]] = {}
-    chunk_size = 10
+    chunk_size = 5
     for i in range(0, len(stale_items), chunk_size):
         chunk = stale_items[i:i + chunk_size]
         payload = []

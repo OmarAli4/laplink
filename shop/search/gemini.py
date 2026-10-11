@@ -217,7 +217,7 @@ def generate_tags(products: List[Dict[str, Any]]) -> Optional[Dict[int, Dict[str
                     'x-goog-api-key': api_key
                 }
             )
-            with urllib.request.urlopen(req, timeout=30) as resp:
+            with urllib.request.urlopen(req, timeout=45) as resp:
                 result = json.loads(resp.read().decode('utf-8'))
                 raw_text = result['candidates'][0]['content']['parts'][0]['text'].strip()
 
@@ -227,9 +227,22 @@ def generate_tags(products: List[Dict[str, Any]]) -> Optional[Dict[int, Dict[str
                     raw_text = raw_text.split('```')[1].split('```')[0].strip()
 
                 parsed = json.loads(raw_text)
-                items = parsed.get('items', [])
+                if isinstance(parsed, list):
+                    items = parsed
+                elif isinstance(parsed, dict):
+                    if 'items' in parsed and isinstance(parsed['items'], list):
+                        items = parsed['items']
+                    elif 'products' in parsed and isinstance(parsed['products'], list):
+                        items = parsed['products']
+                    else:
+                        items = next((v for v in parsed.values() if isinstance(v, list)), [])
+                else:
+                    items = []
+
                 out = {}
                 for it in items:
+                    if not isinstance(it, dict):
+                        continue
                     pid = it.get('id')
                     if pid is not None:
                         out[int(pid)] = {
