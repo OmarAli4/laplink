@@ -11,52 +11,179 @@ from .models import Category, Product
 
 
 def home(request):
-    """Display the luxury Scrollytelling home page with curated ecosystem chapters and real-time gear."""
-    from .models import Banner
+    """Display the UX-first home page with instant search, categories, brands, and modular product tabs."""
+    from .models import Banner, Brand
+    from django.urls import reverse
+    from django.utils import timezone
+
     banners = Banner.objects.filter(active=True)
-    
+
     # 1. Featured Products (up to 8 items, graceful fallback)
-    featured_products = list(Product.objects.filter(available=True, is_featured=True).select_related('category', 'subcategory', 'brand').order_by('-id')[:8])
-    if len(featured_products) < 4:
-        extra_prods = Product.objects.filter(available=True).exclude(id__in=[p.id for p in featured_products]).select_related('category', 'subcategory', 'brand').order_by('-id')[:8 - len(featured_products)]
+    featured_products = list(
+        Product.objects.filter(available=True, is_featured=True)
+        .select_related('category', 'subcategory', 'brand')
+        .order_by('-id')[:8]
+    )
+    if len(featured_products) < 8:
+        extra_prods = (
+            Product.objects.filter(available=True)
+            .exclude(id__in=[p.id for p in featured_products])
+            .select_related('category', 'subcategory', 'brand')
+            .order_by('-id')[:8 - len(featured_products)]
+        )
         featured_products.extend(list(extra_prods))
 
-    # 2. Curated Storytelling Chapters
-    # Act 1.1: Power & Hyper-Charging
-    power_products = Product.objects.filter(
-        available=True
-    ).filter(
-        Q(category__slug__iexact='mobile-accessories') | Q(name__icontains='charger') | Q(name__icontains='cable') | Q(name__icontains='gan')
-    ).select_related('category', 'subcategory', 'brand').order_by('-id')[:4]
+    # 2. Hot Deals / On Sale (with fallback to best-priced available items)
+    now = timezone.now()
+    deals_products = list(
+        Product.objects.filter(
+            available=True,
+            sale_price__isnull=False,
+            sale_start__lte=now,
+            sale_end__gte=now,
+        )
+        .select_related('category', 'subcategory', 'brand')
+        .order_by('-id')[:8]
+    )
+    if len(deals_products) < 4:
+        extra_deals = (
+            Product.objects.filter(available=True)
+            .exclude(id__in=[p.id for p in deals_products])
+            .select_related('category', 'subcategory', 'brand')
+            .order_by('price')[:8 - len(deals_products)]
+        )
+        deals_products.extend(list(extra_deals))
 
-    # Act 1.2: Bags & Armor
-    bag_products = Product.objects.filter(
-        available=True
-    ).filter(
-        Q(category__slug__iexact='bags') | Q(name__icontains='backpack') | Q(name__icontains='sleeve') | Q(name__icontains='bange')
-    ).select_related('category', 'subcategory', 'brand').order_by('-id')[:4]
+    # 3. Category Tabs Queries (up to 8 products each)
+    power_products = list(
+        Product.objects.filter(available=True)
+        .filter(
+            Q(category__slug__iexact='mobile-accessories')
+            | Q(name__icontains='charger')
+            | Q(name__icontains='cable')
+            | Q(name__icontains='gan')
+            | Q(name__icontains='power')
+        )
+        .select_related('category', 'subcategory', 'brand')
+        .order_by('-id')[:8]
+    )
 
-    # Act 1.3: Desk & Creativity
-    desk_products = Product.objects.filter(
-        available=True
-    ).filter(
-        Q(category__slug__in=['Computer-accessories', 'graphic-tablet']) | Q(name__icontains='mouse') | Q(name__icontains='keyboard') | Q(name__icontains='tablet')
-    ).select_related('category', 'subcategory', 'brand').order_by('-id')[:4]
+    bag_products = list(
+        Product.objects.filter(available=True)
+        .filter(
+            Q(category__slug__iexact='bags')
+            | Q(name__icontains='backpack')
+            | Q(name__icontains='sleeve')
+            | Q(name__icontains='bange')
+            | Q(name__icontains='bag')
+        )
+        .select_related('category', 'subcategory', 'brand')
+        .order_by('-id')[:8]
+    )
 
-    # Act 1.4: Next-Gen Networking
-    network_products = Product.objects.filter(
-        available=True
-    ).filter(
-        Q(category__slug__iexact='Network') | Q(name__icontains='router') | Q(name__icontains='mesh') | Q(name__icontains='tp-link')
-    ).select_related('category', 'subcategory', 'brand').order_by('-id')[:4]
+    desk_products = list(
+        Product.objects.filter(available=True)
+        .filter(
+            Q(category__slug__in=['Computer-accessories', 'graphic-tablet'])
+            | Q(name__icontains='mouse')
+            | Q(name__icontains='keyboard')
+            | Q(name__icontains='tablet')
+            | Q(name__icontains='hub')
+            | Q(name__icontains='stand')
+        )
+        .select_related('category', 'subcategory', 'brand')
+        .order_by('-id')[:8]
+    )
+
+    network_products = list(
+        Product.objects.filter(available=True)
+        .filter(
+            Q(category__slug__iexact='Network')
+            | Q(name__icontains='router')
+            | Q(name__icontains='mesh')
+            | Q(name__icontains='tp-link')
+            | Q(name__icontains='wifi')
+        )
+        .select_related('category', 'subcategory', 'brand')
+        .order_by('-id')[:8]
+    )
+
+    # 4. Single Source of Truth Configuration for Homepage Product Tabs
+    catalog_url = reverse('shop:product_list')
+    catalog_tabs = [
+        {
+            'key': 'featured',
+            'icon': '🌟',
+            'label_en': 'Most Popular',
+            'label_ar': 'الأكثر طلباً',
+            'products': featured_products,
+            'more_url': catalog_url,
+        },
+        {
+            'key': 'bags',
+            'icon': '🎒',
+            'label_en': 'Bags & Sleeves',
+            'label_ar': 'شنط وجرابات لابتوب',
+            'products': bag_products,
+            'more_url': f"{catalog_url}?q=backpack",
+        },
+        {
+            'key': 'power',
+            'icon': '⚡',
+            'label_en': 'Chargers & Cables',
+            'label_ar': 'شواحن وكابلات',
+            'products': power_products,
+            'more_url': f"{catalog_url}?q=charger",
+        },
+        {
+            'key': 'desk',
+            'icon': '🖱️',
+            'label_en': 'Mice, Keyboards & Gear',
+            'label_ar': 'ماوس وكيبورد وإكسسوارات',
+            'products': desk_products,
+            'more_url': f"{catalog_url}?q=accessories",
+        },
+        {
+            'key': 'network',
+            'icon': '🌐',
+            'label_en': 'Routers & Networking',
+            'label_ar': 'راوترات وشبكات',
+            'products': network_products,
+            'more_url': f"{catalog_url}?q=router",
+        },
+        {
+            'key': 'deals',
+            'icon': '🔥',
+            'label_en': 'Best Value & Deals',
+            'label_ar': 'أفضل العروض',
+            'products': deals_products,
+            'more_url': f"{catalog_url}?sort=price_asc",
+        },
+    ]
+
+    # 5. Single Source of Truth for Quick Search Pills (under Search Bar)
+    quick_searches = [
+        {'icon': '🎒', 'label_en': 'Laptop Backpacks', 'label_ar': 'شنط لابتوب', 'query': 'backpack'},
+        {'icon': '⚡', 'label_en': 'Fast Chargers', 'label_ar': 'شاحن سريع', 'query': 'charger'},
+        {'icon': '🎧', 'label_en': 'Headphones & Audio', 'label_ar': 'سماعات', 'query': 'headphone'},
+        {'icon': '🔌', 'label_en': 'Type-C Cables', 'label_ar': 'كابل تايب سي', 'query': 'usb-c'},
+        {'icon': '🖱️', 'label_en': 'Wireless Mouse', 'label_ar': 'ماوس لاسلكي', 'query': 'mouse'},
+        {'icon': '🌐', 'label_en': 'Wi-Fi Routers', 'label_ar': 'راوتر', 'query': 'router'},
+    ]
 
     categories = Category.objects.prefetch_related('subcategories').all()
+    brands = Brand.objects.filter(products__available=True).distinct()[:12]
+    if not brands.exists():
+        brands = Brand.objects.all()[:12]
+
     total_catalog_count = Product.objects.filter(available=True).count()
 
     wishlisted_product_ids = []
     if request.user.is_authenticated:
         from .models import Wishlist
-        wishlisted_product_ids = list(Wishlist.objects.filter(user=request.user).values_list('product_id', flat=True))
+        wishlisted_product_ids = list(
+            Wishlist.objects.filter(user=request.user).values_list('product_id', flat=True)
+        )
 
     return render(request, 'shop/home.html', {
         'banners': banners,
@@ -65,7 +192,10 @@ def home(request):
         'bag_products': bag_products,
         'desk_products': desk_products,
         'network_products': network_products,
+        'catalog_tabs': catalog_tabs,
+        'quick_searches': quick_searches,
         'categories': categories,
+        'brands': brands,
         'total_catalog_count': total_catalog_count,
         'wishlisted_product_ids': wishlisted_product_ids,
     })

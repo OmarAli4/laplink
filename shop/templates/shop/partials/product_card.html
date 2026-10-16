@@ -1,0 +1,93 @@
+{% load i18n %}
+<div @mouseenter="$dispatch('robot-start', { title: '{{ product.name|escapejs }}' })"
+     @mouseleave="$dispatch('robot-stop')"
+     class="group relative bg-white hover:bg-slate-50/40 border border-slate-200 hover:border-slate-300 rounded-3xl p-4 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/60 shadow-sm">
+
+    <!-- Top Image & Badges Area -->
+    <div class="aspect-square w-full rounded-2xl bg-slate-50 overflow-hidden relative mb-4 flex items-center justify-center p-3">
+        <a href="{% url 'shop:product_detail' product.id product.slug %}" class="w-full h-full flex items-center justify-center">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            {% else %}
+            <div class="w-12 h-12 text-slate-300 flex items-center justify-center text-2xl">⚡</div>
+            {% endif %}
+        </a>
+
+        <!-- Sale / Hot Drop Badge -->
+        {% if product.is_on_sale %}
+        <span class="pointer-events-none absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-red-500 text-white text-[10px] font-bold tracking-wide uppercase shadow-sm">
+            -{{ product.discount_percentage }}%
+        </span>
+        {% elif product.is_featured %}
+        <span class="pointer-events-none absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md bg-black text-white text-[10px] font-bold uppercase shadow-sm">
+            {% trans "Featured" %}
+        </span>
+        {% endif %}
+
+        <!-- Wishlist Button -->
+        <div class="absolute top-2.5 right-2.5 z-20">
+            <button type="button"
+                    hx-post="{% url 'shop:wishlist_toggle' product.id %}"
+                    hx-target="#wishlist-{{ card_prefix|default:'home' }}-btn-{{ product.id }}"
+                    id="wishlist-{{ card_prefix|default:'home' }}-btn-{{ product.id }}"
+                    hx-swap="outerHTML"
+                    class="flex items-center justify-center w-8 h-8 rounded-full border {% if product.id in wishlisted_product_ids %}border-red-500 bg-red-50{% else %}border-slate-200 bg-white/95 backdrop-blur-sm hover:border-slate-300{% endif %} transition-all duration-200 shadow-sm hover:scale-110"
+                    title="{% if product.id in wishlisted_product_ids %}{% trans 'Remove from Wishlist' %}{% else %}{% trans 'Add to Wishlist' %}{% endif %}">
+                <svg class="w-4 h-4 {% if product.id in wishlisted_product_ids %}text-red-500 fill-current{% else %}text-slate-400 hover:text-red-500{% endif %} transition-colors" 
+                     {% if product.id not in wishlisted_product_ids %}fill="none" stroke="currentColor" stroke-width="2"{% endif %}
+                     viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Product Info & 1-Click Add to Cart -->
+    <div class="flex-1 flex flex-col justify-between">
+        <div>
+            <span class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold block">
+                {{ product.brand.name|default:"Lap Link" }}
+            </span>
+            <a href="{% url 'shop:product_detail' product.id product.slug %}" class="block mt-0.5">
+                <h4 class="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2">
+                    {{ product.name }}
+                </h4>
+            </a>
+        </div>
+
+        <div class="mt-4 flex items-center justify-between pt-3 border-t border-slate-100">
+            <div class="flex items-baseline gap-1.5">
+                <span class="text-base font-bold text-slate-900 font-mono">
+                    L.E {{ product.current_price }}
+                </span>
+                {% if product.is_on_sale %}
+                <span class="text-xs font-medium text-slate-400 line-through font-mono">
+                    {{ product.price }}
+                </span>
+                {% endif %}
+            </div>
+
+            {% if product.stock_quantity > 0 %}
+            <form hx-post="{% url 'cart:cart_add' product.id %}"
+                  hx-target="#cart-counter"
+                  hx-swap="outerHTML"
+                  class="inline-block">
+                {% csrf_token %}
+                <input type="hidden" name="quantity" value="1">
+                <input type="hidden" name="override" value="False">
+                <button type="submit"
+                        class="w-9 h-9 rounded-full bg-slate-900 hover:bg-blue-600 text-white flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105 active:scale-95"
+                        title="{% trans 'Quick Add to Cart' %}">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                </button>
+            </form>
+            {% else %}
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md bg-slate-100 text-slate-400">
+                {% trans "Sold Out" %}
+            </span>
+            {% endif %}
+        </div>
+    </div>
+</div>

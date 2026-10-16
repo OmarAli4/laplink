@@ -10,86 +10,70 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <div class="relative w-full bg-white text-slate-900 selection:bg-blue-600 selection:text-white"
-     x-data="{
-        activeChapter: 'power',
-        scrolled: false,
-        init() {
-            window.addEventListener('scroll', () => {
-                this.scrolled = window.scrollY > 80;
-            }, { passive: true });
-        }
-     }">
+     x-data="{ activeTab: 'featured' }">
 
     <!-- ================================================================= -->
-    <!-- ACT 0: THE HERO TECH CANVAS & LIVE STORE TICKER (CLEAN WHITE)     -->
+    <!-- SECTION 1: INSTANT SMART SEARCH BAR & QUICK TAGS (ABOVE THE FOLD) -->
     <!-- ================================================================= -->
-    <section class="relative z-10 pt-8 pb-14 lg:pt-14 lg:pb-20 bg-gradient-to-b from-white via-slate-50/60 to-white overflow-hidden border-b border-slate-200/70">
-        
-        <!-- Subtle Ambient Radial Lights -->
-        <div class="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-            <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-500/5 blur-[120px] rounded-full"></div>
-            <div class="absolute top-1/3 -left-32 w-[500px] h-[500px] bg-indigo-500/5 blur-[130px] rounded-full"></div>
-            <div class="absolute top-1/3 -right-32 w-[500px] h-[500px] bg-cyan-500/5 blur-[130px] rounded-full"></div>
-        </div>
-
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <!-- Hero Top Badge & Live Status Ticker -->
-            <div class="scroll-reveal flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-6">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-xs font-semibold tracking-wide uppercase text-blue-700 shadow-sm backdrop-blur-md">
-                    <span class="w-2 h-2 rounded-full bg-blue-600 animate-ping"></span>
-                    <span>Lap Link Tech Odyssey</span>
-                </span>
-                <span class="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100/90 border border-slate-200 text-xs font-medium text-slate-700 backdrop-blur-md shadow-sm">
-                    <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                    <span>{{ total_catalog_count }}+ Authentic Products</span>
-                </span>
-                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100/90 border border-slate-200 text-xs font-medium text-slate-700 backdrop-blur-md shadow-sm">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    <span>Cairo & Giza Express Dispatch</span>
-                </span>
-            </div>
-
-            <!-- Main Hero Headline -->
-            <div class="scroll-reveal delay-100 text-center max-w-4xl mx-auto mb-10">
-                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] font-display text-slate-900">
-                    Where Elite Tech Meets <br class="hidden sm:inline">
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600">
-                        Everyday Mastery.
-                    </span>
-                </h1>
-                <p class="mt-5 text-base sm:text-xl text-slate-600 font-normal max-w-2xl mx-auto leading-relaxed">
-                    Explore high-speed GaN chargers, tactical laptop armor, pro studio peripherals, and gigabit mesh systems. Verified genuine, tested, and guaranteed.
-                </p>
-
-                <!-- Action Triggers -->
-                <div class="mt-8 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
-                    <a href="#ecosystem" 
-                       class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl bg-black text-white font-semibold text-sm hover:bg-slate-800 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-xl shadow-black/10">
-                        <span>Explore The Ecosystem</span>
-                        <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
-                    </a>
+    <section class="relative z-30 pt-5 pb-4 bg-slate-50/70 border-b border-slate-200/70">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <form action="{% url 'shop:product_list' %}" method="get" class="relative" x-data="{ openDropdown: false }" @click.away="openDropdown = false">
+                <div class="relative flex items-center">
+                    <input type="text"
+                           name="q"
+                           autocomplete="off"
+                           @focus="openDropdown = true"
+                           @input="openDropdown = true"
+                           hx-get="{% url 'shop:search_autocomplete' %}"
+                           hx-trigger="keyup changed delay:250ms"
+                           hx-target="#home-search-results"
+                           placeholder="{% if LANGUAGE_CODE == 'ar' %}ابحث عن شاحن، شنطة لابتوب، سماعة، راوتر...{% else %}Search chargers, laptop bags, earbuds, routers...{% endif %}"
+                           class="w-full py-3.5 pl-12 pr-28 rounded-2xl border border-slate-300 bg-white text-sm text-slate-900 placeholder-slate-400 shadow-sm focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all">
                     
-                    <button @click="$dispatch('open-tech-finder')" 
-                            class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl bg-blue-50/80 hover:bg-blue-100/90 border border-blue-200 text-blue-700 font-semibold text-sm backdrop-blur-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-sm">
-                        <span class="flex h-2 w-2 relative">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
-                        </span>
-                        <span>AI Tech Matchmaker</span>
+                    <svg class="w-5 h-5 text-slate-400 absolute {% if LANGUAGE_CODE == 'ar' %}right-4{% else %}left-4{% endif %} pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+
+                    <button type="submit"
+                            class="absolute {% if LANGUAGE_CODE == 'ar' %}left-2{% else %}right-2{% endif %} px-5 py-2 rounded-xl bg-slate-900 hover:bg-blue-600 text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-sm">
+                        {% if LANGUAGE_CODE == 'ar' %}بحث{% else %}Search{% endif %}
                     </button>
-
-                    <a href="{% url 'shop:product_battle' %}" 
-                       class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-medium text-sm backdrop-blur-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-sm">
-                        <svg class="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.316.492-.53 1.05-.688 1.638-.344 1.285-.435 2.56-.435 3.314 0 .344.02.66.058.943l-3.328-3.328a1 1 0 00-1.414 1.414l4.242 4.243c.188.187.442.293.707.293s.52-.106.707-.293l4.243-4.243a1 1 0 00-1.414-1.414l-3.328 3.328c.038-.283.058-.6.058-.943 0-.754-.091-2.03-.435-3.314-.158-.588-.372-1.146-.688-1.638a4.935 4.935 0 00-.822-.88z" clip-rule="evenodd"/></svg>
-                        <span>Spec Battle Arena</span>
-                    </a>
                 </div>
-            </div>
 
-            <!-- Marketing Banners Carousel (Clean White Bezel) -->
-            <div class="scroll-reveal delay-200 relative w-full max-w-5xl mx-auto mt-6">
-                <div class="h-[220px] sm:h-[320px] md:h-[390px] relative bg-white rounded-[2.5rem] overflow-hidden border border-slate-200/80 shadow-2xl shadow-slate-200/70">
+                <!-- Live HTMX Autocomplete Container -->
+                <div id="home-search-results" x-show="openDropdown" class="absolute left-0 right-0 top-full z-50"></div>
+            </form>
+
+            <!-- Quick 1-Click Search Shortcuts -->
+            <div class="mt-3 flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 shrink-0">
+                    {% if LANGUAGE_CODE == 'ar' %}الأكثر بحثاً:{% else %}Popular:{% endif %}
+                </span>
+                {% for item in quick_searches %}
+                <a href="{% url 'shop:product_list' %}?q={{ item.query|urlencode }}"
+                   class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white hover:bg-slate-900 text-slate-700 hover:text-white border border-slate-200 hover:border-slate-900 text-xs font-medium whitespace-nowrap transition-all duration-150 shadow-2xs shrink-0">
+                    <span>{{ item.icon }}</span>
+                    <span>{% if LANGUAGE_CODE == 'ar' %}{{ item.label_ar }}{% else %}{{ item.label_en }}{% endif %}</span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SECTION 2: SHOP BY CATEGORY (IMMEDIATELY VISIBLE ABOVE THE FOLD)  -->
+    <!-- ================================================================= -->
+    {% include 'shop/partials/category_carousel.html' %}
+
+    <!-- ================================================================= -->
+    <!-- SECTION 3: PROMO BANNERS + COMPACT 4-PILLAR TRUST BAR             -->
+    <!-- ================================================================= -->
+    <section class="relative z-10 py-6 sm:py-8 bg-white border-b border-slate-200/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Marketing Banners Carousel -->
+            <div class="relative w-full mx-auto">
+                <div class="h-[200px] sm:h-[300px] md:h-[360px] relative bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-lg">
                     <div class="swiper bannerSwiper h-full w-full">
                         <div class="swiper-wrapper h-full">
                             {% if banners %}
@@ -107,42 +91,42 @@
                             {% else %}
                                 <!-- Slide 1: Laptop Sleeves & Bags -->
                                 <div class="swiper-slide relative h-full w-full bg-white overflow-hidden">
-                                    <a href="{% url 'shop:product_list' %}" class="block w-full h-full relative group">
+                                    <a href="{% url 'shop:product_list' %}?q=backpack" class="block w-full h-full relative group">
                                         <picture>
                                             <source srcset="{% static 'img/banners/banner_sleeves.webp' %}" type="image/webp">
                                             <img src="{% static 'img/banners/banner_sleeves.jpg' %}" alt="Luxury Laptop Sleeves & Bags" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="eager" fetchpriority="high" decoding="async">
                                         </picture>
-                                        <div class="absolute bottom-5 left-5 sm:bottom-6 sm:left-6 z-10 flex items-center gap-2">
-                                            <span class="px-3.5 py-1.5 rounded-full bg-black/85 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-wider shadow-lg border border-white/10">
-                                                🛡️ Tactical Laptop Armor & Sleeves
+                                        <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 z-10 flex items-center gap-2">
+                                            <span class="px-3.5 py-1.5 rounded-full bg-black/85 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider shadow-lg border border-white/10">
+                                                🛡️ {% if LANGUAGE_CODE == 'ar' %}شنط وجرابات لابتوب احترافية{% else %}Tactical Laptop Armor & Sleeves{% endif %}
                                             </span>
                                         </div>
                                     </a>
                                 </div>
                                 <!-- Slide 2: Computer Accessories -->
                                 <div class="swiper-slide relative h-full w-full bg-white overflow-hidden">
-                                    <a href="{% url 'shop:product_list' %}" class="block w-full h-full relative group">
+                                    <a href="{% url 'shop:product_list' %}?q=accessories" class="block w-full h-full relative group">
                                         <picture>
                                             <source srcset="{% static 'img/banners/banner_computer.webp' %}" type="image/webp">
                                             <img src="{% static 'img/banners/banner_computer.jpg' %}" alt="Premium Computer Accessories" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
                                         </picture>
-                                        <div class="absolute bottom-5 left-5 sm:bottom-6 sm:left-6 z-10 flex items-center gap-2">
-                                            <span class="px-3.5 py-1.5 rounded-full bg-black/85 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-wider shadow-lg border border-white/10">
-                                                ⚡ Pro Studio Peripherals
+                                        <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 z-10 flex items-center gap-2">
+                                            <span class="px-3.5 py-1.5 rounded-full bg-black/85 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider shadow-lg border border-white/10">
+                                                ⚡ {% if LANGUAGE_CODE == 'ar' %}إكسسوارات الكمبيوتر والمكتب{% else %}Pro Studio Peripherals{% endif %}
                                             </span>
                                         </div>
                                     </a>
                                 </div>
                                 <!-- Slide 3: Fast Charging -->
                                 <div class="swiper-slide relative h-full w-full bg-white overflow-hidden">
-                                    <a href="{% url 'shop:product_list' %}" class="block w-full h-full relative group">
+                                    <a href="{% url 'shop:product_list' %}?q=charger" class="block w-full h-full relative group">
                                         <picture>
                                             <source srcset="{% static 'img/banners/banner_mobile.webp' %}" type="image/webp">
                                             <img src="{% static 'img/banners/banner_mobile.jpg' %}" alt="Fast Charging & Mobile Accessories" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
                                         </picture>
-                                        <div class="absolute bottom-5 left-5 sm:bottom-6 sm:left-6 z-10 flex items-center gap-2">
-                                            <span class="px-3.5 py-1.5 rounded-full bg-black/85 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-wider shadow-lg border border-white/10">
-                                                🔋 100W GaN Fast Charging Station
+                                        <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 z-10 flex items-center gap-2">
+                                            <span class="px-3.5 py-1.5 rounded-full bg-black/85 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider shadow-lg border border-white/10">
+                                                🔋 {% if LANGUAGE_CODE == 'ar' %}شواحن GaN فائقة السرعة{% else %}100W GaN Fast Charging Station{% endif %}
                                             </span>
                                         </div>
                                     </a>
@@ -156,445 +140,227 @@
                 </div>
             </div>
 
+            <!-- Compact 4-Pillar Trust Strip (Directly Visible Under Banner) -->
+            <div class="mt-5 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                    <span class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 text-base">📦</span>
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-900">{% if LANGUAGE_CODE == 'ar' %}معاينة قبل الاستلام{% else %}Open-Box Inspection{% endif %}</h3>
+                        <p class="text-[11px] text-slate-500">{% if LANGUAGE_CODE == 'ar' %}افحص طلبك مع المندوب قبل الدفع{% else %}Inspect before paying{% endif %}</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                    <span class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 text-base">🛡️</span>
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-900">{% if LANGUAGE_CODE == 'ar' %}ضمان رسمي سنتين{% else %}2-Year Warranty{% endif %}</h3>
+                        <p class="text-[11px] text-slate-500">{% if LANGUAGE_CODE == 'ar' %}منتجات أصلية مضمونة 100%{% else %}100% Genuine hardware{% endif %}</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                    <span class="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 text-base">🚀</span>
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-900">{% if LANGUAGE_CODE == 'ar' %}شحن سريع{% else %}Express Dispatch{% endif %}</h3>
+                        <p class="text-[11px] text-slate-500">{% if LANGUAGE_CODE == 'ar' %}توصيل سريع للقاهرة والجيزة{% else %}Fast Cairo & Giza delivery{% endif %}</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                    <span class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 text-base">💬</span>
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-900">{% if LANGUAGE_CODE == 'ar' %}مساعد تقني 24/7{% else %}Tech Concierge 24/7{% endif %}</h3>
+                        <p class="text-[11px] text-slate-500">{% if LANGUAGE_CODE == 'ar' %}دعم فني لاختيار الأنسب لجهازك{% else %}Expert compatibility support{% endif %}</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <!-- ================================================================= -->
-    <!-- SHOP BY CATEGORY BAR (تسوق حسب الفئات)                            -->
+    <!-- SECTION 4: DIRECT CATALOG TABS (EASY 1-CLICK BROWSING & BUYING)   -->
     <!-- ================================================================= -->
-    {% include 'shop/partials/category_carousel.html' %}
-
-    <!-- ================================================================= -->
-    <!-- ACT 1: STICKY ECOSYSTEM SCROLLER (THE 4 HARDWARE CHAPTERS)        -->
-    <!-- ================================================================= -->
-    <section id="ecosystem" class="relative z-10 py-16 lg:py-24 bg-slate-50/70 border-b border-slate-200/70">
+    <section id="ecosystem" class="relative z-10 py-10 sm:py-14 bg-slate-50/70 border-b border-slate-200/70">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <div class="scroll-reveal flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <!-- Section Header + View All Link -->
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-3">
                 <div>
-                    <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.2em] text-blue-600 mb-2">
-                        Interactive Ecosystem Wings
-                    </span>
-                    <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight font-display text-slate-900">
-                        The Lap Link Hardware Matrix.
+                    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-slate-900">
+                        {% if LANGUAGE_CODE == 'ar' %}تصفح المنتجات سريعاً{% else %}Quick Product Explorer{% endif %}
                     </h2>
+                    <p class="text-slate-500 text-xs sm:text-sm mt-0.5">
+                        {% if LANGUAGE_CODE == 'ar' %}اختر القسم أو أضف إلى سلة التسوق مباشرة بضغطة واحدة{% else %}Filter by department and add to cart in one click{% endif %}
+                    </p>
                 </div>
-                <p class="text-slate-600 text-sm sm:text-base max-w-md leading-relaxed">
-                    Explore each specialized engineering wing. Select a chapter to see real-time performance metrics and in-stock hardware.
-                </p>
+                <a href="{% url 'shop:product_list' %}" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors">
+                    <span>{% if LANGUAGE_CODE == 'ar' %}عرض كل المنتجات ({{ total_catalog_count }}+){% else %}View All {{ total_catalog_count }}+ Products{% endif %}</span>
+                    <span>&rarr;</span>
+                </a>
             </div>
 
-            <!-- Chapter Navigation Tabs (Apple Style) -->
-            <div class="scroll-reveal delay-100 flex items-center gap-2.5 overflow-x-auto pb-4 mb-8 no-scrollbar scroll-smooth">
-                <button @click="activeChapter = 'power'" 
-                        :class="activeChapter === 'power' ? 'bg-black text-white shadow-lg shadow-black/15 scale-[1.02] border-black' : 'bg-white text-slate-700 hover:text-black border-slate-200 hover:border-slate-300 shadow-sm'"
-                        class="px-5 py-3.5 rounded-2xl border text-sm font-semibold whitespace-nowrap transition-all duration-300 flex items-center gap-2.5">
-                    <span>⚡</span>
-                    <span>Act I: Hyper-Power</span>
+            <!-- Clear Department Tabs (Driven by catalog_tabs in views.py) -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-6 no-scrollbar scroll-smooth">
+                {% for tab in catalog_tabs %}
+                <button type="button"
+                        @click="activeTab = '{{ tab.key }}'" 
+                        :class="activeTab === '{{ tab.key }}' ? 'bg-slate-900 text-white shadow-md border-slate-900' : 'bg-white text-slate-700 hover:text-black border-slate-200 hover:border-slate-300'"
+                        class="px-4 py-2.5 rounded-2xl border text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 flex items-center gap-2 shrink-0">
+                    <span>{{ tab.icon }}</span>
+                    <span>{% if LANGUAGE_CODE == 'ar' %}{{ tab.label_ar }}{% else %}{{ tab.label_en }}{% endif %}</span>
                 </button>
-                <button @click="activeChapter = 'armor'" 
-                        :class="activeChapter === 'armor' ? 'bg-black text-white shadow-lg shadow-black/15 scale-[1.02] border-black' : 'bg-white text-slate-700 hover:text-black border-slate-200 hover:border-slate-300 shadow-sm'"
-                        class="px-5 py-3.5 rounded-2xl border text-sm font-semibold whitespace-nowrap transition-all duration-300 flex items-center gap-2.5">
-                    <span>🛡️</span>
-                    <span>Act II: Tactical Armor</span>
-                </button>
-                <button @click="activeChapter = 'workspace'" 
-                        :class="activeChapter === 'workspace' ? 'bg-black text-white shadow-lg shadow-black/15 scale-[1.02] border-black' : 'bg-white text-slate-700 hover:text-black border-slate-200 hover:border-slate-300 shadow-sm'"
-                        class="px-5 py-3.5 rounded-2xl border text-sm font-semibold whitespace-nowrap transition-all duration-300 flex items-center gap-2.5">
-                    <span>🎨</span>
-                    <span>Act III: Pro Studio</span>
-                </button>
-                <button @click="activeChapter = 'network'" 
-                        :class="activeChapter === 'network' ? 'bg-black text-white shadow-lg shadow-black/15 scale-[1.02] border-black' : 'bg-white text-slate-700 hover:text-black border-slate-200 hover:border-slate-300 shadow-sm'"
-                        class="px-5 py-3.5 rounded-2xl border text-sm font-semibold whitespace-nowrap transition-all duration-300 flex items-center gap-2.5">
-                    <span>🌐</span>
-                    <span>Act IV: Gigabit Mesh</span>
-                </button>
+                {% endfor %}
             </div>
 
-            <!-- CHAPTER PANELS -->
+            <!-- Tab Panels (Single Reusable Loop) -->
             <div class="relative">
-                
-                <!-- CHAPTER 1: POWER -->
-                <div x-show="activeChapter === 'power'" 
-                     x-transition:enter="transition ease-out duration-400 transform opacity-0 translate-y-4"
+                {% for tab in catalog_tabs %}
+                <div x-show="activeTab === '{{ tab.key }}'"
+                     {% if not forloop.first %}x-cloak{% endif %}
+                     x-transition:enter="transition ease-out duration-250 transform opacity-0 translate-y-2"
                      x-transition:enter-end="opacity-100 translate-y-0">
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {% for product in power_products %}
-                        <a href="{% url 'shop:product_detail' product.id product.slug %}" 
-                           @mouseenter="$dispatch('robot-start', { title: '{{ product.name|escapejs }}' })"
-                           @mouseleave="$dispatch('robot-stop')"
-                           class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-slate-300 rounded-3xl p-4 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-xl hover:shadow-slate-200/60 shadow-sm">
-                            <div class="aspect-square w-full rounded-2xl bg-slate-50 overflow-hidden relative mb-4 flex items-center justify-center p-3">
-                                {% if product.image %}
-                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy">
-                                {% else %}
-                                <div class="w-12 h-12 text-slate-300">⚡</div>
-                                {% endif %}
-                                {% if product.is_on_sale %}
-                                <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md bg-red-500 text-white text-[10px] font-bold shadow-sm">
-                                    -{{ product.discount_percentage }}%
-                                </span>
-                                {% endif %}
-
-                                <!-- Wishlist Button -->
-                                <div class="absolute top-2.5 right-2.5 z-20">
-                                    <button hx-post="{% url 'shop:wishlist_toggle' product.id %}"
-                                            hx-target="#wishlist-power-btn-{{ product.id }}"
-                                            id="wishlist-power-btn-{{ product.id }}"
-                                            hx-swap="outerHTML"
-                                            class="group flex items-center justify-center w-8 h-8 rounded-full border {% if product.id in wishlisted_product_ids %}border-red-500 bg-red-50{% else %}border-slate-200 bg-white/95 backdrop-blur-sm hover:border-slate-300{% endif %} transition-all duration-200 shadow-sm hover:scale-110"
-                                            title="{% if product.id in wishlisted_product_ids %}Remove from Wishlist{% else %}Add to Wishlist{% endif %}"
-                                            onclick="event.preventDefault();">
-                                        <svg class="w-4 h-4 {% if product.id in wishlisted_product_ids %}text-red-500 fill-current{% else %}text-slate-400 group-hover:text-red-500{% endif %} transition-colors" 
-                                             {% if product.id not in wishlisted_product_ids %}fill="none" stroke="currentColor" stroke-width="2"{% else %}viewBox="0 0 24 24"{% endif %}
-                                             {% if product.id not in wishlisted_product_ids %}viewBox="0 0 24 24"{% endif %}>
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">
-                                    {{ product.brand.name|default:"Lap Link Certified" }}
-                                </span>
-                                <h4 class="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 mt-0.5">
-                                    {{ product.name }}
-                                </h4>
-                                <div class="mt-4 flex items-baseline justify-between pt-3 border-t border-slate-100">
-                                    <span class="text-base font-bold text-slate-900 font-mono">
-                                        L.E {{ product.current_price }}
-                                    </span>
-                                    <span class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-black group-hover:text-white text-slate-700 flex items-center justify-center transition-colors duration-200 shadow-sm">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                        </svg>
-                                    </span>
-                                </div>
-                            </div>
-                        </a>
+                    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                        {% for product in tab.products %}
+                            {% include "shop/partials/product_card.html" with product=product card_prefix=tab.key %}
                         {% empty %}
-                        <div class="col-span-full text-center py-10 text-slate-400 bg-white rounded-3xl border border-slate-200">
-                            Check our complete catalog for the latest GaN chargers.
+                        <div class="col-span-full text-center py-10 text-slate-400 bg-white rounded-3xl border border-slate-200 text-sm">
+                            {% trans "No products available in this section right now." %}
                         </div>
                         {% endfor %}
                     </div>
 
                     <div class="mt-8 text-center">
-                        <a href="{% url 'shop:product_list' %}?category=mobile-accessories" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 text-sm font-semibold text-slate-800 hover:text-black hover:bg-slate-50 transition-all shadow-sm">
-                            <span>Browse All Chargers & Cables</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                        </a>
-                    </div>
-
-                </div>
-
-                <!-- CHAPTER 2: TACTICAL ARMOR -->
-                <div x-show="activeChapter === 'armor'" 
-                     x-transition:enter="transition ease-out duration-400 transform opacity-0 translate-y-4"
-                     x-transition:enter-end="opacity-100 translate-y-0">
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {% for product in bag_products %}
-                        <a href="{% url 'shop:product_detail' product.id product.slug %}" 
-                           @mouseenter="$dispatch('robot-start', { title: '{{ product.name|escapejs }}' })"
-                           @mouseleave="$dispatch('robot-stop')"
-                           class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-slate-300 rounded-3xl p-4 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-xl hover:shadow-slate-200/60 shadow-sm">
-                            <div class="aspect-square w-full rounded-2xl bg-slate-50 overflow-hidden relative mb-4 flex items-center justify-center p-3">
-                                {% if product.image %}
-                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy">
+                        <a href="{{ tab.more_url }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-slate-200 hover:border-slate-900 text-xs sm:text-sm font-bold text-slate-800 hover:bg-slate-900 hover:text-white transition-all shadow-sm">
+                            <span>
+                                {% if LANGUAGE_CODE == 'ar' %}
+                                    تصفح كل {{ tab.label_ar }}
                                 {% else %}
-                                <div class="w-12 h-12 text-slate-300">🛡️</div>
+                                    Browse All {{ tab.label_en }}
                                 {% endif %}
-                                {% if product.is_on_sale %}
-                                <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md bg-red-500 text-white text-[10px] font-bold shadow-sm">
-                                    -{{ product.discount_percentage }}%
-                                </span>
-                                {% endif %}
-
-                                <!-- Wishlist Button -->
-                                <div class="absolute top-2.5 right-2.5 z-20">
-                                    <button hx-post="{% url 'shop:wishlist_toggle' product.id %}"
-                                            hx-target="#wishlist-armor-btn-{{ product.id }}"
-                                            id="wishlist-armor-btn-{{ product.id }}"
-                                            hx-swap="outerHTML"
-                                            class="group flex items-center justify-center w-8 h-8 rounded-full border {% if product.id in wishlisted_product_ids %}border-red-500 bg-red-50{% else %}border-slate-200 bg-white/95 backdrop-blur-sm hover:border-slate-300{% endif %} transition-all duration-200 shadow-sm hover:scale-110"
-                                            title="{% if product.id in wishlisted_product_ids %}Remove from Wishlist{% else %}Add to Wishlist{% endif %}"
-                                            onclick="event.preventDefault();">
-                                        <svg class="w-4 h-4 {% if product.id in wishlisted_product_ids %}text-red-500 fill-current{% else %}text-slate-400 group-hover:text-red-500{% endif %} transition-colors" 
-                                             {% if product.id not in wishlisted_product_ids %}fill="none" stroke="currentColor" stroke-width="2"{% else %}viewBox="0 0 24 24"{% endif %}
-                                             {% if product.id not in wishlisted_product_ids %}viewBox="0 0 24 24"{% endif %}>
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">
-                                    {{ product.brand.name|default:"Bange & Wiwu Armor" }}
-                                </span>
-                                <h4 class="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 mt-0.5">
-                                    {{ product.name }}
-                                </h4>
-                                <div class="mt-4 flex items-baseline justify-between pt-3 border-t border-slate-100">
-                                    <span class="text-base font-bold text-slate-900 font-mono">
-                                        L.E {{ product.current_price }}
-                                    </span>
-                                    <span class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-black group-hover:text-white text-slate-700 flex items-center justify-center transition-colors duration-200 shadow-sm">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                        </svg>
-                                    </span>
-                                </div>
-                            </div>
-                        </a>
-                        {% empty %}
-                        <div class="col-span-full text-center py-10 text-slate-400 bg-white rounded-3xl border border-slate-200">
-                            Check our complete catalog for tactical bags and sleeves.
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                    <div class="mt-8 text-center">
-                        <a href="{% url 'shop:product_list' %}?category=bags" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 text-sm font-semibold text-slate-800 hover:text-black hover:bg-slate-50 transition-all shadow-sm">
-                            <span>Browse All Backpacks & Sleeves</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                            </span>
+                            <svg class="w-4 h-4 {% if LANGUAGE_CODE == 'ar' %}rotate-180{% endif %}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                         </a>
                     </div>
-
                 </div>
-
-                <!-- CHAPTER 3: PRO WORKSPACE -->
-                <div x-show="activeChapter === 'workspace'" 
-                     x-transition:enter="transition ease-out duration-400 transform opacity-0 translate-y-4"
-                     x-transition:enter-end="opacity-100 translate-y-0">
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {% for product in desk_products %}
-                        <a href="{% url 'shop:product_detail' product.id product.slug %}" 
-                           @mouseenter="$dispatch('robot-start', { title: '{{ product.name|escapejs }}' })"
-                           @mouseleave="$dispatch('robot-stop')"
-                           class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-slate-300 rounded-3xl p-4 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-xl hover:shadow-slate-200/60 shadow-sm">
-                            <div class="aspect-square w-full rounded-2xl bg-slate-50 overflow-hidden relative mb-4 flex items-center justify-center p-3">
-                                {% if product.image %}
-                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy">
-                                {% else %}
-                                <div class="w-12 h-12 text-slate-300">🎨</div>
-                                {% endif %}
-                                {% if product.is_on_sale %}
-                                <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md bg-red-500 text-white text-[10px] font-bold shadow-sm">
-                                    -{{ product.discount_percentage }}%
-                                </span>
-                                {% endif %}
-
-                                <!-- Wishlist Button -->
-                                <div class="absolute top-2.5 right-2.5 z-20">
-                                    <button hx-post="{% url 'shop:wishlist_toggle' product.id %}"
-                                            hx-target="#wishlist-workspace-btn-{{ product.id }}"
-                                            id="wishlist-workspace-btn-{{ product.id }}"
-                                            hx-swap="outerHTML"
-                                            class="group flex items-center justify-center w-8 h-8 rounded-full border {% if product.id in wishlisted_product_ids %}border-red-500 bg-red-50{% else %}border-slate-200 bg-white/95 backdrop-blur-sm hover:border-slate-300{% endif %} transition-all duration-200 shadow-sm hover:scale-110"
-                                            title="{% if product.id in wishlisted_product_ids %}Remove from Wishlist{% else %}Add to Wishlist{% endif %}"
-                                            onclick="event.preventDefault();">
-                                        <svg class="w-4 h-4 {% if product.id in wishlisted_product_ids %}text-red-500 fill-current{% else %}text-slate-400 group-hover:text-red-500{% endif %} transition-colors" 
-                                             {% if product.id not in wishlisted_product_ids %}fill="none" stroke="currentColor" stroke-width="2"{% else %}viewBox="0 0 24 24"{% endif %}
-                                             {% if product.id not in wishlisted_product_ids %}viewBox="0 0 24 24"{% endif %}>
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">
-                                    {{ product.brand.name|default:"Huion & Logitech Gear" }}
-                                </span>
-                                <h4 class="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 mt-0.5">
-                                    {{ product.name }}
-                                </h4>
-                                <div class="mt-4 flex items-baseline justify-between pt-3 border-t border-slate-100">
-                                    <span class="text-base font-bold text-slate-900 font-mono">
-                                        L.E {{ product.current_price }}
-                                    </span>
-                                    <span class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-black group-hover:text-white text-slate-700 flex items-center justify-center transition-colors duration-200 shadow-sm">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                        </svg>
-                                    </span>
-                                </div>
-                            </div>
-                        </a>
-                        {% empty %}
-                        <div class="col-span-full text-center py-10 text-slate-400 bg-white rounded-3xl border border-slate-200">
-                            Check our complete catalog for workspace peripherals.
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                    <div class="mt-8 text-center">
-                        <a href="{% url 'shop:product_list' %}?category=Computer-accessories" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 text-sm font-semibold text-slate-800 hover:text-black hover:bg-slate-50 transition-all shadow-sm">
-                            <span>Browse Studio Peripherals</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                        </a>
-                    </div>
-
-                </div>
-
-                <!-- CHAPTER 4: GIGABIT MESH -->
-                <div x-show="activeChapter === 'network'" 
-                     x-transition:enter="transition ease-out duration-400 transform opacity-0 translate-y-4"
-                     x-transition:enter-end="opacity-100 translate-y-0">
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {% for product in network_products %}
-                        <a href="{% url 'shop:product_detail' product.id product.slug %}" 
-                           @mouseenter="$dispatch('robot-start', { title: '{{ product.name|escapejs }}' })"
-                           @mouseleave="$dispatch('robot-stop')"
-                           class="group relative bg-white hover:bg-slate-50/50 border border-slate-200 hover:border-slate-300 rounded-3xl p-4 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-xl hover:shadow-slate-200/60 shadow-sm">
-                            <div class="aspect-square w-full rounded-2xl bg-slate-50 overflow-hidden relative mb-4 flex items-center justify-center p-3">
-                                {% if product.image %}
-                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy">
-                                {% else %}
-                                <div class="w-12 h-12 text-slate-300">🌐</div>
-                                {% endif %}
-                                {% if product.is_on_sale %}
-                                <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-md bg-red-500 text-white text-[10px] font-bold shadow-sm">
-                                    -{{ product.discount_percentage }}%
-                                </span>
-                                {% endif %}
-
-                                <!-- Wishlist Button -->
-                                <div class="absolute top-2.5 right-2.5 z-20">
-                                    <button hx-post="{% url 'shop:wishlist_toggle' product.id %}"
-                                            hx-target="#wishlist-network-btn-{{ product.id }}"
-                                            id="wishlist-network-btn-{{ product.id }}"
-                                            hx-swap="outerHTML"
-                                            class="group flex items-center justify-center w-8 h-8 rounded-full border {% if product.id in wishlisted_product_ids %}border-red-500 bg-red-50{% else %}border-slate-200 bg-white/95 backdrop-blur-sm hover:border-slate-300{% endif %} transition-all duration-200 shadow-sm hover:scale-110"
-                                            title="{% if product.id in wishlisted_product_ids %}Remove from Wishlist{% else %}Add to Wishlist{% endif %}"
-                                            onclick="event.preventDefault();">
-                                        <svg class="w-4 h-4 {% if product.id in wishlisted_product_ids %}text-red-500 fill-current{% else %}text-slate-400 group-hover:text-red-500{% endif %} transition-colors" 
-                                             {% if product.id not in wishlisted_product_ids %}fill="none" stroke="currentColor" stroke-width="2"{% else %}viewBox="0 0 24 24"{% endif %}
-                                             {% if product.id not in wishlisted_product_ids %}viewBox="0 0 24 24"{% endif %}>
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">
-                                    {{ product.brand.name|default:"TP-Link Infrastructure" }}
-                                </span>
-                                <h4 class="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 mt-0.5">
-                                    {{ product.name }}
-                                </h4>
-                                <div class="mt-4 flex items-baseline justify-between pt-3 border-t border-slate-100">
-                                    <span class="text-base font-bold text-slate-900 font-mono">
-                                        L.E {{ product.current_price }}
-                                    </span>
-                                    <span class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-black group-hover:text-white text-slate-700 flex items-center justify-center transition-colors duration-200 shadow-sm">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                        </svg>
-                                    </span>
-                                </div>
-                            </div>
-                        </a>
-                        {% empty %}
-                        <div class="col-span-full text-center py-10 text-slate-400 bg-white rounded-3xl border border-slate-200">
-                            Check our complete catalog for Wi-Fi routers & adapters.
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                    <div class="mt-8 text-center">
-                        <a href="{% url 'shop:product_list' %}?category=Network" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 text-sm font-semibold text-slate-800 hover:text-black hover:bg-slate-50 transition-all shadow-sm">
-                            <span>Browse Routers & Mesh Units</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                        </a>
-                    </div>
-
-                </div>
-
+                {% endfor %}
             </div>
 
         </div>
     </section>
 
     <!-- ================================================================= -->
-    <!-- ACT 2: SPEC BATTLE ARENA & AI MATCHMAKER SPOTLIGHT                -->
+    <!-- SECTION 5: SHOP BY BRAND STRIP                                    -->
     <!-- ================================================================= -->
-    <section class="relative z-10 py-16 lg:py-20 bg-white border-b border-slate-200/70">
+    {% if brands %}
+    <section class="relative z-10 py-10 bg-white border-b border-slate-200/70">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            <div class="flex items-center justify-between mb-5">
+                <h2 class="text-lg sm:text-xl font-extrabold font-display text-slate-900">
+                    {% if LANGUAGE_CODE == 'ar' %}تسوق حسب الماركة{% else %}Shop by Brand{% endif %}
+                </h2>
+                <a href="{% url 'shop:product_list' %}" class="text-xs font-bold text-slate-500 hover:text-slate-900">
+                    {% if LANGUAGE_CODE == 'ar' %}كل الماركات{% else %}All Brands{% endif %} &rarr;
+                </a>
+            </div>
+            <div class="flex items-center gap-3 overflow-x-auto no-scrollbar pb-2">
+                {% for brand in brands %}
+                <a href="{% url 'shop:product_list' %}?brand={{ brand.slug }}"
+                   class="group flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-slate-50 hover:bg-slate-900 border border-slate-200 hover:border-slate-900 transition-all duration-200 shrink-0 shadow-2xs">
+                    {% if brand.logo %}
+                    <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" class="w-6 h-6 rounded-md object-contain bg-white p-0.5">
+                    {% else %}
+                    <span class="w-6 h-6 rounded-md bg-slate-200 group-hover:bg-white/20 text-slate-700 group-hover:text-white flex items-center justify-center text-xs font-bold uppercase">
+                        {{ brand.name|slice:":1" }}
+                    </span>
+                    {% endif %}
+                    <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-white whitespace-nowrap">
+                        {{ brand.name }}
+                    </span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- ================================================================= -->
+    <!-- SECTION 6: AI MATCHMAKER & SPEC BATTLE ARENA                      -->
+    <!-- ================================================================= -->
+    <section class="relative z-10 py-12 lg:py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
                 
                 <!-- Left: Head to Head Battle Card -->
-                <div class="scroll-reveal lg:col-span-7 bg-gradient-to-br from-slate-950 via-slate-900 to-black text-white rounded-3xl p-6 sm:p-10 relative overflow-hidden shadow-2xl flex flex-col justify-between group">
-                    <div class="absolute -right-16 -bottom-16 w-60 h-60 bg-blue-500/15 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700"></div>
+                <div class="lg:col-span-7 bg-gradient-to-br from-slate-950 via-slate-900 to-black text-white rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-xl flex flex-col justify-between group">
+                    <div class="absolute -right-16 -bottom-16 w-60 h-60 bg-blue-500/15 rounded-full blur-3xl pointer-events-none"></div>
                     
                     <div>
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-blue-400 text-xs font-bold uppercase tracking-wider mb-5">
-                            <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
-                            <span>Head-To-Head Duel</span>
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-blue-400 text-xs font-bold uppercase tracking-wider mb-4">
+                            <span>⚔️ {% if LANGUAGE_CODE == 'ar' %}مقارنة المواصفات{% else %}Head-To-Head Duel{% endif %}</span>
                         </div>
 
-                        <h3 class="text-2xl sm:text-4xl font-extrabold font-display text-white tracking-tight leading-tight mb-4">
-                            Spec Battle Arena: <br class="hidden sm:inline">
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-cyan-400">
-                                Compare Before You Commit.
-                            </span>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold font-display text-white tracking-tight leading-tight mb-3">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                قارن بين أي منتجين قبل الشراء
+                            {% else %}
+                                Spec Battle Arena: Compare Before You Buy.
+                            {% endif %}
                         </h3>
-                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-8 max-w-xl">
-                            Unsure between two GaN chargers, sleeves, or Wi-Fi routers? Pit any two products against each other in our Spec Duel Arena to see side-by-side technical breakdowns and AI-generated verdicts.
+                        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6 max-w-xl">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                محتار بين شاحنين أو شنطتين؟ ضع أي منتجين في مواجهة مباشرة لمعرفة الفروق التقنية الدقيقة وترشيح الذكاء الاصطناعي للأفضل.
+                            {% else %}
+                                Unsure between two chargers, bags, or routers? Pit any two products against each other for side-by-side technical breakdowns and AI verdicts.
+                            {% endif %}
                         </p>
                     </div>
 
                     <div class="flex flex-wrap items-center gap-4 pt-4 border-t border-white/10">
                         <a href="{% url 'shop:product_battle' %}" 
-                           class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-white hover:bg-slate-100 text-slate-950 font-semibold text-sm transition-all duration-200 shadow-lg hover:scale-[1.02] active:scale-[0.98]">
-                            <span>Launch Spec Battle</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                           class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs sm:text-sm transition-all duration-200 shadow-md">
+                            <span>{% if LANGUAGE_CODE == 'ar' %}ابدأ المقارنة الآن{% else %}Launch Spec Battle{% endif %}</span>
+                            <span>&rarr;</span>
                         </a>
-                        <span class="text-xs text-slate-400">
-                            Real-time spec matrix + AI verdict
-                        </span>
                     </div>
                 </div>
 
-                <!-- Right: AI Matchmaker Interactive Card (Clean Light Aesthetic) -->
-                <div class="scroll-reveal delay-100 lg:col-span-5 bg-gradient-to-br from-blue-50/70 via-indigo-50/40 to-white border border-blue-200/80 rounded-3xl p-6 sm:p-10 relative overflow-hidden shadow-xl flex flex-col justify-between">
-                    <div class="absolute -right-16 -top-16 w-56 h-56 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
+                <!-- Right: AI Matchmaker Interactive Card -->
+                <div class="lg:col-span-5 bg-gradient-to-br from-blue-50/70 via-indigo-50/40 to-white border border-blue-200/80 rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-lg flex flex-col justify-between">
                     <div>
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider mb-5 border border-blue-200">
-                            <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
-                            <span>Autonomous Tech Advisor</span>
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider mb-4 border border-blue-200">
+                            <span>🤖 {% if LANGUAGE_CODE == 'ar' %}المساعد الذكي{% else %}AI Tech Advisor{% endif %}</span>
                         </div>
 
-                        <h3 class="text-2xl sm:text-3xl font-bold font-display text-slate-900 mb-3">
-                            Lap Link AI Matchmaker.
+                        <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900 mb-2">
+                            {% if LANGUAGE_CODE == 'ar' %}مرشد Lap Link الذكي{% else %}Lap Link AI Matchmaker{% endif %}
                         </h3>
-                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                            Tell our neural advisor what laptop or device you carry. We'll instantly match the exact compatible chargers, cables, and armor.
+                        <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4">
+                            {% if LANGUAGE_CODE == 'ar' %}
+                                اكتب نوع جهازك أو احتياجك وسيرشح لك الذكاء الاصطناعي أنسب الشواحن والشنط المتوافقة فوراً.
+                            {% else %}
+                                Tell our AI advisor what laptop or device you carry, and get instant compatible recommendations.
+                            {% endif %}
                         </p>
 
-                        <div class="space-y-2 mb-6">
-                            <button @click="$dispatch('open-tech-finder', { query: 'MacBook Pro 100W GaN Charger' })" 
-                                    class="w-full text-left px-3.5 py-2.5 rounded-xl bg-white hover:bg-blue-50/80 border border-slate-200 text-xs text-slate-700 hover:text-blue-700 flex items-center justify-between transition-colors shadow-sm">
-                                <span>💬 \"Find best 100W charger for MacBook Pro\"</span>
+                        <div class="space-y-2 mb-5">
+                            <button type="button"
+                                    @click="$dispatch('open-tech-finder', { query: 'MacBook Pro 100W GaN Charger' })" 
+                                    class="w-full text-left px-3.5 py-2 rounded-xl bg-white hover:bg-blue-50 border border-slate-200 text-xs text-slate-700 hover:text-blue-700 flex items-center justify-between transition-colors shadow-2xs">
+                                <span>💬 "Find best 100W charger for MacBook Pro"</span>
                                 <span class="text-blue-600 font-mono">&rarr;</span>
                             </button>
-                            <button @click="$dispatch('open-tech-finder', { query: 'Waterproof 15.6 inch backpack' })" 
-                                    class="w-full text-left px-3.5 py-2.5 rounded-xl bg-white hover:bg-blue-50/80 border border-slate-200 text-xs text-slate-700 hover:text-blue-700 flex items-center justify-between transition-colors shadow-sm">
-                                <span>💬 \"Waterproof backpack for 15.6 inch laptop\"</span>
+                            <button type="button"
+                                    @click="$dispatch('open-tech-finder', { query: 'Waterproof 15.6 inch backpack' })" 
+                                    class="w-full text-left px-3.5 py-2 rounded-xl bg-white hover:bg-blue-50 border border-slate-200 text-xs text-slate-700 hover:text-blue-700 flex items-center justify-between transition-colors shadow-2xs">
+                                <span>💬 "Waterproof backpack for 15.6 inch laptop"</span>
                                 <span class="text-blue-600 font-mono">&rarr;</span>
                             </button>
                         </div>
                     </div>
 
-                    <button @click="$dispatch('open-tech-finder')" 
-                            class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-lg shadow-blue-500/20">
-                        <span>Open AI Advisor</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    <button type="button"
+                            @click="$dispatch('open-tech-finder')" 
+                            class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm transition-all duration-200 shadow-md">
+                        <span>{% if LANGUAGE_CODE == 'ar' %}تحدث مع المساعد الذكي{% else %}Open AI Advisor{% endif %}</span>
                     </button>
                 </div>
 
@@ -602,209 +368,9 @@
         </div>
     </section>
 
-    <!-- ================================================================= -->
-    <!-- ACT 3: CURATED HOT DROPS & LIVE CATALOG (CRISP WHITE CARDS)       -->
-    <!-- ================================================================= -->
-    <section id="featured" class="relative z-10 py-16 lg:py-24 bg-slate-50/70 border-b border-slate-200/70">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <div class="scroll-reveal flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
-                <div>
-                    <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.2em] text-blue-600 mb-2">
-                        Live Catalog Highlight
-                    </span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-slate-900 tracking-tight">
-                        Featured Hot Drops.
-                    </h2>
-                </div>
-                <a href="{% url 'shop:product_list' %}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-700 hover:text-black transition-colors">
-                    <span>View All 230+ Products</span>
-                    <span>&rarr;</span>
-                </a>
-            </div>
-
-            <!-- Product Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {% for product in featured_products %}
-                <a href="{% url 'shop:product_detail' product.id product.slug %}"
-                   @mouseenter="$dispatch('robot-start', { title: '{{ product.name|escapejs }}' })"
-                   @mouseleave="$dispatch('robot-stop')"
-                   class="scroll-reveal group relative bg-white border border-slate-200 hover:border-slate-300 rounded-3xl overflow-hidden transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-slate-200/70 shadow-sm">
-
-                    <div class="aspect-[4/3] bg-slate-50 overflow-hidden relative p-4 flex items-center justify-center">
-                        {% if product.is_on_sale %}
-                        <span class="absolute top-3 left-3 z-10 rounded-full bg-red-500 text-white text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 shadow-sm">
-                            SALE -{{ product.discount_percentage }}%
-                        </span>
-                        {% elif forloop.first %}
-                        <span class="absolute top-3 left-3 z-10 bg-black text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-sm">
-                            HOT DROP
-                        </span>
-                        {% endif %}
-
-                        <!-- Wishlist Heart Button -->
-                        <div class="absolute top-3 right-3 z-20">
-                            <button hx-post="{% url 'shop:wishlist_toggle' product.id %}"
-                                    hx-target="#wishlist-home-btn-{{ product.id }}"
-                                    id="wishlist-home-btn-{{ product.id }}"
-                                    hx-swap="outerHTML"
-                                    class="group flex items-center justify-center w-8 h-8 rounded-full border {% if product.id in wishlisted_product_ids %}border-red-500 bg-red-50{% else %}border-slate-200 bg-white/95 backdrop-blur-sm hover:border-slate-300{% endif %} transition-all duration-200 shadow-sm hover:scale-110"
-                                    title="{% if product.id in wishlisted_product_ids %}Remove from Wishlist{% else %}Add to Wishlist{% endif %}"
-                                    onclick="event.preventDefault();">
-                                <svg class="w-4 h-4 {% if product.id in wishlisted_product_ids %}text-red-500 fill-current{% else %}text-slate-400 group-hover:text-red-500{% endif %} transition-colors" 
-                                     {% if product.id not in wishlisted_product_ids %}fill="none" stroke="currentColor" stroke-width="2"{% else %}viewBox="0 0 24 24"{% endif %}
-                                     {% if product.id not in wishlisted_product_ids %}viewBox="0 0 24 24"{% endif %}>
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                            </button>
-                        </div>
-
-                        {% if product.image %}
-                        <img src="{{ product.image.url }}"
-                             alt="{{ product.name }}"
-                             class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 ease-out"
-                             loading="lazy">
-                        {% else %}
-                        <div class="w-12 h-12 text-slate-300">📦</div>
-                        {% endif %}
-                    </div>
-
-                    <div class="p-5 flex-1 flex flex-col justify-between">
-                        <div>
-                            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
-                                {{ product.brand.name|default:"Lap Link" }}
-                            </span>
-                            <h3 class="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors duration-200 line-clamp-1 text-sm">
-                                {{ product.name }}
-                            </h3>
-                            {% if product.description %}
-                            <p class="mt-1 text-xs text-slate-500 line-clamp-2 leading-relaxed">
-                                {{ product.description|truncatewords:10 }}
-                            </p>
-                            {% endif %}
-                        </div>
-
-                        <div class="mt-4 flex items-center justify-between pt-3 border-t border-slate-100">
-                            <div class="flex items-baseline gap-2">
-                                <span class="text-base font-bold text-slate-900 font-mono">
-                                    L.E {{ product.current_price }}
-                                </span>
-                                {% if product.is_on_sale %}
-                                    <span class="text-xs font-medium text-slate-400 line-through">L.E {{ product.price }}</span>
-                                {% endif %}
-                            </div>
-                            <span class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-black group-hover:text-white text-slate-700 flex items-center justify-center transition-colors duration-200 shadow-sm">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                </svg>
-                            </span>
-                        </div>
-                    </div>
-                </a>
-                {% empty %}
-                <div class="col-span-full text-center py-10 text-slate-400 bg-white rounded-2xl border border-slate-200">
-                    {% trans "No featured products available at the moment." %}
-                </div>
-                {% endfor %}
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ================================================================= -->
-    <!-- ACT 4: THE BENTO TRUST VAULT (CRISP WHITE BENTO)                  -->
-    <!-- ================================================================= -->
-    <section class="relative z-10 py-16 lg:py-20 bg-white border-b border-slate-200/70">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <div class="scroll-reveal text-center max-w-2xl mx-auto mb-12">
-                <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.2em] text-emerald-600 mb-2">
-                    Guaranteed Integrity
-                </span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-slate-900 tracking-tight">
-                    The Lap Link Trust Standard.
-                </h2>
-                <p class="mt-2 text-sm text-slate-600">
-                    Engineered to eliminate friction, risk, and doubt from online hardware purchasing.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Box 1 -->
-                <div class="scroll-reveal delay-100 p-6 rounded-3xl bg-slate-50/70 border border-slate-200 hover:border-slate-300 hover:bg-white hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                    <div class="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center mb-5">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                    </div>
-                    <h3 class="text-base font-bold text-slate-900 mb-2">Open-Box Inspection</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                        Inspect hardware condition, verify packaging, and test with the courier before completing payment.
-                    </p>
-                </div>
-
-                <!-- Box 2 -->
-                <div class="scroll-reveal delay-200 p-6 rounded-3xl bg-slate-50/70 border border-slate-200 hover:border-slate-300 hover:bg-white hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mb-5">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                    </div>
-                    <h3 class="text-base font-bold text-slate-900 mb-2">2-Year Official Warranty</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                        Guaranteed genuine components with prompt official replacement against manufacturing defects.
-                    </p>
-                </div>
-
-                <!-- Box 3 -->
-                <div class="scroll-reveal delay-300 p-6 rounded-3xl bg-slate-50/70 border border-slate-200 hover:border-slate-300 hover:bg-white hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                    <div class="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-200 text-purple-600 flex items-center justify-center mb-5">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                    </div>
-                    <h3 class="text-base font-bold text-slate-900 mb-2">Rapid Express Dispatch</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                        Fast delivery across Cairo & Giza in reinforced protective packaging with instant order status updates.
-                    </p>
-                </div>
-
-                <!-- Box 4 -->
-                <div class="scroll-reveal delay-400 p-6 rounded-3xl bg-slate-50/70 border border-slate-200 hover:border-slate-300 hover:bg-white hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300">
-                    <div class="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center mb-5">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                    </div>
-                    <h3 class="text-base font-bold text-slate-900 mb-2">WhatsApp Tech Concierge</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                        Direct support from technical hardware specialists ready to advise on compatibility and specs 24/7.
-                    </p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ================================================================= -->
-    <!-- ACT 5: QUICK CATEGORY NAVIGATION STRIP                            -->
-    <!-- ================================================================= -->
-    <section class="relative z-10 py-16 bg-slate-50/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="scroll-reveal text-center mb-10">
-                <h2 class="text-xl sm:text-2xl font-bold font-display text-slate-900">
-                    Explore By Category
-                </h2>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                {% for category in categories %}
-                <a href="{% url 'shop:product_list_by_category' category.slug %}" 
-                   class="scroll-reveal group p-5 rounded-2xl bg-white border border-slate-200 text-center hover:bg-black hover:border-black hover:-translate-y-1 transition-all duration-200 shadow-sm">
-                    <h3 class="font-semibold text-sm text-slate-800 group-hover:text-white transition-colors">
-                        {% trans category.name %}
-                    </h3>
-                </a>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-
 </div>
 
 <style>
-  /* Swiper Bullets */
   .bannerSwiper .swiper-pagination-bullet {
       background: rgba(0, 0, 0, 0.25);
       opacity: 1;
@@ -814,8 +380,6 @@
       width: 24px;
       border-radius: 9999px;
   }
-
-  /* No Scrollbar helper */
   .no-scrollbar::-webkit-scrollbar {
       display: none;
   }
@@ -823,27 +387,18 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
   }
-
-  /* Scroll Reveal Animations (Apple-style 60fps) */
   .scroll-reveal {
       opacity: 0;
-      transform: translate3d(0, 24px, 0);
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: opacity, transform;
+      transform: translate3d(0, 20px, 0);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .scroll-reveal.is-visible {
       opacity: 1;
       transform: translate3d(0, 0, 0);
   }
-
-  .delay-100 { transition-delay: 100ms; }
-  .delay-200 { transition-delay: 200ms; }
-  .delay-300 { transition-delay: 300ms; }
-  .delay-400 { transition-delay: 400ms; }
 </style>
 
 <script>
-  // Initialize Swiper
   (function initSwiper() {
       if (document.querySelector('.bannerSwiper')) {
           new Swiper('.bannerSwiper', {
@@ -864,7 +419,6 @@
       }
   })();
 
-  // IntersectionObserver for Butter-Smooth Scroll Reveals (Safari iOS & Desktop)
   (function initScrollReveals() {
       function observeElements() {
           const elements = document.querySelectorAll('.scroll-reveal:not(.is-visible)');
@@ -880,8 +434,8 @@
                   }
               });
           }, {
-              threshold: 0.08,
-              rootMargin: '0px 0px -30px 0px'
+              threshold: 0.05,
+              rootMargin: '0px 0px -20px 0px'
           });
 
           elements.forEach(el => observer.observe(el));

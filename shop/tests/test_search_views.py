@@ -115,3 +115,15 @@ class SearchViewsTests(TestCase):
         self.assertEqual(response.status_code, 200)
         # Content should escape HTML
         self.assertContains(response, "&lt;script&gt;alert(1)&lt;/script&gt;")
+
+    def test_homepage_ux_sections_and_no_giant_hero_text(self):
+        url = reverse('shop:home')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        # Verify old giant hero text is removed
+        self.assertNotContains(response, "Where Elite Tech Meets")
+        # Verify new UX elements exist in context and HTML
+        self.assertIn('catalog_tabs', response.context)
+        self.assertIn('quick_searches', response.context)
+        self.assertContains(response, 'id="home-search-results"')
+        self.assertContains(response, "Shop by Category")
