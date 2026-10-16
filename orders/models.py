@@ -1,8 +1,8 @@
 from django.db import models
 from django.conf import settings
 from decimal import Decimal
-from django.core.validators import MinValueValidator, MaxValueValidator
-from shop.models import Product
+from django.core.validators import MinValueValidator
+from shop.models import Product, optimize_image_to_webp
 from coupons.models import Coupon
 
 
@@ -20,6 +20,11 @@ class Order(models.Model):
         ('fixed', 'Fixed Amount'),
     )
 
+    PAYMENT_METHOD_CHOICES = (
+        ('cod', 'Cash on Delivery (الدفع عند الاستلام)'),
+        ('instapay', 'InstaPay (انستا باي)'),
+    )
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name='orders',
@@ -27,13 +32,37 @@ class Order(models.Model):
         blank=True,
         on_delete=models.SET_NULL
     )
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    email = models.EmailField()
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100, blank=True, default='')
+    email = models.EmailField(blank=True, default='')
     phone = models.CharField(max_length=30, blank=True, default='')
     address = models.CharField(max_length=250)
     postal_code = models.CharField(max_length=20, blank=True, default='')
     city = models.CharField(max_length=100)
+    delivery_notes = models.TextField(blank=True, default='')
+
+    payment_method = models.CharField(
+        max_length=20,
+        choices=PAYMENT_METHOD_CHOICES,
+        default='cod'
+    )
+    shipping_cost = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=Decimal('0.00')
+    )
+    instapay_reference = models.CharField(
+        max_length=120,
+        blank=True,
+        default='',
+        help_text="Sender InstaPay handle, mobile number, or transaction reference"
+    )
+    payment_proof = models.ImageField(
+        upload_to='orders/payment_proofs/%Y/%m/%d',
+        blank=True,
+        null=True
+    )
+
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
@@ -60,11 +89,29 @@ class Order(models.Model):
     def __str__(self):
         return f'Order {self.id}'
 
-    def get_total_cost(self):
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}".strip()
+
+    def save(self, *args, **kwargs):
+        if self.payment_proof:
+            optimize_image_to_webp(self.payment_proof, max_dimension=1200, quality=82)
+        super().save(*args, **kwargs)
+
+    def get_items_subtotal(self):
+        return sum((item.get_cost() for item in self.items.all()), Decimal('0'))
+
+    def get_discount_amount(self):
         from coupons.strategies import get_discount_strategy
-        total = sum((item.get_cost() for item in self.items.all()), Decimal('0'))
+        subtotal = self.get_items_subtotal()
         strategy = get_discount_strategy(self.discount_type)
-        return total - strategy.calculate_discount(total, Decimal(self.discount))
+        return strategy.calculate_discount(subtotal, Decimal(self.discount))
+
+    def get_total_cost(self):
+        subtotal = self.get_items_subtotal()
+        discount_amt = self.get_discount_amount()
+        shipping = Decimal(self.shipping_cost or 0)
+        return max(Decimal('0.00'), subtotal - discount_amt) + shipping
 
 
 class OrderItem(models.Model):

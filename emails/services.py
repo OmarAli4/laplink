@@ -34,9 +34,11 @@ class NotificationService:
         """
         Sends an order confirmation email asynchronously and logs it.
         """
+        to_email = (order.email or '').strip()
+        if not to_email:
+            return
         subject = f"Order Confirmation - #{order.id}"
         from_email = getattr(settings, 'DEFAULT_FROM_EMAIL', 'hello@laplink.com')
-        to_email = order.email
 
         # Render HTML and Text versions
         html_content = render_to_string('emails/order_confirmation.html', {'order': order})

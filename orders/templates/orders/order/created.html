@@ -1,37 +1,137 @@
 {% extends "shop/base.html" %}
 {% load i18n %}
 
-{% block title %}{% trans "Order Confirmed" %} | Lap Link{% endblock %}
+{% block title %}{% if LANGUAGE_CODE == 'ar' %}تم تأكيد طلبك{% else %}Order Confirmed{% endif %} #{{ order.id }} | Lap Link{% endblock %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-    <div class="bg-white border border-gray-100 rounded-3xl p-8 sm:p-12 shadow-xl">
-        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-emerald-50 border border-emerald-200
-                    flex items-center justify-center shadow-inner">
-            <svg class="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-            </svg>
+<div class="min-h-screen bg-slate-50/70 py-12 sm:py-16">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-10 shadow-sm">
+
+            {# ── Top Success Header ── #}
+            <div class="text-center pb-8 border-b border-slate-100">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-extrabold uppercase tracking-wider mb-2">
+                    {% if LANGUAGE_CODE == 'ar' %}طلب رقم #{{ order.id }}{% else %}Order #{{ order.id }}{% endif %}
+                </span>
+
+                <h1 class="text-2xl sm:text-3xl font-extrabold font-display text-slate-900 tracking-tight">
+                    {% if LANGUAGE_CODE == 'ar' %}شكراً لك {{ order.first_name }}! تم تسجيل طلبك بنجاح{% else %}Thank you, {{ order.first_name }}! Your order is confirmed{% endif %}
+                </h1>
+
+                <p class="text-slate-500 text-xs sm:text-sm mt-2 max-w-lg mx-auto">
+                    {% if order.payment_method == 'instapay' %}
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            اخترت الدفع عبر <strong>InstaPay ({{ instapay_number }})</strong>. إذا لم تكن قد أرفقت صورة التحويل، يمكنك إرسالها الآن بضغطة واحدة عبر واتساب لتسريع الشحن!
+                        {% else %}
+                            You selected <strong>InstaPay ({{ instapay_number }})</strong>. Click the WhatsApp button below to send your transfer screenshot for instant dispatch!
+                        {% endif %}
+                    {% else %}
+                        {% if LANGUAGE_CODE == 'ar' %}
+                            سيتواصل معك المندوب على الرقم <strong dir="ltr">{{ order.phone }}</strong> لتسليم الطلب ومعاينته قبل الدفع.
+                        {% else %}
+                            Our courier will contact you at <strong dir="ltr">{{ order.phone }}</strong> for delivery and open-box inspection.
+                        {% endif %}
+                    {% endif %}
+                </p>
+            </div>
+
+            {# ── Primary Action: 1-Click WhatsApp Order & InstaPay Confirmation ── #}
+            <div class="my-6 p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="text-center sm:text-start">
+                    <h2 class="text-sm sm:text-base font-extrabold text-slate-900">
+                        {% if order.payment_method == 'instapay' %}
+                            {% if LANGUAGE_CODE == 'ar' %}أرسل إيصال InstaPay وتأكيد الطلب عبر واتساب{% else %}Send InstaPay Receipt via WhatsApp{% endif %}
+                        {% else %}
+                            {% if LANGUAGE_CODE == 'ar' %}تأكيد سريع للطلب عبر واتساب{% else %}Instant WhatsApp Order Confirmation{% endif %}
+                        {% endif %}
+                    </h2>
+                    <p class="text-xs text-slate-600 mt-0.5">
+                        {% if LANGUAGE_CODE == 'ar' %}اضغط لإرسال تفاصيل طلبك جاهزة إلى خدمة عملاء Lap Link ({{ instapay_number }}) للأولوية في التجهيز{% else %}Send pre-filled order details directly to our WhatsApp team ({{ instapay_number }}){% endif %}
+                    </p>
+                </div>
+                <a href="{{ whatsapp_url }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm shadow-md shadow-emerald-600/20 transition-all shrink-0">
+                    <span>{% if LANGUAGE_CODE == 'ar' %}تأكيد عبر واتساب الآن{% else %}Confirm on WhatsApp{% endif %}</span>
+                </a>
+            </div>
+
+            {# ── Order Details & Receipt Breakdown ── #}
+            <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/70 space-y-4">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs pb-4 border-b border-slate-200/70">
+                    <div>
+                        <span class="text-slate-400 block">{% if LANGUAGE_CODE == 'ar' %}المستلم{% else %}Recipient{% endif %}</span>
+                        <span class="font-bold text-slate-900">{{ order.full_name }}</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block">{% if LANGUAGE_CODE == 'ar' %}الموبايل{% else %}Mobile{% endif %}</span>
+                        <span class="font-bold text-slate-900 font-mono" dir="ltr">{{ order.phone }}</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block">{% if LANGUAGE_CODE == 'ar' %}المحافظة{% else %}Governorate{% endif %}</span>
+                        <span class="font-bold text-slate-900">{{ order.city }}</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block">{% if LANGUAGE_CODE == 'ar' %}طريقة الدفع{% else %}Payment{% endif %}</span>
+                        <span class="font-bold text-slate-900">
+                            {% if order.payment_method == 'instapay' %}InstaPay{% else %}{% if LANGUAGE_CODE == 'ar' %}عند الاستلام (COD){% else %}Cash on Delivery{% endif %}{% endif %}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="divide-y divide-slate-200/60 text-xs sm:text-sm">
+                    {% for item in order.items.all %}
+                    <div class="py-2.5 flex items-center justify-between">
+                        <span class="font-semibold text-slate-800">{{ item.quantity }}× {{ item.product.name }}</span>
+                        <span class="font-bold text-slate-900">{{ item.get_cost }} EGP</span>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="pt-3 border-t border-slate-200/80 space-y-1.5 text-xs sm:text-sm">
+                    <div class="flex justify-between text-slate-600">
+                        <span>{% if LANGUAGE_CODE == 'ar' %}المجموع الفرعي{% else %}Subtotal{% endif %}</span>
+                        <span>{{ order.get_items_subtotal }} EGP</span>
+                    </div>
+                    {% if order.discount %}
+                    <div class="flex justify-between text-emerald-600 font-bold">
+                        <span>{% if LANGUAGE_CODE == 'ar' %}الخصم{% else %}Discount{% endif %}</span>
+                        <span>-{{ order.get_discount_amount }} EGP</span>
+                    </div>
+                    {% endif %}
+                    <div class="flex justify-between text-slate-600">
+                        <span>{% if LANGUAGE_CODE == 'ar' %}مصاريف الشحن{% else %}Shipping Fee{% endif %}</span>
+                        <span>{{ order.shipping_cost }} EGP</span>
+                    </div>
+                    <div class="flex justify-between text-base font-black text-slate-900 pt-2 border-t border-slate-200">
+                        <span>{% if LANGUAGE_CODE == 'ar' %}الإجمالي النهائي{% else %}Grand Total{% endif %}</span>
+                        <span class="text-blue-600 font-mono">{{ order.get_total_cost }} EGP</span>
+                    </div>
+                </div>
+            </div>
+
+            {# ── Bottom Navigation Buttons ── #}
+            <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <a href="{% url 'orders:order_track' order.id %}"
+                   class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-slate-900 hover:bg-blue-600 text-white text-xs sm:text-sm font-bold transition-colors">
+                    <span>{% if LANGUAGE_CODE == 'ar' %}تتبع حالة الطلب مباشر{% else %}Track Order Status{% endif %}</span>
+                    <span>&rarr;</span>
+                </a>
+                <a href="{% url 'shop:product_list' %}"
+                   class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs sm:text-sm font-bold transition-colors">
+                    <span>{% if LANGUAGE_CODE == 'ar' %}العودة للتسوق{% else %}Continue Shopping{% endif %}</span>
+                </a>
+            </div>
+
         </div>
-        
-        <h1 class="text-3xl sm:text-4xl font-extrabold text-zinc-900 tracking-tight mb-3">
-            {% trans "Thank you for your order!" %}
-        </h1>
-        
-        <p class="text-zinc-600 text-lg font-medium mb-2">
-            {% blocktrans with id=order.id %}Your order #{{ id }} has been placed successfully.{% endblocktrans %}
-        </p>
-        
-        <p class="text-zinc-500 text-sm mb-8">
-            {% trans "We'll send a confirmation email shortly." %}
-        </p>
-        
-        <a href="{% url 'shop:product_list' %}"
-           class="inline-flex items-center gap-2 px-8 py-4 rounded-full text-xs sm:text-sm font-extrabold uppercase tracking-widest text-white bg-black hover:bg-zinc-800 shadow-xl shadow-black/10 hover:-translate-y-0.5 transition-all duration-300">
-            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            <span>{% trans "Return to Website & Continue Shopping" %}</span>
-        </a>
     </div>
 </div>
 {% endblock %}
