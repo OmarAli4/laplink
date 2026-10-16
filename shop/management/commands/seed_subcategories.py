@@ -1,6 +1,6 @@
-﻿import re
+import re
 from django.core.management.base import BaseCommand
-from shop.models import Category, SubCategory, Product
+from shop.models import Category, SubCategory, Product, Brand
 
 DEFAULT_TAXONOMY = {
     'accessor': [
@@ -213,6 +213,39 @@ class Command(BaseCommand):
                     total_classified_prods += 1
                     self.stdout.write(f"    Assigned '{product.name}' -> {assigned_sub.name}")
 
+        # Ensure top tech brands exist in database
+        TOP_BRANDS = [
+            ('Apple', 'apple'),
+            ('Dell', 'dell'),
+            ('HP', 'hp'),
+            ('Lenovo', 'lenovo'),
+            ('ASUS', 'asus'),
+            ('Logitech', 'logitech'),
+            ('TP-Link', 'tp-link'),
+            ('Ugreen', 'ugreen'),
+            ('Anker', 'anker'),
+            ('Bange', 'bange'),
+            ('Samsung', 'samsung'),
+        ]
+        total_created_brands = 0
+        brand_map = {}
+        for b_name, b_slug in TOP_BRANDS:
+            brand_obj, b_created = Brand.objects.get_or_create(slug=b_slug, defaults={'name': b_name})
+            if b_created:
+                total_created_brands += 1
+            brand_map[b_slug] = brand_obj
+
+        # Auto-link unassigned products to brands if brand name is in product name
+        linked_brands = 0
+        for p in Product.objects.filter(brand__isnull=True):
+            p_name_lower = p.name.lower()
+            for b_slug, b_obj in brand_map.items():
+                if b_obj.name.lower() in p_name_lower or b_slug in p_name_lower:
+                    p.brand = b_obj
+                    p.save(update_fields=['brand'])
+                    linked_brands += 1
+                    break
+
         self.stdout.write(
-            f"\nFinished! Created {total_created_subs} subcategories and classified {total_classified_prods} products."
+            f"\nFinished! Created {total_created_subs} subcategories, {total_created_brands} brands, classified {total_classified_prods} products, and linked {linked_brands} product brands."
         )

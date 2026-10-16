@@ -108,12 +108,12 @@ def home(request):
         .order_by('-id')[:8]
     )
 
-    # 4. Single Source of Truth Configuration for Homepage Product Tabs
+    # 4. Single Source of Truth Configuration for Homepage Product Tabs (Real Product Photos)
     catalog_url = reverse('shop:product_list')
     catalog_tabs = [
         {
             'key': 'featured',
-            'icon': '🌟',
+            'image': 'img/categories/laptops.webp',
             'label_en': 'Most Popular',
             'label_ar': 'الأكثر طلباً',
             'products': featured_products,
@@ -121,7 +121,7 @@ def home(request):
         },
         {
             'key': 'bags',
-            'icon': '🎒',
+            'image': 'img/categories/backpacks.webp',
             'label_en': 'Bags & Sleeves',
             'label_ar': 'شنط وجرابات لابتوب',
             'products': bag_products,
@@ -129,7 +129,7 @@ def home(request):
         },
         {
             'key': 'power',
-            'icon': '⚡',
+            'image': 'img/categories/chargers.webp',
             'label_en': 'Chargers & Cables',
             'label_ar': 'شواحن وكابلات',
             'products': power_products,
@@ -137,7 +137,7 @@ def home(request):
         },
         {
             'key': 'desk',
-            'icon': '🖱️',
+            'image': 'img/categories/mouse.webp',
             'label_en': 'Mice, Keyboards & Gear',
             'label_ar': 'ماوس وكيبورد وإكسسوارات',
             'products': desk_products,
@@ -145,7 +145,7 @@ def home(request):
         },
         {
             'key': 'network',
-            'icon': '🌐',
+            'image': 'img/categories/routers.webp',
             'label_en': 'Routers & Networking',
             'label_ar': 'راوترات وشبكات',
             'products': network_products,
@@ -153,7 +153,7 @@ def home(request):
         },
         {
             'key': 'deals',
-            'icon': '🔥',
+            'image': 'img/categories/earbuds.webp',
             'label_en': 'Best Value & Deals',
             'label_ar': 'أفضل العروض',
             'products': deals_products,
@@ -161,20 +161,24 @@ def home(request):
         },
     ]
 
-    # 5. Single Source of Truth for Quick Search Pills (under Search Bar)
+    # 5. Single Source of Truth for Quick Search Pills (Real Miniature Product Photos)
     quick_searches = [
-        {'icon': '🎒', 'label_en': 'Laptop Backpacks', 'label_ar': 'شنط لابتوب', 'query': 'backpack'},
-        {'icon': '⚡', 'label_en': 'Fast Chargers', 'label_ar': 'شاحن سريع', 'query': 'charger'},
-        {'icon': '🎧', 'label_en': 'Headphones & Audio', 'label_ar': 'سماعات', 'query': 'headphone'},
-        {'icon': '🔌', 'label_en': 'Type-C Cables', 'label_ar': 'كابل تايب سي', 'query': 'usb-c'},
-        {'icon': '🖱️', 'label_en': 'Wireless Mouse', 'label_ar': 'ماوس لاسلكي', 'query': 'mouse'},
-        {'icon': '🌐', 'label_en': 'Wi-Fi Routers', 'label_ar': 'راوتر', 'query': 'router'},
+        {'image': 'img/categories/backpacks.webp', 'label_en': 'Laptop Backpacks', 'label_ar': 'شنط لابتوب', 'query': 'backpack'},
+        {'image': 'img/categories/chargers.webp', 'label_en': 'Fast Chargers', 'label_ar': 'شاحن سريع', 'query': 'charger'},
+        {'image': 'img/categories/headphones.webp', 'label_en': 'Headphones & Audio', 'label_ar': 'سماعات', 'query': 'headphone'},
+        {'image': 'img/categories/cables.webp', 'label_en': 'Type-C Cables', 'label_ar': 'كابل تايب سي', 'query': 'usb-c'},
+        {'image': 'img/categories/mouse.webp', 'label_en': 'Wireless Mouse', 'label_ar': 'ماوس لاسلكي', 'query': 'mouse'},
+        {'image': 'img/categories/routers.webp', 'label_en': 'Wi-Fi Routers', 'label_ar': 'راوترات', 'query': 'router'},
+        {'image': 'img/categories/laptops.webp', 'label_en': 'Laptops', 'label_ar': 'لابتوبات', 'query': 'laptop'},
+        {'image': 'img/categories/earbuds.webp', 'label_en': 'Wireless Earbuds', 'label_ar': 'ايربودز', 'query': 'earbuds'},
     ]
 
     categories = Category.objects.prefetch_related('subcategories').all()
-    brands = Brand.objects.filter(products__available=True).distinct()[:12]
-    if not brands.exists():
-        brands = Brand.objects.all()[:12]
+    brands = list(Brand.objects.filter(products__available=True).distinct()[:16])
+    if len(brands) < 8:
+        existing_ids = {b.id for b in brands}
+        additional = list(Brand.objects.exclude(id__in=existing_ids)[:16 - len(brands)])
+        brands.extend(additional)
 
     total_catalog_count = Product.objects.filter(available=True).count()
 

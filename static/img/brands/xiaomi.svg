@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40">
+  <!-- Xiaomi Orange Squircle -->
+  <rect x="6" y="6" width="28" height="28" rx="8" fill="#FF6900"/>
+  <path d="M14 26V14h4l3 6 3-6h4v12h-3V18l-3 6h-2l-3-6v8h-3z" fill="#FFFFFF"/>
+  <text x="40" y="26" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="16" fill="#333333">Xiaomi</text>
+</svg>

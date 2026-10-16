@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40">
+  <!-- HUION Creative Blue Logo -->
+  <rect x="6" y="9" width="22" height="22" rx="4" fill="#0072CE"/>
+  <path d="M12 20h10M17 14v12" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  <text x="34" y="26" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="19" fill="#0072CE" letter-spacing="1">HUION</text>
+</svg>

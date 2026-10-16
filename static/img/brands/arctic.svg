@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40">
+  <!-- Arctic Cooling Cyan Logo -->
+  <g fill="#00A3E0">
+    <circle cx="18" cy="20" r="11" fill="#00A3E0"/>
+    <path d="M18 13v14M11 20h14" stroke="#FFFFFF" stroke-width="2.5"/>
+    <text x="36" y="26" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="20" fill="#00A3E0" letter-spacing="1">ARCTIC</text>
+  </g>
+</svg>

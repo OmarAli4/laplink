@@ -44,15 +44,15 @@
                 <div id="home-search-results" x-show="openDropdown" class="absolute left-0 right-0 top-full z-50"></div>
             </form>
 
-            <!-- Quick 1-Click Search Shortcuts -->
+            <!-- Quick 1-Click Search Shortcuts (Real Product Photos) -->
             <div class="mt-3 flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
                 <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 shrink-0">
                     {% if LANGUAGE_CODE == 'ar' %}الأكثر بحثاً:{% else %}Popular:{% endif %}
                 </span>
                 {% for item in quick_searches %}
                 <a href="{% url 'shop:product_list' %}?q={{ item.query|urlencode }}"
-                   class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white hover:bg-slate-900 text-slate-700 hover:text-white border border-slate-200 hover:border-slate-900 text-xs font-medium whitespace-nowrap transition-all duration-150 shadow-2xs shrink-0">
-                    <span>{{ item.icon }}</span>
+                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white hover:bg-slate-900 text-slate-700 hover:text-white border border-slate-200 hover:border-slate-900 text-xs font-semibold whitespace-nowrap transition-all duration-200 shadow-2xs shrink-0 group">
+                    <img src="{% static item.image %}" alt="{{ item.label_en }}" class="w-4 h-4 object-contain shrink-0 group-hover:scale-110 transition-transform">
                     <span>{% if LANGUAGE_CODE == 'ar' %}{{ item.label_ar }}{% else %}{{ item.label_en }}{% endif %}</span>
                 </a>
                 {% endfor %}
@@ -64,6 +64,44 @@
     <!-- SECTION 2: SHOP BY CATEGORY (IMMEDIATELY VISIBLE ABOVE THE FOLD)  -->
     <!-- ================================================================= -->
     {% include 'shop/partials/category_carousel.html' %}
+
+    <!-- ================================================================= -->
+    <!-- SECTION 3: SHOP BY BRAND STRIP (OFFICIAL VECTOR LOGOS, NO LETTERS)-->
+    <!-- ================================================================= -->
+    {% if brands %}
+    <section class="relative z-15 py-5 sm:py-6 bg-slate-50/70 border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between mb-3.5">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                    <h2 class="text-sm sm:text-base font-extrabold font-display text-slate-900 tracking-tight">
+                        {% if LANGUAGE_CODE == 'ar' %}تسوق حسب الماركة العالمية{% else %}Shop by Authorized Brand{% endif %}
+                    </h2>
+                    <span class="hidden sm:inline text-xs font-medium text-slate-400">| {% if LANGUAGE_CODE == 'ar' %}موزع معتمد وضمان رسمي سنتين{% else %}Official hardware & pro warranty{% endif %}</span>
+                </div>
+                <a href="{% url 'shop:product_list' %}" class="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-800 transition-colors">
+                    <span>{% if LANGUAGE_CODE == 'ar' %}كل الماركات{% else %}All Brands{% endif %}</span>
+                    <svg class="w-3.5 h-3.5 {% if LANGUAGE_CODE == 'ar' %}rotate-180{% endif %}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            
+            <!-- Brands Horizontal Carousel -->
+            <div class="flex items-center gap-2.5 sm:gap-3.5 overflow-x-auto no-scrollbar scroll-smooth pb-1.5 pt-0.5">
+                {% for brand in brands %}
+                <a href="{% url 'shop:product_list' %}?brand={{ brand.slug }}"
+                   class="group flex items-center gap-2.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-2xl bg-white hover:bg-white border border-slate-200 hover:border-blue-500 hover:shadow-md transition-all duration-200 shrink-0 shadow-2xs">
+                    <div class="w-10 h-6 sm:w-12 sm:h-7 flex items-center justify-center p-0.5 bg-slate-50/60 rounded-lg border border-slate-100 group-hover:scale-105 transition-transform duration-200 shrink-0">
+                        <img src="{{ brand.logo_url }}" alt="{{ brand.name }}" class="max-w-full max-h-full object-contain filter group-hover:brightness-105" loading="lazy">
+                    </div>
+                    <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors whitespace-nowrap">
+                        {{ brand.name }}
+                    </span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
 
     <!-- ================================================================= -->
     <!-- SECTION 3: PROMO BANNERS + COMPACT 4-PILLAR TRUST BAR             -->
@@ -97,8 +135,9 @@
                                             <img src="{% static 'img/banners/banner_sleeves.jpg' %}" alt="Luxury Laptop Sleeves & Bags" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="eager" fetchpriority="high" decoding="async">
                                         </picture>
                                         <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 z-10 flex items-center gap-2">
-                                            <span class="px-3.5 py-1.5 rounded-full bg-black/85 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider shadow-lg border border-white/10">
-                                                🛡️ {% if LANGUAGE_CODE == 'ar' %}شنط وجرابات لابتوب احترافية{% else %}Tactical Laptop Armor & Sleeves{% endif %}
+                                            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/85 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider shadow-lg border border-white/10">
+                                                <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                                                <span>{% if LANGUAGE_CODE == 'ar' %}شنط وجرابات لابتوب احترافية{% else %}Tactical Laptop Armor & Sleeves{% endif %}</span>
                                             </span>
                                         </div>
                                     </a>
@@ -111,8 +150,9 @@
                                             <img src="{% static 'img/banners/banner_computer.jpg' %}" alt="Premium Computer Accessories" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
                                         </picture>
                                         <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 z-10 flex items-center gap-2">
-                                            <span class="px-3.5 py-1.5 rounded-full bg-black/85 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider shadow-lg border border-white/10">
-                                                ⚡ {% if LANGUAGE_CODE == 'ar' %}إكسسوارات الكمبيوتر والمكتب{% else %}Pro Studio Peripherals{% endif %}
+                                            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/85 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider shadow-lg border border-white/10">
+                                                <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                                <span>{% if LANGUAGE_CODE == 'ar' %}إكسسوارات الكمبيوتر والمكتب{% else %}Pro Studio Peripherals{% endif %}</span>
                                             </span>
                                         </div>
                                     </a>
@@ -125,8 +165,9 @@
                                             <img src="{% static 'img/banners/banner_mobile.jpg' %}" alt="Fast Charging & Mobile Accessories" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
                                         </picture>
                                         <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 z-10 flex items-center gap-2">
-                                            <span class="px-3.5 py-1.5 rounded-full bg-black/85 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider shadow-lg border border-white/10">
-                                                🔋 {% if LANGUAGE_CODE == 'ar' %}شواحن GaN فائقة السرعة{% else %}100W GaN Fast Charging Station{% endif %}
+                                            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/85 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider shadow-lg border border-white/10">
+                                                <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                                <span>{% if LANGUAGE_CODE == 'ar' %}شواحن GaN فائقة السرعة{% else %}100W GaN Fast Charging Station{% endif %}</span>
                                             </span>
                                         </div>
                                     </a>
@@ -143,28 +184,36 @@
             <!-- Compact 4-Pillar Trust Strip (Directly Visible Under Banner) -->
             <div class="mt-5 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
-                    <span class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 text-base">📦</span>
+                    <div class="w-9 h-9 rounded-xl bg-blue-100/70 text-blue-600 flex items-center justify-center shrink-0">
+                        <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                    </div>
                     <div>
                         <h3 class="text-xs font-bold text-slate-900">{% if LANGUAGE_CODE == 'ar' %}معاينة قبل الاستلام{% else %}Open-Box Inspection{% endif %}</h3>
                         <p class="text-[11px] text-slate-500">{% if LANGUAGE_CODE == 'ar' %}افحص طلبك مع المندوب قبل الدفع{% else %}Inspect before paying{% endif %}</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
-                    <span class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 text-base">🛡️</span>
+                    <div class="w-9 h-9 rounded-xl bg-emerald-100/70 text-emerald-600 flex items-center justify-center shrink-0">
+                        <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
                     <div>
                         <h3 class="text-xs font-bold text-slate-900">{% if LANGUAGE_CODE == 'ar' %}ضمان رسمي سنتين{% else %}2-Year Warranty{% endif %}</h3>
                         <p class="text-[11px] text-slate-500">{% if LANGUAGE_CODE == 'ar' %}منتجات أصلية مضمونة 100%{% else %}100% Genuine hardware{% endif %}</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
-                    <span class="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 text-base">🚀</span>
+                    <div class="w-9 h-9 rounded-xl bg-purple-100/70 text-purple-600 flex items-center justify-center shrink-0">
+                        <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
                     <div>
                         <h3 class="text-xs font-bold text-slate-900">{% if LANGUAGE_CODE == 'ar' %}شحن سريع{% else %}Express Dispatch{% endif %}</h3>
                         <p class="text-[11px] text-slate-500">{% if LANGUAGE_CODE == 'ar' %}توصيل سريع للقاهرة والجيزة{% else %}Fast Cairo & Giza delivery{% endif %}</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
-                    <span class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 text-base">💬</span>
+                    <div class="w-9 h-9 rounded-xl bg-amber-100/70 text-amber-600 flex items-center justify-center shrink-0">
+                        <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    </div>
                     <div>
                         <h3 class="text-xs font-bold text-slate-900">{% if LANGUAGE_CODE == 'ar' %}مساعد تقني 24/7{% else %}Tech Concierge 24/7{% endif %}</h3>
                         <p class="text-[11px] text-slate-500">{% if LANGUAGE_CODE == 'ar' %}دعم فني لاختيار الأنسب لجهازك{% else %}Expert compatibility support{% endif %}</p>
@@ -197,14 +246,14 @@
                 </a>
             </div>
 
-            <!-- Clear Department Tabs (Driven by catalog_tabs in views.py) -->
+            <!-- Clear Department Tabs (Real Category Thumbnail Photos) -->
             <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-6 no-scrollbar scroll-smooth">
                 {% for tab in catalog_tabs %}
                 <button type="button"
                         @click="activeTab = '{{ tab.key }}'" 
                         :class="activeTab === '{{ tab.key }}' ? 'bg-slate-900 text-white shadow-md border-slate-900' : 'bg-white text-slate-700 hover:text-black border-slate-200 hover:border-slate-300'"
-                        class="px-4 py-2.5 rounded-2xl border text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 flex items-center gap-2 shrink-0">
-                    <span>{{ tab.icon }}</span>
+                        class="px-4 py-2.5 rounded-2xl border text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200 flex items-center gap-2.5 shrink-0 group">
+                    <img src="{% static tab.image %}" alt="{{ tab.label_en }}" class="w-5 h-5 object-contain shrink-0 group-hover:scale-110 transition-transform">
                     <span>{% if LANGUAGE_CODE == 'ar' %}{{ tab.label_ar }}{% else %}{{ tab.label_en }}{% endif %}</span>
                 </button>
                 {% endfor %}
@@ -247,40 +296,6 @@
         </div>
     </section>
 
-    <!-- ================================================================= -->
-    <!-- SECTION 5: SHOP BY BRAND STRIP                                    -->
-    <!-- ================================================================= -->
-    {% if brands %}
-    <section class="relative z-10 py-10 bg-white border-b border-slate-200/70">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between mb-5">
-                <h2 class="text-lg sm:text-xl font-extrabold font-display text-slate-900">
-                    {% if LANGUAGE_CODE == 'ar' %}تسوق حسب الماركة{% else %}Shop by Brand{% endif %}
-                </h2>
-                <a href="{% url 'shop:product_list' %}" class="text-xs font-bold text-slate-500 hover:text-slate-900">
-                    {% if LANGUAGE_CODE == 'ar' %}كل الماركات{% else %}All Brands{% endif %} &rarr;
-                </a>
-            </div>
-            <div class="flex items-center gap-3 overflow-x-auto no-scrollbar pb-2">
-                {% for brand in brands %}
-                <a href="{% url 'shop:product_list' %}?brand={{ brand.slug }}"
-                   class="group flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-slate-50 hover:bg-slate-900 border border-slate-200 hover:border-slate-900 transition-all duration-200 shrink-0 shadow-2xs">
-                    {% if brand.logo %}
-                    <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" class="w-6 h-6 rounded-md object-contain bg-white p-0.5">
-                    {% else %}
-                    <span class="w-6 h-6 rounded-md bg-slate-200 group-hover:bg-white/20 text-slate-700 group-hover:text-white flex items-center justify-center text-xs font-bold uppercase">
-                        {{ brand.name|slice:":1" }}
-                    </span>
-                    {% endif %}
-                    <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-white whitespace-nowrap">
-                        {{ brand.name }}
-                    </span>
-                </a>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-    {% endif %}
 
     <!-- ================================================================= -->
     <!-- SECTION 6: AI MATCHMAKER & SPEC BATTLE ARENA                      -->
@@ -295,7 +310,8 @@
                     
                     <div>
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-blue-400 text-xs font-bold uppercase tracking-wider mb-4">
-                            <span>⚔️ {% if LANGUAGE_CODE == 'ar' %}مقارنة المواصفات{% else %}Head-To-Head Duel{% endif %}</span>
+                            <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+                            <span>{% if LANGUAGE_CODE == 'ar' %}مقارنة المواصفات{% else %}Head-To-Head Duel{% endif %}</span>
                         </div>
 
                         <h3 class="text-2xl sm:text-3xl font-extrabold font-display text-white tracking-tight leading-tight mb-3">
@@ -327,7 +343,8 @@
                 <div class="lg:col-span-5 bg-gradient-to-br from-blue-50/70 via-indigo-50/40 to-white border border-blue-200/80 rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-lg flex flex-col justify-between">
                     <div>
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider mb-4 border border-blue-200">
-                            <span>🤖 {% if LANGUAGE_CODE == 'ar' %}المساعد الذكي{% else %}AI Tech Advisor{% endif %}</span>
+                            <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            <span>{% if LANGUAGE_CODE == 'ar' %}المساعد الذكي{% else %}AI Tech Advisor{% endif %}</span>
                         </div>
 
                         <h3 class="text-xl sm:text-2xl font-bold font-display text-slate-900 mb-2">
@@ -344,15 +361,21 @@
                         <div class="space-y-2 mb-5">
                             <button type="button"
                                     @click="$dispatch('open-tech-finder', { query: 'MacBook Pro 100W GaN Charger' })" 
-                                    class="w-full text-left px-3.5 py-2 rounded-xl bg-white hover:bg-blue-50 border border-slate-200 text-xs text-slate-700 hover:text-blue-700 flex items-center justify-between transition-colors shadow-2xs">
-                                <span>💬 "Find best 100W charger for MacBook Pro"</span>
-                                <span class="text-blue-600 font-mono">&rarr;</span>
+                                    class="w-full text-left px-3.5 py-2 rounded-xl bg-white hover:bg-blue-50 border border-slate-200 text-xs text-slate-700 hover:text-blue-700 flex items-center justify-between transition-colors shadow-2xs group">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-3.5 h-3.5 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                                    <span>"Find best 100W charger for MacBook Pro"</span>
+                                </span>
+                                <span class="text-blue-600 font-mono group-hover:translate-x-1 transition-transform">&rarr;</span>
                             </button>
                             <button type="button"
                                     @click="$dispatch('open-tech-finder', { query: 'Waterproof 15.6 inch backpack' })" 
-                                    class="w-full text-left px-3.5 py-2 rounded-xl bg-white hover:bg-blue-50 border border-slate-200 text-xs text-slate-700 hover:text-blue-700 flex items-center justify-between transition-colors shadow-2xs">
-                                <span>💬 "Waterproof backpack for 15.6 inch laptop"</span>
-                                <span class="text-blue-600 font-mono">&rarr;</span>
+                                    class="w-full text-left px-3.5 py-2 rounded-xl bg-white hover:bg-blue-50 border border-slate-200 text-xs text-slate-700 hover:text-blue-700 flex items-center justify-between transition-colors shadow-2xs group">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-3.5 h-3.5 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                                    <span>"Waterproof backpack for 15.6 inch laptop"</span>
+                                </span>
+                                <span class="text-blue-600 font-mono group-hover:translate-x-1 transition-transform">&rarr;</span>
                             </button>
                         </div>
                     </div>

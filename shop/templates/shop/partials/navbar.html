@@ -135,13 +135,9 @@
                         <div class="bg-zinc-950/95 border border-white/10 shadow-2xl rounded-2xl p-1.5 overflow-hidden">
                             {% for brand in navbar_brands %}
                             <a href="{% url 'shop:product_list' %}?brand={{ brand.slug }}" class="flex items-center gap-3 px-3 py-2 hover:bg-white/10 rounded-xl transition-colors duration-200">
-                                {% if brand.logo %}
-                                    <img src="{{ brand.logo.url }}" class="w-7 h-7 rounded-lg border border-white/10 object-cover shadow-inner" alt="{{ brand.name }}">
-                                {% else %}
-                                    <div class="w-7 h-7 rounded-lg border border-white/10 flex items-center justify-center bg-zinc-900 text-gray-300 font-bold uppercase shadow-inner text-xs">
-                                        {{ brand.name|slice:":1" }}
-                                    </div>
-                                {% endif %}
+                                <div class="w-8 h-8 rounded-lg border border-white/10 flex items-center justify-center bg-white p-1 shadow-inner shrink-0">
+                                    <img src="{{ brand.logo_url }}" class="max-w-full max-h-full object-contain" alt="{{ brand.name }}">
+                                </div>
                                 <div class="text-xs text-white font-semibold tracking-tight uppercase">{{ brand.name }}</div>
                             </a>
                             {% empty %}

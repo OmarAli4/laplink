@@ -84,6 +84,31 @@ class Brand(models.Model):
             optimize_image_to_webp(self.logo, max_dimension=400, quality=85)
         super().save(*args, **kwargs)
 
+    @property
+    def logo_url(self):
+        """Returns uploaded brand logo URL or authentic static vector SVG fallback."""
+        if self.logo:
+            try:
+                return self.logo.url
+            except Exception:
+                pass
+
+        slug = (self.slug or '').lower().replace('_', '-')
+        name = (self.name or '').lower()
+
+        static_brands = [
+            'apple', 'dell', 'hp', 'lenovo', 'asus', 'logitech', 'tp-link',
+            'ugreen', 'bange', 'anker', 'samsung', 'mcdodo', 'huion', 'veikk',
+            'wacom', 'arctic', 'sony', 'xiaomi', 'razer', 'acer', 'msi'
+        ]
+
+        from django.templatetags.static import static
+        for b in static_brands:
+            if b in slug or b in name:
+                return static(f'img/brands/{b}.svg')
+
+        return static('img/brands/generic.svg')
+
 
 class SubCategory(models.Model):
     category = models.ForeignKey(Category, related_name='subcategories', on_delete=models.CASCADE)
