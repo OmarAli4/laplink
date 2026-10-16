@@ -217,7 +217,7 @@ def generate_tags(products: List[Dict[str, Any]]) -> Optional[Dict[int, Dict[str
                     'x-goog-api-key': api_key
                 }
             )
-            with urllib.request.urlopen(req, timeout=45) as resp:
+            with urllib.request.urlopen(req, timeout=20) as resp:
                 result = json.loads(resp.read().decode('utf-8'))
                 raw_text = result['candidates'][0]['content']['parts'][0]['text'].strip()
 
