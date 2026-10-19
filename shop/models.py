@@ -14,14 +14,15 @@ def optimize_image_to_webp(image_field, max_dimension=1200, quality=82):
     3. Retains alpha transparency if RGBA / P mode.
     4. Replaces the file with the compressed WebP ContentFile.
     """
-    if not image_field or not hasattr(image_field, 'file'):
+    if not image_field or not getattr(image_field, 'name', ''):
+        return
+    if image_field.name.lower().endswith('.webp'):
+        return
+    if getattr(image_field, '_committed', True):
         return
     try:
-        if image_field.name and image_field.name.lower().endswith('.webp'):
-            return
-
         img = Image.open(image_field)
-        
+
         # Handle orientation if EXIF metadata present
         try:
             from PIL import ImageOps
