@@ -197,6 +197,21 @@ class Product(models.Model):
         return self.price
 
     @property
+    def formatted_current_price(self):
+        """Returns integer comma-separated current price (e.g. '2,499')."""
+        val = self.current_price
+        if val is None:
+            return "0"
+        return f"{int(round(val)):,}"
+
+    @property
+    def formatted_base_price(self):
+        """Returns integer comma-separated original price (e.g. '2,999')."""
+        if self.price is None:
+            return "0"
+        return f"{int(round(self.price)):,}"
+
+    @property
     def discount_percentage(self):
         """Returns the integer percentage of the discount."""
         if self.is_on_sale and self.price > 0:

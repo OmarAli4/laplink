@@ -125,7 +125,7 @@
                            x-model="prompt"
                            @keydown.enter.prevent="askAI()"
                            :disabled="isLoading"
-                           placeholder="{% trans "e.g. عاوز لابتوب جيمنج في حدود 20 ألف جنيه..." %}"
+                           placeholder="{% if LANGUAGE_CODE == 'ar' %}مثال: عاوز لابتوب جيمنج أو شاحن سريع 100W...{% else %}e.g. Best 100W GaN charger for MacBook Pro or gaming laptop...{% endif %}"
                            class="w-full bg-gray-50/90 border border-gray-200 focus:border-black focus:bg-white focus:ring-4 focus:ring-black/5 rounded-2xl py-3.5 pl-4 pr-12 text-sm text-gray-900 placeholder-gray-400 focus:outline-none transition-all shadow-inner font-medium">
                     
                     <button @click="askAI()"
@@ -144,28 +144,25 @@
                         ⚡ {% trans "Popular Prompts:" %}
                     </span>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        <button @click="setPromptAndAsk('عاوز لابتوب جيمنج للألعاب ومونتاج في حدود 22 ألف جنيه')"
-                                class="flex items-center gap-2 p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 border border-gray-200/80 text-left transition-all hover:scale-[1.01] group">
+                        <button type="button" @click="setPromptAndAsk('{% if LANGUAGE_CODE == 'ar' %}عاوز لابتوب جيمنج للألعاب ومونتاج في حدود 35 ألف جنيه{% else %}Best gaming & editing laptop around 35,000 EGP{% endif %}')"
+                                class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-50 hover:bg-blue-50/60 border border-slate-200/80 text-start transition-all hover:scale-[1.01] group">
                             <span class="text-base shrink-0">🎮</span>
-                            <span class="text-xs font-semibold text-gray-700 group-hover:text-black line-clamp-1">لابتوب جيمنج بـ 22 ألف</span>
+                            <span class="text-xs font-semibold text-slate-700 group-hover:text-blue-700 line-clamp-1">{% if LANGUAGE_CODE == 'ar' %}لابتوب جيمنج ومونتاج{% else %}Gaming & Editing Laptop{% endif %}</span>
                         </button>
-                        
-                        <button @click="setPromptAndAsk('محتاج جهاز سريع جداً للبرمجة وكتابة الكود ورامات عالية')"
-                                class="flex items-center gap-2 p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 border border-gray-200/80 text-left transition-all hover:scale-[1.01] group">
-                            <span class="text-base shrink-0">💻</span>
-                            <span class="text-xs font-semibold text-gray-700 group-hover:text-black line-clamp-1">جهاز سريع للبرمجة وكود</span>
+                        <button type="button" @click="setPromptAndAsk('{% if LANGUAGE_CODE == 'ar' %}شاحن GaN سريع 65W أو 100W للابتوب والموبايل{% else %}Fast 65W or 100W GaN charger for laptop and phone{% endif %}')"
+                                class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-50 hover:bg-blue-50/60 border border-slate-200/80 text-start transition-all hover:scale-[1.01] group">
+                            <span class="text-base shrink-0">⚡</span>
+                            <span class="text-xs font-semibold text-slate-700 group-hover:text-blue-700 line-clamp-1">{% if LANGUAGE_CODE == 'ar' %}شاحن سريع GaN للابتوب{% else %}Fast GaN Laptop Charger{% endif %}</span>
                         </button>
-
-                        <button @click="setPromptAndAsk('لابتوب للمونتاج وتعديل الفيديو وشاشة دقيقة الألوان')"
-                                class="flex items-center gap-2 p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 border border-gray-200/80 text-left transition-all hover:scale-[1.01] group">
-                            <span class="text-base shrink-0">🎨</span>
-                            <span class="text-xs font-semibold text-gray-700 group-hover:text-black line-clamp-1">مونتاج وجرافيك وشاشة ألوان</span>
+                        <button type="button" @click="setPromptAndAsk('{% if LANGUAGE_CODE == 'ar' %}شنطة لابتوب Bange مقاومة للماء مقاس 15.6 بوصة{% else %}Waterproof Bange backpack for 15.6 inch laptop{% endif %}')"
+                                class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-50 hover:bg-blue-50/60 border border-slate-200/80 text-start transition-all hover:scale-[1.01] group">
+                            <span class="text-base shrink-0">🎒</span>
+                            <span class="text-xs font-semibold text-slate-700 group-hover:text-blue-700 line-clamp-1">{% if LANGUAGE_CODE == 'ar' %}شنطة لابتوب مقاومة للماء{% else %}Waterproof Laptop Backpack{% endif %}</span>
                         </button>
-
-                        <button @click="setPromptAndAsk('لاب توب خفيف للدراسة والجامعة وبطارية تدوم طويلاً')"
-                                class="flex items-center gap-2 p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 border border-gray-200/80 text-left transition-all hover:scale-[1.01] group">
-                            <span class="text-base shrink-0">🔋</span>
-                            <span class="text-xs font-semibold text-gray-700 group-hover:text-black line-clamp-1">خفيف للدراسة وبطارية قوية</span>
+                        <button type="button" @click="setPromptAndAsk('{% if LANGUAGE_CODE == 'ar' %}ماوس وكيبورد لاسلكي مريح للبرمجة والشغل{% else %}Ergonomic wireless mouse and keyboard for work{% endif %}')"
+                                class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-50 hover:bg-blue-50/60 border border-slate-200/80 text-start transition-all hover:scale-[1.01] group">
+                            <span class="text-base shrink-0">🖱️</span>
+                            <span class="text-xs font-semibold text-slate-700 group-hover:text-blue-700 line-clamp-1">{% if LANGUAGE_CODE == 'ar' %}ماوس وكيبورد لاسلكي للعمل{% else %}Wireless Mouse & Keyboard{% endif %}</span>
                         </button>
                     </div>
                 </div>

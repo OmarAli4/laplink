@@ -154,10 +154,10 @@
                    class="scroll-reveal group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
                         <img src="{% static 'img/categories/laptops.webp' %}" 
-                             alt="لابتوبات" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}لابتوبات{% else %}Laptops{% endif %}" 
                              class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-500 group-hover:scale-115 group-hover:rotate-1" 
                              loading="eager">
-                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-black uppercase tracking-wider bg-rose-600 text-white rounded-full shadow-sm animate-pulse">
+                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-extrabold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200/80 rounded-full shadow-2xs">
                             HOT
                         </span>
                     </div>
@@ -177,10 +177,10 @@
                    class="scroll-reveal delay-75 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
                         <img src="{% static 'img/categories/backpacks.webp' %}" 
-                             alt="شنط وحقائب لابتوب" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}شنط وحقائب{% else %}Backpacks & Bags{% endif %}" 
                              class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-500 group-hover:scale-115" 
                              loading="eager">
-                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-black uppercase tracking-wider bg-slate-900 text-white rounded-full shadow-sm">
+                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-extrabold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200/80 rounded-full shadow-2xs">
                             BANGE
                         </span>
                     </div>
@@ -199,10 +199,10 @@
                    class="scroll-reveal delay-100 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
                         <img src="{% static 'img/categories/chargers.webp' %}" 
-                             alt="شواحن وباور بانك" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}شواحن وباور بانك{% else %}Power & GaN{% endif %}" 
                              class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-500 group-hover:scale-115" 
                              loading="eager">
-                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-black uppercase tracking-wider bg-emerald-600 text-white rounded-full shadow-sm">
+                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-extrabold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200/80 rounded-full shadow-2xs">
                             GaN Fast
                         </span>
                     </div>
@@ -221,7 +221,7 @@
                    class="scroll-reveal delay-150 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
                         <img src="{% static 'img/categories/cables.webp' %}" 
-                             alt="كابلات ومحولات" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}كابلات ومحولات{% else %}Cables & Wire{% endif %}" 
                              class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-500 group-hover:scale-115 group-hover:rotate-6" 
                              loading="lazy">
                     </div>
@@ -240,10 +240,10 @@
                    class="scroll-reveal delay-200 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
                         <img src="{% static 'img/categories/desk_hubs.webp' %}" 
-                             alt="هابات ومحولات" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}هابات وتوصيلات{% else %}Hubs & Docks{% endif %}" 
                              class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-500 group-hover:scale-115" 
                              loading="lazy">
-                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-black uppercase tracking-wider bg-blue-600 text-white rounded-full shadow-sm">
+                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-extrabold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200/80 rounded-full shadow-2xs">
                             4K 60Hz
                         </span>
                     </div>
@@ -262,10 +262,10 @@
                    class="scroll-reveal delay-200 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
                         <img src="{% static 'img/categories/headphones.webp' %}" 
-                             alt="سماعات الرأس" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}سماعات الرأس{% else %}Headphones{% endif %}" 
                              class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-500 group-hover:scale-115" 
                              loading="lazy">
-                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-black uppercase tracking-wider bg-indigo-600 text-white rounded-full shadow-sm">
+                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-extrabold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200/80 rounded-full shadow-2xs">
                             ANC
                         </span>
                     </div>
@@ -284,7 +284,7 @@
                    class="scroll-reveal delay-200 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
                         <img src="{% static 'img/categories/earbuds.webp' %}" 
-                             alt="سماعات اير بودز" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}سماعات اير بودز{% else %}Wireless Earbuds{% endif %}" 
                              class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-500 group-hover:scale-115" 
                              loading="lazy">
                     </div>
@@ -303,10 +303,10 @@
                    class="scroll-reveal delay-250 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
                         <img src="{% static 'img/categories/mouse.webp' %}" 
-                             alt="ماوس وكيبورد" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}ماوس وكيبورد{% else %}Mouse & Keys{% endif %}" 
                              class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-500 group-hover:scale-115" 
                              loading="lazy">
-                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-black uppercase tracking-wider bg-purple-600 text-white rounded-full shadow-sm">
+                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-extrabold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200/80 rounded-full shadow-2xs">
                             Logitech
                         </span>
                     </div>
@@ -325,10 +325,10 @@
                    class="scroll-reveal delay-250 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
                         <img src="{% static 'img/categories/routers.webp' %}" 
-                             alt="راوترات ومقويات شبكة" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}راوترات وشبكات{% else %}Mesh & Routers{% endif %}" 
                              class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-500 group-hover:scale-115" 
                              loading="lazy">
-                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-black uppercase tracking-wider bg-cyan-600 text-white rounded-full shadow-sm">
+                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-extrabold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200/80 rounded-full shadow-2xs">
                             Wi-Fi 6
                         </span>
                     </div>
@@ -347,10 +347,10 @@
                    class="scroll-reveal delay-300 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
                         <img src="{% static 'img/categories/tablets.webp' %}" 
-                             alt="تابلت رسم وجرافيك" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}تابلت رسم وجرافيك{% else %}Graphic Tablets{% endif %}" 
                              class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-500 group-hover:scale-115" 
                              loading="lazy">
-                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-black uppercase tracking-wider bg-amber-600 text-white rounded-full shadow-sm">
+                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-extrabold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200/80 rounded-full shadow-2xs">
                             VEIKK
                         </span>
                     </div>
@@ -369,10 +369,10 @@
                    class="scroll-reveal delay-300 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
                         <img src="{% static 'img/categories/stands.webp' %}" 
-                             alt="حوامل وستاندات" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}حوامل وستاندات{% else %}Stands & Mounts{% endif %}" 
                              class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-500 group-hover:scale-115" 
                              loading="lazy">
-                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-black uppercase tracking-wider bg-slate-700 text-white rounded-full shadow-sm">
+                        <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-extrabold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200/80 rounded-full shadow-2xs">
                             Metal
                         </span>
                     </div>

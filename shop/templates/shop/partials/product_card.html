@@ -49,20 +49,21 @@
                 {{ product.brand.name|default:"Lap Link" }}
             </span>
             <a href="{% url 'shop:product_detail' product.id product.slug %}" class="block mt-0.5">
-                <h4 class="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2">
+                <h4 class="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 min-h-[2.5rem]">
                     {{ product.name }}
                 </h4>
             </a>
         </div>
 
         <div class="mt-4 flex items-center justify-between pt-3 border-t border-slate-100">
-            <div class="flex items-baseline gap-1.5">
-                <span class="text-base font-bold text-slate-900 font-mono">
-                    L.E {{ product.current_price }}
+            <div class="flex items-baseline gap-1.5 flex-wrap">
+                <span class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">
+                    {{ product.formatted_current_price }}
+                    <span class="text-xs font-bold text-slate-500">{% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                 </span>
                 {% if product.is_on_sale %}
-                <span class="text-xs font-medium text-slate-400 line-through font-mono">
-                    {{ product.price }}
+                <span class="text-[11px] text-slate-400 line-through">
+                    {{ product.formatted_base_price }}
                 </span>
                 {% endif %}
             </div>
@@ -76,7 +77,7 @@
                 <input type="hidden" name="quantity" value="1">
                 <input type="hidden" name="override" value="False">
                 <button type="submit"
-                        class="w-9 h-9 rounded-full bg-slate-900 hover:bg-blue-600 text-white flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105 active:scale-95"
+                        class="w-9 h-9 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center transition-all duration-200 shadow-md shadow-blue-600/25 hover:scale-105 active:scale-95"
                         title="{% trans 'Quick Add to Cart' %}">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 4v16m8-8H4"/>

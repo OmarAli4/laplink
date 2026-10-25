@@ -18,9 +18,10 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'Inter', '"Readex Pro"', 'sans-serif'],
-                        display: ['Outfit', '"Plus Jakarta Sans"', 'sans-serif'],
-                        cute: ['Comfortaa', 'Quicksand', 'Outfit', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', '"Readex Pro"', 'sans-serif'],
+                        display: ['Outfit', '"Plus Jakarta Sans"', '"Readex Pro"', 'sans-serif'],
+                        cute: ['Comfortaa', 'Quicksand', 'Outfit', '"Readex Pro"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', '"Readex Pro"', 'monospace'],
                         arabic: ['"Readex Pro"', 'Cairo', 'sans-serif'],
                     }
                 }
@@ -162,9 +163,9 @@
     {% block extra_css %}{% endblock %}
 </head>
 
-<body class="bg-white text-gray-900 font-sans antialiased min-h-screen flex flex-col">
+<body class="bg-[#F8FAFC] text-gray-900 font-sans antialiased min-h-screen flex flex-col">
 
-    {% include "shop/partials/loading_screen.html" %}
+
     {% include "shop/partials/announcement_bar.html" %}
     {% include "shop/partials/navbar.html" %}
 
