@@ -97,11 +97,11 @@ class Command(BaseCommand):
                             self.stdout.write(f"  [HIDE DUPLICATE #{pid}] '{prod.name}' -> available=False")
                         continue
 
-                    # لا نحدّث السعر إلا إذا كان السعر الحالي يساوي السعر القديم (أو عند --force أو --rollback)
+                    # لا نحدّث السعر إلا إذا كان السعر الحالي يختلف عن السعر المستهدف (أو يساوي السعر القديم/--force/--rollback)
                     should_update = (
                         force
                         or (rollback and (current_base == new_price or current_effective == new_price))
-                        or (not rollback and (current_base == old_price or current_effective == old_price))
+                        or (not rollback and (current_base != target_price or current_base == old_price or current_effective == old_price))
                     )
 
                     if should_update and (current_base != target_price or prod.sale_price is not None):

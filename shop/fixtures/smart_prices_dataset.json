@@ -1615,9 +1615,9 @@
     "item_code": "49540",
     "cost_price": 25750.0,
     "old_price": 26500.0,
-    "new_price": 26549.0,
+    "new_price": 28000.0,
     "hide_duplicate": false,
-    "action_note": "رفع السعر (+49 ج.م)"
+    "action_note": "تعديل السعر إلى 28,000 ج.م بطلب الإدارة"
   },
   {
     "id": 305,
