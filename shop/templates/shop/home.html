@@ -28,7 +28,7 @@
                            hx-trigger="keyup changed delay:250ms"
                            hx-target="#home-search-results"
                            placeholder="{% if LANGUAGE_CODE == 'ar' %}ابحث عن شاحن، شنطة لابتوب، سماعة، راوتر...{% else %}Search chargers, laptop bags, earbuds, routers...{% endif %}"
-                           class="w-full py-3.5 pl-12 pr-28 rounded-2xl border border-slate-300 bg-white text-sm text-slate-900 placeholder-slate-400 shadow-sm focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all">
+                           class="w-full py-3.5 {% if LANGUAGE_CODE == 'ar' %}pr-12 pl-24 sm:pl-28{% else %}pl-12 pr-24 sm:pr-28{% endif %} rounded-2xl border border-slate-300 bg-white text-xs sm:text-sm text-slate-900 placeholder-slate-400 shadow-sm focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all">
                     
                     <svg class="w-5 h-5 text-slate-400 absolute {% if LANGUAGE_CODE == 'ar' %}right-4{% else %}left-4{% endif %} pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>

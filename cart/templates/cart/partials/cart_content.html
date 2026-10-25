@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <!-- Out of Band Swap for the Navigation Cart Icon Counter -->
-<span id="cart-counter" hx-swap-oob="true" class="absolute -top-0.5 -right-0.5 min-w-[20px] h-5 flex items-center justify-center px-1 text-xs font-bold rounded-full bg-black text-white shadow-md shadow-gray-400/30 {% if not cart|length %}hidden{% endif %}" style="animation: badgePop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);">{{ cart|length }}</span>
+<span id="cart-counter" hx-swap-oob="true" class="px-1.5 py-0.5 min-w-[18px] text-center text-[10px] font-extrabold rounded-full bg-white text-blue-700 transition-colors shadow {% if not cart|length %}hidden{% endif %}" style="animation: badgePop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);">{{ cart|length }}</span>
 
 {% if cart|length > 0 %}
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 fade-me-in">

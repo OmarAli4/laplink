@@ -57,7 +57,7 @@
                     <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">
                         {% if LANGUAGE_CODE == 'ar' %}الاسم بالكامل{% else %}Full Name{% endif %} *
                     </label>
-                    <input type="text" name="first_name" value="{{ request.user.get_full_name|default:request.user.first_name|default:'' }}" required placeholder="{% if LANGUAGE_CODE == 'ar' %}مثال: أحمد محمد علي{% else %}e.g. Ahmed Ali{% endif %}" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400">
+                    <input type="text" name="first_name" value="{% if request.user.is_authenticated %}{{ request.user.get_full_name|default:request.user.username }}{% endif %}" required placeholder="{% if LANGUAGE_CODE == 'ar' %}مثال: أحمد محمد علي{% else %}e.g. Ahmed Ali{% endif %}" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400">
                 </div>
 
                 <div>

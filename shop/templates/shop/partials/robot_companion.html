@@ -2,15 +2,18 @@
 {% load i18n %}
 
 {% with url=request.resolver_match.url_name %}
-
+{% if 'cart' not in request.path and 'orders' not in request.path and url != 'cart_detail' and url != 'order_create' %}
 <div x-data="{
         page: '{% if url == 'home' %}home{% elif 'product_list' in url %}catalog{% elif url == 'product_detail' %}detail{% elif 'cart' in url %}cart{% elif 'wishlist' in url %}wishlist{% elif url == 'user_dashboard' %}dashboard{% else %}general{% endif %}',
         isHovering: false,
         hoveredTitle: '',
         showBubble: false,
         init() {
-            setTimeout(() => { this.showBubble = true; }, 1500);
-            setTimeout(() => { if(!this.isHovering) this.showBubble = false; }, 6000);
+            // Only auto-pop speech bubble on desktop screens (>= 768px)
+            if (window.innerWidth >= 768) {
+                setTimeout(() => { this.showBubble = true; }, 1800);
+                setTimeout(() => { if(!this.isHovering) this.showBubble = false; }, 6500);
+            }
         }
      }"
      @robot-start.window="isHovering = true; hoveredTitle = $event.detail.title; if(window.TechSound) window.TechSound.playPop();"
@@ -183,9 +186,11 @@
     100% { transform: translate3d(0, 0, 0) scaleX(1); }
 }
 
-.robot-home-smooth-patrol {
-    animation: smoothPatrolWalk 16s ease-in-out infinite;
-    will-change: transform;
+@media (min-width: 768px) {
+    .robot-home-smooth-patrol {
+        animation: smoothPatrolWalk 16s ease-in-out infinite;
+        will-change: transform;
+    }
 }
 
 @keyframes robotDanceAnim {
@@ -240,5 +245,5 @@
 .robot-arm-left-dance { animation: armLeftWiggle 0.5s ease-in-out infinite alternate; }
 .robot-arm-right-dance { animation: armRightWiggle 0.5s ease-in-out infinite alternate; }
 </style>
-
+{% endif %}
 {% endwith %}

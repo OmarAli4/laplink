@@ -7,9 +7,9 @@
             {% for ann in active_announcements %}
                 '{{ ann.message|escapejs }}'{% if not forloop.last %},{% endif %}
             {% empty %}
-                '{% trans "⚡ FREE Express Shipping on all orders over L.E 100!" %}',
-                '{% trans "🛡️ 2-Year Official Warranty & 30-Day Money-Back Guarantee" %}',
-                '{% trans "🏷️ Special Deal: Use code LAPLINK10 for 10% off your order!" %}'
+                '{% if LANGUAGE_CODE == "ar" %}⚡ شحن سريع لجميع المحافظات ومعاينة قبل الاستلام!{% else %}⚡ Fast Shipping with Open-Box Inspection before paying!{% endif %}',
+                '{% if LANGUAGE_CODE == "ar" %}🛡️ ضمان استبدال سنتين ومنتجات أصلية مضمونة 100%{% else %}🛡️ 2-Year Official Replacement Warranty & Genuine Gear{% endif %}',
+                '{% if LANGUAGE_CODE == "ar" %}🏷️ خصم خاص: استخدم كود LAPLINK10 للحصول على 10% خصم!{% else %}🏷️ Special Deal: Use code LAPLINK10 for 10% off your order!{% endif %}'
             {% endfor %}
         ],
         timer: null
@@ -26,10 +26,10 @@
         <div class="hidden md:flex items-center gap-3 text-gray-400 text-[11px] font-medium tracking-wider uppercase">
             <span class="flex items-center gap-1.5 text-emerald-400 font-bold">
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                {% trans "Live Store" %}
+                {% if LANGUAGE_CODE == "ar" %}متجر معتمد{% else %}Live Store{% endif %}
             </span>
             <span class="text-zinc-700">•</span>
-            <span class="text-gray-300">{% trans "24/7 Tech Support" %}</span>
+            <span class="text-gray-300">{% if LANGUAGE_CODE == "ar" %}دعم فني 24/7{% else %}24/7 Tech Support{% endif %}</span>
         </div>
 
         <!-- Center Auto-rotating Ticker -->
