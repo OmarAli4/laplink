@@ -36,13 +36,13 @@
         <div>
             <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-6">
                 <div>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-[10px] font-extrabold uppercase tracking-widest text-cyan-400">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-[10px] font-extrabold uppercase tracking-widest text-blue-700">
                         ⚡ {% trans "1-Click Express Checkout" %}
                     </span>
-                    <h3 class="font-display font-extrabold text-lg text-white tracking-tight mt-2 line-clamp-1" x-text="product.name || ''"></h3>
-                    <div class="text-sm font-bold text-cyan-300 mt-0.5" x-text="product && product.price ? product.price + ' EGP' : ''"></div>
+                    <h3 class="font-display font-extrabold text-lg text-slate-900 tracking-tight mt-2 line-clamp-1" x-text="product.name || ''"></h3>
+                    <div class="text-sm font-bold text-blue-600 mt-0.5" x-text="product && product.price ? product.price + ' EGP' : ''"></div>
                 </div>
-                <button @click="isOpen = false" class="text-slate-500 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors focus:outline-none">
+                <button @click="isOpen = false" class="text-slate-500 hover:text-slate-900 p-2 rounded-full hover:bg-slate-100 transition-colors focus:outline-none">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
             </div>
@@ -57,14 +57,14 @@
                     <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">
                         {% if LANGUAGE_CODE == 'ar' %}الاسم بالكامل{% else %}Full Name{% endif %} *
                     </label>
-                    <input type="text" name="first_name" value="{% if request.user.is_authenticated %}{{ request.user.get_full_name|default:request.user.username }}{% endif %}" required placeholder="{% if LANGUAGE_CODE == 'ar' %}مثال: أحمد محمد علي{% else %}e.g. Ahmed Ali{% endif %}" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-slate-200 text-white text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400">
+                    <input type="text" name="first_name" value="{% if request.user.is_authenticated %}{{ request.user.get_full_name|default:request.user.username }}{% endif %}" required placeholder="{% if LANGUAGE_CODE == 'ar' %}مثال: أحمد محمد علي{% else %}e.g. Ahmed Ali{% endif %}" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 text-xs focus:outline-none focus:border-blue-600 focus:bg-white focus:ring-1 focus:ring-blue-600">
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">
                         {% if LANGUAGE_CODE == 'ar' %}رقم الموبايل / واتساب{% else %}Mobile / WhatsApp{% endif %} *
                     </label>
-                    <input type="tel" name="phone" required placeholder="010XXXXXXXX" dir="ltr" pattern="^01[0125][0-9]{8}$" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-slate-200 text-white text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400">
+                    <input type="tel" name="phone" required placeholder="010XXXXXXXX" dir="ltr" pattern="^01[0125][0-9]{8}$" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 text-xs focus:outline-none focus:border-blue-600 focus:bg-white focus:ring-1 focus:ring-blue-600">
                     <p class="text-[10px] text-slate-500 mt-1">{% if LANGUAGE_CODE == 'ar' %}رقم مصري يبدأ بـ 010 أو 011 أو 012 أو 015{% else %}Egyptian mobile (11 digits, e.g. 01009019079){% endif %}</p>
                 </div>
 
@@ -104,12 +104,12 @@
                     <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">
                         {% if LANGUAGE_CODE == 'ar' %}العنوان بالتفصيل{% else %}Detailed Address{% endif %} *
                     </label>
-                    <input type="text" name="address" required placeholder="{% if LANGUAGE_CODE == 'ar' %}المنطقة، الشارع، رقم العمارة والشقة{% else %}Street, building and flat number{% endif %}" class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-slate-200 text-white text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400">
+                    <input type="text" name="address" required placeholder="{% if LANGUAGE_CODE == 'ar' %}المنطقة، الشارع، رقم العمارة والشقة{% else %}Street, building and flat number{% endif %}" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 text-xs focus:outline-none focus:border-blue-600 focus:bg-white focus:ring-1 focus:ring-blue-600">
                 </div>
 
-                <div class="p-3 rounded-xl bg-white/5 border border-slate-200 flex items-center justify-between text-xs text-slate-600">
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs text-slate-600">
                     <span>💵 {% if LANGUAGE_CODE == 'ar' %}الدفع عند الاستلام (COD){% else %}Cash on Delivery (COD){% endif %}</span>
-                    <span class="text-emerald-400 font-bold">{% if LANGUAGE_CODE == 'ar' %}معاينة قبل الدفع{% else %}Inspect First{% endif %}</span>
+                    <span class="text-emerald-700 font-bold">{% if LANGUAGE_CODE == 'ar' %}معاينة قبل الدفع{% else %}Inspect First{% endif %}</span>
                 </div>
 
                 <div class="pt-2">

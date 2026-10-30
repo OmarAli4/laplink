@@ -181,7 +181,8 @@ def home(request):
         {'image': 'img/categories/cables.webp', 'label_en': 'Type-C Cables', 'label_ar': 'كابل تايب سي', 'query': 'usb-c'},
         {'image': 'img/categories/mouse.webp', 'label_en': 'Wireless Mouse', 'label_ar': 'ماوس لاسلكي', 'query': 'mouse'},
         {'image': 'img/categories/routers.webp', 'label_en': 'Wi-Fi Routers', 'label_ar': 'راوترات', 'query': 'router'},
-        {'image': 'img/categories/laptops.webp', 'label_en': 'Laptops', 'label_ar': 'لابتوبات', 'query': 'laptop'},
+        {'image': 'img/categories/laptops.webp', 'label_en': 'Apple & iPad', 'label_ar': 'آيباد وأجهزة أبل', 'query': 'ipad'},
+        {'image': 'img/categories/stands.webp', 'label_en': 'Gimbals & Mics', 'label_ar': 'جيمبال ومايكات', 'query': 'dji'},
         {'image': 'img/categories/earbuds.webp', 'label_en': 'Wireless Earbuds', 'label_ar': 'ايربودز', 'query': 'earbuds'},
     ]
 
@@ -233,9 +234,36 @@ def product_list(request, category_slug=None):
     from django.db.models import Avg, Q
     products = Product.objects.filter(available=True).select_related('category', 'subcategory', 'brand').annotate(avg_rating=Avg('reviews__rating'))
 
-    if category_slug:
-        category = get_object_or_404(Category, slug=category_slug)
-        products = products.filter(category=category)
+    CATEGORY_ALIASES = {
+        'apple': 'APPLE',
+        'laptops': 'APPLE',
+        'laptop': 'APPLE',
+        'mac': 'APPLE',
+        'macbook': 'APPLE',
+        'ipad': 'APPLE',
+        'tablets': 'graphic-tablet',
+        'tablet': 'graphic-tablet',
+        'routers': 'Network',
+        'router': 'Network',
+        'network': 'Network',
+        'computer-accessories': 'Computer-accessories',
+        'mobile-accessories': 'mobile-accessories',
+        'bags': 'bags',
+    }
+
+    target_cat = (category_slug or request.GET.get('category', '')).strip()
+    if target_cat:
+        mapped_slug = CATEGORY_ALIASES.get(target_cat.lower(), target_cat)
+        if mapped_slug.isdigit():
+            category = Category.objects.filter(id=int(mapped_slug)).first()
+        else:
+            category = (
+                Category.objects.filter(slug__iexact=mapped_slug).first()
+                or Category.objects.filter(slug__icontains=mapped_slug).first()
+                or Category.objects.filter(name__icontains=mapped_slug).first()
+            )
+        if category:
+            products = products.filter(category=category)
         
     # 1. Search Query (smart hybrid search)
     query = request.GET.get('q', '').strip()

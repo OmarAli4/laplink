@@ -82,9 +82,9 @@
                                     <th class="py-4 px-2 text-[10px] font-bold text-gray-500 uppercase tracking-widest">{% trans "Status" %}</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-white/5">
+                            <tbody class="divide-y divide-slate-200">
                                 {% for order in orders %}
-                                <tr class="hover:bg-white/5 transition-colors">
+                                <tr class="hover:bg-slate-50 transition-colors">
                                     <td class="py-5 px-2 text-sm font-bold text-slate-900 tracking-widest">
                                         #{{ order.id }}
                                     </td>
@@ -96,23 +96,23 @@
                                     </td>
                                     <td class="py-5 px-2 text-sm">
                                         {% if order.status == 'pending' %}
-                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-yellow-500/30 text-yellow-500 bg-yellow-500/10">
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-amber-300 text-amber-800 bg-amber-50">
                                                 {% trans "Pending" %}
                                             </span>
                                         {% elif order.status == 'processing' %}
-                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-blue-500/30 text-blue-400 bg-blue-500/10">
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-blue-300 text-blue-800 bg-blue-50">
                                                 {% trans "Processing" %}
                                             </span>
                                         {% elif order.status == 'shipped' %}
-                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-purple-500/30 text-purple-400 bg-purple-500/10">
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-purple-300 text-purple-800 bg-purple-50">
                                                 {% trans "Shipped" %}
                                             </span>
                                         {% elif order.status == 'delivered' %}
-                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-emerald-500/30 text-emerald-400 bg-emerald-500/10">
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-emerald-300 text-emerald-800 bg-emerald-50">
                                                 {% trans "Delivered" %}
                                             </span>
                                         {% elif order.status == 'cancelled' %}
-                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-red-500/30 text-red-500 bg-red-500/10">
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-red-300 text-red-800 bg-red-50">
                                                 {% trans "Cancelled" %}
                                             </span>
                                         {% else %}
@@ -127,8 +127,8 @@
                         </table>
                     </div>
                     {% else %}
-                    <div class="text-center py-16 border border-white/5 rounded-2xl bg-white/[0.02]">
-                        <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-4">
+                    <div class="text-center py-16 border border-slate-200 rounded-2xl bg-slate-50">
+                        <div class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4">
                             <svg class="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                         </div>
                         <h3 class="text-lg font-bold tracking-widest uppercase text-slate-900 mb-2">{% trans "No orders yet" %}</h3>

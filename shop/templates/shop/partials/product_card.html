@@ -45,7 +45,7 @@
     <!-- Product Info & 1-Click Add to Cart -->
     <div class="flex-1 flex flex-col justify-between">
         <div>
-            <span class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold block">
+            <span class="text-[11px] text-slate-600 uppercase tracking-wider font-bold block">
                 {{ product.brand.name|default:"Lap Link" }}
             </span>
             <a href="{% url 'shop:product_detail' product.id product.slug %}" class="block mt-0.5">
@@ -62,7 +62,7 @@
                     <span class="text-xs font-bold text-slate-500">{% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                 </span>
                 {% if product.is_on_sale %}
-                <span class="text-[11px] text-slate-400 line-through">
+                <span class="text-[11px] text-slate-500 line-through">
                     {{ product.formatted_base_price }}
                 </span>
                 {% endif %}
@@ -85,7 +85,7 @@
                 </button>
             </form>
             {% else %}
-            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md bg-slate-100 text-slate-400">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md bg-slate-100 text-slate-600">
                 {% trans "Sold Out" %}
             </span>
             {% endif %}

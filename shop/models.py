@@ -55,6 +55,7 @@ def optimize_image_to_webp(image_field, max_dimension=1200, quality=82):
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
+    name_ar = models.CharField(max_length=200, blank=True, default='')
     slug = models.SlugField(max_length=200, unique=True)
     brands = models.ManyToManyField('Brand', related_name='categories', blank=True)
 

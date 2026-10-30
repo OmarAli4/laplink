@@ -66,7 +66,7 @@
                                  @mouseleave="flyoutTimeout = setTimeout(() => isFlyoutOpen = false, 150)">
                                  
                                 <a href="{{ category.get_absolute_url }}" class="flex justify-between items-center px-3.5 py-2 text-xs text-slate-700 hover:text-slate-950 hover:bg-slate-100 rounded-xl font-semibold tracking-wide uppercase transition-colors duration-200">
-                                    <span>{% trans category.name %}</span>
+                                    <span>{% if request.LANGUAGE_CODE == 'ar' and category.name_ar %}{{ category.name_ar }}{% else %}{{ category.name }}{% endif %}</span>
                                     <svg class="w-3.5 h-3.5 opacity-40 group-hover/category:opacity-100 group-hover/category:translate-x-0.5 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                 </a>
 
@@ -356,7 +356,7 @@
                         <div x-data="{ openSub: false }" class="space-y-2">
                             <div class="flex items-center justify-between">
                                 <a href="{{ category.get_absolute_url }}" class="py-1 text-xs font-bold tracking-wider text-slate-800 uppercase hover:text-blue-600 transition-colors">
-                                    {% trans category.name %}
+                                    {% if request.LANGUAGE_CODE == 'ar' and category.name_ar %}{{ category.name_ar }}{% else %}{{ category.name }}{% endif %}
                                 </a>
                                 {% if category.subcategories.exists %}
                                 <button @click="openSub = !openSub" class="p-1 text-slate-400 hover:text-slate-700 transition-colors">

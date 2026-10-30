@@ -36,13 +36,13 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div class="flex items-center justify-between border-b border-slate-200 pb-3 mb-4">
             <div class="flex items-center gap-2">
-                <span class="text-emerald-400 font-bold text-sm">⚖️ {% trans "Compare Devices" %}</span>
+                <span class="text-emerald-700 font-bold text-sm">⚖️ {% trans "Compare Devices" %}</span>
                 <span class="text-xs text-slate-500 font-medium" x-text="'(' + items.length + '/3 selected)'"></span>
             </div>
 
             <div class="flex items-center gap-3">
-                <button @click="clearAll()" class="text-xs text-slate-400 hover:text-slate-800 font-medium uppercase tracking-wider">{% trans "Clear All" %}</button>
-                <button @click="isOpen = false" class="text-slate-400 hover:text-slate-800 p-1 rounded-full hover:bg-white/10 transition-colors focus:outline-none">
+                <button @click="clearAll()" class="text-xs text-slate-600 hover:text-slate-900 font-bold uppercase tracking-wider">{% trans "Clear All" %}</button>
+                <button @click="isOpen = false" class="text-slate-500 hover:text-slate-900 p-1 rounded-full hover:bg-slate-100 transition-colors focus:outline-none">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
             </div>
@@ -50,13 +50,13 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <template x-for="item in items" :key="item.id">
-                <div class="relative p-3.5 rounded-2xl bg-white/5 border border-slate-200 flex items-center justify-between">
+                <div class="relative p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
                     <div>
                         <div class="text-xs font-bold text-slate-900 truncate max-w-[180px]" x-text="item.name"></div>
-                        <div class="text-xs font-extrabold text-emerald-400 mt-0.5" x-text="item.price"></div>
+                        <div class="text-xs font-extrabold text-emerald-700 mt-0.5" x-text="item.price"></div>
                     </div>
 
-                    <button @click="removeItem(item.id)" class="text-gray-500 hover:text-red-400 p-1.5 rounded-full hover:bg-white/10 transition-colors" title="Remove">
+                    <button @click="removeItem(item.id)" class="text-gray-500 hover:text-red-400 p-1.5 rounded-full hover:bg-slate-200 transition-colors" title="Remove">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                     </button>
                 </div>

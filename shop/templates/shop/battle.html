@@ -132,10 +132,10 @@
 
         <!-- Banner Header -->
         <div class="text-center space-y-3">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold uppercase tracking-widest backdrop-blur-md shadow-xs">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-mono font-bold uppercase tracking-widest backdrop-blur-md shadow-xs">
                 <span class="animate-pulse">⚔️</span> {% trans "AI HARDWARE DUEL ARENA" %}
             </div>
-            <h1 class="text-3xl sm:text-5xl font-black text-white font-display tracking-tight">
+            <h1 class="text-3xl sm:text-5xl font-black text-slate-900 font-display tracking-tight">
                 {% trans "Product Battle Mode" %}
             </h1>
             <p class="text-slate-500 text-sm max-w-xl mx-auto font-medium">
@@ -150,7 +150,7 @@
                 <a href="?category={{ cat.id }}"
                    class="px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 border
                           {% if selected_category.id == cat.id %}
-                            bg-white text-black border-white shadow-md scale-105
+                            bg-blue-600 text-white border-blue-600 shadow-md scale-105
                           {% else %}
                             bg-white text-slate-600 border-slate-200 hover:text-slate-900 hover:border-slate-300 shadow-2xs
                           {% endif %}">
@@ -161,7 +161,7 @@
                         {% elif 'acc' in cat.name|lower %}🖱️
                         {% else %}⚡{% endif %}
                     </span>
-                    <span>{{ cat.name }}</span>
+                    <span>{% if request.LANGUAGE_CODE == 'ar' and cat.name_ar %}{{ cat.name_ar }}{% else %}{{ cat.name }}{% endif %}</span>
                     <span class="text-[10px] px-1.5 py-0.5 rounded-full {% if selected_category.id == cat.id %}bg-blue-600 text-white{% else %}bg-slate-100 text-slate-600{% endif %}">
                         {{ cat.products.count }}
                     </span>
@@ -179,11 +179,11 @@
                 
                 <div>
                     <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
-                        <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded-full text-xs font-mono font-bold uppercase">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full text-xs font-mono font-bold uppercase">
                             {% trans "CONTENDER A" %}
                         </span>
                         <template x-if="aiVerdict && aiVerdict.winner === 'A'">
-                            <span class="text-amber-400 font-bold text-xs uppercase tracking-widest flex items-center gap-1 animate-bounce">
+                            <span class="text-amber-600 font-bold text-xs uppercase tracking-widest flex items-center gap-1 animate-bounce">
                                 👑 {% trans "WINNER" %} (<span x-text="`${aiVerdict.score_a} pts`"></span>)
                             </span>
                         </template>
@@ -195,7 +195,7 @@
                     <!-- Category-Restricted Dropdown A -->
                     <div class="mb-5">
                         <label class="block text-xs font-mono text-slate-500 mb-1.5 uppercase tracking-wider">
-                            {% trans "Select Contender A:" %} <span class="text-emerald-400 font-semibold">({{ selected_category.name }})</span>
+                            {% trans "Select Contender A:" %} <span class="text-emerald-700 font-semibold">({% if request.LANGUAGE_CODE == 'ar' and selected_category.name_ar %}{{ selected_category.name_ar }}{% else %}{{ selected_category.name }}{% endif %})</span>
                         </label>
                         <select x-model="productAId" @change="fetchProductA(productAId)"
                                 class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-emerald-500 font-medium">
@@ -219,8 +219,8 @@
                                 </template>
                             </div>
                             <div>
-                                <h3 class="font-display font-extrabold text-base sm:text-lg text-white" dir="auto" x-text="productA.name"></h3>
-                                <div class="text-emerald-400 font-cyber font-extrabold text-2xl mt-1" x-text="productA.formatted_price"></div>
+                                <h3 class="font-display font-extrabold text-base sm:text-lg text-slate-900" dir="auto" x-text="productA.name"></h3>
+                                <div class="text-emerald-700 font-cyber font-extrabold text-2xl mt-1" x-text="productA.formatted_price"></div>
                             </div>
                         </div>
                     </template>
@@ -251,11 +251,11 @@
                 
                 <div>
                     <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
-                        <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 rounded-full text-xs font-mono font-bold uppercase">
+                        <span class="px-3 py-1 bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-full text-xs font-mono font-bold uppercase">
                             {% trans "CONTENDER B" %}
                         </span>
                         <template x-if="aiVerdict && aiVerdict.winner === 'B'">
-                            <span class="text-amber-400 font-bold text-xs uppercase tracking-widest flex items-center gap-1 animate-bounce">
+                            <span class="text-amber-600 font-bold text-xs uppercase tracking-widest flex items-center gap-1 animate-bounce">
                                 👑 {% trans "WINNER" %} (<span x-text="`${aiVerdict.score_b} pts`"></span>)
                             </span>
                         </template>
@@ -267,7 +267,7 @@
                     <!-- Category-Restricted Dropdown B -->
                     <div class="mb-5">
                         <label class="block text-xs font-mono text-slate-500 mb-1.5 uppercase tracking-wider">
-                            {% trans "Select Contender B:" %} <span class="text-cyan-400 font-semibold">({{ selected_category.name }})</span>
+                            {% trans "Select Contender B:" %} <span class="text-cyan-700 font-semibold">({% if request.LANGUAGE_CODE == 'ar' and selected_category.name_ar %}{{ selected_category.name_ar }}{% else %}{{ selected_category.name }}{% endif %})</span>
                         </label>
                         <select x-model="productBId" @change="fetchProductB(productBId)"
                                 class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-cyan-500 font-medium">
@@ -291,8 +291,8 @@
                                 </template>
                             </div>
                             <div>
-                                <h3 class="font-display font-extrabold text-base sm:text-lg text-white" dir="auto" x-text="productB.name"></h3>
-                                <div class="text-cyan-400 font-cyber font-extrabold text-2xl mt-1" x-text="productB.formatted_price"></div>
+                                <h3 class="font-display font-extrabold text-base sm:text-lg text-slate-900" dir="auto" x-text="productB.name"></h3>
+                                <div class="text-cyan-700 font-cyber font-extrabold text-2xl mt-1" x-text="productB.formatted_price"></div>
                             </div>
                         </div>
                     </template>
@@ -326,9 +326,9 @@
                 <div class="flex items-center gap-3">
                     <span class="text-2xl">🤖</span>
                     <div>
-                        <h2 class="text-lg sm:text-xl font-extrabold text-white font-display uppercase tracking-wider flex items-center gap-2">
+                        <h2 class="text-lg sm:text-xl font-extrabold text-slate-900 font-display uppercase tracking-wider flex items-center gap-2">
                             {% trans "AI Referee Duel Verdict" %}
-                            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-mono font-bold tracking-widest">
+                            <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-mono font-bold tracking-widest">
                                 GOOGLE GEMINI
                             </span>
                         </h2>
@@ -338,7 +338,7 @@
 
                 <button @click="fetchAIVerdict()"
                         :disabled="loadingAI"
-                        class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-all flex items-center gap-2 border border-white/20 disabled:opacity-50">
+                        class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-all flex items-center gap-2 border border-slate-200 disabled:opacity-50">
                     <span :class="{ 'animate-spin': loadingAI }">🔄</span>
                     <span>{% trans "Re-Analyze Duel" %}</span>
                 </button>
@@ -347,11 +347,11 @@
             <!-- Loading AI State -->
             <div x-show="loadingAI" x-cloak class="py-10 text-center space-y-3">
                 <div class="w-10 h-10 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-                <div class="text-sm font-bold text-gray-300">{% trans "AI Referee is Benchmarking Specs & Performance..." %}</div>
+                <div class="text-sm font-bold text-slate-700">{% trans "AI Referee is Benchmarking Specs & Performance..." %}</div>
             </div>
 
             <!-- Error State -->
-            <div x-show="aiError && !loadingAI" x-cloak class="p-4 rounded-2xl bg-red-950/60 border border-red-500/40 text-red-300 text-xs font-medium">
+            <div x-show="aiError && !loadingAI" x-cloak class="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-xs font-medium">
                 <span x-text="aiError"></span>
             </div>
 
@@ -359,24 +359,24 @@
             <div x-show="aiVerdict && !loadingAI" x-cloak class="space-y-6">
                 
                 <!-- Winner Announcement Banner -->
-                <div class="p-5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="p-5 rounded-2xl bg-emerald-50/80 border border-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div class="flex items-center gap-3.5 text-center sm:text-left">
                         <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-2xl shrink-0">
                             👑
                         </div>
                         <div>
-                            <div class="text-[11px] font-bold uppercase tracking-widest text-emerald-400 font-mono">
+                            <div class="text-[11px] font-bold uppercase tracking-widest text-emerald-700 font-mono">
                                 {% trans "JUDGE'S OFFICIAL WINNER" %}
                             </div>
-                            <div class="text-lg sm:text-xl font-extrabold text-white" x-text="aiVerdict.winner_name"></div>
+                            <div class="text-lg sm:text-xl font-extrabold text-slate-900" x-text="aiVerdict.winner_name"></div>
                         </div>
                     </div>
                     
                     <div class="flex items-center gap-2 font-mono text-xs font-bold">
-                        <span class="px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
+                        <span class="px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-300"
                               x-text="`Contender A: ${aiVerdict.score_a} pts`"></span>
                         <span class="text-gray-500 font-sans font-black">VS</span>
-                        <span class="px-3 py-1.5 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-500/40"
+                        <span class="px-3 py-1.5 rounded-xl bg-cyan-100 text-cyan-800 border border-cyan-300"
                               x-text="`Contender B: ${aiVerdict.score_b} pts`"></span>
                     </div>
                 </div>
@@ -386,7 +386,7 @@
                     <div class="text-xs font-bold uppercase tracking-wider text-slate-500">
                         ⚖️ {% trans "Referee Technical Summary:" %}
                     </div>
-                    <p dir="auto" class="text-sm sm:text-base text-gray-200 leading-relaxed font-medium text-start"
+                    <p dir="auto" class="text-sm sm:text-base text-slate-800 leading-relaxed font-medium text-start"
                        x-text="aiVerdict.verdict_summary"></p>
                 </div>
 
@@ -400,12 +400,12 @@
                             <template x-for="crit in aiVerdict.criteria" :key="crit.title">
                                 <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
                                     <div class="flex items-center justify-between">
-                                        <span class="text-xs font-bold text-white" x-text="crit.title"></span>
+                                        <span class="text-xs font-bold text-slate-900" x-text="crit.title"></span>
                                         <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase font-mono"
                                               :class="{
-                                                'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40': crit.winner === 'A',
-                                                'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40': crit.winner === 'B',
-                                                'bg-amber-500/20 text-amber-400 border border-amber-500/40': crit.winner === 'TIE'
+                                                'bg-emerald-50 text-emerald-700 border border-emerald-200': crit.winner === 'A',
+                                                'bg-cyan-50 text-cyan-700 border border-cyan-200': crit.winner === 'B',
+                                                'bg-amber-100 text-amber-800 border border-amber-300': crit.winner === 'TIE'
                                               }"
                                               x-text="crit.winner === 'A' ? 'Fighter A' : (crit.winner === 'B' ? 'Fighter B' : 'TIE')"></span>
                                     </div>
@@ -420,14 +420,14 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
                     
                     <!-- Contender A Strengths & Best For -->
-                    <div class="p-4 rounded-2xl bg-emerald-950/20 border border-emerald-500/20 space-y-3">
-                        <div class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200 space-y-3">
+                        <div class="text-xs font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1.5">
                             <span>✔</span> <span x-text="productA ? productA.name : 'Contender A'"></span>
                         </div>
                         <template x-if="aiVerdict.strengths_a && aiVerdict.strengths_a.length">
                             <ul class="space-y-1">
                                 <template x-for="s in aiVerdict.strengths_a" :key="s">
-                                    <li dir="auto" class="text-xs text-gray-300 flex items-start gap-1.5 text-start">
+                                    <li dir="auto" class="text-xs text-slate-700 flex items-start gap-1.5 text-start">
                                         <span class="text-emerald-500 mt-0.5">•</span>
                                         <span x-text="s"></span>
                                     </li>
@@ -437,20 +437,20 @@
                         <template x-if="aiVerdict.best_for_a">
                             <div class="pt-2 border-t border-emerald-500/20">
                                 <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500">{% trans "Recommended for:" %}</div>
-                                <p dir="auto" class="text-xs text-emerald-200 mt-0.5 font-medium text-start" x-text="aiVerdict.best_for_a"></p>
+                                <p dir="auto" class="text-xs text-emerald-800 mt-0.5 font-medium text-start" x-text="aiVerdict.best_for_a"></p>
                             </div>
                         </template>
                     </div>
 
                     <!-- Contender B Strengths & Best For -->
-                    <div class="p-4 rounded-2xl bg-cyan-950/20 border border-cyan-500/20 space-y-3">
-                        <div class="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <div class="p-4 rounded-2xl bg-cyan-50/60 border border-cyan-200 space-y-3">
+                        <div class="text-xs font-bold text-cyan-700 uppercase tracking-wider flex items-center gap-1.5">
                             <span>✔</span> <span x-text="productB ? productB.name : 'Contender B'"></span>
                         </div>
                         <template x-if="aiVerdict.strengths_b && aiVerdict.strengths_b.length">
                             <ul class="space-y-1">
                                 <template x-for="s in aiVerdict.strengths_b" :key="s">
-                                    <li dir="auto" class="text-xs text-gray-300 flex items-start gap-1.5 text-start">
+                                    <li dir="auto" class="text-xs text-slate-700 flex items-start gap-1.5 text-start">
                                         <span class="text-cyan-500 mt-0.5">•</span>
                                         <span x-text="s"></span>
                                     </li>
@@ -460,7 +460,7 @@
                         <template x-if="aiVerdict.best_for_b">
                             <div class="pt-2 border-t border-cyan-500/20">
                                 <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500">{% trans "Recommended for:" %}</div>
-                                <p dir="auto" class="text-xs text-cyan-200 mt-0.5 font-medium text-start" x-text="aiVerdict.best_for_b"></p>
+                                <p dir="auto" class="text-xs text-cyan-800 mt-0.5 font-medium text-start" x-text="aiVerdict.best_for_b"></p>
                             </div>
                         </template>
                     </div>
@@ -475,12 +475,12 @@
         <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-lg text-slate-900">
             
             <div class="flex items-center justify-between border-b border-slate-200 pb-4">
-                <h2 class="text-lg sm:text-xl font-extrabold text-white font-display uppercase tracking-wider flex items-center gap-2">
+                <h2 class="text-lg sm:text-xl font-extrabold text-slate-900 font-display uppercase tracking-wider flex items-center gap-2">
                     📊 {% trans "Hardware Spec Matrix" %}
                 </h2>
                 <div class="text-xs font-mono text-slate-500 flex items-center gap-3">
-                    <span class="text-emerald-400 font-bold">█ Fighter A</span>
-                    <span class="text-cyan-400 font-bold">█ Fighter B</span>
+                    <span class="text-emerald-700 font-bold">█ Fighter A</span>
+                    <span class="text-cyan-700 font-bold">█ Fighter B</span>
                 </div>
             </div>
 
@@ -490,12 +490,12 @@
                         
                         <!-- Header Line: Name & Values -->
                         <div class="flex items-center justify-between text-xs font-bold">
-                            <span class="text-emerald-400 font-mono flex items-center gap-1.5">
+                            <span class="text-emerald-700 font-mono flex items-center gap-1.5 font-bold">
                                 <span x-text="row.iconA"></span> 
                                 <span x-text="row.valueA"></span>
                             </span>
-                            <span class="text-white uppercase font-display tracking-widest text-center" x-text="row.name"></span>
-                            <span class="text-cyan-400 font-mono flex items-center gap-1.5">
+                            <span class="text-slate-900 uppercase font-display tracking-widest text-center font-extrabold" x-text="row.name"></span>
+                            <span class="text-cyan-700 font-mono flex items-center gap-1.5 font-bold">
                                 <span x-text="row.valueB"></span> 
                                 <span x-text="row.iconB"></span>
                             </span>

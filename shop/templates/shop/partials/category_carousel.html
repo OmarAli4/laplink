@@ -148,31 +148,31 @@
                  class="flex items-start gap-4 sm:gap-6 lg:gap-8 overflow-x-auto no-scrollbar scroll-smooth py-4 px-1 cursor-grab active:cursor-grabbing select-none"
                  style="-webkit-overflow-scrolling: touch;">
 
-                <!-- 1. لابتوبات (Laptops) -->
-                <a href="{% url 'shop:product_list' %}?category=laptops" 
-                   @mouseenter="activeCategory = 'laptops'" @mouseleave="activeCategory = null"
+                <!-- 1. آيباد وأجهزة أبل (iPad & Apple) -->
+                <a href="{% url 'shop:product_list_by_category' 'APPLE' %}" 
+                   @mouseenter="activeCategory = 'apple'" @mouseleave="activeCategory = null"
                    class="scroll-reveal group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
                         <img src="{% static 'img/categories/laptops.webp' %}" 
-                             alt="{% if LANGUAGE_CODE == 'ar' %}لابتوبات{% else %}Laptops{% endif %}" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}آيباد وأجهزة أبل{% else %}iPad & Apple{% endif %}" 
                              class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-500 group-hover:scale-115 group-hover:rotate-1" 
                              loading="eager">
                         <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-extrabold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200/80 rounded-full shadow-2xs">
-                            HOT
+                            Apple A16
                         </span>
                     </div>
                     <!-- Micro Floating Shadow -->
                     <div class="w-12 h-1.5 bg-slate-300/40 rounded-full blur-xs mt-1.5 group-hover:w-14 group-hover:opacity-70 group-hover:scale-110 transition-all duration-400"></div>
                     <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2 leading-snug line-clamp-2">
-                        {% if LANGUAGE_CODE == 'ar' %}لابتوبات{% else %}Laptops{% endif %}
+                        {% if LANGUAGE_CODE == 'ar' %}آيباد وأجهزة أبل{% else %}iPad & Apple{% endif %}
                     </span>
-                    <span class="text-[10px] text-slate-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
-                        {% if LANGUAGE_CODE == 'ar' %}ألعاب وبيزنس{% else %}Gaming & Pro{% endif %}
+                    <span class="text-[10px] text-slate-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
+                        {% if LANGUAGE_CODE == 'ar' %}أبل آيباد الجيل الجديد{% else %}Apple iPad A16{% endif %}
                     </span>
                 </a>
 
                 <!-- 2. شنط وحقائب لابتوب (Laptop Bags & Backpacks) -->
-                <a href="{% url 'shop:product_list' %}?q=backpack" 
+                <a href="{% url 'shop:product_list_by_category' 'bags' %}" 
                    @mouseenter="activeCategory = 'backpacks'" @mouseleave="activeCategory = null"
                    class="scroll-reveal delay-75 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
@@ -188,13 +188,13 @@
                     <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2 leading-snug line-clamp-2">
                         {% if LANGUAGE_CODE == 'ar' %}شنط وحقائب{% else %}Backpacks & Bags{% endif %}
                     </span>
-                    <span class="text-[10px] text-slate-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
+                    <span class="text-[10px] text-slate-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
                         {% if LANGUAGE_CODE == 'ar' %}مقاومة للماء{% else %}Waterproof Armor{% endif %}
                     </span>
                 </a>
 
                 <!-- 3. شواحن وباور بانك (Chargers & Power) -->
-                <a href="{% url 'shop:product_list' %}?q=charger" 
+                <a href="{% url 'shop:product_list_by_category' 'mobile-accessories' %}?subcategory=chargers-gan" 
                    @mouseenter="activeCategory = 'chargers'" @mouseleave="activeCategory = null"
                    class="scroll-reveal delay-100 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
@@ -210,13 +210,13 @@
                     <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2 leading-snug line-clamp-2">
                         {% if LANGUAGE_CODE == 'ar' %}شواحن وباور بانك{% else %}Power & GaN{% endif %}
                     </span>
-                    <span class="text-[10px] text-slate-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
+                    <span class="text-[10px] text-slate-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
                         {% if LANGUAGE_CODE == 'ar' %}حتى 140W{% else %}Up to 140W PD{% endif %}
                     </span>
                 </a>
 
                 <!-- 4. كابلات ومحولات (Cables & Adapters) -->
-                <a href="{% url 'shop:product_list' %}?q=cable" 
+                <a href="{% url 'shop:product_list_by_category' 'mobile-accessories' %}?subcategory=cables-adapters" 
                    @mouseenter="activeCategory = 'cables'" @mouseleave="activeCategory = null"
                    class="scroll-reveal delay-150 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
@@ -229,13 +229,13 @@
                     <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2 leading-snug line-clamp-2">
                         {% if LANGUAGE_CODE == 'ar' %}كابلات ومحولات{% else %}Cables & Wire{% endif %}
                     </span>
-                    <span class="text-[10px] text-slate-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
+                    <span class="text-[10px] text-slate-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
                         {% if LANGUAGE_CODE == 'ar' %}تايب سي وHDMI{% else %}Type-C & HDMI{% endif %}
                     </span>
                 </a>
 
                 <!-- 5. هابات وتوصيلات المكتب (Hubs & Docks) -->
-                <a href="{% url 'shop:product_list' %}?q=hub" 
+                <a href="{% url 'shop:product_list_by_category' 'Computer-accessories' %}?subcategory=hubs-adapters" 
                    @mouseenter="activeCategory = 'hubs'" @mouseleave="activeCategory = null"
                    class="scroll-reveal delay-200 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
@@ -251,13 +251,13 @@
                     <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2 leading-snug line-clamp-2">
                         {% if LANGUAGE_CODE == 'ar' %}هابات وتوصيلات{% else %}Hubs & Docks{% endif %}
                     </span>
-                    <span class="text-[10px] text-slate-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
+                    <span class="text-[10px] text-slate-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
                         {% if LANGUAGE_CODE == 'ar' %}توسيع المنافذ{% else %}Multi-Port Studio{% endif %}
                     </span>
                 </a>
 
                 <!-- 6. سماعات الرأس (Over-Ear Headphones) -->
-                <a href="{% url 'shop:product_list' %}?q=headphone" 
+                <a href="{% url 'shop:product_list_by_category' 'Computer-accessories' %}?subcategory=headsets" 
                    @mouseenter="activeCategory = 'headphones'" @mouseleave="activeCategory = null"
                    class="scroll-reveal delay-200 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
@@ -273,13 +273,13 @@
                     <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2 leading-snug line-clamp-2">
                         {% if LANGUAGE_CODE == 'ar' %}سماعات الرأس{% else %}Headphones{% endif %}
                     </span>
-                    <span class="text-[10px] text-slate-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
+                    <span class="text-[10px] text-slate-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
                         {% if LANGUAGE_CODE == 'ar' %}عزل ضوضاء فعال{% else %}Studio Hi-Res{% endif %}
                     </span>
                 </a>
 
                 <!-- 7. سماعات اير بودز (Wireless Earbuds) -->
-                <a href="{% url 'shop:product_list' %}?q=earbuds" 
+                <a href="{% url 'shop:product_list_by_category' 'mobile-accessories' %}?subcategory=wireless-mics-audio" 
                    @mouseenter="activeCategory = 'earbuds'" @mouseleave="activeCategory = null"
                    class="scroll-reveal delay-200 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
@@ -292,13 +292,13 @@
                     <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2 leading-snug line-clamp-2">
                         {% if LANGUAGE_CODE == 'ar' %}سماعات اير بودز{% else %}Wireless Earbuds{% endif %}
                     </span>
-                    <span class="text-[10px] text-slate-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
+                    <span class="text-[10px] text-slate-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
                         {% if LANGUAGE_CODE == 'ar' %}صوت نقي وواضح{% else %}True Wireless{% endif %}
                     </span>
                 </a>
 
                 <!-- 8. ماوس وكيبورد (Mice & Keyboards) -->
-                <a href="{% url 'shop:product_list' %}?q=mouse" 
+                <a href="{% url 'shop:product_list_by_category' 'Computer-accessories' %}?subcategory=mice" 
                    @mouseenter="activeCategory = 'mouse'" @mouseleave="activeCategory = null"
                    class="scroll-reveal delay-250 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
@@ -314,13 +314,13 @@
                     <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2 leading-snug line-clamp-2">
                         {% if LANGUAGE_CODE == 'ar' %}ماوس وكيبورد{% else %}Mouse & Keys{% endif %}
                     </span>
-                    <span class="text-[10px] text-slate-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
+                    <span class="text-[10px] text-slate-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
                         {% if LANGUAGE_CODE == 'ar' %}جيمنج وبيزنس{% else %}Gaming & Silent{% endif %}
                     </span>
                 </a>
 
                 <!-- 9. راوترات ومقويات شبكة (Routers & Mesh Wi-Fi) -->
-                <a href="{% url 'shop:product_list' %}?q=deco" 
+                <a href="{% url 'shop:product_list_by_category' 'Network' %}" 
                    @mouseenter="activeCategory = 'routers'" @mouseleave="activeCategory = null"
                    class="scroll-reveal delay-250 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
@@ -336,13 +336,13 @@
                     <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2 leading-snug line-clamp-2">
                         {% if LANGUAGE_CODE == 'ar' %}راوترات وشبكات{% else %}Mesh & Routers{% endif %}
                     </span>
-                    <span class="text-[10px] text-slate-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
+                    <span class="text-[10px] text-slate-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
                         {% if LANGUAGE_CODE == 'ar' %}تغطية كاملة{% else %}TP-Link Deco{% endif %}
                     </span>
                 </a>
 
                 <!-- 10. تابلت رسم وجرافيك (Graphic Drawing Tablets) -->
-                <a href="{% url 'shop:product_list' %}?q=tablet" 
+                <a href="{% url 'shop:product_list_by_category' 'graphic-tablet' %}" 
                    @mouseenter="activeCategory = 'tablets'" @mouseleave="activeCategory = null"
                    class="scroll-reveal delay-300 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
@@ -358,18 +358,18 @@
                     <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2 leading-snug line-clamp-2">
                         {% if LANGUAGE_CODE == 'ar' %}تابلت رسم وجرافيك{% else %}Graphic Tablets{% endif %}
                     </span>
-                    <span class="text-[10px] text-slate-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
+                    <span class="text-[10px] text-slate-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
                         {% if LANGUAGE_CODE == 'ar' %}قلم حساس للضغط{% else %}Stylus & Art{% endif %}
                     </span>
                 </a>
 
                 <!-- 11. حوامل وستاندات (Stands & Mounts) -->
-                <a href="{% url 'shop:product_list' %}?q=stand" 
+                <a href="{% url 'shop:product_list_by_category' 'mobile-accessories' %}?subcategory=content-creation" 
                    @mouseenter="activeCategory = 'stands'" @mouseleave="activeCategory = null"
                    class="scroll-reveal delay-300 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
                         <img src="{% static 'img/categories/stands.webp' %}" 
-                             alt="{% if LANGUAGE_CODE == 'ar' %}حوامل وستاندات{% else %}Stands & Mounts{% endif %}" 
+                             alt="{% if LANGUAGE_CODE == 'ar' %}جيمبال ومعدات تصوير{% else %}Gimbals & Creator Gear{% endif %}" 
                              class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-500 group-hover:scale-115" 
                              loading="lazy">
                         <span class="absolute -top-2 -right-1.5 px-2 py-0.5 text-[8px] sm:text-[9px] font-extrabold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200/80 rounded-full shadow-2xs">
@@ -378,10 +378,10 @@
                     </div>
                     <div class="w-12 h-1.5 bg-slate-300/40 rounded-full blur-xs mt-1.5 group-hover:w-14 group-hover:opacity-70 group-hover:scale-110 transition-all duration-400"></div>
                     <span class="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-200 mt-2 leading-snug line-clamp-2">
-                        {% if LANGUAGE_CODE == 'ar' %}حوامل وستاندات{% else %}Stands & Mounts{% endif %}
+                        {% if LANGUAGE_CODE == 'ar' %}جيمبال ومعدات تصوير{% else %}Gimbals & Creator Gear{% endif %}
                     </span>
-                    <span class="text-[10px] text-slate-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
-                        {% if LANGUAGE_CODE == 'ar' %}ألومنيوم مريح{% else %}Ergonomic Metal{% endif %}
+                    <span class="text-[10px] text-slate-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-200 -mt-0.5">
+                        {% if LANGUAGE_CODE == 'ar' %}ترايبود وجيمبال وحوامل{% else %}Tripods & Stabilizers{% endif %}
                     </span>
                 </a>
 
@@ -395,12 +395,12 @@
 
         <!-- Scrollytelling Interactive Progress Bar (Apple Style) -->
         <div class="scroll-reveal delay-300 mt-4 flex items-center justify-center gap-3">
-            <span class="text-[10px] font-bold tracking-widest uppercase text-slate-400">01</span>
+            <span class="text-[10px] font-bold tracking-widest uppercase text-slate-600">01</span>
             <div class="w-28 sm:w-44 h-1 bg-slate-100 rounded-full overflow-hidden relative shadow-inner">
                 <div class="h-full bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 rounded-full transition-all duration-300 ease-out"
                      :style="`width: ${Math.max(15, scrollProgress)}%`"></div>
             </div>
-            <span class="text-[10px] font-bold tracking-widest uppercase text-slate-400">11</span>
+            <span class="text-[10px] font-bold tracking-widest uppercase text-slate-600">11</span>
         </div>
 
     </div>

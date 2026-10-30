@@ -18,11 +18,12 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', '"Readex Pro"', 'sans-serif'],
-                        display: ['Outfit', '"Plus Jakarta Sans"', '"Readex Pro"', 'sans-serif'],
-                        cute: ['Comfortaa', 'Quicksand', 'Outfit', '"Readex Pro"', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', '"Readex Pro"', 'monospace'],
-                        arabic: ['"Readex Pro"', 'Cairo', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', '"Cairo"', '"Readex Pro"', 'sans-serif'],
+                        display: ['"Outfit"', '"Cairo"', '"Readex Pro"', 'sans-serif'],
+                        arabic: ['"Cairo"', '"Readex Pro"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                        'tech-mono': ['"JetBrains Mono"', 'monospace'],
+                        cyber: ['"Outfit"', '"Cairo"', 'sans-serif'],
                     }
                 }
             }
@@ -33,7 +34,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js" as="script">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Quicksand:wght@600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- HTMX 2.x -->
     <script src="https://unpkg.com/htmx.org@2.0.4" defer></script>
@@ -47,6 +48,41 @@
         });
     </script>
     <style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Cairo', 'Readex Pro', sans-serif;
+            background-color: #FFFFFF;
+            color: #0F172A;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+        h1, h2, h3, h4, .font-display, .font-cyber {
+            font-family: 'Outfit', 'Cairo', 'Readex Pro', sans-serif;
+        }
+        html[dir="rtl"] body,
+        html[dir="rtl"] h1,
+        html[dir="rtl"] h2,
+        html[dir="rtl"] h3,
+        html[dir="rtl"] h4,
+        html[dir="rtl"] h5,
+        html[dir="rtl"] h6,
+        html[dir="rtl"] .font-sans,
+        html[dir="rtl"] .font-display,
+        html[dir="rtl"] .font-cyber,
+        html[dir="rtl"] button,
+        html[dir="rtl"] input,
+        html[dir="rtl"] select,
+        html[dir="rtl"] textarea {
+            font-family: 'Cairo', 'Readex Pro', sans-serif !important;
+        }
+        html[dir="rtl"] * {
+            letter-spacing: 0 !important;
+        }
+        .font-mono, .font-tech-mono {
+            font-family: 'JetBrains Mono', 'Cairo', monospace;
+            font-variant-numeric: tabular-nums;
+        }
+
         [x-cloak] { display: none !important; }
 
         .htmx-indicator { opacity: 0; transition: opacity 300ms ease-in; }
@@ -176,20 +212,20 @@
     <footer class="border-t border-gray-200 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                <p class="text-sm text-gray-400">
+                <p class="text-sm text-slate-600">
                     &copy; {% now "Y" %} Lap Link. {% trans "All rights reserved." %}
                 </p>
                 <div class="flex items-center gap-6">
-                    <a href="{% url 'shop:about' %}" class="text-sm text-gray-400 hover:text-gray-700 transition-colors">
+                    <a href="{% url 'shop:about' %}" class="text-sm text-slate-600 hover:text-slate-950 font-medium transition-colors">
                         {% trans "About Us" %}
                     </a>
-                    <a href="#" class="text-sm text-gray-400 hover:text-gray-700 transition-colors">
+                    <a href="#" class="text-sm text-slate-600 hover:text-slate-950 font-medium transition-colors">
                         {% trans "Privacy" %}
                     </a>
-                    <a href="#" class="text-sm text-gray-400 hover:text-gray-700 transition-colors">
+                    <a href="#" class="text-sm text-slate-600 hover:text-slate-950 font-medium transition-colors">
                         {% trans "Terms" %}
                     </a>
-                    <a href="#" class="text-sm text-gray-400 hover:text-gray-700 transition-colors">
+                    <a href="#" class="text-sm text-slate-600 hover:text-slate-950 font-medium transition-colors">
                         {% trans "Contact" %}
                     </a>
                 </div>

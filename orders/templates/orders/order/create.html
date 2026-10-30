@@ -194,7 +194,7 @@
                                     @click="paymentMethod = 'cod'"
                                     :class="paymentMethod === 'cod' ? 'border-blue-600 bg-blue-50 text-blue-900 shadow-sm' : 'border-slate-200 bg-white text-slate-800 hover:border-slate-400'"
                                     class="p-4 rounded-2xl border-2 text-start transition-all duration-200 flex items-start gap-3.5">
-                                <div :class="paymentMethod === 'cod' ? 'bg-white/15 text-emerald-400' : 'bg-emerald-100 text-emerald-700'"
+                                <div :class="paymentMethod === 'cod' ? 'bg-blue-100 text-blue-700' : 'bg-emerald-100 text-emerald-700'"
                                      class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                                 </div>
@@ -206,7 +206,7 @@
                                             <span x-show="paymentMethod === 'cod'" class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
                                         </span>
                                     </div>
-                                    <p :class="paymentMethod === 'cod' ? 'text-slate-300' : 'text-slate-500'" class="text-xs mt-1 leading-relaxed">
+                                    <p :class="paymentMethod === 'cod' ? 'text-blue-800' : 'text-slate-500'" class="text-xs mt-1 leading-relaxed">
                                         {% if LANGUAGE_CODE == 'ar' %}ادفع نقداً للمندوب بعد فتح ومعاينة طلبك بنفسك{% else %}Inspect your order first, then pay cash to courier{% endif %}
                                     </p>
                                 </div>
@@ -215,20 +215,20 @@
                             {# Option 2: InstaPay Instant Transfer #}
                             <button type="button"
                                     @click="paymentMethod = 'instapay'"
-                                    :class="paymentMethod === 'instapay' ? 'border-purple-700 bg-gradient-to-br from-purple-900 via-indigo-950 to-slate-900 text-white shadow-md' : 'border-slate-200 bg-slate-50/70 text-slate-800 hover:border-purple-400'"
+                                    :class="paymentMethod === 'instapay' ? 'border-purple-600 bg-purple-50 text-purple-950 shadow-sm' : 'border-slate-200 bg-white text-slate-800 hover:border-purple-400'"
                                     class="p-4 rounded-2xl border-2 text-start transition-all duration-200 flex items-start gap-3.5">
-                                <div :class="paymentMethod === 'instapay' ? 'bg-white/15 text-purple-300' : 'bg-purple-100 text-purple-700'"
+                                <div :class="paymentMethod === 'instapay' ? 'bg-purple-100 text-purple-700' : 'bg-purple-50 text-purple-700'"
                                      class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5 font-extrabold text-xs">
                                     IPN
                                 </div>
                                 <div class="flex-1">
                                     <div class="flex items-center justify-between">
                                         <span class="text-sm font-extrabold">{% if LANGUAGE_CODE == 'ar' %}انستا باي (InstaPay){% else %}InstaPay Transfer{% endif %}</span>
-                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/20 text-purple-300 border border-purple-400/30">
+                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800 border border-purple-200">
                                             {% if LANGUAGE_CODE == 'ar' %}تحويل فوري{% else %}Instant{% endif %}
                                         </span>
                                     </div>
-                                    <p :class="paymentMethod === 'instapay' ? 'text-purple-200' : 'text-slate-500'" class="text-xs mt-1 leading-relaxed">
+                                    <p :class="paymentMethod === 'instapay' ? 'text-purple-800' : 'text-slate-500'" class="text-xs mt-1 leading-relaxed">
                                         {% if LANGUAGE_CODE == 'ar' %}تحويل بنكي لحظي على رقم {{ instapay_number }} بدون أي رسوم{% else %}Instant transfer to {{ instapay_number }} with 0% fees{% endif %}
                                     </p>
                                 </div>

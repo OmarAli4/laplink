@@ -37,57 +37,57 @@
             <!-- Page Specific Mascot Tag -->
             <template x-if="page === 'home'">
                 <div>
-                    <div class="text-emerald-400 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">🎧 DJ ROBOT • HOST</div>
-                    <div class="text-gray-200" x-text="hoveredTitle ? '🎉 ' + hoveredTitle : '{% trans "Welcome to Lap Link! Explore Next-Gen Tech!" %}'"></div>
+                    <div class="text-emerald-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">🎧 DJ ROBOT • HOST</div>
+                    <div class="text-slate-800" x-text="hoveredTitle ? '🎉 ' + hoveredTitle : '{% trans "Welcome to Lap Link! Explore Next-Gen Tech!" %}'"></div>
                 </div>
             </template>
 
             <template x-if="page === 'catalog'">
                 <div>
-                    <div class="text-cyan-400 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">🔍 SCOUT ROBOT • RADAR</div>
-                    <div class="text-gray-200" x-text="hoveredTitle ? '🔎 Inspecting: ' + hoveredTitle : '{% trans "Scanning products... Hover to inspect!" %}'"></div>
+                    <div class="text-blue-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">🔍 SCOUT ROBOT • RADAR</div>
+                    <div class="text-slate-800" x-text="hoveredTitle ? '🔎 Inspecting: ' + hoveredTitle : '{% trans "Scanning products... Hover to inspect!" %}'"></div>
                 </div>
             </template>
 
             <template x-if="page === 'detail'">
                 <div>
-                    <div class="text-amber-400 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">🛠️ ENGINEER ROBOT • SPECS</div>
-                    <div class="text-gray-200">{% trans "Hardware verified • 2-Year Warranty active! 🛡️" %}</div>
+                    <div class="text-amber-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">🛠️ ENGINEER ROBOT • SPECS</div>
+                    <div class="text-slate-800">{% trans "Hardware verified • 2-Year Warranty active! 🛡️" %}</div>
                 </div>
             </template>
 
             <template x-if="page === 'cart'">
                 <div>
-                    <div class="text-emerald-400 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">📦 COURIER ROBOT • CART</div>
-                    <div class="text-gray-200">{% trans "Great choices in your cart! Ready for dispatch ⚡" %}</div>
+                    <div class="text-emerald-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">📦 COURIER ROBOT • CART</div>
+                    <div class="text-slate-800">{% trans "Great choices in your cart! Ready for dispatch ⚡" %}</div>
                 </div>
             </template>
 
             <template x-if="page === 'wishlist'">
                 <div>
-                    <div class="text-rose-400 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">💖 GUARDIAN ROBOT • WISHLIST</div>
-                    <div class="text-gray-200">{% trans "Safeguarding your top favorite devices! 💖" %}</div>
+                    <div class="text-rose-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">💖 GUARDIAN ROBOT • WISHLIST</div>
+                    <div class="text-slate-800">{% trans "Safeguarding your top favorite devices! 💖" %}</div>
                 </div>
             </template>
 
             <template x-if="page === 'dashboard'">
                 <div>
-                    <div class="text-indigo-400 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">🛡️ SECURITY AGENT • ACCOUNT</div>
-                    <div class="text-gray-200">{% trans "Account Secured! Welcome back, Commander 🫡" %}</div>
+                    <div class="text-blue-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">🛡️ SECURITY AGENT • ACCOUNT</div>
+                    <div class="text-slate-800">{% trans "Account Secured! Welcome back, Commander 🫡" %}</div>
                 </div>
             </template>
 
             <!-- Interactive Quick FAQ Chips inside Speech Bubble -->
-            <div class="mt-2.5 pt-2 border-t border-white/10" x-data="{ customAnswer: '' }">
+            <div class="mt-2.5 pt-2 border-t border-slate-200" x-data="{ customAnswer: '' }">
                 <template x-if="customAnswer">
-                    <div class="text-[11px] text-amber-300 font-extrabold animate-fade-in py-0.5" x-text="customAnswer"></div>
+                    <div class="text-[11px] text-amber-700 font-extrabold animate-fade-in py-0.5" x-text="customAnswer"></div>
                 </template>
                 <template x-if="!customAnswer">
                     <div class="flex flex-wrap gap-1 justify-center">
-                        <button type="button" @click="customAnswer = '{% trans '🚚 Free delivery on orders over L.E 5,000!' %}'; if(window.TechSound) window.TechSound.playPop();" class="px-2 py-0.5 rounded-full bg-white/10 hover:bg-emerald-500/20 text-[10px] text-gray-300 hover:text-emerald-300 transition-colors">
+                        <button type="button" @click="customAnswer = '{% trans '🚚 Free delivery on orders over L.E 5,000!' %}'; if(window.TechSound) window.TechSound.playPop();" class="px-2 py-0.5 rounded-full bg-slate-100 hover:bg-emerald-50 text-[10px] text-slate-700 hover:text-emerald-700 border border-slate-200 transition-colors">
                             🚚 {% trans "Shipping?" %}
                         </button>
-                        <button type="button" @click="customAnswer = '{% trans '🛡️ 2-Year Official Manufacturer Warranty!' %}'; if(window.TechSound) window.TechSound.playPop();" class="px-2 py-0.5 rounded-full bg-white/10 hover:bg-emerald-500/20 text-[10px] text-gray-300 hover:text-emerald-300 transition-colors">
+                        <button type="button" @click="customAnswer = '{% trans '🛡️ 2-Year Official Manufacturer Warranty!' %}'; if(window.TechSound) window.TechSound.playPop();" class="px-2 py-0.5 rounded-full bg-slate-100 hover:bg-emerald-50 text-[10px] text-slate-700 hover:text-emerald-700 border border-slate-200 transition-colors">
                             🛡️ {% trans "Warranty?" %}
                         </button>
                     </div>
