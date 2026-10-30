@@ -5,7 +5,7 @@
 {% block title %}Lap Link | {% trans "Create Account" %}{% endblock %}
 
 {% block content %}
-<div class="min-h-[calc(100vh-80px)] bg-zinc-950 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans">
+<div class="min-h-[calc(100vh-80px)] bg-[#F8FAFC] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans">
     
     <!-- Ambient Background Glows -->
     <div class="absolute -top-40 -right-40 w-96 h-96 bg-purple-500/10 rounded-full blur-[60px] pointer-events-none"></div>
@@ -38,7 +38,7 @@
                     <h2 class="text-3xl font-display font-extrabold text-white leading-tight tracking-tight">
                         {% trans "Join the Tech Elite." %}
                     </h2>
-                    <p class="text-sm text-gray-400 leading-relaxed">
+                    <p class="text-sm text-slate-500 leading-relaxed">
                         {% trans "Create your account today and unlock VIP tech deals, priority shipping, and instant order tracking." %}
                     </p>
                 </div>
@@ -50,7 +50,7 @@
                     <div class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-amber-400 font-bold shrink-0">🎁</div>
                     <div>
                         <div class="text-xs font-bold text-white uppercase tracking-wide">{% trans "10% Welcome Discount" %}</div>
-                        <div class="text-[11px] text-gray-400">{% trans "Use promo code LAPLINK10 at checkout" %}</div>
+                        <div class="text-[11px] text-slate-500">{% trans "Use promo code LAPLINK10 at checkout" %}</div>
                     </div>
                 </div>
 
@@ -58,14 +58,14 @@
                     <div class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-indigo-400 font-bold shrink-0">⚡</div>
                     <div>
                         <div class="text-xs font-bold text-white uppercase tracking-wide">{% trans "Priority Dispatch" %}</div>
-                        <div class="text-[11px] text-gray-400">{% trans "Fast-track processing for all orders" %}</div>
+                        <div class="text-[11px] text-slate-500">{% trans "Fast-track processing for all orders" %}</div>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Right Form Panel -->
-        <div class="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-center bg-zinc-950/40">
+        <div class="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-center bg-white">
             
             <div class="mb-8">
                 <!-- Mobile Logo Header -->
@@ -81,7 +81,7 @@
                 <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
                     {% trans "Join the Elite" %}
                 </h2>
-                <p class="mt-2 text-xs sm:text-sm text-gray-400 font-medium">
+                <p class="mt-2 text-xs sm:text-sm text-slate-500 font-medium">
                     {% trans "Create your premium account today" %}
                 </p>
             </div>
@@ -101,7 +101,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {% for field in form %}
                     <div x-data="{ showPassword: false }" class="{% if 'username' in field.name or 'email' in field.name %}sm:col-span-2{% endif %}">
-                        <label for="{{ field.id_for_label }}" class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
+                        <label for="{{ field.id_for_label }}" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
                             {{ field.label }}
                         </label>
 
@@ -114,7 +114,7 @@
                         
                         <div class="relative">
                             <!-- Input Field Icon -->
-                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
                                 {% if "email" in field.name %}
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                                 {% elif "password" in field.name %}
@@ -128,13 +128,13 @@
                                    name="{{ field.html_name }}" 
                                    :type="{% if 'password' in field.name %}showPassword ? 'text' : 'password'{% else %}'{{ field.field.widget.input_type|default:'text' }}'{% endif %}"
                                    {% if field.field.required %}required{% endif %}
-                                   class="appearance-none rounded-2xl relative block w-full pl-10 {% if 'password' in field.name %}pr-10{% else %}pr-4{% endif %} py-3 border {% if field.errors %}border-red-500/80 bg-red-500/5{% else %}border-white/10 bg-zinc-900/80{% endif %} placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-white/80 focus:border-white/80 text-xs sm:text-sm font-medium transition-colors duration-300 shadow-inner"
+                                   class="appearance-none rounded-2xl relative block w-full pl-10 {% if 'password' in field.name %}pr-11{% else %}pr-4{% endif %} py-3.5 bg-slate-50 border border-slate-200 placeholder-slate-400 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 focus:bg-white transition-all text-sm font-medium"
                                    placeholder="{{ field.label }}">
 
                             {% if "password" in field.name %}
                             <button type="button" 
                                     @click="showPassword = !showPassword" 
-                                    class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-gray-400 hover:text-white transition-colors focus:outline-none">
+                                    class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-500 hover:text-white transition-colors focus:outline-none">
                                 <svg x-show="!showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                                 <svg x-show="showPassword" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858-5.908a10.03 10.03 0 013.682-.733c4.478 0 8.268 2.943 9.542 7a10.025 10.025 0 01-4.132 5.411m-4.692-4.692a3 3 0 00-4.243-4.243m4.243 4.243L3 3l18 18" /></svg>
                             </button>
@@ -159,7 +159,7 @@
                 </div>
                 
                 <div class="text-center pt-4 border-t border-white/10">
-                    <p class="text-xs sm:text-sm text-gray-400 font-medium">
+                    <p class="text-xs sm:text-sm text-slate-500 font-medium">
                         {% trans "Already a member?" %} 
                         <a href="{% url 'shop:login' %}" class="font-bold text-white hover:text-emerald-400 underline underline-offset-4 transition-colors">
                             {% trans "Sign In" %}

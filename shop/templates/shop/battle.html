@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<div class="bg-gray-950 min-h-screen text-white py-10 px-4 sm:px-6 lg:px-8 font-sans relative overflow-hidden"
+<div class="bg-[#F8FAFC] min-h-screen text-slate-900 py-10 px-4 sm:px-6 lg:px-8 font-sans relative overflow-hidden"
      x-data="{
         selectedCategoryId: '{{ selected_category.id|default:'' }}',
         productAId: '{{ product_a.id|default:'' }}',
@@ -138,7 +138,7 @@
             <h1 class="text-3xl sm:text-5xl font-black text-white font-display tracking-tight">
                 {% trans "Product Battle Mode" %}
             </h1>
-            <p class="text-gray-400 text-sm max-w-xl mx-auto font-medium">
+            <p class="text-slate-500 text-sm max-w-xl mx-auto font-medium">
                 {% trans "Compare two flagship devices in the same category head-to-head with live Google Gemini AI technical referee verdict." %}
             </p>
         </div>
@@ -152,7 +152,7 @@
                           {% if selected_category.id == cat.id %}
                             bg-white text-black border-white shadow-md scale-105
                           {% else %}
-                            bg-zinc-900/80 text-gray-400 border-white/10 hover:text-white hover:border-white/30
+                            bg-white text-slate-600 border-slate-200 hover:text-slate-900 hover:border-slate-300 shadow-2xs
                           {% endif %}">
                     <span>
                         {% if 'laptop' in cat.name|lower %}💻
@@ -162,7 +162,7 @@
                         {% else %}⚡{% endif %}
                     </span>
                     <span>{{ cat.name }}</span>
-                    <span class="text-[10px] px-1.5 py-0.5 rounded-full {% if selected_category.id == cat.id %}bg-black text-white{% else %}bg-white/10 text-gray-400{% endif %}">
+                    <span class="text-[10px] px-1.5 py-0.5 rounded-full {% if selected_category.id == cat.id %}bg-blue-600 text-white{% else %}bg-slate-100 text-slate-600{% endif %}">
                         {{ cat.products.count }}
                     </span>
                 </a>
@@ -174,11 +174,11 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
             <!-- PRODUCT A FIGHTER CARD -->
-            <div class="bg-zinc-900/90 border border-emerald-500/30 rounded-3xl p-6 relative overflow-hidden transition-all duration-300 hover:border-emerald-500/60 shadow-xl flex flex-col justify-between"
+            <div class="bg-white border border-emerald-500/40 rounded-3xl p-6 relative overflow-hidden shadow-sm transition-all duration-300 hover:border-emerald-500/60 shadow-xl flex flex-col justify-between"
                  :class="{ 'ring-2 ring-emerald-500 shadow-[0_0_40px_rgba(16,185,129,0.25)]': aiVerdict && aiVerdict.winner === 'A' }">
                 
                 <div>
-                    <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
                         <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded-full text-xs font-mono font-bold uppercase">
                             {% trans "CONTENDER A" %}
                         </span>
@@ -188,17 +188,17 @@
                             </span>
                         </template>
                         <template x-if="aiVerdict && aiVerdict.winner !== 'A' && aiVerdict.score_a">
-                            <span class="text-gray-400 font-mono text-xs font-semibold" x-text="`${aiVerdict.score_a} pts`"></span>
+                            <span class="text-slate-500 font-mono text-xs font-semibold" x-text="`${aiVerdict.score_a} pts`"></span>
                         </template>
                     </div>
 
                     <!-- Category-Restricted Dropdown A -->
                     <div class="mb-5">
-                        <label class="block text-xs font-mono text-gray-400 mb-1.5 uppercase tracking-wider">
+                        <label class="block text-xs font-mono text-slate-500 mb-1.5 uppercase tracking-wider">
                             {% trans "Select Contender A:" %} <span class="text-emerald-400 font-semibold">({{ selected_category.name }})</span>
                         </label>
                         <select x-model="productAId" @change="fetchProductA(productAId)"
-                                class="w-full bg-zinc-950 border border-white/15 text-white text-xs sm:text-sm rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-emerald-500 font-medium">
+                                class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-emerald-500 font-medium">
                             {% for p in products %}
                                 <option value="{{ p.id }}" {% if p.id == product_a.id %}selected{% endif %}>
                                     {{ p.name }} — L.E {{ p.current_price|floatformat:0 }}
@@ -210,7 +210,7 @@
                     <!-- Product Card Display -->
                     <template x-if="productA">
                         <div class="text-center space-y-4">
-                            <div class="w-44 h-44 mx-auto bg-zinc-950 rounded-2xl p-4 border border-white/10 flex items-center justify-center relative overflow-hidden group">
+                            <div class="w-44 h-44 mx-auto bg-slate-50 rounded-2xl p-4 border border-slate-100 flex items-center justify-center relative overflow-hidden group">
                                 <template x-if="productA.image">
                                     <img :src="productA.image" :alt="productA.name" class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy" decoding="async">
                                 </template>
@@ -228,8 +228,8 @@
 
                 <!-- Action Buttons A -->
                 <template x-if="productA">
-                    <div class="pt-4 border-t border-white/10 mt-5 grid grid-cols-2 gap-2">
-                        <a :href="productA.url" class="py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl text-xs font-bold text-center transition-colors">
+                    <div class="pt-4 border-t border-slate-200 mt-5 grid grid-cols-2 gap-2">
+                        <a :href="productA.url" class="py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold border border-slate-200 text-center transition-colors">
                             {% trans "Details" %} →
                         </a>
                         <form :action="`/cart/add/${productA.id}/`" method="POST" class="w-full">
@@ -246,11 +246,11 @@
             </div>
 
             <!-- PRODUCT B FIGHTER CARD -->
-            <div class="bg-zinc-900/90 border border-cyan-500/30 rounded-3xl p-6 relative overflow-hidden transition-all duration-300 hover:border-cyan-500/60 shadow-xl flex flex-col justify-between"
+            <div class="bg-white border border-cyan-500/40 rounded-3xl p-6 relative overflow-hidden shadow-sm transition-all duration-300 hover:border-cyan-500/60 shadow-xl flex flex-col justify-between"
                  :class="{ 'ring-2 ring-cyan-500 shadow-[0_0_40px_rgba(6,182,212,0.25)]': aiVerdict && aiVerdict.winner === 'B' }">
                 
                 <div>
-                    <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
                         <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 rounded-full text-xs font-mono font-bold uppercase">
                             {% trans "CONTENDER B" %}
                         </span>
@@ -260,17 +260,17 @@
                             </span>
                         </template>
                         <template x-if="aiVerdict && aiVerdict.winner !== 'B' && aiVerdict.score_b">
-                            <span class="text-gray-400 font-mono text-xs font-semibold" x-text="`${aiVerdict.score_b} pts`"></span>
+                            <span class="text-slate-500 font-mono text-xs font-semibold" x-text="`${aiVerdict.score_b} pts`"></span>
                         </template>
                     </div>
 
                     <!-- Category-Restricted Dropdown B -->
                     <div class="mb-5">
-                        <label class="block text-xs font-mono text-gray-400 mb-1.5 uppercase tracking-wider">
+                        <label class="block text-xs font-mono text-slate-500 mb-1.5 uppercase tracking-wider">
                             {% trans "Select Contender B:" %} <span class="text-cyan-400 font-semibold">({{ selected_category.name }})</span>
                         </label>
                         <select x-model="productBId" @change="fetchProductB(productBId)"
-                                class="w-full bg-zinc-950 border border-white/15 text-white text-xs sm:text-sm rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-cyan-500 font-medium">
+                                class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-cyan-500 font-medium">
                             {% for p in products %}
                                 <option value="{{ p.id }}" {% if p.id == product_b.id %}selected{% endif %}>
                                     {{ p.name }} — L.E {{ p.current_price|floatformat:0 }}
@@ -282,7 +282,7 @@
                     <!-- Product Card Display -->
                     <template x-if="productB">
                         <div class="text-center space-y-4">
-                            <div class="w-44 h-44 mx-auto bg-zinc-950 rounded-2xl p-4 border border-white/10 flex items-center justify-center relative overflow-hidden group">
+                            <div class="w-44 h-44 mx-auto bg-slate-50 rounded-2xl p-4 border border-slate-100 flex items-center justify-center relative overflow-hidden group">
                                 <template x-if="productB.image">
                                     <img :src="productB.image" :alt="productB.name" class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy" decoding="async">
                                 </template>
@@ -300,8 +300,8 @@
 
                 <!-- Action Buttons B -->
                 <template x-if="productB">
-                    <div class="pt-4 border-t border-white/10 mt-5 grid grid-cols-2 gap-2">
-                        <a :href="productB.url" class="py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl text-xs font-bold text-center transition-colors">
+                    <div class="pt-4 border-t border-slate-200 mt-5 grid grid-cols-2 gap-2">
+                        <a :href="productB.url" class="py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold border border-slate-200 text-center transition-colors">
                             {% trans "Details" %} →
                         </a>
                         <form :action="`/cart/add/${productB.id}/`" method="POST" class="w-full">
@@ -320,9 +320,9 @@
         </div>
 
         <!-- 🤖 GEMINI AI REFEREE DUEL VERDICT CARD -->
-        <div class="bg-gradient-to-br from-zinc-900 via-zinc-900/95 to-zinc-950 border border-emerald-500/40 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative overflow-hidden">
+        <div class="bg-gradient-to-br from-white via-slate-50 to-emerald-50/20 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 space-y-6 shadow-lg relative overflow-hidden text-slate-900">
             
-            <div class="flex items-center justify-between border-b border-white/10 pb-4 flex-wrap gap-3">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4 flex-wrap gap-3">
                 <div class="flex items-center gap-3">
                     <span class="text-2xl">🤖</span>
                     <div>
@@ -332,7 +332,7 @@
                                 GOOGLE GEMINI
                             </span>
                         </h2>
-                        <p class="text-xs text-gray-400">{% trans "Live unbiased hardware showdown analysis" %}</p>
+                        <p class="text-xs text-slate-500">{% trans "Live unbiased hardware showdown analysis" %}</p>
                     </div>
                 </div>
 
@@ -382,8 +382,8 @@
                 </div>
 
                 <!-- Referee Verdict Text (Egyptian Arabic) -->
-                <div class="p-4 sm:p-5 rounded-2xl bg-zinc-950/80 border border-white/10 space-y-2">
-                    <div class="text-xs font-bold uppercase tracking-wider text-gray-400">
+                <div class="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-2">
+                    <div class="text-xs font-bold uppercase tracking-wider text-slate-500">
                         ⚖️ {% trans "Referee Technical Summary:" %}
                     </div>
                     <p dir="auto" class="text-sm sm:text-base text-gray-200 leading-relaxed font-medium text-start"
@@ -393,12 +393,12 @@
                 <!-- Criteria Scorecards Grid -->
                 <template x-if="aiVerdict.criteria && aiVerdict.criteria.length">
                     <div class="space-y-2">
-                        <div class="text-xs font-bold uppercase tracking-wider text-gray-400">
+                        <div class="text-xs font-bold uppercase tracking-wider text-slate-500">
                             📊 {% trans "Core Breakdown by Category:" %}
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <template x-for="crit in aiVerdict.criteria" :key="crit.title">
-                                <div class="p-3.5 rounded-2xl bg-zinc-950/60 border border-white/5 space-y-1.5">
+                                <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
                                     <div class="flex items-center justify-between">
                                         <span class="text-xs font-bold text-white" x-text="crit.title"></span>
                                         <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase font-mono"
@@ -409,7 +409,7 @@
                                               }"
                                               x-text="crit.winner === 'A' ? 'Fighter A' : (crit.winner === 'B' ? 'Fighter B' : 'TIE')"></span>
                                     </div>
-                                    <p dir="auto" class="text-[11px] text-gray-400 leading-snug text-start" x-text="crit.reason"></p>
+                                    <p dir="auto" class="text-[11px] text-slate-500 leading-snug text-start" x-text="crit.reason"></p>
                                 </div>
                             </template>
                         </div>
@@ -436,7 +436,7 @@
                         </template>
                         <template x-if="aiVerdict.best_for_a">
                             <div class="pt-2 border-t border-emerald-500/20">
-                                <div class="text-[10px] font-bold uppercase tracking-wider text-gray-400">{% trans "Recommended for:" %}</div>
+                                <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500">{% trans "Recommended for:" %}</div>
                                 <p dir="auto" class="text-xs text-emerald-200 mt-0.5 font-medium text-start" x-text="aiVerdict.best_for_a"></p>
                             </div>
                         </template>
@@ -459,7 +459,7 @@
                         </template>
                         <template x-if="aiVerdict.best_for_b">
                             <div class="pt-2 border-t border-cyan-500/20">
-                                <div class="text-[10px] font-bold uppercase tracking-wider text-gray-400">{% trans "Recommended for:" %}</div>
+                                <div class="text-[10px] font-bold uppercase tracking-wider text-slate-500">{% trans "Recommended for:" %}</div>
                                 <p dir="auto" class="text-xs text-cyan-200 mt-0.5 font-medium text-start" x-text="aiVerdict.best_for_b"></p>
                             </div>
                         </template>
@@ -472,13 +472,13 @@
         </div>
 
         <!-- 📊 DETAILED SPEC MATRIX -->
-        <div class="bg-zinc-900/90 border border-white/10 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+        <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-lg text-slate-900">
             
-            <div class="flex items-center justify-between border-b border-white/10 pb-4">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
                 <h2 class="text-lg sm:text-xl font-extrabold text-white font-display uppercase tracking-wider flex items-center gap-2">
                     📊 {% trans "Hardware Spec Matrix" %}
                 </h2>
-                <div class="text-xs font-mono text-gray-400 flex items-center gap-3">
+                <div class="text-xs font-mono text-slate-500 flex items-center gap-3">
                     <span class="text-emerald-400 font-bold">█ Fighter A</span>
                     <span class="text-cyan-400 font-bold">█ Fighter B</span>
                 </div>
@@ -486,7 +486,7 @@
 
             <div class="space-y-4">
                 <template x-for="row in specRows" :key="row.name">
-                    <div class="space-y-2 bg-zinc-950/60 p-4 rounded-2xl border border-white/5">
+                    <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-100">
                         
                         <!-- Header Line: Name & Values -->
                         <div class="flex items-center justify-between text-xs font-bold">
@@ -504,12 +504,12 @@
                         <!-- Comparative Progress Bars -->
                         <div class="grid grid-cols-2 gap-3 items-center">
                             <!-- Fighter A Bar (Right-aligned) -->
-                            <div class="w-full bg-zinc-900 rounded-full h-2.5 overflow-hidden flex justify-end">
+                            <div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden flex justify-end">
                                 <div class="bg-gradient-to-l from-emerald-400 to-emerald-600 h-full rounded-full transition-all duration-500"
                                      :style="'width: ' + row.pctA + '%'"></div>
                             </div>
                             <!-- Fighter B Bar (Left-aligned) -->
-                            <div class="w-full bg-zinc-900 rounded-full h-2.5 overflow-hidden flex justify-start">
+                            <div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden flex justify-start">
                                 <div class="bg-gradient-to-r from-cyan-400 to-cyan-600 h-full rounded-full transition-all duration-500"
                                      :style="'width: ' + row.pctB + '%'"></div>
                             </div>

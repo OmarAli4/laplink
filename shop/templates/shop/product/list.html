@@ -37,9 +37,9 @@
             
             <!-- Breadcrumbs -->
             <nav class="scroll-reveal mb-5 flex items-center gap-2 text-xs font-medium text-slate-400">
-                <a href="{% url 'shop:home' %}" class="hover:text-black transition-colors">{% trans "Home" %}</a>
+                <a href="{% url 'shop:home' %}" class="hover:text-slate-900 transition-colors">{% trans "Home" %}</a>
                 <span>/</span>
-                <a href="{% url 'shop:product_list' %}" class="hover:text-black transition-colors">{% trans "Catalog" %}</a>
+                <a href="{% url 'shop:product_list' %}" class="hover:text-slate-900 transition-colors">{% trans "Catalog" %}</a>
                 {% if category %}
                 <span>/</span>
                 <span class="text-slate-900 font-semibold">{{ category.name }}</span>
@@ -79,13 +79,13 @@
             <!-- Horizontal Category Navigation Pills -->
             <div class="scroll-reveal delay-200 pt-4 flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth">
                 <a href="{% url 'shop:product_list' %}" 
-                   class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold whitespace-nowrap transition-all duration-200 shrink-0 {% if not category %}bg-black text-white shadow-lg shadow-black/15 scale-[1.02] border-black{% else %}bg-white border border-slate-200 text-slate-700 hover:text-black hover:border-slate-300 shadow-sm{% endif %}">
+                   class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold whitespace-nowrap transition-all duration-200 shrink-0 {% if not category %}bg-blue-600 text-white shadow-sm scale-[1.02] border-blue-600{% else %}bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:border-slate-300 shadow-sm{% endif %}">
                     <span>⚡</span>
                     <span>{% trans "All Products" %}</span>
                 </a>
                 {% for c in categories %}
                 <a href="{% url 'shop:product_list_by_category' c.slug %}" 
-                   class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold whitespace-nowrap transition-all duration-200 shrink-0 {% if category.slug == c.slug %}bg-black text-white shadow-lg shadow-black/15 scale-[1.02] border-black{% else %}bg-white border border-slate-200 text-slate-700 hover:text-black hover:border-slate-300 shadow-sm{% endif %}">
+                   class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold whitespace-nowrap transition-all duration-200 shrink-0 {% if category.slug == c.slug %}bg-blue-600 text-white shadow-sm scale-[1.02] border-blue-600{% else %}bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:border-slate-300 shadow-sm{% endif %}">
                     <span>{% trans c.name %}</span>
                 </a>
                 {% endfor %}
@@ -215,9 +215,9 @@
                                 <label class="cursor-pointer">
                                     <input type="checkbox" name="brand" value="{{ brand.slug }}" class="sr-only peer" {% if brand.slug in selected_brands %}checked{% endif %}>
                                     <span class="inline-block px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all select-none
-                                                 peer-checked:bg-black peer-checked:text-white peer-checked:border-black peer-checked:shadow-sm
+                                                 peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 peer-checked:shadow-sm
                                                  {% if brand.slug in selected_brands %}
-                                                 border-black bg-black text-white shadow-sm
+                                                 border-blue-600 bg-blue-600 text-white shadow-sm
                                                  {% else %}
                                                  border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50
                                                  {% endif %}">
@@ -271,7 +271,7 @@
                                 SALE -{{ product.discount_percentage }}%
                             </span>
                             {% elif product.is_featured %}
-                            <span class="absolute top-3 left-3 z-10 bg-black text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-sm">
+                            <span class="absolute top-3 left-3 z-10 bg-blue-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-sm">
                                 FEATURED
                             </span>
                             {% endif %}
@@ -336,7 +336,7 @@
                                     {% endif %}
                                 </div>
 
-                                <span class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-black group-hover:text-white text-slate-700 flex items-center justify-center transition-colors duration-200 shadow-sm">
+                                <span class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-700 flex items-center justify-center transition-colors duration-200 shadow-sm">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                                     </svg>
@@ -352,7 +352,7 @@
                 <div class="mt-14 flex items-center justify-center gap-2">
                     {% if products.has_previous %}
                     <a href="?page={{ products.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
-                       class="px-4 py-2.5 rounded-2xl border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:bg-black hover:text-white hover:border-black transition-all shadow-sm flex items-center gap-1">
+                       class="px-4 py-2.5 rounded-2xl border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all shadow-sm flex items-center gap-1">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                         <span>{% trans "Previous" %}</span>
                     </a>
@@ -361,12 +361,12 @@
                     <div class="flex items-center gap-1 px-2">
                         {% for i in products.paginator.page_range %}
                             {% if products.number == i %}
-                            <span class="w-9 h-9 rounded-2xl bg-black text-white text-xs font-bold flex items-center justify-center shadow-md">
+                            <span class="w-9 h-9 rounded-2xl bg-blue-600 text-white text-xs font-bold flex items-center justify-center shadow-md">
                                 {{ i }}
                             </span>
                             {% elif i > products.number|add:"-3" and i < products.number|add:"3" %}
                             <a href="?page={{ i }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
-                               class="w-9 h-9 rounded-2xl border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:text-black transition-colors flex items-center justify-center">
+                               class="w-9 h-9 rounded-2xl border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors flex items-center justify-center">
                                 {{ i }}
                             </a>
                             {% endif %}
@@ -375,7 +375,7 @@
 
                     {% if products.has_next %}
                     <a href="?page={{ products.next_page_number }}{% for key, vals in request.GET.lists %}{% if key != 'page' %}{% for v in vals %}&{{ key }}={{ v|urlencode }}{% endfor %}{% endif %}{% endfor %}"
-                       class="px-4 py-2.5 rounded-2xl border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:bg-black hover:text-white hover:border-black transition-all shadow-sm flex items-center gap-1">
+                       class="px-4 py-2.5 rounded-2xl border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all shadow-sm flex items-center gap-1">
                         <span>{% trans "Next" %}</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </a>
@@ -393,14 +393,14 @@
                     <h3 class="text-lg font-bold text-slate-900 mb-1">{% trans "No products found for" %} "{{ search_query }}"</h3>
                     <p class="text-slate-500 text-sm max-w-sm mx-auto mb-6">{% trans "Try checking for typos or searching for a broader term." %}</p>
                     <a href="?{% for key, vals in request.GET.lists %}{% if key != 'q' and key != 'page' %}{% for v in vals %}{{ key }}={{ v|urlencode }}&{% endfor %}{% endif %}{% endfor %}" 
-                       class="inline-flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-black text-white text-xs font-semibold hover:bg-slate-800 transition-colors shadow-sm">
+                       class="inline-flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition-colors shadow-sm">
                         <span>{% trans "Clear Search" %}</span>
                     </a>
                     {% else %}
                     <h3 class="text-lg font-bold text-slate-900 mb-1">{% trans "No products match your criteria" %}</h3>
                     <p class="text-slate-500 text-sm max-w-sm mx-auto mb-6">{% trans "Try clearing some filters or searching for different keywords." %}</p>
                     <a href="{% if category %}{% url 'shop:product_list_by_category' category.slug %}{% else %}{% url 'shop:product_list' %}{% endif %}" 
-                       class="inline-flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-black text-white text-xs font-semibold hover:bg-slate-800 transition-colors shadow-sm">
+                       class="inline-flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition-colors shadow-sm">
                         <span>{% trans "Reset All Filters" %}</span>
                     </a>
                     {% endif %}

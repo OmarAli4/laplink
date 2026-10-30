@@ -4,7 +4,7 @@
 {% block title %}{% trans "404 — Signal Lost" %} | Lap Link{% endblock %}
 
 {% block content %}
-<div class="bg-zinc-950 min-h-[85vh] text-white py-16 px-4 sm:px-6 lg:px-8 font-sans relative overflow-hidden flex items-center justify-center"
+<div class="bg-[#F8FAFC] min-h-[85vh] text-slate-900 py-16 px-4 sm:px-6 lg:px-8 font-sans relative overflow-hidden flex items-center justify-center"
      x-data="{
         errorMsgs: [
             '{% trans "SIGNAL_LOST: Target coordinate not found in Cyber Grid." %}',
@@ -41,7 +41,7 @@
         </div>
 
         <!-- Confused Robot Avatar -->
-        <div class="w-36 h-36 mx-auto rounded-full bg-zinc-900 border border-emerald-500/40 flex items-center justify-center shadow-[0_0_40px_rgba(16,185,129,0.2)] relative group cursor-pointer"
+        <div class="w-36 h-36 mx-auto rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center shadow-[0_0_40px_rgba(16,185,129,0.2)] relative group cursor-pointer"
              @click="if(window.TechSound) window.TechSound.playPop();">
             <svg class="w-20 h-20 text-emerald-400 transition-transform duration-500 group-hover:scale-110" viewBox="0 0 100 100" fill="none">
                 <line x1="50" y1="15" x2="50" y2="25" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
@@ -56,17 +56,17 @@
         </div>
 
         <!-- Terminal Error Log Box -->
-        <div class="bg-zinc-900/90 border border-emerald-500/30 rounded-2xl p-4 font-mono text-xs shadow-xl text-left max-w-lg mx-auto">
+        <div class="bg-white border border-slate-200 rounded-2xl p-4 font-mono text-xs shadow-sm text-left text-slate-800 max-w-lg mx-auto">
             <div class="flex items-center gap-2 border-b border-white/10 pb-2 mb-3">
                 <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
                 <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
-                <span class="text-gray-400 text-[10px] ml-auto uppercase tracking-wider">ERROR_DIAGNOSTIC_v4.04</span>
+                <span class="text-slate-500 text-[10px] ml-auto uppercase tracking-wider">ERROR_DIAGNOSTIC_v4.04</span>
             </div>
             <div class="text-emerald-400 space-y-1">
                 <div><span class="text-gray-500">[laplink@core ~]$</span> locate_page --uri="{{ request.path }}"</div>
                 <div class="text-red-400 font-semibold">[ERROR 404] Page Not Found</div>
-                <div class="text-gray-300 italic pt-1" x-text="activeMsg"></div>
+                <div class="text-slate-600 italic pt-1" x-text="activeMsg"></div>
             </div>
         </div>
 
@@ -81,7 +81,7 @@
             </a>
             
             <a href="{% url 'shop:product_list' %}"
-               class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-white font-bold text-sm uppercase tracking-wider transition-colors duration-200 flex items-center justify-center gap-2">
+               class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 font-bold text-sm uppercase tracking-wider transition-colors duration-200 flex items-center justify-center gap-2">
                 ⚡ {% trans "Browse Catalog" %}
             </a>
         </div>

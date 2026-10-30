@@ -8,14 +8,14 @@
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
     <!-- Header -->
-    <div class="bg-zinc-950 border border-white/10 rounded-3xl p-8 text-white shadow-2xl mb-8 relative overflow-hidden">
+    <div class="bg-white border border-slate-200 rounded-3xl p-8 text-slate-900 shadow-lg mb-8 relative overflow-hidden">
         <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl"></div>
 
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-white/10 pb-6 mb-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-200 pb-6 mb-6">
             <div>
                 <span class="text-xs font-bold uppercase tracking-widest text-emerald-400">⚡ {% trans "Live Tracking" %}</span>
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">{% trans "Order" %} #{{ order.id }}</h1>
-                <p class="text-xs text-gray-400 mt-1">{% trans "Placed on" %} {{ order.created|date:"N j, Y, P" }}</p>
+                <p class="text-xs text-slate-500 mt-1">{% trans "Placed on" %} {{ order.created|date:"N j, Y, P" }}</p>
             </div>
 
             <span class="px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider border
@@ -34,7 +34,7 @@
 
                 <!-- Step 1: Order Placed -->
                 <div class="relative z-10 flex flex-col items-center">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 1 %}bg-emerald-500 border-emerald-400 text-black shadow-[0_0_20px_rgba(16,185,129,0.5)]{% else %}bg-zinc-900 border-white/20 text-gray-500{% endif %}">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 1 %}bg-emerald-500 border-emerald-400 text-black shadow-[0_0_20px_rgba(16,185,129,0.5)]{% else %}bg-slate-100 border-slate-200 text-slate-400{% endif %}">
                         ✓
                     </div>
                     <span class="text-xs font-bold mt-2 text-white">{% trans "Order Placed" %}</span>
@@ -42,7 +42,7 @@
 
                 <!-- Step 2: Quality Inspection -->
                 <div class="relative z-10 flex flex-col items-center">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 2 %}bg-emerald-500 border-emerald-400 text-black shadow-[0_0_20px_rgba(16,185,129,0.5)]{% else %}bg-zinc-900 border-white/20 text-gray-500{% endif %}">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 2 %}bg-emerald-500 border-emerald-400 text-black shadow-[0_0_20px_rgba(16,185,129,0.5)]{% else %}bg-slate-100 border-slate-200 text-slate-400{% endif %}">
                         {% if step >= 2 %}✓{% else %}2{% endif %}
                     </div>
                     <span class="text-xs font-bold mt-2 {% if step >= 2 %}text-white{% else %}text-gray-500{% endif %}">{% trans "Hardware Inspection" %}</span>
@@ -50,7 +50,7 @@
 
                 <!-- Step 3: Out for Delivery -->
                 <div class="relative z-10 flex flex-col items-center">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 3 %}bg-emerald-500 border-emerald-400 text-black shadow-[0_0_20px_rgba(16,185,129,0.5)]{% else %}bg-zinc-900 border-white/20 text-gray-500{% endif %}">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 3 %}bg-emerald-500 border-emerald-400 text-black shadow-[0_0_20px_rgba(16,185,129,0.5)]{% else %}bg-slate-100 border-slate-200 text-slate-400{% endif %}">
                         {% if step >= 3 %}✓{% else %}3{% endif %}
                     </div>
                     <span class="text-xs font-bold mt-2 {% if step >= 3 %}text-white{% else %}text-gray-500{% endif %}">{% trans "Out for Delivery" %}</span>
@@ -58,7 +58,7 @@
 
                 <!-- Step 4: Delivered -->
                 <div class="relative z-10 flex flex-col items-center">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 4 %}bg-emerald-500 border-emerald-400 text-black shadow-[0_0_20px_rgba(16,185,129,0.5)]{% else %}bg-zinc-900 border-white/20 text-gray-500{% endif %}">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 4 %}bg-emerald-500 border-emerald-400 text-black shadow-[0_0_20px_rgba(16,185,129,0.5)]{% else %}bg-slate-100 border-slate-200 text-slate-400{% endif %}">
                         {% if step >= 4 %}✓{% else %}4{% endif %}
                     </div>
                     <span class="text-xs font-bold mt-2 {% if step >= 4 %}text-white{% else %}text-gray-500{% endif %}">{% trans "Delivered" %}</span>
@@ -77,7 +77,7 @@
                     {% if item.product.image %}
                     <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-14 h-14 object-cover rounded-xl border border-gray-200">
                     {% else %}
-                    <div class="w-14 h-14 rounded-xl bg-gray-100 flex items-center justify-center text-gray-400">⚡</div>
+                    <div class="w-14 h-14 rounded-xl bg-gray-100 flex items-center justify-center text-slate-500">⚡</div>
                     {% endif %}
                     <div>
                         <h4 class="font-bold text-sm text-gray-900">{{ item.product.name }}</h4>

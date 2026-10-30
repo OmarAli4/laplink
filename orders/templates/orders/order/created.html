@@ -121,7 +121,7 @@
             {# ── Bottom Navigation Buttons ── #}
             <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
                 <a href="{% url 'orders:order_track' order.id %}"
-                   class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-slate-900 hover:bg-blue-600 text-white text-xs sm:text-sm font-bold transition-colors">
+                   class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white shadow-sm text-xs sm:text-sm font-bold transition-colors">
                     <span>{% if LANGUAGE_CODE == 'ar' %}تتبع حالة الطلب مباشر{% else %}Track Order Status{% endif %}</span>
                     <span>&rarr;</span>
                 </a>

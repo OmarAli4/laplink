@@ -84,7 +84,7 @@
                     <form action="{% url 'cart:cart_add' product.id %}" method="post">
                         {% csrf_token %}
                         <input type="hidden" name="quantity" value="1">
-                        <button type="submit" class="w-full py-2.5 rounded-xl bg-black text-white text-sm font-bold tracking-widest uppercase hover:bg-gray-800 transition-colors shadow-md shadow-gray-400/20">
+                        <button type="submit" class="w-full py-2.5 rounded-xl bg-blue-600 text-white text-sm font-bold tracking-widest uppercase hover:bg-blue-700 transition-colors shadow-sm">
                             {% trans "Add to Cart" %}
                         </button>
                     </form>
@@ -102,7 +102,7 @@
             <h3 class="mt-4 text-xl font-bold text-gray-900">{% trans "Your wishlist is empty" %}</h3>
             <p class="mt-2 text-gray-500">{% trans "Save your favorite items to view them later." %}</p>
             <div class="mt-6">
-                <a href="{% url 'shop:product_list' %}" class="inline-flex items-center px-6 py-3 border border-transparent text-sm font-bold rounded-xl text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black uppercase tracking-widest shadow-lg shadow-gray-400/20 transition-colors transition-transform duration-300">
+                <a href="{% url 'shop:product_list' %}" class="inline-flex items-center px-6 py-3 border border-transparent text-sm font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 uppercase tracking-widest shadow-sm transition-colors transition-transform duration-300">
                     {% trans "Explore Collection" %}
                 </a>
             </div>

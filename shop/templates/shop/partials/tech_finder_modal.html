@@ -81,7 +81,7 @@
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0"
          @click="isOpen = false" 
-         class="absolute inset-0 bg-slate-900/60 backdrop-blur-md"></div>
+         class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"></div>
 
     <!-- Modern Clean White Modal Container -->
     <div x-show="isOpen"
@@ -96,7 +96,7 @@
         <!-- Top Bar Header -->
         <div class="flex items-center justify-between pb-4 border-b border-gray-100 shrink-0">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-2xl bg-black text-white flex items-center justify-center font-bold text-lg shadow-sm">
+                <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center font-bold text-lg shadow-2xs">
                     🤖
                 </div>
                 <div>
@@ -130,7 +130,7 @@
                     
                     <button @click="askAI()"
                             :disabled="!prompt.trim() || isLoading"
-                            class="absolute right-2 p-2.5 rounded-xl bg-black text-white hover:bg-gray-800 disabled:opacity-20 disabled:cursor-not-allowed transition-all active:scale-95 shadow-md flex items-center justify-center"
+                            class="absolute right-2 p-2.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-20 disabled:cursor-not-allowed transition-all active:scale-95 shadow-md flex items-center justify-center"
                             title="Find My Device">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -280,7 +280,7 @@
                                                 {% csrf_token %}
                                                 <input type="hidden" name="quantity" value="1">
                                                 <input type="hidden" name="override" value="False">
-                                                <button type="submit" name="buy_now" value="true" class="px-3.5 py-1 rounded-xl bg-black hover:bg-gray-800 text-white text-xs font-extrabold tracking-wide uppercase transition-all shadow-sm active:scale-95">
+                                                <button type="submit" name="buy_now" value="true" class="px-3.5 py-1 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-extrabold tracking-wide uppercase transition-all shadow-sm active:scale-95">
                                                     {% trans "Buy Now ⚡" %}
                                                 </button>
                                             </form>
