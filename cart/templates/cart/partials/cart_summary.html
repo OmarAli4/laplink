@@ -10,7 +10,7 @@
     <div class="space-y-4">
         <div class="flex items-center justify-between">
             <span class="text-sm text-gray-500">{% trans "Subtotal" %}</span>
-            <span class="text-sm font-medium text-gray-700">L.E {{ total_before_discount }}</span>
+            <span class="text-sm font-medium text-gray-700">{% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ total_before_discount }}</span>
         </div>
 
         {% if coupon %}
@@ -26,7 +26,7 @@
                     "{{ coupon_code }}" ({{ discount }}% {% trans "off" %})
                 </span>
             </div>
-            <span class="text-sm font-medium">-L.E {{ discount_amount }}</span>
+            <span class="text-sm font-medium">-{% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ discount_amount }}</span>
         </div>
         {% endif %}
 
@@ -34,7 +34,7 @@
             <div class="flex items-center justify-between">
                 <span class="text-base font-semibold text-gray-900">{% trans "Total" %}</span>
                 <span class="text-2xl font-extrabold text-black">
-                    L.E {{ total_after_discount }}
+                    {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ total_after_discount }}
                 </span>
             </div>
         </div>

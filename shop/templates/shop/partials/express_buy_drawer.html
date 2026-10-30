@@ -40,7 +40,7 @@
                         ⚡ {% trans "1-Click Express Checkout" %}
                     </span>
                     <h3 class="font-display font-extrabold text-lg text-slate-900 tracking-tight mt-2 line-clamp-1" x-text="product.name || ''"></h3>
-                    <div class="text-sm font-bold text-blue-600 mt-0.5" x-text="product && product.price ? product.price + ' EGP' : ''"></div>
+                    <div class="text-sm font-bold text-blue-600 mt-0.5" x-text="product && product.price ? product.price + ' {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}' : ''"></div>
                 </div>
                 <button @click="isOpen = false" class="text-slate-500 hover:text-slate-900 p-2 rounded-full hover:bg-slate-100 transition-colors focus:outline-none">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -73,30 +73,30 @@
                         {% if LANGUAGE_CODE == 'ar' %}المحافظة{% else %}Governorate{% endif %} *
                     </label>
                     <select name="city" required class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-blue-600 focus:bg-white">
-                        <option value="القاهرة - Cairo">القاهرة (Cairo)</option>
-                        <option value="الجيزة - Giza">الجيزة (Giza)</option>
-                        <option value="الإسكندرية - Alexandria">الإسكندرية (Alexandria)</option>
-                        <option value="القليوبية - Qalyubia">القليوبية (Qalyubia)</option>
-                        <option value="الدقهلية - Dakahlia">الدقهلية (Dakahlia)</option>
-                        <option value="الشرقية - Sharqia">الشرقية (Sharqia)</option>
-                        <option value="الغربية - Gharbia">الغربية (Gharbia)</option>
-                        <option value="المنوفية - Monufia">المنوفية (Monufia)</option>
-                        <option value="البحيرة - Beheira">البحيرة (Beheira)</option>
-                        <option value="كفر الشيخ - Kafr El Sheikh">كفر الشيخ (Kafr El Sheikh)</option>
-                        <option value="دمياط - Damietta">دمياط (Damietta)</option>
-                        <option value="بورسعيد - Port Said">بورسعيد (Port Said)</option>
-                        <option value="الإسماعيلية - Ismailia">الإسماعيلية (Ismailia)</option>
-                        <option value="السويس - Suez">السويس (Suez)</option>
-                        <option value="الفيوم - Fayoum">الفيوم (Fayoum)</option>
-                        <option value="بني سويف - Beni Suef">بني سويف (Beni Suef)</option>
-                        <option value="المنيا - Minya">المنيا (Minya)</option>
-                        <option value="أسيوط - Assiut">أسيوط (Assiut)</option>
-                        <option value="سوهاج - Sohag">سوهاج (Sohag)</option>
-                        <option value="قنا - Qena">قنا (Qena)</option>
-                        <option value="الأقصر - Luxor">الأقصر (Luxor)</option>
-                        <option value="أسوان - Aswan">أسوان (Aswan)</option>
-                        <option value="البحر الأحمر - Red Sea">البحر الأحمر (Red Sea)</option>
-                        <option value="مطروح - Matrouh">مطروح (Matrouh)</option>
+                        <option value="القاهرة - Cairo">{% if LANGUAGE_CODE == 'ar' %}القاهرة{% else %}Cairo{% endif %}</option>
+                        <option value="الجيزة - Giza">{% if LANGUAGE_CODE == 'ar' %}الجيزة{% else %}Giza{% endif %}</option>
+                        <option value="الإسكندرية - Alexandria">{% if LANGUAGE_CODE == 'ar' %}الإسكندرية{% else %}Alexandria{% endif %}</option>
+                        <option value="القليوبية - Qalyubia">{% if LANGUAGE_CODE == 'ar' %}القليوبية{% else %}Qalyubia{% endif %}</option>
+                        <option value="الدقهلية - Dakahlia">{% if LANGUAGE_CODE == 'ar' %}الدقهلية{% else %}Dakahlia{% endif %}</option>
+                        <option value="الشرقية - Sharqia">{% if LANGUAGE_CODE == 'ar' %}الشرقية{% else %}Sharqia{% endif %}</option>
+                        <option value="الغربية - Gharbia">{% if LANGUAGE_CODE == 'ar' %}الغربية{% else %}Gharbia{% endif %}</option>
+                        <option value="المنوفية - Monufia">{% if LANGUAGE_CODE == 'ar' %}المنوفية{% else %}Monufia{% endif %}</option>
+                        <option value="البحيرة - Beheira">{% if LANGUAGE_CODE == 'ar' %}البحيرة{% else %}Beheira{% endif %}</option>
+                        <option value="كفر الشيخ - Kafr El Sheikh">{% if LANGUAGE_CODE == 'ar' %}كفر الشيخ{% else %}Kafr El Sheikh{% endif %}</option>
+                        <option value="دمياط - Damietta">{% if LANGUAGE_CODE == 'ar' %}دمياط{% else %}Damietta{% endif %}</option>
+                        <option value="بورسعيد - Port Said">{% if LANGUAGE_CODE == 'ar' %}بورسعيد{% else %}Port Said{% endif %}</option>
+                        <option value="الإسماعيلية - Ismailia">{% if LANGUAGE_CODE == 'ar' %}الإسماعيلية{% else %}Ismailia{% endif %}</option>
+                        <option value="السويس - Suez">{% if LANGUAGE_CODE == 'ar' %}السويس{% else %}Suez{% endif %}</option>
+                        <option value="الفيوم - Fayoum">{% if LANGUAGE_CODE == 'ar' %}الفيوم{% else %}Fayoum{% endif %}</option>
+                        <option value="بني سويف - Beni Suef">{% if LANGUAGE_CODE == 'ar' %}بني سويف{% else %}Beni Suef{% endif %}</option>
+                        <option value="المنيا - Minya">{% if LANGUAGE_CODE == 'ar' %}المنيا{% else %}Minya{% endif %}</option>
+                        <option value="أسيوط - Assiut">{% if LANGUAGE_CODE == 'ar' %}أسيوط{% else %}Assiut{% endif %}</option>
+                        <option value="سوهاج - Sohag">{% if LANGUAGE_CODE == 'ar' %}سوهاج{% else %}Sohag{% endif %}</option>
+                        <option value="قنا - Qena">{% if LANGUAGE_CODE == 'ar' %}قنا{% else %}Qena{% endif %}</option>
+                        <option value="الأقصر - Luxor">{% if LANGUAGE_CODE == 'ar' %}الأقصر{% else %}Luxor{% endif %}</option>
+                        <option value="أسوان - Aswan">{% if LANGUAGE_CODE == 'ar' %}أسوان{% else %}Aswan{% endif %}</option>
+                        <option value="البحر الأحمر - Red Sea">{% if LANGUAGE_CODE == 'ar' %}البحر الأحمر{% else %}Red Sea{% endif %}</option>
+                        <option value="مطروح - Matrouh">{% if LANGUAGE_CODE == 'ar' %}مطروح{% else %}Matrouh{% endif %}</option>
                     </select>
                 </div>
 

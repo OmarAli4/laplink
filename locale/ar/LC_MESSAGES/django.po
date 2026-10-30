@@ -91,7 +91,7 @@ msgid "It's a Tie!"
 msgstr "تعادل التعادل!"
 
 msgid "Battle"
-msgstr "مواجهة ⚔️"
+msgstr "مقارنة المنتجات"
 
 msgid ""
 "Based on algorithmic spec score analysis across RAM, Processor, Storage, "
@@ -509,7 +509,7 @@ msgid "Be the first to review this product!"
 msgstr "كن أول من يقيم هذا المنتج!"
 
 msgid "Brands"
-msgstr "العلامات التجارية"
+msgstr "الماركات"
 
 msgid "Brand:"
 msgstr "العلامة التجارية:"
@@ -620,7 +620,7 @@ msgid "In Stock"
 msgstr "متوفر"
 
 msgid "In Stock Only"
-msgstr "المتوفر فقط"
+msgstr "المتوفر في المخزون فقط"
 
 msgid "In progress"
 msgstr "قيد التنفيذ"
@@ -698,7 +698,7 @@ msgid "No tasks yet. Orders will appear here."
 msgstr "لا توجد مهام بعد. ستظهر الطلبات هنا."
 
 msgid "On Sale Only"
-msgstr "المنتجات المخفضة فقط"
+msgstr "العروض والخصومات فقط"
 
 msgid "On all orders over L.E 100."
 msgstr "على جميع الطلبات التي تزيد عن 100 ج.م."
@@ -998,3 +998,420 @@ msgstr "خصم"
 
 msgid "results"
 msgstr "نتائج"
+
+msgid "1-Click Express Checkout"
+msgstr "شراء سريع بخطوة واحدة"
+
+msgid "100% Authentic Factory Sealed Unit"
+msgstr "منتج أصلي 100% بتغليف المصنع"
+
+msgid "2-Year Official Replacement Warranty Included"
+msgstr "شامل ضمان استبدال رسمي لمدة سنتين"
+
+msgid "AI Advisor Note"
+msgstr "ملاحظة المستشار الذكي"
+
+msgid "AI HARDWARE DUEL ARENA"
+msgstr "حلبة المقارنة الذكية للمنتجات"
+
+msgid "AI Referee Duel Verdict"
+msgstr "حكم الذكاء الاصطناعي للمقارنة"
+
+msgid "AI Referee is Benchmarking Specs & Performance..."
+msgstr "يقوم الحكم الذكي بتحليل ومقارنة المواصفات والأداء..."
+
+msgid "AI Service connection error"
+msgstr "خطأ في الاتصال بخدمة الذكاء الاصطناعي"
+
+msgid "All Hardware & Gear"
+msgstr "جميع الأجهزة والإكسسوارات"
+
+msgid "Applied 10% Discount to your session!"
+msgstr "تم تطبيق خصم 10% على جلستك الحالية!"
+
+msgid "Ask another question"
+msgstr "اسأل سؤالاً آخر"
+
+msgid "Authentic Items Available"
+msgstr "منتج أصلي متوفر"
+
+msgid "Backed by official 2-year manufacturer guarantees and 100% original hardware verification."
+msgstr "مدعوم بضمان رسمي لمدة سنتين مع فحص وتوثيق الأصالة بنسبة 100%."
+
+msgid "Below Average"
+msgstr "أقل من المتوسط"
+
+msgid "Buy Now ⚡"
+msgstr "اشترِ الآن ⚡"
+
+msgid "CONGRATULATIONS!"
+msgstr "تهانينا!"
+
+msgid "CONTENDER A"
+msgstr "الطرف الأول (A)"
+
+msgid "CONTENDER B"
+msgstr "الطرف الثاني (B)"
+
+msgid "Cairo & Giza 24-48h"
+msgstr "القاهرة والجيزة خلال 24-48 ساعة"
+
+msgid "Clear Search"
+msgstr "مسح البحث"
+
+msgid "Compare two flagship devices in the same category head-to-head with live Google Gemini AI technical referee verdict."
+msgstr "قارن بين أي منتجين في نفس الفئة وجهاً لوجه مع تحليل فني فوري بالذكاء الاصطناعي."
+
+msgid "Connection error. Please try again."
+msgstr "حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى."
+
+msgid "Core Breakdown by Category:"
+msgstr "التحليل التفصيلي حسب الفئة:"
+
+msgid "Could not load AI analysis"
+msgstr "تعذر تحميل تحليل الذكاء الاصطناعي"
+
+msgid "Currently Out of Stock"
+msgstr "غير متوفر حالياً في المخزون"
+
+msgid "Customer Reviews & Ratings"
+msgstr "تقييمات وآراء العملاء"
+
+msgid "Details"
+msgstr "التفاصيل"
+
+msgid "Duel comparison is only allowed between products in the same category."
+msgstr "المقارنة المباشرة متاحة فقط بين المنتجات من نفس الفئة."
+
+msgid "Elite Tech Hardware & Lifestyle Gear"
+msgstr "نخبة الأجهزة التقنية والإكسسوارات الأصلية"
+
+msgid "Engineered For Peak Performance"
+msgstr "مصمم لأقصى درجات الأداء والاعتمادية"
+
+msgid "Enter code"
+msgstr "أدخل الكود"
+
+msgid "Every laptop, smartphone, and audio device in our store undergoes rigorous algorithmic quality checks before listing."
+msgstr "يخضع كل منتج وجهاز صوتي وإكسسوار في متجرنا لفحوصات جودة دقيقة قبل عرضه."
+
+msgid "Excellent (Highly Recommended)"
+msgstr "ممتاز (موصى به بشدة)"
+
+msgid "Explore 230+ genuine chargers, armored sleeves, studio peripherals, and mesh systems."
+msgstr "استكشف أكثر من 230 منتجاً أصلياً من الشواحن، الحقائب المصفحة، السماعات، وأجهزة الشبكات."
+
+msgid "Express Dispatch"
+msgstr "شحن سريع ومباشر"
+
+msgid "Filter & Search"
+msgstr "البحث والتصفية"
+
+msgid "Finding the best matched configuration in stock"
+msgstr "جاري البحث عن أفضل المنتجات المطابقة في المخزون"
+
+msgid "Flash Deal Ends In:"
+msgstr "ينتهي العرض الخاطف خلال:"
+
+msgid "Frequently Paired Hardware"
+msgstr "منتجات يتم شراؤها معاً دائماً"
+
+msgid "GAPLESS LOW-POLY TRIANGULATION ENGINE"
+msgstr "منظومة لاب لينك للتجارة التقنية المتقدمة"
+
+msgid "Gemini API key is missing."
+msgstr "مفتاح Gemini API غير متوفر."
+
+msgid "Gemini API key is missing. Please configure GEMINI_API_KEY in .env."
+msgstr "مفتاح Gemini API غير متوفر في الإعدادات."
+
+msgid "Hardware Overview"
+msgstr "نظرة عامة على المنتج"
+
+msgid "Hardware Spec Matrix"
+msgstr "جدول مقارنة المواصفات الفنية"
+
+msgid "High Demand: Almost sold out"
+msgstr "إقبال مرتفع: أوشك على النفاد"
+
+msgid "Home"
+msgstr "الرئيسية"
+
+msgid "In Stock & Ready To Ship"
+msgstr "متوفر في المخزون وجاهز للشحن"
+
+msgid "Keyword Search"
+msgstr "البحث بالكلمات المفتاحية"
+
+msgid "Lap Link Catalog"
+msgstr "كتالوج لاب لينك"
+
+msgid "Live unbiased hardware showdown analysis"
+msgstr "مقارنة فنية حيادية ومباشرة للمواصفات"
+
+msgid "Next"
+msgstr "التالي"
+
+msgid "No in-stock products available right now."
+msgstr "لا توجد منتجات متوفرة في المخزون حالياً."
+
+msgid "No matching products found. Try tweaking your budget or keywords!"
+msgstr "لم يتم العثور على منتجات مطابقة. جرب تعديل الميزانية أو كلمات البحث!"
+
+msgid "No products available in this section right now."
+msgstr "لا توجد منتجات متاحة في هذا القسم حالياً."
+
+msgid "No products found for"
+msgstr "لم يتم العثور على منتجات لـ"
+
+msgid "No products match your criteria"
+msgstr "لا توجد منتجات تطابق اختياراتك"
+
+msgid "Official replacement"
+msgstr "استبدال رسمي معتمد"
+
+msgid "One or both products were not found."
+msgstr "تعذر العثور على أحد المنتجين أو كليهما."
+
+msgid "Open-Box Check"
+msgstr "معاينة الطلب قبل الاستلام"
+
+msgid "Order Placed"
+msgstr "تم تسجيل الطلب"
+
+msgid "Orders are processed asynchronously in sub-50ms threads and sealed for fast express delivery."
+msgstr "تتم معالجة الطلبات وتجهيزها فوراً وتغليفها بعناية للشحن السريع لجميع المحافظات."
+
+msgid "Popular Prompts:"
+msgstr "عمليات بحث مقترحة:"
+
+msgid "Previous"
+msgstr "السابق"
+
+msgid "Price (L.E)"
+msgstr "السعر (ج.م)"
+
+msgid "Qty:"
+msgstr "الكمية:"
+
+msgid "Quick Add to Cart"
+msgstr "إضافة سريعة للسلة"
+
+msgid "Quick Results"
+msgstr "نتائج سريعة"
+
+msgid "Re-Analyze Duel"
+msgstr "إعادة تحليل المقارنة"
+
+msgid "Recommendation"
+msgstr "الترشيح الأفضل"
+
+msgid "Recommended for:"
+msgstr "مناسب لـ:"
+
+msgid "Referee Technical Summary:"
+msgstr "الملخص الفني للحكم الذكي:"
+
+msgid "Remove"
+msgstr "حذف"
+
+msgid "Reset All Filters"
+msgstr "إعادة ضبط جميع الفلاتر"
+
+msgid "Reset Filters"
+msgstr "إعادة ضبط الفلاتر"
+
+msgid "Review Submitted"
+msgstr "تم إرسال تقييمك"
+
+msgid "Scanning Inventory & Benchmarks..."
+msgstr "جاري فحص المخزون وتحليل المواصفات..."
+
+msgid "Search gear..."
+msgstr "ابحث عن منتج..."
+
+msgid "See all"
+msgstr "عرض الكل"
+
+msgid "Shop Devices Now"
+msgstr "تسوق الآن"
+
+msgid "Smart hardware matcher • Ask in natural language"
+msgstr "المستشار الذكي للمنتجات • ابحث بطريقتك الطبيعية"
+
+msgid "Sold Out"
+msgstr "نفد من المخزون"
+
+msgid "Sort By:"
+msgstr "ترتيب حسب:"
+
+msgid "Store Inventory"
+msgstr "مخزون المتجر"
+
+msgid "Tax Included"
+msgstr "شامل الضريبة"
+
+msgid "Track Order"
+msgstr "تتبع الطلب"
+
+msgid "Try checking for typos or searching for a broader term."
+msgstr "تأكد من كتابة الكلمة بشكل صحيح أو جرب البحث بكلمات أعم."
+
+msgid "Try clearing some filters or searching for different keywords."
+msgstr "جرب إلغاء بعض الفلاتر أو البحث بكلمات مختلفة."
+
+msgid "Types & Items"
+msgstr "الأنواع والأقسام الفرعية"
+
+msgid "View all items"
+msgstr "عرض جميع المنتجات"
+
+msgid "With courier before paying"
+msgstr "مع المندوب قبل الدفع"
+
+msgid "You have already reviewed this product. Thank you!"
+msgstr "لقد قمت بتقييم هذا المنتج مسبقاً. شكراً لك!"
+
+msgid "Your Feedback"
+msgstr "رأيك في المنتج"
+
+msgid "items"
+msgstr "منتج"
+
+msgid "of"
+msgstr "من"
+
+msgid "units left"
+msgstr "قطع متبقية"
+
+msgid "اختر المحافظة / Select Governorate"
+msgstr "اختر المحافظة"
+
+msgid "المحافظة (Governorate)"
+msgstr "المحافظة"
+
+msgid "رقم الموبايل (Mobile / WhatsApp)"
+msgstr "رقم الموبايل (واتساب)"
+
+msgid "يرجى إدخال رقم موبايل مصري صحيح مكون من 11 رقم (مثال: 01012345678)."
+msgstr "يرجى إدخال رقم موبايل مصري صحيح مكون من 11 رقم (مثال: 01012345678)."
+
+msgid "Optional."
+msgstr "اختياري."
+
+msgid "Required. Inform a valid email address."
+msgstr "مطلوب. يرجى إدخال بريد إلكتروني صحيح."
+
+msgid "First name"
+msgstr "الاسم الأول"
+
+msgid "Last name"
+msgstr "الاسم الأخير"
+
+msgid "Write your review here..."
+msgstr "اكتب تجربتك ورأيك في المنتج هنا..."
+
+msgid "Privacy Policy"
+msgstr "سياسة الخصوصية"
+
+msgid "Terms of Service"
+msgstr "شروط الخدمة"
+
+msgid "القاهرة (Cairo)"
+msgstr "القاهرة"
+
+msgid "الجيزة (Giza)"
+msgstr "الجيزة"
+
+msgid "الإسكندرية (Alexandria)"
+msgstr "الإسكندرية"
+
+msgid "القليوبية (Qalyubia)"
+msgstr "القليوبية"
+
+msgid "الدقهلية (Dakahlia)"
+msgstr "الدقهلية"
+
+msgid "الشرقية (Sharqia)"
+msgstr "الشرقية"
+
+msgid "الغربية (Gharbia)"
+msgstr "الغربية"
+
+msgid "المنوفية (Monufia)"
+msgstr "المنوفية"
+
+msgid "البحيرة (Beheira)"
+msgstr "البحيرة"
+
+msgid "كفر الشيخ (Kafr El Sheikh)"
+msgstr "كفر الشيخ"
+
+msgid "دمياط (Damietta)"
+msgstr "دمياط"
+
+msgid "بورسعيد (Port Said)"
+msgstr "بورسعيد"
+
+msgid "الإسماعيلية (Ismailia)"
+msgstr "الإسماعيلية"
+
+msgid "السويس (Suez)"
+msgstr "السويس"
+
+msgid "الفيوم (Fayoum)"
+msgstr "الفيوم"
+
+msgid "بني سويف (Beni Suef)"
+msgstr "بني سويف"
+
+msgid "المنيا (Minya)"
+msgstr "المنيا"
+
+msgid "أسيوط (Assiut)"
+msgstr "أسيوط"
+
+msgid "سوهاج (Sohag)"
+msgstr "سوهاج"
+
+msgid "قنا (Qena)"
+msgstr "قنا"
+
+msgid "الأقصر (Luxor)"
+msgstr "الأقصر"
+
+msgid "أسوان (Aswan)"
+msgstr "أسوان"
+
+msgid "البحر الأحمر (Red Sea)"
+msgstr "البحر الأحمر"
+
+msgid "مطروح (Matrouh)"
+msgstr "مطروح"
+
+msgid "شمال سيناء (North Sinai)"
+msgstr "شمال سيناء"
+
+msgid "جنوب سيناء (South Sinai)"
+msgstr "جنوب سيناء"
+
+msgid "الوادي الجديد (New Valley)"
+msgstr "الوادي الجديد"
+
+msgid "Access your account and track orders"
+msgstr "سجل الدخول وتتبع طلباتك وإعداداتك"
+
+msgid "Remember me"
+msgstr "تذكرني"
+
+msgid "Forgot password?"
+msgstr "نسيت كلمة المرور؟"
+
+msgid "Sign in to your account"
+msgstr "تسجيل الدخول إلى حسابك"
+
+msgid "Monitoring 100% genuine inventory, real-time dispatch, and 2-year warranty validation 24/7."
+msgstr "متابعة مستمرة على مدار الساعة لمخزون المنتجات الأصلية والشحن السريع والضمان المعتمد."
+
+msgid "We set out to build the world's most advanced, intelligent tech store. Where extreme performance meets seamless automation."
+msgstr "انطلقنا لبناء المتجر التقني الأكثر تطوراً وذكاءً، حيث يلتقي الأداء الفائق مع سرعة وسهولة التسوق."

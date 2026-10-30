@@ -37,42 +37,42 @@
             <!-- Page Specific Mascot Tag -->
             <template x-if="page === 'home'">
                 <div>
-                    <div class="text-emerald-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">🎧 DJ ROBOT • HOST</div>
+                    <div class="text-emerald-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">{% if LANGUAGE_CODE == 'ar' %}🎧 روبوت الترحيب • المضيف{% else %}🎧 DJ ROBOT • HOST{% endif %}</div>
                     <div class="text-slate-800" x-text="hoveredTitle ? '🎉 ' + hoveredTitle : '{% trans "Welcome to Lap Link! Explore Next-Gen Tech!" %}'"></div>
                 </div>
             </template>
 
             <template x-if="page === 'catalog'">
                 <div>
-                    <div class="text-blue-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">🔍 SCOUT ROBOT • RADAR</div>
+                    <div class="text-blue-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">{% if LANGUAGE_CODE == 'ar' %}🔍 روبوت الرادار • المستكشف{% else %}🔍 SCOUT ROBOT • RADAR{% endif %}</div>
                     <div class="text-slate-800" x-text="hoveredTitle ? '🔎 Inspecting: ' + hoveredTitle : '{% trans "Scanning products... Hover to inspect!" %}'"></div>
                 </div>
             </template>
 
             <template x-if="page === 'detail'">
                 <div>
-                    <div class="text-amber-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">🛠️ ENGINEER ROBOT • SPECS</div>
+                    <div class="text-amber-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">{% if LANGUAGE_CODE == 'ar' %}🛠️ روبوت المهندس • المواصفات{% else %}🛠️ ENGINEER ROBOT • SPECS{% endif %}</div>
                     <div class="text-slate-800">{% trans "Hardware verified • 2-Year Warranty active! 🛡️" %}</div>
                 </div>
             </template>
 
             <template x-if="page === 'cart'">
                 <div>
-                    <div class="text-emerald-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">📦 COURIER ROBOT • CART</div>
+                    <div class="text-emerald-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">{% if LANGUAGE_CODE == 'ar' %}📦 روبوت الشحن • السلة{% else %}📦 COURIER ROBOT • CART{% endif %}</div>
                     <div class="text-slate-800">{% trans "Great choices in your cart! Ready for dispatch ⚡" %}</div>
                 </div>
             </template>
 
             <template x-if="page === 'wishlist'">
                 <div>
-                    <div class="text-rose-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">💖 GUARDIAN ROBOT • WISHLIST</div>
+                    <div class="text-rose-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">{% if LANGUAGE_CODE == 'ar' %}💖 روبوت الحماية • المفضلة{% else %}💖 GUARDIAN ROBOT • WISHLIST{% endif %}</div>
                     <div class="text-slate-800">{% trans "Safeguarding your top favorite devices! 💖" %}</div>
                 </div>
             </template>
 
             <template x-if="page === 'dashboard'">
                 <div>
-                    <div class="text-blue-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">🛡️ SECURITY AGENT • ACCOUNT</div>
+                    <div class="text-blue-700 text-[10px] uppercase font-extrabold tracking-wider mb-0.5">{% if LANGUAGE_CODE == 'ar' %}🛡️ حارس الأمان • الحساب{% else %}🛡️ SECURITY AGENT • ACCOUNT{% endif %}</div>
                     <div class="text-slate-800">{% trans "Account Secured! Welcome back, Commander 🫡" %}</div>
                 </div>
             </template>

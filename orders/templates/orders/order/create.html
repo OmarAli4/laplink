@@ -261,7 +261,7 @@
 
                                 <div class="sm:text-end bg-white px-4 py-2.5 rounded-xl border border-purple-200/80">
                                     <span class="text-[11px] text-slate-500 font-semibold block">{% if LANGUAGE_CODE == 'ar' %}المبلغ المطلوب تحويله (شامل الشحن):{% else %}Exact Amount to Transfer:{% endif %}</span>
-                                    <span class="text-lg font-extrabold text-purple-900 font-mono">{{ grand_total }} EGP</span>
+                                    <span class="text-lg font-extrabold text-purple-900 font-mono">{{ grand_total }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                                 </div>
                             </div>
 
@@ -296,10 +296,10 @@
                                     class="w-full py-4 px-6 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold shadow-md shadow-blue-500/20 text-sm sm:text-base tracking-wide shadow-lg shadow-slate-900/15 hover:shadow-blue-600/25 transition-all duration-200 flex items-center justify-center gap-2.5 cursor-pointer">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                 <span x-show="paymentMethod === 'cod'">
-                                    {% if LANGUAGE_CODE == 'ar' %}تأكيد الطلب الآن ({{ grand_total }} ج.م - الدفع عند الاستلام){% else %}Confirm Order ({{ grand_total }} EGP - Cash on Delivery){% endif %}
+                                    {% if LANGUAGE_CODE == 'ar' %}تأكيد الطلب الآن ({{ grand_total }} ج.م - الدفع عند الاستلام){% else %}Confirm Order ({{ grand_total }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} - Cash on Delivery){% endif %}
                                 </span>
                                 <span x-show="paymentMethod === 'instapay'" x-cloak>
-                                    {% if LANGUAGE_CODE == 'ar' %}تأكيد الطلب عبر InstaPay ({{ grand_total }} ج.م){% else %}Confirm InstaPay Order ({{ grand_total }} EGP){% endif %}
+                                    {% if LANGUAGE_CODE == 'ar' %}تأكيد الطلب عبر InstaPay ({{ grand_total }} ج.م){% else %}Confirm InstaPay Order ({{ grand_total }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}){% endif %}
                                 </span>
                             </button>
                         </div>
@@ -326,9 +326,9 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-xs sm:text-sm font-bold text-slate-900 truncate">{{ item.product.name }}</p>
-                                <p class="text-xs text-slate-500 mt-0.5">{{ item.quantity }} × {{ item.price }} EGP</p>
+                                <p class="text-xs text-slate-500 mt-0.5">{{ item.quantity }} × {{ item.price }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</p>
                             </div>
-                            <span class="text-xs sm:text-sm font-extrabold text-slate-900 shrink-0">{{ item.total_price }} EGP</span>
+                            <span class="text-xs sm:text-sm font-extrabold text-slate-900 shrink-0">{{ item.total_price }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                         </div>
                         {% endfor %}
                     </div>
@@ -352,24 +352,24 @@
                     <div class="border-t border-slate-100 mt-5 pt-4 space-y-2.5 text-xs sm:text-sm">
                         <div class="flex justify-between text-slate-600">
                             <span>{% if LANGUAGE_CODE == 'ar' %}المجموع الفرعي للمنتجات{% else %}Items Subtotal{% endif %}</span>
-                            <span class="font-bold text-slate-900">{{ cart.get_total_price }} EGP</span>
+                            <span class="font-bold text-slate-900">{{ cart.get_total_price }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                         </div>
 
                         {% if coupon %}
                         <div class="flex justify-between text-emerald-600 font-bold">
                             <span>{% if LANGUAGE_CODE == 'ar' %}كود الخصم{% else %}Discount{% endif %} ({{ coupon.code }})</span>
-                            <span>-{{ discount_amount }} EGP</span>
+                            <span>-{{ discount_amount }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                         </div>
                         {% endif %}
 
                         <div class="flex justify-between text-slate-600">
                             <span>{% if LANGUAGE_CODE == 'ar' %}مصاريف الشحن والتوصيل{% else %}Shipping & Delivery{% endif %}</span>
-                            <span class="font-bold text-slate-900">{{ shipping_cost }} EGP</span>
+                            <span class="font-bold text-slate-900">{{ shipping_cost }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                         </div>
 
                         <div class="flex justify-between items-center pt-3 border-t border-slate-200">
                             <span class="text-sm sm:text-base font-extrabold text-slate-900">{% if LANGUAGE_CODE == 'ar' %}الإجمالي النهائي{% else %}Grand Total{% endif %}</span>
-                            <span class="text-xl sm:text-2xl font-black text-blue-600 font-mono">{{ grand_total }} EGP</span>
+                            <span class="text-xl sm:text-2xl font-black text-blue-600 font-mono">{{ grand_total }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                         </div>
                     </div>
 

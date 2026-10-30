@@ -81,10 +81,10 @@
                     {% endif %}
                     <div>
                         <h4 class="font-bold text-sm text-gray-900">{{ item.product.name }}</h4>
-                        <p class="text-xs text-gray-500">{% trans "Qty:" %} {{ item.quantity }} × L.E {{ item.price }}</p>
+                        <p class="text-xs text-gray-500">{% trans "Qty:" %} {{ item.quantity }} × {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ item.price }}</p>
                     </div>
                 </div>
-                <span class="font-bold text-sm text-gray-900">L.E {{ item.get_cost }}</span>
+                <span class="font-bold text-sm text-gray-900">{% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ item.get_cost }}</span>
             </div>
             {% endfor %}
         </div>

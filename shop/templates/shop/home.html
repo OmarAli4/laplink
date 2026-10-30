@@ -242,7 +242,7 @@
                 </div>
                 <a href="{% url 'shop:product_list' %}" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors">
                     <span>{% if LANGUAGE_CODE == 'ar' %}عرض كل المنتجات ({{ total_catalog_count }}+){% else %}View All {{ total_catalog_count }}+ Products{% endif %}</span>
-                    <span>&rarr;</span>
+                    <span>{% if LANGUAGE_CODE == 'ar' %}&larr;{% else %}&rarr;{% endif %}</span>
                 </a>
             </div>
 
@@ -360,22 +360,22 @@
 
                         <div class="space-y-2 mb-5">
                             <button type="button"
-                                    @click="$dispatch('open-tech-finder', { query: 'MacBook Pro 100W GaN Charger' })" 
-                                    class="w-full text-left px-3.5 py-2 rounded-xl bg-white hover:bg-blue-50 border border-slate-200 text-xs text-slate-700 hover:text-blue-700 flex items-center justify-between transition-colors shadow-2xs group">
+                                    @click="$dispatch('open-tech-finder', { query: '{% if LANGUAGE_CODE == 'ar' %}رشح لي أفضل شاحن سريع 100W{% else %}MacBook Pro 100W GaN Charger{% endif %}' })" 
+                                    class="w-full text-left rtl:text-right px-3.5 py-2 rounded-xl bg-white hover:bg-blue-50 border border-slate-200 text-xs text-slate-700 hover:text-blue-700 flex items-center justify-between transition-colors shadow-2xs group">
                                 <span class="flex items-center gap-2">
                                     <svg class="w-3.5 h-3.5 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                                    <span>"Find best 100W charger for MacBook Pro"</span>
+                                    <span>{% if LANGUAGE_CODE == 'ar' %}"رشح لي أفضل شاحن 100W سريع"{% else %}"Find best 100W charger for MacBook Pro"{% endif %}</span>
                                 </span>
-                                <span class="text-blue-600 font-mono group-hover:translate-x-1 transition-transform">&rarr;</span>
+                                <span class="text-blue-600 font-mono group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">{% if LANGUAGE_CODE == 'ar' %}&larr;{% else %}&rarr;{% endif %}</span>
                             </button>
                             <button type="button"
-                                    @click="$dispatch('open-tech-finder', { query: 'Waterproof 15.6 inch backpack' })" 
-                                    class="w-full text-left px-3.5 py-2 rounded-xl bg-white hover:bg-blue-50 border border-slate-200 text-xs text-slate-700 hover:text-blue-700 flex items-center justify-between transition-colors shadow-2xs group">
+                                    @click="$dispatch('open-tech-finder', { query: '{% if LANGUAGE_CODE == 'ar' %}شنطة ظهر ضد الماء للابتوب 15.6 بوصة{% else %}Waterproof 15.6 inch backpack{% endif %}' })" 
+                                    class="w-full text-left rtl:text-right px-3.5 py-2 rounded-xl bg-white hover:bg-blue-50 border border-slate-200 text-xs text-slate-700 hover:text-blue-700 flex items-center justify-between transition-colors shadow-2xs group">
                                 <span class="flex items-center gap-2">
                                     <svg class="w-3.5 h-3.5 text-blue-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                                    <span>"Waterproof backpack for 15.6 inch laptop"</span>
+                                    <span>{% if LANGUAGE_CODE == 'ar' %}"شنطة ظهر ضد الماء للابتوب 15.6 بوصة"{% else %}"Waterproof backpack for 15.6 inch laptop"{% endif %}</span>
                                 </span>
-                                <span class="text-blue-600 font-mono group-hover:translate-x-1 transition-transform">&rarr;</span>
+                                <span class="text-blue-600 font-mono group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">{% if LANGUAGE_CODE == 'ar' %}&larr;{% else %}&rarr;{% endif %}</span>
                             </button>
                         </div>
                     </div>

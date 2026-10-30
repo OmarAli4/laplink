@@ -36,7 +36,7 @@
                 404
             </h1>
             <div class="absolute -top-3 -right-6 px-3 py-1 bg-red-50 border border-red-200 text-red-700 rounded-full text-xs font-mono font-bold tracking-widest uppercase animate-pulse">
-                OFFLINE
+                {% if LANGUAGE_CODE == 'ar' %}غير متصل{% else %}OFFLINE{% endif %}
             </div>
         </div>
 
@@ -65,7 +65,7 @@
             </div>
             <div class="text-emerald-700 space-y-1">
                 <div><span class="text-gray-500">[laplink@core ~]$</span> locate_page --uri="{{ request.path }}"</div>
-                <div class="text-red-600 font-semibold">[ERROR 404] Page Not Found</div>
+                <div class="text-red-600 font-semibold">{% if LANGUAGE_CODE == 'ar' %}[خطأ 404] الصفحة غير موجودة{% else %}[ERROR 404] Page Not Found{% endif %}</div>
                 <div class="text-slate-600 italic pt-1" x-text="activeMsg"></div>
             </div>
         </div>

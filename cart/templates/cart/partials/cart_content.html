@@ -29,7 +29,7 @@
                             <a href="{% url 'shop:product_detail' item.product.id item.product.slug %}" class="font-bold text-gray-900 leading-tight line-clamp-2 mb-1">
                                 {{ item.product.name }}
                             </a>
-                            <div class="text-sm font-medium text-gray-500 mb-2">L.E {{ item.price }}</div>
+                            <div class="text-sm font-medium text-gray-500 mb-2">{% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ item.price }}</div>
                         </div>
 
                         <!-- Remove Button -->
@@ -57,7 +57,7 @@
                         </form>
                         <div class="text-right">
                             <span class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-0.5">{% trans "Total" %}</span>
-                            <span class="font-extrabold text-black">L.E {{ item.total_price }}</span>
+                            <span class="font-extrabold text-black">{% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ item.total_price }}</span>
                         </div>
                     </div>
                 </div>
@@ -146,11 +146,11 @@
                             </td>
 
                             <td class="px-6 py-5 text-right text-sm text-gray-500">
-                                L.E {{ item.price }}
+                                {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ item.price }}
                             </td>
 
                             <td class="px-6 py-5 text-right">
-                                <span class="font-semibold text-gray-900">L.E {{ item.total_price }}</span>
+                                <span class="font-semibold text-gray-900">{% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ item.total_price }}</span>
                             </td>
 
                             <td class="px-6 py-5 text-right">

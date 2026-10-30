@@ -101,15 +101,15 @@
                 </div>
                 <div>
                     <div class="flex items-center gap-2">
-                        <h3 class="font-display font-black text-lg text-gray-900 tracking-tight">AI Finder</h3>
+                        <h3 class="font-display font-black text-lg text-gray-900 tracking-tight">{% if LANGUAGE_CODE == 'ar' %}المساعد الذكي{% else %}AI Finder{% endif %}</h3>
                         <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-extrabold tracking-wider uppercase border border-emerald-200/60 shadow-2xs">
-                            Live AI
+                            {% if LANGUAGE_CODE == 'ar' %}ذكاء اصطناعي مباشر{% else %}Live AI{% endif %}
                         </span>
                     </div>
                     <p class="text-xs text-gray-500 font-medium">{% trans "Smart hardware matcher • Ask in natural language" %}</p>
                 </div>
             </div>
-            <button @click="isOpen = false" class="text-gray-400 hover:text-black p-2 rounded-full hover:bg-gray-100 transition-colors focus:outline-none" title="Close">
+            <button @click="isOpen = false" class="text-gray-400 hover:text-black p-2 rounded-full hover:bg-gray-100 transition-colors focus:outline-none" title="{% if LANGUAGE_CODE == 'ar' %}إغلاق{% else %}Close{% endif %}">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
         </div>
@@ -131,7 +131,7 @@
                     <button @click="askAI()"
                             :disabled="!prompt.trim() || isLoading"
                             class="absolute right-2 p-2.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-20 disabled:cursor-not-allowed transition-all active:scale-95 shadow-md flex items-center justify-center"
-                            title="Find My Device">
+                            title="{% if LANGUAGE_CODE == 'ar' %}ابحث الآن{% else %}Find My Device{% endif %}">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>

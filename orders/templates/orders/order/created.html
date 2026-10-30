@@ -91,7 +91,7 @@
                     {% for item in order.items.all %}
                     <div class="py-2.5 flex items-center justify-between">
                         <span class="font-semibold text-slate-800">{{ item.quantity }}× {{ item.product.name }}</span>
-                        <span class="font-bold text-slate-900">{{ item.get_cost }} EGP</span>
+                        <span class="font-bold text-slate-900">{{ item.get_cost }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                     </div>
                     {% endfor %}
                 </div>
@@ -99,21 +99,21 @@
                 <div class="pt-3 border-t border-slate-200/80 space-y-1.5 text-xs sm:text-sm">
                     <div class="flex justify-between text-slate-600">
                         <span>{% if LANGUAGE_CODE == 'ar' %}المجموع الفرعي{% else %}Subtotal{% endif %}</span>
-                        <span>{{ order.get_items_subtotal }} EGP</span>
+                        <span>{{ order.get_items_subtotal }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                     </div>
                     {% if order.discount %}
                     <div class="flex justify-between text-emerald-600 font-bold">
                         <span>{% if LANGUAGE_CODE == 'ar' %}الخصم{% else %}Discount{% endif %}</span>
-                        <span>-{{ order.get_discount_amount }} EGP</span>
+                        <span>-{{ order.get_discount_amount }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                     </div>
                     {% endif %}
                     <div class="flex justify-between text-slate-600">
                         <span>{% if LANGUAGE_CODE == 'ar' %}مصاريف الشحن{% else %}Shipping Fee{% endif %}</span>
-                        <span>{{ order.shipping_cost }} EGP</span>
+                        <span>{{ order.shipping_cost }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                     </div>
                     <div class="flex justify-between text-base font-black text-slate-900 pt-2 border-t border-slate-200">
                         <span>{% if LANGUAGE_CODE == 'ar' %}الإجمالي النهائي{% else %}Grand Total{% endif %}</span>
-                        <span class="text-blue-600 font-mono">{{ order.get_total_cost }} EGP</span>
+                        <span class="text-blue-600 font-mono">{{ order.get_total_cost }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                     </div>
                 </div>
             </div>

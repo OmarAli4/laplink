@@ -62,7 +62,7 @@
                     </h1>
                     <p class="mt-2 text-sm sm:text-base text-slate-600 max-w-xl">
                         {% if category %}
-                            {% blocktrans with name=category.name %}Engineered precision gear for {{ name }}. Tested, authenticated, and warrantied.{% endblocktrans %}
+                            {% if LANGUAGE_CODE == 'ar' %}تشكيلة أصلية ومعتمدة من {{ category.name_ar|default:category.name }} — مفحوصة ومضمونة بالكامل.{% else %}Engineered precision gear for {{ category.name }}. Tested, authenticated, and warrantied.{% endif %}
                         {% else %}
                             {% trans "Explore 230+ genuine chargers, armored sleeves, studio peripherals, and mesh systems." %}
                         {% endif %}
@@ -176,9 +176,9 @@
                         <div>
                             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">{% trans "Price (L.E)" %}</h3>
                             <div class="flex items-center gap-2">
-                                <input type="number" min="0" step="10" name="min_price" value="{{ request.GET.min_price|default_if_none:'' }}" placeholder="Min" class="w-full py-2.5 px-3 rounded-xl border border-slate-200 bg-white text-xs font-semibold focus:border-blue-600 focus:outline-none shadow-sm text-center">
+                                <input type="number" min="0" step="10" name="min_price" value="{{ request.GET.min_price|default_if_none:'' }}" placeholder="{% if LANGUAGE_CODE == 'ar' %}الأدنى{% else %}Min{% endif %}" class="w-full py-2.5 px-3 rounded-xl border border-slate-200 bg-white text-xs font-semibold focus:border-blue-600 focus:outline-none shadow-sm text-center">
                                 <span class="text-slate-300">-</span>
-                                <input type="number" min="0" step="10" name="max_price" value="{{ request.GET.max_price|default_if_none:'' }}" placeholder="Max" class="w-full py-2.5 px-3 rounded-xl border border-slate-200 bg-white text-xs font-semibold focus:border-blue-600 focus:outline-none shadow-sm text-center">
+                                <input type="number" min="0" step="10" name="max_price" value="{{ request.GET.max_price|default_if_none:'' }}" placeholder="{% if LANGUAGE_CODE == 'ar' %}الأعلى{% else %}Max{% endif %}" class="w-full py-2.5 px-3 rounded-xl border border-slate-200 bg-white text-xs font-semibold focus:border-blue-600 focus:outline-none shadow-sm text-center">
                             </div>
                         </div>
 
@@ -251,7 +251,7 @@
                 <div class="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-xs sm:text-sm flex items-center gap-3 shadow-sm">
                     <span class="text-base">ℹ️</span>
                     <span>
-                        {% blocktrans with name=category.name %}No results in {{ name }} — showing results from the whole store.{% endblocktrans %}
+                        {% if LANGUAGE_CODE == 'ar' %}لا توجد نتائج داخل قسم <strong>{{ category.name_ar|default:category.name }}</strong> — يتم عرض النتائج من المتجر بالكامل.{% else %}No results in <strong>{{ category.name }}</strong> — showing results from the whole store.{% endif %}
                     </span>
                 </div>
                 {% endif %}
@@ -268,11 +268,11 @@
                         <div class="aspect-square bg-slate-50 overflow-hidden relative p-4 flex items-center justify-center">
                             {% if product.is_on_sale %}
                             <span class="absolute top-3 left-3 z-10 rounded-full bg-red-500 text-white text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 shadow-sm">
-                                SALE -{{ product.discount_percentage }}%
+                                {% if LANGUAGE_CODE == 'ar' %}خصم {{ product.discount_percentage }}%{% else %}SALE -{{ product.discount_percentage }}%{% endif %}
                             </span>
                             {% elif product.is_featured %}
                             <span class="absolute top-3 left-3 z-10 bg-blue-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-sm">
-                                FEATURED
+                                {% if LANGUAGE_CODE == 'ar' %}مميز{% else %}FEATURED{% endif %}
                             </span>
                             {% endif %}
 
@@ -329,10 +329,10 @@
                             <div class="mt-4 flex items-center justify-between pt-3 border-t border-slate-100">
                                 <div class="flex items-baseline gap-2">
                                     <span class="text-base font-bold text-slate-900 font-mono">
-                                        L.E {{ product.current_price }}
+                                        {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ product.current_price }}
                                     </span>
                                     {% if product.is_on_sale %}
-                                        <span class="text-xs font-medium text-slate-600 line-through">L.E {{ product.price }}</span>
+                                        <span class="text-xs font-medium text-slate-600 line-through">{% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ product.price }}</span>
                                     {% endif %}
                                 </div>
 
@@ -416,18 +416,18 @@
             <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-blue-500/10 rounded-full blur-2xl pointer-events-none"></div>
             <div>
                 <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-blue-700 mb-2">
-                    ⚡ Spec Duel Arena
+                    {% if LANGUAGE_CODE == 'ar' %}⚡ حلبة مقارنة المواصفات{% else %}⚡ Spec Duel Arena{% endif %}
                 </span>
                 <h3 class="text-xl sm:text-2xl font-extrabold font-display text-slate-900">
-                    Compare any two items head-to-head.
+                    {% if LANGUAGE_CODE == 'ar' %}قارن بين أي منتجين وجهاً لوجه{% else %}Compare any two items head-to-head.{% endif %}
                 </h3>
                 <p class="text-slate-600 text-xs sm:text-sm mt-1">
-                    Get an instant AI comparison breakdown with wattage, materials, and value verdicts.
+                    {% if LANGUAGE_CODE == 'ar' %}احصل على مقارنة تفصيلية فورية بالذكاء الاصطناعي للمواصفات والقيمة والأداء.{% else %}Get an instant AI comparison breakdown with wattage, materials, and value verdicts.{% endif %}
                 </p>
             </div>
             <a href="{% url 'shop:product_battle' %}" 
                class="px-6 py-3.5 rounded-2xl bg-blue-600 text-white hover:bg-blue-700 font-bold text-xs transition-all shadow-md shrink-0">
-                <span>Enter Spec Battle &rarr;</span>
+                <span>{% if LANGUAGE_CODE == 'ar' %}ادخل حلبة المقارنة &larr;{% else %}Enter Spec Battle &rarr;{% endif %}</span>
             </a>
         </div>
 

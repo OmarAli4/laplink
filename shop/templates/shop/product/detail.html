@@ -182,17 +182,17 @@
                                 <svg class="w-4 h-4 {% if forloop.counter <= product.average_rating|floatformat:'0'|add:'0' %}text-yellow-400 fill-current{% else %}text-slate-200{% endif %}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
                             {% endfor %}
                         </div>
-                        <span class="text-xs font-semibold text-slate-600">({{ product.average_rating|floatformat:1 }}/5 • {{ product.review_count }} reviews)</span>
+                        <span class="text-xs font-semibold text-slate-600">({{ product.average_rating|floatformat:1 }}/5 • {{ product.review_count }} {% if LANGUAGE_CODE == 'ar' %}تقييم{% else %}reviews{% endif %})</span>
                     </div>
                     {% endif %}
 
                     <!-- Pricing Block -->
                     <div class="mt-6 flex flex-wrap items-baseline gap-3 pb-6 border-b border-slate-100">
                         <span class="text-4xl sm:text-5xl font-extrabold text-slate-900 font-mono tracking-tight">
-                            L.E {{ product.current_price }}
+                            {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ product.current_price }}
                         </span>
                         {% if product.is_on_sale %}
-                            <span class="text-xl font-medium text-slate-400 line-through">L.E {{ product.price }}</span>
+                            <span class="text-xl font-medium text-slate-400 line-through">{% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ product.price }}</span>
                         {% endif %}
                         <span class="text-xs text-slate-400 font-medium tracking-wide uppercase">{% trans "Tax Included" %}</span>
                     </div>
@@ -311,9 +311,9 @@
                         <div class="w-10 h-10 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center text-base mb-3 font-bold">
                             ⚡
                         </div>
-                        <h4 class="text-sm font-bold text-slate-900 mb-1">Authentic Seal</h4>
+                        <h4 class="text-sm font-bold text-slate-900 mb-1">{% if LANGUAGE_CODE == 'ar' %}منتج أصلي 100%{% else %}Authentic Seal{% endif %}</h4>
                         <p class="text-xs text-slate-500 leading-relaxed">
-                            Guaranteed genuine distributor inventory with verified serial numbers.
+                            {% if LANGUAGE_CODE == 'ar' %}مخزون الوكيل الرسمي المعتمد بأرقام تسلسلية موثقة.{% else %}Guaranteed genuine distributor inventory with verified serial numbers.{% endif %}
                         </p>
                     </div>
 
@@ -321,9 +321,9 @@
                         <div class="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center text-base mb-3 font-bold">
                             🛡️
                         </div>
-                        <h4 class="text-sm font-bold text-slate-900 mb-1">2-Year Warranty</h4>
+                        <h4 class="text-sm font-bold text-slate-900 mb-1">{% if LANGUAGE_CODE == 'ar' %}ضمان سنتين{% else %}2-Year Warranty{% endif %}</h4>
                         <p class="text-xs text-slate-500 leading-relaxed">
-                            Official replacement against manufacturing defects and malfunctions.
+                            {% if LANGUAGE_CODE == 'ar' %}استبدال رسمي معتمد ضد عيوب الصناعة والأعطال.{% else %}Official replacement against manufacturing defects and malfunctions.{% endif %}
                         </p>
                     </div>
 
@@ -331,9 +331,9 @@
                         <div class="w-10 h-10 rounded-2xl bg-purple-50 border border-purple-200 text-purple-600 flex items-center justify-center text-base mb-3 font-bold">
                             🚚
                         </div>
-                        <h4 class="text-sm font-bold text-slate-900 mb-1">Open-Box Delivery</h4>
+                        <h4 class="text-sm font-bold text-slate-900 mb-1">{% if LANGUAGE_CODE == 'ar' %}معاينة قبل الاستلام{% else %}Open-Box Delivery{% endif %}</h4>
                         <p class="text-xs text-slate-500 leading-relaxed">
-                            Verify package integrity and test components before paying courier.
+                            {% if LANGUAGE_CODE == 'ar' %}افحص سلامة الشحنة وجرب المنتج بنفسك قبل الدفع للمندوب.{% else %}Verify package integrity and test components before paying courier.{% endif %}
                         </p>
                     </div>
 
@@ -341,9 +341,9 @@
                         <div class="w-10 h-10 rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center text-base mb-3 font-bold">
                             💬
                         </div>
-                        <h4 class="text-sm font-bold text-slate-900 mb-1">Tech Concierge 24/7</h4>
+                        <h4 class="text-sm font-bold text-slate-900 mb-1">{% if LANGUAGE_CODE == 'ar' %}دعم فني 24/7{% else %}Tech Concierge 24/7{% endif %}</h4>
                         <p class="text-xs text-slate-500 leading-relaxed">
-                            Specialized WhatsApp engineers ready to assist with setup & specs.
+                            {% if LANGUAGE_CODE == 'ar' %}مهندسون متخصصون عبر واتساب لمساعدتك في الإعداد والتوافق.{% else %}Specialized WhatsApp engineers ready to assist with setup & specs.{% endif %}
                         </p>
                     </div>
                 </div>
@@ -359,7 +359,7 @@
             <div class="flex items-center justify-between mb-8">
                 <div>
                     <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">
-                        Ecosystem Synergy
+                        {% if LANGUAGE_CODE == 'ar' %}تكامل الأجهزة{% else %}Ecosystem Synergy{% endif %}
                     </span>
                     <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-slate-900">
                         {% trans "Frequently Paired Hardware" %}
@@ -391,7 +391,7 @@
             <div class="flex items-center justify-between mb-8">
                 <div>
                     <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-emerald-600 mb-1">
-                        Verified Impressions
+                        {% if LANGUAGE_CODE == 'ar' %}تجارب العملاء الموثقة{% else %}Verified Impressions{% endif %}
                     </span>
                     <h2 class="text-2xl sm:text-3xl font-extrabold font-display text-slate-900">
                         {% trans "Customer Reviews & Ratings" %}

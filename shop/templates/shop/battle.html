@@ -201,7 +201,7 @@
                                 class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-emerald-500 font-medium">
                             {% for p in products %}
                                 <option value="{{ p.id }}" {% if p.id == product_a.id %}selected{% endif %}>
-                                    {{ p.name }} — L.E {{ p.current_price|floatformat:0 }}
+                                    {{ p.name }} — {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ p.current_price|floatformat:0 }}
                                 </option>
                             {% endfor %}
                         </select>
@@ -273,7 +273,7 @@
                                 class="w-full bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-cyan-500 font-medium">
                             {% for p in products %}
                                 <option value="{{ p.id }}" {% if p.id == product_b.id %}selected{% endif %}>
-                                    {{ p.name }} — L.E {{ p.current_price|floatformat:0 }}
+                                    {{ p.name }} — {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ p.current_price|floatformat:0 }}
                                 </option>
                             {% endfor %}
                         </select>
@@ -374,10 +374,10 @@
                     
                     <div class="flex items-center gap-2 font-mono text-xs font-bold">
                         <span class="px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-300"
-                              x-text="`Contender A: ${aiVerdict.score_a} pts`"></span>
+                              x-text="`{% if LANGUAGE_CODE == 'ar' %}الطرف الأول{% else %}Contender A{% endif %}: ${aiVerdict.score_a} {% if LANGUAGE_CODE == 'ar' %}نقطة{% else %}pts{% endif %}`"></span>
                         <span class="text-gray-500 font-sans font-black">VS</span>
                         <span class="px-3 py-1.5 rounded-xl bg-cyan-100 text-cyan-800 border border-cyan-300"
-                              x-text="`Contender B: ${aiVerdict.score_b} pts`"></span>
+                              x-text="`{% if LANGUAGE_CODE == 'ar' %}الطرف الثاني{% else %}Contender B{% endif %}: ${aiVerdict.score_b} {% if LANGUAGE_CODE == 'ar' %}نقطة{% else %}pts{% endif %}`"></span>
                     </div>
                 </div>
 
@@ -407,7 +407,7 @@
                                                 'bg-cyan-50 text-cyan-700 border border-cyan-200': crit.winner === 'B',
                                                 'bg-amber-100 text-amber-800 border border-amber-300': crit.winner === 'TIE'
                                               }"
-                                              x-text="crit.winner === 'A' ? 'Fighter A' : (crit.winner === 'B' ? 'Fighter B' : 'TIE')"></span>
+                                              x-text="crit.winner === 'A' ? '{% if LANGUAGE_CODE == 'ar' %}الطرف الأول{% else %}Fighter A{% endif %}' : (crit.winner === 'B' ? '{% if LANGUAGE_CODE == 'ar' %}الطرف الثاني{% else %}Fighter B{% endif %}' : '{% if LANGUAGE_CODE == 'ar' %}تعادل{% else %}TIE{% endif %}')"></span>
                                     </div>
                                     <p dir="auto" class="text-[11px] text-slate-500 leading-snug text-start" x-text="crit.reason"></p>
                                 </div>
@@ -479,8 +479,8 @@
                     📊 {% trans "Hardware Spec Matrix" %}
                 </h2>
                 <div class="text-xs font-mono text-slate-500 flex items-center gap-3">
-                    <span class="text-emerald-700 font-bold">█ Fighter A</span>
-                    <span class="text-cyan-700 font-bold">█ Fighter B</span>
+                    <span class="text-emerald-700 font-bold">█ {% if LANGUAGE_CODE == 'ar' %}الطرف الأول{% else %}Fighter A{% endif %}</span>
+                    <span class="text-cyan-700 font-bold">█ {% if LANGUAGE_CODE == 'ar' %}الطرف الثاني{% else %}Fighter B{% endif %}</span>
                 </div>
             </div>
 
