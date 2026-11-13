@@ -166,11 +166,15 @@ def index_products(queryset: QuerySet, force: bool = False, use_ai: bool = True)
         _safe_invalidate_cache()
         return stats
 
-    # Process AI tagging in chunks of 5
+    # Process AI tagging in chunks of 5, skipping products that already have search_tags unless forced
+    items_needing_tags = [
+        (p, src, h) for (p, src, h) in stale_items
+        if force or not (p.search_tags and p.search_tags.strip())
+    ]
     tag_results: Dict[int, Dict[str, Any]] = {}
     chunk_size = 5
-    for i in range(0, len(stale_items), chunk_size):
-        chunk = stale_items[i:i + chunk_size]
+    for i in range(0, len(items_needing_tags), chunk_size):
+        chunk = items_needing_tags[i:i + chunk_size]
         payload = []
         for p, src, _ in chunk:
             specs_dict = {}
@@ -187,10 +191,13 @@ def index_products(queryset: QuerySet, force: bool = False, use_ai: bool = True)
                 "specs": specs_dict,
                 "description": src.get("description", "")[:400],
             })
-        
+
         if i > 0:
             time.sleep(1.0)
         tags_data = gemini.generate_tags(payload)
+        if tags_data is None:
+            logger.warning("Stopping AI tag generation early due to Gemini API quota/availability error.")
+            break
         if tags_data:
             tag_results.update(tags_data)
             stats["tagged"] += len(tags_data)
@@ -214,8 +221,8 @@ def index_products(queryset: QuerySet, force: bool = False, use_ai: bool = True)
         emb = embeddings[idx]
         t_info = tag_results.get(p.id)
 
-        # Retain staff-edited search_tags if already set and not force
-        if p.search_tags and not force and p.search_hash:
+        # Retain staff-edited/existing search_tags if already set and not force
+        if p.search_tags and p.search_tags.strip() and not force:
             tags_to_store = p.search_tags
         elif t_info:
             all_tags = t_info.get("tags_en", []) + t_info.get("tags_ar", [])
@@ -234,7 +241,10 @@ def index_products(queryset: QuerySet, force: bool = False, use_ai: bool = True)
         if emb is not None:
             update_kwargs["search_embedding"] = emb
             update_kwargs["search_hash"] = h
-        # If AI failed to embed, do not update search_hash so it retries on subsequent runs
+        elif p.search_embedding and tags_to_store:
+            # Preserve existing embedding & tags and mark hash current so startup doesn't re-hammer AI
+            update_kwargs["search_hash"] = h
+        # If AI failed to embed and no prior embedding exists, leave search_hash unset for later retry
 
         Product.objects.filter(pk=p.pk).update(**update_kwargs)
 

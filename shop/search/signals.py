@@ -3,6 +3,7 @@ Signal handlers to auto-index products upon modifications.
 Uses transaction.on_commit and daemon threads to ensure asynchronous background processing.
 """
 import logging
+import sys
 import threading
 from django.db import transaction
 from django.db.models.signals import post_save, post_delete
@@ -13,6 +14,23 @@ from shop.models import Product, ProductSpec, Brand, Category, SubCategory
 from .indexer import index_products, _safe_invalidate_cache
 
 logger = logging.getLogger('shop.search')
+
+_BULK_CLI_COMMANDS = {
+    'seed_subcategories',
+    'apply_standardized_names',
+    'apply_smart_prices',
+    'clean_dummy_data',
+    'migrate',
+    'reindex_search',
+    'collectstatic',
+}
+
+
+def _should_auto_index() -> bool:
+    """Skip spawning per-row AI indexing threads during startup/migration CLI commands."""
+    if not getattr(settings, 'SEARCH_AUTO_INDEX_ON_SAVE', True):
+        return False
+    return not bool(_BULK_CLI_COMMANDS.intersection(sys.argv))
 
 
 def _index_in_background(product_ids):
@@ -27,7 +45,7 @@ def _index_in_background(product_ids):
 @receiver(post_save, sender=Product)
 def product_post_save_handler(sender, instance, created, **kwargs):
     _safe_invalidate_cache()
-    if not getattr(settings, 'SEARCH_AUTO_INDEX_ON_SAVE', True):
+    if not _should_auto_index():
         return
 
     pid = instance.id
@@ -40,7 +58,7 @@ def product_post_save_handler(sender, instance, created, **kwargs):
 @receiver(post_delete, sender=ProductSpec)
 def spec_change_handler(sender, instance, **kwargs):
     _safe_invalidate_cache()
-    if not getattr(settings, 'SEARCH_AUTO_INDEX_ON_SAVE', True):
+    if not _should_auto_index():
         return
 
     pid = instance.product_id
@@ -58,7 +76,7 @@ def spec_change_handler(sender, instance, **kwargs):
 @receiver(post_delete, sender=SubCategory)
 def relation_change_handler(sender, instance, **kwargs):
     _safe_invalidate_cache()
-    if not getattr(settings, 'SEARCH_AUTO_INDEX_ON_SAVE', True):
+    if not _should_auto_index():
         return
 
     try:
