@@ -23,9 +23,12 @@ class CheckoutFacade:
                 order.user = user
                 
             if coupon:
+                from coupons.models import Coupon
+                from django.db.models import F
                 order.coupon = coupon
                 order.discount = coupon.discount
                 order.discount_type = coupon.discount_type
+                Coupon.objects.filter(id=coupon.id).update(times_used=F('times_used') + 1)
                 
             order.save()
             
@@ -49,6 +52,14 @@ class CheckoutFacade:
                 )
                 # 3. Securely deduct stock via InventoryService
                 InventoryService.deduct_stock(product, item['quantity'])
+                from inventory.models import InventoryLog
+                InventoryLog.objects.create(
+                    product=product,
+                    quantity_change=-item['quantity'],
+                    reason='sale',
+                    user=user if (user and user.is_authenticated) else None,
+                    note=f"Order #{order.id}",
+                )
             
         # 4. Clear the cart (outside transaction — order is committed)
         cart.clear()

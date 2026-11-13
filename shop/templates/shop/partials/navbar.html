@@ -78,7 +78,7 @@
                                      x-transition:leave="transition ease-in duration-150"
                                      x-transition:leave-start="opacity-100 translate-x-0 scale-100"
                                      x-transition:leave-end="opacity-0 translate-x-1 scale-95"
-                                     class="absolute left-full top-0 pl-1 w-64">
+                                     class="absolute ltr:left-full rtl:right-full top-0 ltr:pl-1 rtl:pr-1 w-64">
                                      <div class="bg-white border border-slate-200 shadow-xl rounded-2xl p-1.5 overflow-hidden">
                                         <div class="px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-widest text-emerald-600 border-b border-slate-100 mb-1 flex items-center justify-between">
                                             <span>{% trans "Types & Items" %}</span>
@@ -92,7 +92,7 @@
                                                     {% if request.LANGUAGE_CODE == 'ar' and subcat.name_ar %}{{ subcat.name_ar }}{% else %}{{ subcat.name }}{% endif %}
                                                 </span>
                                             </div>
-                                            <svg class="w-3.5 h-3.5 opacity-0 group-hover/sub:opacity-100 group-hover/sub:translate-x-0.5 text-blue-600 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                            <svg class="w-3.5 h-3.5 opacity-0 group-hover/sub:opacity-100 group-hover/sub:translate-x-0.5 rtl:rotate-180 text-blue-600 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                         </a>
                                         {% empty %}
                                         <a href="{{ category.get_absolute_url }}" class="flex items-center gap-2 px-3 py-2 text-xs text-slate-500 hover:text-slate-900 rounded-xl">
@@ -395,11 +395,7 @@
                      class="px-4 py-3 space-y-4 border-l border-slate-200 ml-4 mb-4">
                     {% for brand in navbar_brands %}
                         <a href="{% url 'shop:product_list' %}?brand={{ brand.slug }}" class="flex items-center gap-4 py-2 text-xs font-bold tracking-widest text-slate-600 hover:text-blue-600 transition-colors">
-                            {% if brand.logo %}
-                                <img src="{{ brand.logo.url }}" class="w-8 h-8 rounded-full border border-slate-200 object-cover" alt="{{ brand.name }}">
-                            {% else %}
-                                <div class="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center bg-slate-100 text-slate-500">{{ brand.name|slice:":1" }}</div>
-                            {% endif %}
+                            <img src="{{ brand.logo_url }}" class="w-8 h-8 rounded-lg border border-slate-200 object-contain bg-white p-1" alt="{{ brand.name }}">
                             {{ brand.name }}
                         </a>
                     {% endfor %}

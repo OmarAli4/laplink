@@ -13,16 +13,12 @@ import urllib.request
 import urllib.error
 from typing import List, Dict, Any, Optional
 
-from dotenv import load_dotenv
 from django.conf import settings
 from django.core.cache import cache
 
 from .normalize import normalize
 
 logger = logging.getLogger('shop.search')
-
-# Ensure environment is loaded
-load_dotenv(override=True)
 
 
 def _get_api_key() -> str:
@@ -58,7 +54,7 @@ def embed_documents(texts: List[str]) -> Optional[List[List[float]]]:
 
     for i in range(0, len(texts), batch_size):
         chunk = texts[i:i + batch_size]
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:batchEmbedContents?key={api_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:batchEmbedContents"
         payload = {
             "requests": [
                 {
@@ -141,7 +137,7 @@ def embed_query(text: str) -> Optional[List[float]]:
     model = getattr(settings, 'SEARCH_EMBED_MODEL', 'gemini-embedding-001')
     dim = getattr(settings, 'SEARCH_EMBED_DIM', 768)
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:embedContent?key={api_key}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:embedContent"
     payload = {
         "model": f"models/{model}",
         "content": {"parts": [{"text": norm_text}]},
@@ -198,7 +194,7 @@ def generate_tags(products: List[Dict[str, Any]]) -> Optional[Dict[int, Dict[str
     )
 
     for model_name in models_to_try:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent"
         payload = {
             "contents": [{"parts": [{"text": prompt}]}],
             "generationConfig": {

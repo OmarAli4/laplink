@@ -31,3 +31,4 @@ desktop.ini
 # Temp files
 *.log
 *.pot
+scripts/archive/

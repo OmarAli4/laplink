@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block title %}
-    {% if category %}{{ category.name }} — {% endif %}{% trans "Catalog" %} | Lap Link
+    {% if category %}{% if request.LANGUAGE_CODE == 'ar' and category.name_ar %}{{ category.name_ar }}{% else %}{{ category.name }}{% endif %} — {% endif %}{% trans "Catalog" %} | Lap Link
 {% endblock %}
 
 {% block meta_description %}
@@ -42,7 +42,13 @@
                 <a href="{% url 'shop:product_list' %}" class="hover:text-slate-900 transition-colors">{% trans "Catalog" %}</a>
                 {% if category %}
                 <span>/</span>
-                <span class="text-slate-900 font-semibold">{% if request.LANGUAGE_CODE == 'ar' and category.name_ar %}{{ category.name_ar }}{% else %}{{ category.name }}{% endif %}</span>
+                {% if active_subcategory_obj %}
+                    <a href="{% url 'shop:product_list_by_category' category.slug %}" class="hover:text-slate-900 transition-colors">{% if request.LANGUAGE_CODE == 'ar' and category.name_ar %}{{ category.name_ar }}{% else %}{{ category.name }}{% endif %}</a>
+                    <span>/</span>
+                    <span class="text-slate-900 font-semibold">{% if request.LANGUAGE_CODE == 'ar' and active_subcategory_obj.name_ar %}{{ active_subcategory_obj.name_ar }}{% else %}{{ active_subcategory_obj.name }}{% endif %}</span>
+                {% else %}
+                    <span class="text-slate-900 font-semibold">{% if request.LANGUAGE_CODE == 'ar' and category.name_ar %}{{ category.name_ar }}{% else %}{{ category.name }}{% endif %}</span>
+                {% endif %}
                 {% endif %}
             </nav>
 
@@ -100,7 +106,7 @@
                 </a>
                 {% for sub in category.subcategories.all %}
                 <a href="{% url 'shop:product_list_by_category' category.slug %}?subcategory={{ sub.slug }}" 
-                   class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all shrink-0 {% if selected_subcategory == sub.slug %}bg-blue-600 text-white shadow-md shadow-blue-500/20{% else %}bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-blue-300{% endif %}">
+                   class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all shrink-0 {% if selected_subcategory == sub.slug or sub.slug in selected_subcategories %}bg-blue-600 text-white shadow-md shadow-blue-500/20{% else %}bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-blue-300{% endif %}">
                     <span>{{ sub.icon|default:"⚡" }}</span>
                     <span>{% if request.LANGUAGE_CODE == 'ar' and sub.name_ar %}{{ sub.name_ar }}{% else %}{{ sub.name }}{% endif %}</span>
                 </a>
@@ -160,6 +166,9 @@
                 <div class="sticky top-24 space-y-6 max-h-[calc(100vh-8rem)] overflow-y-auto no-scrollbar pr-1 pb-6">
                     
                     <form id="filter-form" method="GET" action="{% if category %}{% url 'shop:product_list_by_category' category.slug %}{% else %}{% url 'shop:product_list' %}{% endif %}" onchange="this.submit()" class="space-y-6 bg-slate-50/70 p-6 rounded-3xl border border-slate-200">
+                        {% if selected_subcategory %}
+                        <input type="hidden" name="subcategory" value="{{ selected_subcategory }}">
+                        {% endif %}
                         
                         <!-- Search Input -->
                         <div>
@@ -174,7 +183,7 @@
 
                         <!-- Price Range -->
                         <div>
-                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">{% trans "Price (L.E)" %}</h3>
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">{% if LANGUAGE_CODE == 'ar' %}السعر (ج.م){% else %}Price (EGP){% endif %}</h3>
                             <div class="flex items-center gap-2">
                                 <input type="number" min="0" step="10" name="min_price" value="{{ request.GET.min_price|default_if_none:'' }}" placeholder="{% if LANGUAGE_CODE == 'ar' %}الأدنى{% else %}Min{% endif %}" class="w-full py-2.5 px-3 rounded-xl border border-slate-200 bg-white text-xs font-semibold focus:border-blue-600 focus:outline-none shadow-sm text-center">
                                 <span class="text-slate-300">-</span>

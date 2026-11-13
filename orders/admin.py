@@ -3,14 +3,19 @@ import datetime
 from django.contrib import admin, messages
 from django.http import HttpResponse
 from django.urls import reverse
-from django.utils.html import format_html
+from django.utils.html import escape, format_html
 from unfold.admin import ModelAdmin, TabularInline
 from .models import Order, OrderItem, ReturnRequest
 
 
 @admin.action(description="✅ Mark selected orders as Paid (InstaPay / Cash Verified)")
 def mark_as_paid(modeladmin, request, queryset):
-    updated = queryset.update(paid=True, status='processing')
+    updated = 0
+    for order in queryset.select_related('user').prefetch_related('items__product'):
+        order.paid = True
+        order.status = 'processing'
+        order.save(update_fields=['paid', 'status', 'updated'])
+        updated += 1
     modeladmin.message_user(
         request,
         f"{updated} orders marked as Paid & Processing.",
@@ -20,7 +25,11 @@ def mark_as_paid(modeladmin, request, queryset):
 
 @admin.action(description="🚚 Mark selected orders as Shipped")
 def mark_as_shipped(modeladmin, request, queryset):
-    updated = queryset.update(status='shipped')
+    updated = 0
+    for order in queryset.select_related('user'):
+        order.status = 'shipped'
+        order.save(update_fields=['status', 'updated'])
+        updated += 1
     modeladmin.message_user(
         request,
         f"{updated} orders successfully marked as Shipped.",
@@ -37,15 +46,15 @@ def print_packing_slips(modeladmin, request, queryset):
     ]
     for order in queryset.prefetch_related('items__product'):
         html_content.append("<div class='slip'>")
-        html_content.append(f"<h2>Packing Slip - Order #{order.id} ({order.get_payment_method_display()})</h2>")
-        html_content.append(f"<p><strong>Customer:</strong> {order.full_name}<br>")
-        html_content.append(f"<strong>Phone:</strong> {order.phone}<br>")
-        html_content.append(f"<strong>Address:</strong> {order.address}, {order.city}</p>")
+        html_content.append(f"<h2>Packing Slip - Order #{order.id} ({escape(str(order.get_payment_method_display()))})</h2>")
+        html_content.append(f"<p><strong>Customer:</strong> {escape(str(order.full_name))}<br>")
+        html_content.append(f"<strong>Phone:</strong> {escape(str(order.phone))}<br>")
+        html_content.append(f"<strong>Address:</strong> {escape(str(order.address))}, {escape(str(order.city))}</p>")
         if order.delivery_notes:
-            html_content.append(f"<p><strong>Notes:</strong> {order.delivery_notes}</p>")
+            html_content.append(f"<p><strong>Notes:</strong> {escape(str(order.delivery_notes))}</p>")
         html_content.append("<h3>Items:</h3><ul>")
         for item in order.items.all():
-            html_content.append(f"<li>{item.quantity}x {item.product.name} — {item.get_cost()} EGP</li>")
+            html_content.append(f"<li>{item.quantity}x {escape(str(item.product.name))} — {item.get_cost()} EGP</li>")
         html_content.append(f"</ul><p><strong>Shipping:</strong> {order.shipping_cost} EGP | <strong>Grand Total:</strong> {order.get_total_cost()} EGP</p></div>")
     html_content.append("</body></html>")
     return HttpResponse("".join(html_content))

@@ -12,38 +12,43 @@ register = template.Library()
 
 @register.inclusion_tag('admin/includes/dashboard_stats.html')
 def render_dashboard_stats():
-    # Revenue (Paid orders only)
-    paid_orders = Order.objects.filter(paid=True)
+    # Revenue (Paid orders only - prefetched to avoid N+1 queries)
+    paid_orders = list(Order.objects.filter(paid=True).prefetch_related('items').order_by('-created'))
     total_revenue = sum(order.get_total_cost() for order in paid_orders)
 
     # Orders (Completed/Paid)
-    total_orders = paid_orders.count()
-    
+    total_orders = len(paid_orders)
+
     # Low stock products (less than 10 units)
     low_stock = Product.objects.filter(stock_quantity__lt=10, available=True).order_by('stock_quantity')[:5]
-    
+
     # Recent paid orders
-    recent_orders = Order.objects.filter(paid=True).order_by('-created')[:5]
-    
+    recent_orders = paid_orders[:5]
+
     # Active Users
     total_users = User.objects.filter(is_active=True).count()
-    
+
     # Total Products
     total_products = Product.objects.filter(available=True).count()
-    
+
     # 7-Day Chart Data Calculation
     today = timezone.now().date()
     dates = [(today - timedelta(days=i)) for i in range(6, -1, -1)]
     chart_labels = [d.strftime('%a') for d in dates]
-    
+
+    by_date = {d: [] for d in dates}
+    for o in paid_orders:
+        d = timezone.localtime(o.created).date() if timezone.is_aware(o.created) else o.created.date()
+        if d in by_date:
+            by_date[d].append(o)
+
     chart_revenue = []
     chart_order_counts = []
-    
     for d in dates:
-        day_orders = paid_orders.filter(created__date=d)
+        day_orders = by_date[d]
         rev = sum(o.get_total_cost() for o in day_orders)
         chart_revenue.append(float(rev))
-        chart_order_counts.append(day_orders.count())
+        chart_order_counts.append(len(day_orders))
         
     # Top Categories with product count
     categories = Category.objects.annotate(num_products=Count('products')).order_by('-num_products')[:4]

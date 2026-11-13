@@ -24,6 +24,10 @@
             <span>/</span>
             <a href="{% url 'shop:product_list_by_category' product.category.slug %}" class="hover:text-black transition-colors">{% if request.LANGUAGE_CODE == 'ar' and product.category.name_ar %}{{ product.category.name_ar }}{% else %}{{ product.category.name }}{% endif %}</a>
             {% endif %}
+            {% if product.subcategory %}
+            <span>/</span>
+            <a href="{{ product.subcategory.get_absolute_url }}" class="hover:text-black transition-colors">{% if request.LANGUAGE_CODE == 'ar' and product.subcategory.name_ar %}{{ product.subcategory.name_ar }}{% else %}{{ product.subcategory.name }}{% endif %}</a>
+            {% endif %}
             <span>/</span>
             <span class="text-slate-800 font-semibold truncate max-w-xs sm:max-w-md">{{ product.name }}</span>
         </nav>
@@ -145,9 +149,16 @@
                     <!-- Badges -->
                     <div class="flex flex-wrap items-center gap-2 mb-4">
                         {% if product.category %}
-                        <span class="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-slate-100 text-slate-800 border border-slate-200">
-                            {{ product.category.name }}
-                        </span>
+                        <a href="{% url 'shop:product_list_by_category' product.category.slug %}" class="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 transition-colors">
+                            {% if request.LANGUAGE_CODE == 'ar' and product.category.name_ar %}{{ product.category.name_ar }}{% else %}{{ product.category.name }}{% endif %}
+                        </a>
+                        {% endif %}
+
+                        {% if product.subcategory %}
+                        <a href="{{ product.subcategory.get_absolute_url }}" class="inline-flex items-center gap-1 px-3.5 py-1 rounded-full text-xs font-semibold tracking-wider bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 transition-colors">
+                            <span>{{ product.subcategory.icon|default:"⚡" }}</span>
+                            <span>{% if request.LANGUAGE_CODE == 'ar' and product.subcategory.name_ar %}{{ product.subcategory.name_ar }}{% else %}{{ product.subcategory.name }}{% endif %}</span>
+                        </a>
                         {% endif %}
 
                         {% if product.brand %}

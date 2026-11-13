@@ -23,7 +23,11 @@
                              4 0 014-4z"/>
                 </svg>
                 <span class="text-sm">
-                    "{{ coupon_code }}" ({{ discount }}% {% trans "off" %})
+                    {% if coupon.discount_type == 'fixed' %}
+                        "{{ coupon_code }}" (-{{ discount }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %})
+                    {% else %}
+                        "{{ coupon_code }}" ({{ discount }}% {% trans "off" %})
+                    {% endif %}
                 </span>
             </div>
             <span class="text-sm font-medium">-{% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ discount_amount }}</span>

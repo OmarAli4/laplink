@@ -219,13 +219,13 @@
                     <a href="{% url 'shop:about' %}" class="text-sm text-slate-600 hover:text-slate-950 font-medium transition-colors">
                         {% trans "About Us" %}
                     </a>
-                    <a href="#" class="text-sm text-slate-600 hover:text-slate-950 font-medium transition-colors">
+                    <a href="{% url 'shop:about' %}#privacy" class="text-sm text-slate-600 hover:text-slate-950 font-medium transition-colors">
                         {% trans "Privacy" %}
                     </a>
-                    <a href="#" class="text-sm text-slate-600 hover:text-slate-950 font-medium transition-colors">
+                    <a href="{% url 'shop:about' %}#terms" class="text-sm text-slate-600 hover:text-slate-950 font-medium transition-colors">
                         {% trans "Terms" %}
                     </a>
-                    <a href="#" class="text-sm text-slate-600 hover:text-slate-950 font-medium transition-colors">
+                    <a href="https://wa.me/201009019079" target="_blank" rel="noopener noreferrer" class="text-sm text-slate-600 hover:text-slate-950 font-medium transition-colors">
                         {% trans "Contact" %}
                     </a>
                 </div>
@@ -235,7 +235,7 @@
 
     <div x-data="toastManager()" x-cloak
          @toast.window="addToast($event.detail)"
-         class="fixed top-20 right-4 z-[100] flex flex-col gap-3 pointer-events-none max-w-sm w-full">
+         class="fixed top-20 ltr:right-4 rtl:left-4 z-[100] flex flex-col gap-3 pointer-events-none max-w-sm w-full">
 
         <template x-for="toast in toasts" :key="toast.id">
             <div x-show="toast.visible"
@@ -268,7 +268,7 @@
             return {
                 toasts: [],
                 addToast({ message = '', type = 'info', duration = 3500 } = {}) {
-                    const id = Date.now();
+                    const id = Date.now() + Math.random();
                     this.toasts.push({ id, message, type, visible: true });
                     setTimeout(() => {
                         const t = this.toasts.find(t => t.id === id);

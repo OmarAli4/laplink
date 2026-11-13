@@ -22,7 +22,7 @@
                 <div class="text-xs font-bold text-slate-900 group-hover:text-blue-600 truncate transition-colors">{{ product.name }}</div>
                 <div class="text-[11px] font-medium text-slate-500 flex items-center gap-2 mt-0.5">
                     {% if product.brand %}<span class="text-slate-600 font-semibold">{{ product.brand.name }}</span> • {% endif %}
-                    <span class="text-emerald-600 font-bold font-mono">L.E {{ product.current_price }}</span>
+                    <span class="text-emerald-600 font-bold font-mono">{{ product.current_price }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                 </div>
             </div>
         </a>

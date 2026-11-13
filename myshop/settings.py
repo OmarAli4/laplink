@@ -208,14 +208,15 @@ CART_SESSION_ID = 'cart'
 # PRODUCTION SECURITY SETTINGS
 # ==========================================
 # Ensure SSL is enforced in production environments
-SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', 'False') == 'True'
+SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', 'False' if DEBUG else 'True') == 'True'
 
-if SECURE_SSL_REDIRECT:
+if not DEBUG or SECURE_SSL_REDIRECT:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_HSTS_SECONDS = 31536000  # 1 year
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
 
 # ==========================================
 # PRODUCTION LOGGING

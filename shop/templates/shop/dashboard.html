@@ -92,7 +92,7 @@
                                         {{ order.created|date:"M d, Y" }}
                                     </td>
                                     <td class="py-5 px-2 text-sm text-slate-900 font-medium">
-                                        L.E {{ order.get_total_cost|floatformat:2 }}
+                                        {{ order.get_total_cost|floatformat:2 }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}
                                     </td>
                                     <td class="py-5 px-2 text-sm">
                                         {% if order.status == 'pending' %}

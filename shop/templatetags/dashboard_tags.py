@@ -88,27 +88,6 @@ def get_dashboard_stats(context, days=30):
         chart_labels_cities = [c[0] for c in top_cities]
         chart_data_cities = [float(c[1]) for c in top_cities]
 
-        # ─── FAKE DATA FALLBACK (If Database is Empty) ───
-        if total_orders == 0:
-            import random
-            total_orders = 1248
-            order_delta = 142
-            total_revenue = 45280.00
-            revenue_delta_pct = 12.5
-            conversion_rate = 3.2
-            
-            # Fake Performance Data
-            chart_data_current = [random.randint(100, 1000) for _ in range(days)]
-            chart_data_previous = [random.randint(50, 800) for _ in range(days)]
-            
-            # Fake Products Data
-            chart_labels_products = ['Laptops', 'Smartphones', 'Accessories', 'Tablets', 'Monitors']
-            chart_data_products = [350, 240, 180, 150, 80]
-            
-            # Fake Cities Data
-            chart_labels_cities = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Miami']
-            chart_data_cities = [12000, 9500, 6200, 4800, 3100]
-
         stats = {
             'days': days,
             'total_orders': total_orders,

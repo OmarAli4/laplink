@@ -71,9 +71,9 @@
                     </div>
                     <div class="mt-4 flex items-center justify-between">
                         <div class="flex items-baseline gap-2">
-                            <span class="text-lg font-bold text-black">L.E {{ product.current_price }}</span>
+                            <span class="text-lg font-bold text-black">{{ product.current_price }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                             {% if product.is_on_sale %}
-                                <span class="text-xs font-medium text-gray-400 line-through">L.E {{ product.price }}</span>
+                                <span class="text-xs font-medium text-gray-400 line-through">{{ product.price }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                             {% endif %}
                         </div>
                     </div>

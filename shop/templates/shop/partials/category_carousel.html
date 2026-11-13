@@ -153,7 +153,7 @@
                    @mouseenter="activeCategory = 'apple'" @mouseleave="activeCategory = null"
                    class="scroll-reveal group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
-                        <img src="{% static 'img/categories/laptops.webp' %}" 
+                        <img src="{% static 'img/categories/tablets.webp' %}" 
                              alt="{% if LANGUAGE_CODE == 'ar' %}آيباد وأجهزة أبل{% else %}iPad & Apple{% endif %}" 
                              class="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-500 group-hover:scale-115 group-hover:rotate-1" 
                              loading="eager">
@@ -194,7 +194,7 @@
                 </a>
 
                 <!-- 3. شواحن وباور بانك (Chargers & Power) -->
-                <a href="{% url 'shop:product_list_by_category' 'mobile-accessories' %}?subcategory=chargers-gan" 
+                <a href="{% url 'shop:product_list_by_category' 'mobile-accessories' %}?subcategory=chargers-gan,power-banks" 
                    @mouseenter="activeCategory = 'chargers'" @mouseleave="activeCategory = null"
                    class="scroll-reveal delay-100 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">
@@ -298,7 +298,7 @@
                 </a>
 
                 <!-- 8. ماوس وكيبورد (Mice & Keyboards) -->
-                <a href="{% url 'shop:product_list_by_category' 'Computer-accessories' %}?subcategory=mice" 
+                <a href="{% url 'shop:product_list_by_category' 'Computer-accessories' %}?subcategory=mice,keyboards" 
                    @mouseenter="activeCategory = 'mouse'" @mouseleave="activeCategory = null"
                    class="scroll-reveal delay-250 group flex-shrink-0 flex flex-col items-center text-center w-[98px] sm:w-[114px] lg:w-[124px] transition-all duration-300">
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 md:w-26 md:h-26 rounded-3xl bg-gradient-to-b from-slate-50 to-white border border-slate-200/90 shadow-sm flex items-center justify-center p-2.5 transition-all duration-400 group-hover:scale-110 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/10 group-hover:border-blue-500/40 group-hover:from-blue-50/40 group-hover:to-white">

@@ -6,7 +6,12 @@
         addCompare(product) {
             if (this.items.some(i => i.id === product.id)) return;
             if (this.items.length >= 3) {
-                alert('You can compare up to 3 products at a time.');
+                window.dispatchEvent(new CustomEvent('toast', {
+                    detail: {
+                        message: '{% if LANGUAGE_CODE == "ar" %}يمكنك مقارنة حتى 3 منتجات في نفس الوقت{% else %}You can compare up to 3 products at a time.{% endif %}',
+                        type: 'error'
+                    }
+                }));
                 return;
             }
             this.items.push(product);
@@ -37,10 +42,15 @@
         <div class="flex items-center justify-between border-b border-slate-200 pb-3 mb-4">
             <div class="flex items-center gap-2">
                 <span class="text-emerald-700 font-bold text-sm">⚖️ {% trans "Compare Devices" %}</span>
-                <span class="text-xs text-slate-500 font-medium" x-text="'(' + items.length + '/3 selected)'"></span>
+                <span class="text-xs text-slate-500 font-medium" x-text="'(' + items.length + '/3 {% if LANGUAGE_CODE == "ar" %}مختار{% else %}selected{% endif %})'"></span>
             </div>
 
             <div class="flex items-center gap-3">
+                <a x-show="items.length >= 2"
+                   :href="'{% url 'shop:product_battle' %}?a=' + (items[0] ? items[0].id : '') + (items[1] ? '&b=' + items[1].id : '')"
+                   class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-extrabold transition-colors shadow-xs">
+                    ⚔️ {% if LANGUAGE_CODE == 'ar' %}ابدأ المقارنة{% else %}Battle Compare{% endif %}
+                </a>
                 <button @click="clearAll()" class="text-xs text-slate-600 hover:text-slate-900 font-bold uppercase tracking-wider">{% trans "Clear All" %}</button>
                 <button @click="isOpen = false" class="text-slate-500 hover:text-slate-900 p-1 rounded-full hover:bg-slate-100 transition-colors focus:outline-none">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>

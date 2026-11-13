@@ -1,7 +1,7 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.views.decorators.http import require_POST
 from django.utils import timezone
-from django.shortcuts import render
+from django.utils.translation import gettext as _
 from .models import Coupon
 from .forms import CouponApplyForm
 
@@ -31,7 +31,7 @@ def coupon_apply(request):
                 valid_to__gte=now,
                 active=True,
             )
-            
+
             if not coupon.can_be_used():
                 request.session['coupon_id'] = None
                 if request.headers.get('HX-Request'):
@@ -39,11 +39,11 @@ def coupon_apply(request):
                     from cart.views import _build_cart_context
                     cart = Cart(request)
                     context = _build_cart_context(request, cart)
-                    context['coupon_error'] = 'This coupon has reached its usage limit.'
+                    context['coupon_error'] = _('This coupon has reached its usage limit.')
                     import json
                     response = render(request, 'cart/partials/cart_summary.html', context)
                     response['HX-Trigger'] = json.dumps({
-                        'toast': {'message': 'Coupon usage limit reached.', 'type': 'error'}
+                        'toast': {'message': _('Coupon usage limit reached.'), 'type': 'error'}
                     })
                     return response
                 return redirect('cart:cart_detail')
@@ -51,12 +51,11 @@ def coupon_apply(request):
             request.session['coupon_id'] = coupon.id
 
             if request.headers.get('HX-Request'):
-                # Build context with cart + coupon info
                 from cart.cart import Cart
                 from cart.views import _build_cart_context
                 cart = Cart(request)
                 context = _build_cart_context(request, cart)
-                context['coupon_message'] = f'Coupon "{code}" applied!'
+                context['coupon_message'] = _('Coupon "%(code)s" applied!') % {'code': coupon.code}
 
                 import json
                 response = render(
@@ -64,14 +63,17 @@ def coupon_apply(request):
                     'cart/partials/cart_summary.html',
                     context,
                 )
-                
-                perk_msg = f'{coupon.discount}% off'
+
+                if coupon.discount_type == 'fixed':
+                    perk_msg = _('%(amount)s EGP off') % {'amount': coupon.discount}
+                else:
+                    perk_msg = _('%(pct)s%% off') % {'pct': coupon.discount}
                 if coupon.is_free_shipping:
-                    perk_msg += ' + Free Shipping'
-                    
+                    perk_msg += ' + ' + _('Free Shipping')
+
                 response['HX-Trigger'] = json.dumps({
                     'toast': {
-                        'message': f'Coupon "{code}" applied — {perk_msg}!',
+                        'message': _('Coupon "%(code)s" applied — %(perk)s!') % {'code': coupon.code, 'perk': perk_msg},
                         'type': 'success',
                     }
                 })
@@ -87,7 +89,7 @@ def coupon_apply(request):
                 from cart.views import _build_cart_context
                 cart = Cart(request)
                 context = _build_cart_context(request, cart)
-                context['coupon_error'] = 'Invalid or expired coupon code.'
+                context['coupon_error'] = _('Invalid or expired coupon code.')
 
                 import json
                 response = render(
@@ -97,7 +99,7 @@ def coupon_apply(request):
                 )
                 response['HX-Trigger'] = json.dumps({
                     'toast': {
-                        'message': 'Invalid or expired coupon code.',
+                        'message': _('Invalid or expired coupon code.'),
                         'type': 'error',
                     }
                 })

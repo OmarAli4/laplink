@@ -155,15 +155,17 @@
                             bg-white text-slate-600 border-slate-200 hover:text-slate-900 hover:border-slate-300 shadow-2xs
                           {% endif %}">
                     <span>
-                        {% if 'laptop' in cat.name|lower %}💻
+                        {% if 'apple' in cat.name|lower or 'ipad' in cat.name|lower %}📱
                         {% elif 'bag' in cat.name|lower or 'sleeve' in cat.name|lower %}🎒
-                        {% elif 'phone' in cat.name|lower or 'mobile' in cat.name|lower %}📱
-                        {% elif 'acc' in cat.name|lower %}🖱️
+                        {% elif 'mobile' in cat.name|lower or 'charging' in cat.name|lower or 'phone' in cat.name|lower %}⚡
+                        {% elif 'computer' in cat.name|lower or 'desk' in cat.name|lower or 'acc' in cat.name|lower %}🖱️
+                        {% elif 'network' in cat.name|lower or 'wi-fi' in cat.name|lower %}📡
+                        {% elif 'graphic' in cat.name|lower or 'drawing' in cat.name|lower %}🎨
                         {% else %}⚡{% endif %}
                     </span>
                     <span>{% if request.LANGUAGE_CODE == 'ar' and cat.name_ar %}{{ cat.name_ar }}{% else %}{{ cat.name }}{% endif %}</span>
                     <span class="text-[10px] px-1.5 py-0.5 rounded-full {% if selected_category.id == cat.id %}bg-blue-600 text-white{% else %}bg-slate-100 text-slate-600{% endif %}">
-                        {{ cat.products.count }}
+                        {{ cat.available_count|default:cat.products.count }}
                     </span>
                 </a>
             {% endfor %}

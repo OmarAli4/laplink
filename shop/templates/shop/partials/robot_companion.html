@@ -84,7 +84,7 @@
                 </template>
                 <template x-if="!customAnswer">
                     <div class="flex flex-wrap gap-1 justify-center">
-                        <button type="button" @click="customAnswer = '{% trans '🚚 Free delivery on orders over L.E 5,000!' %}'; if(window.TechSound) window.TechSound.playPop();" class="px-2 py-0.5 rounded-full bg-slate-100 hover:bg-emerald-50 text-[10px] text-slate-700 hover:text-emerald-700 border border-slate-200 transition-colors">
+                        <button type="button" @click="customAnswer = '{% if LANGUAGE_CODE == "ar" %}🚚 شحن مجاني للطلبات فوق 5,000 ج.م!{% else %}🚚 Free delivery on orders over 5,000 EGP!{% endif %}'; if(window.TechSound) window.TechSound.playPop();" class="px-2 py-0.5 rounded-full bg-slate-100 hover:bg-emerald-50 text-[10px] text-slate-700 hover:text-emerald-700 border border-slate-200 transition-colors">
                             🚚 {% trans "Shipping?" %}
                         </button>
                         <button type="button" @click="customAnswer = '{% trans '🛡️ 2-Year Official Manufacturer Warranty!' %}'; if(window.TechSound) window.TechSound.playPop();" class="px-2 py-0.5 rounded-full bg-slate-100 hover:bg-emerald-50 text-[10px] text-slate-700 hover:text-emerald-700 border border-slate-200 transition-colors">

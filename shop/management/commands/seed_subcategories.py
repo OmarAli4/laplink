@@ -13,16 +13,6 @@ DEFAULT_TAXONOMY = {
             'keywords': ['ipad', 'apple', 'a16', 'آيباد', 'ايباد', 'أبل', 'ابل'],
         },
     ],
-    'laptop': [
-        {
-            'name': 'iPad & Apple Devices',
-            'name_ar': 'أجهزة آيباد وأبل',
-            'slug': 'ipad-devices',
-            'icon': '📱',
-            'order': 1,
-            'keywords': ['ipad', 'apple', 'a16', 'آيباد', 'ايباد', 'أبل', 'ابل'],
-        },
-    ],
     'bag': [
         {
             'name': 'Crossbody & Chest Bags',
@@ -38,7 +28,12 @@ DEFAULT_TAXONOMY = {
             'slug': 'laptop-sleeves',
             'icon': '💼',
             'order': 2,
-            'keywords': ['sleeve', 'case', 'pouch', 'briefcase', 'handbag', 'chantria', 'elite', 'جراب', 'حافظة', 'يد'],
+            'keywords': [
+                'sleeve', 'briefcase', 'handbag', 'pouch', 'ch-00778',
+                'gs40', 'gs50', 'gs60', 'gs70', 'gs94', 'gs95', 'gs98', 'gs99',
+                'gs104', 'gs110', 'gs124', 'gs205', 'gs234', 'gs1004',
+                'جراب', 'حافظة', 'شنطة يد'
+            ],
         },
         {
             'name': 'Laptop Backpacks',
@@ -46,7 +41,7 @@ DEFAULT_TAXONOMY = {
             'slug': 'backpacks',
             'icon': '🎒',
             'order': 1,
-            'keywords': ['backpack', 'back pack', 'rucksack', 'bange', 'arctic hunter', 'coolbell', 'شنطة ظهر', 'حقيبة ظهر', 'باك باك', 'bag'],
+            'keywords': ['backpack', 'back pack', 'daypack', 'rucksack', 'bange', 'arctic hunter', 'coolbell', 'شنطة ظهر', 'حقيبة ظهر', 'باك باك', 'bag'],
         },
     ],
     'computer': [
@@ -64,7 +59,46 @@ DEFAULT_TAXONOMY = {
             'slug': 'mice',
             'icon': '🖱️',
             'order': 1,
-            'keywords': ['mouse', 'mice', 'presenter', 'presentation', 'r400', 'r500', 'm170', 'm171', 'm185', 'm190', 'm240', 'm330', 'g102', 'g305', 'g502', 'm650', 'b30', 'm20', '1620', '3510', 'n100', 'cw905', 'ماوس', 'فأرة'],
+            'keywords': [
+                'mouse', 'mice', 'presenter', 'presentation', 'clicker',
+                'r400', 'r500', 'r500s', 'm170', 'm171', 'm185', 'm190', 'm240',
+                'm330', 'm90', 'b100', 'g102', 'g305', 'g502', 'm650', 'b30',
+                'm20', '1620', '3510', 'n100', 'cw902', 'cw905', 'cw917',
+                'w925p', 'cp102', 'rcs-m01', 'ماوس', 'فأرة'
+            ],
+        },
+        {
+            'name': 'USB-C Hubs, Docks & Storage',
+            'name_ar': 'موزعات USB-C ووصلات هارد',
+            'slug': 'hubs-adapters',
+            'icon': '🔌',
+            'order': 3,
+            'keywords': [
+                'hub', 'dock', 'docking', 'multiport', '5-in-1', '6-in-1', '7-in-1',
+                '8-in-1', '9-in-1', '12-in-1', '12 in 1', '3 in 1', 'sata', 'ssd',
+                'hdd', 'enclosure', 'card reader', 'sound card', 'dongle', 'cm868',
+                'revodok', 'uc601', '5317s', 'uhd1', 'هاب', 'موزع', 'راك'
+            ],
+        },
+        {
+            'name': 'HDMI & Display Cables',
+            'name_ar': 'كابلات شاشات وHDMI',
+            'slug': 'display-cables',
+            'icon': '🖥️',
+            'order': 4,
+            'keywords': ['hdmi', 'displayport', 'dp ', 'vga', 'dvi', 'rs232', 'serial', 'printer cable', 'extension cable', '10335', '10351', '10133', '20124', '8309', 'كابل شاشة'],
+        },
+        {
+            'name': 'Headsets, Speakers & Studio Mics',
+            'name_ar': 'سماعات، سبيكر ومايكات استوديو',
+            'slug': 'headsets',
+            'icon': '🎧',
+            'order': 5,
+            'keywords': [
+                'headset', 'headphone', 'speaker', 'soundbar', 'soundcore', 'flare',
+                'motion', 'powerconf', 'webcam', 'c200', 'maono', 'a04', 'pd200x',
+                'pd100u', 'h111', 'h390', 'ge-h105', 'sn-21', 'sn-25', 'سماعة', 'سبيكر', 'مايك', 'ويب كام'
+            ],
         },
         {
             'name': 'Laptop & Desk Stands',
@@ -74,30 +108,6 @@ DEFAULT_TAXONOMY = {
             'order': 6,
             'keywords': ['stand', 'riser', 'cooling pad', 'cooler', 'sn-539', 'c296', '80432', '90416', 'حامل', 'ستاند', 'مبرد'],
         },
-        {
-            'name': 'HDMI & Display Cables',
-            'name_ar': 'كابلات شاشات وHDMI',
-            'slug': 'display-cables',
-            'icon': '🖥️',
-            'order': 4,
-            'keywords': ['hdmi', 'displayport', 'dp ', 'vga', 'dvi', 'rs232', 'serial', 'printer cable', 'extension cable', '10335', '10133', '20124', 'switch 3 in 1', 'كابل شاشة'],
-        },
-        {
-            'name': 'Headsets, Speakers & Studio Mics',
-            'name_ar': 'سماعات، سبيكر ومايكات استوديو',
-            'slug': 'headsets',
-            'icon': '🎧',
-            'order': 5,
-            'keywords': ['headset', 'headphone', 'speaker', 'soundbar', 'soundcore', 'flare', 'motion', 'powerconf', 'webcam', 'c200', 'maono', 'a04', 'pd200x', 'pd100u', 'h111', 'h390', 'ge-h105', 'سماعة', 'سبيكر', 'مايك', 'ويب كام'],
-        },
-        {
-            'name': 'USB-C Hubs, Docks & Storage',
-            'name_ar': 'موزعات USB-C ووصلات هارد',
-            'slug': 'hubs-adapters',
-            'icon': '🔌',
-            'order': 3,
-            'keywords': ['hub', 'dock', 'multiport', 'sata', 'ssd', 'hdd', 'enclosure', 'card reader', 'sound card', 'dongle', 'transmitter', 'receiver', 'cm868', 'onten', 'revodok', 'هاب', 'موزع', 'راك'],
-        },
     ],
     'mobile': [
         {
@@ -106,7 +116,7 @@ DEFAULT_TAXONOMY = {
             'slug': 'power-banks',
             'icon': '🔋',
             'order': 3,
-            'keywords': ['power bank', 'powerbank', 'zolo', '10000mah', '20000mah', 'magsafe battery', 'باور بانك', 'بطارية'],
+            'keywords': ['power bank', 'powerbank', '10000mah', '10,000mah', '20000mah', '20,000mah', 'magsafe battery', 'jr-pr1', 'sn-939', 'sn-940', 'باور بانك', 'بطارية'],
         },
         {
             'name': 'Car Chargers & Holders',
@@ -114,15 +124,7 @@ DEFAULT_TAXONOMY = {
             'slug': 'holders-mounts',
             'icon': '🚗',
             'order': 6,
-            'keywords': ['car charger', 'car holder', 'car inverter', 'vc07', 'magnet holder', 'c82', 'c251', 'c87', 'glass holder', 'b13', '35629', '50698', 'a2727', 'sn-607', 'سيارة', 'حامل موبايل'],
-        },
-        {
-            'name': 'Gimbals, Tripods & Lighting',
-            'name_ar': 'جيمبال، ترايبود وإضاءة تصوير',
-            'slug': 'content-creation',
-            'icon': '📸',
-            'order': 5,
-            'keywords': ['osmo', 'gimbal', 'tripod', 'selfie', 'ring light', 'softbox', 'plokama', 'p10', 'p12', 'p19', 'p7', 'z15', 'gx9', 'ss-9', 'live-1', '1280', '1680', '3398', '997s', '998s', '999s', 'k5', 'u20', 'w80', 'ترايبود', 'جيمبال', 'رينج لايت', 'سيلفي'],
+            'keywords': ['car charger', 'car holder', 'car mount', 'car inverter', 'powerdrive', 'b15', 'sn-336', '35629', '65908', 'vc07', 'magnet holder', 'c82', 'c251', 'c87', 'glass holder', 'b13', '50698', 'a2727', 'sn-607', 'سيارة', 'حامل موبايل'],
         },
         {
             'name': 'Earbuds & Wireless Mics',
@@ -130,15 +132,15 @@ DEFAULT_TAXONOMY = {
             'slug': 'wireless-mics-audio',
             'icon': '🎙️',
             'order': 4,
-            'keywords': ['earbud', 'airpod', 'tws', 'r50i', 'r60i', 'u2i', 'hitune', 'buds4', 'lark', 'hollyland', 'dji mic', 'lavalier', 'microphone', 'wm1', 'g20', 'gt12', 'j13', 'k9', 's22', 'سماعة', 'إيربودز', 'ايربودز', 'مايك', 'ميكروفون'],
+            'keywords': ['earbud', 'airpod', 'tws', 'r50i', 'r60i', 'u2i', 'hitune', 'buds4', 'sn-27', 'lark', 'hollyland', 'dji mic', 'lavalier', 'microphone', 'wm1', 'mi-02', 'ge-mi03', 'ge-mi04', 'g20', 'gt12', 'j13', 'k9', 's22', 'إيربودز', 'ايربودز', 'مايك', 'ميكروفون'],
         },
         {
-            'name': 'Fast Chargers & GaN',
-            'name_ar': 'شواحن سريعة وGaN',
-            'slug': 'chargers-gan',
-            'icon': '⚡',
-            'order': 1,
-            'keywords': ['charger', 'gan', 'nexode', 'wall charger', 'powerport', 'nano', 'acefast a', 'mcdodo ch', 'joyroom tc', 'sn-411', 'sn-403', 'sn-538', 'sn-547', 'w02', 'mc09', 'universal adapter', 'magsafe', '35998', 'شاحن', 'راس شاحن'],
+            'name': 'Gimbals, Tripods & Lighting',
+            'name_ar': 'جيمبال، ترايبود وإضاءة تصوير',
+            'slug': 'content-creation',
+            'icon': '📸',
+            'order': 5,
+            'keywords': ['osmo', 'gimbal', 'tripod', 'selfie', 'ring light', 'softbox', 'plokama', 'p10', 'p11', 'p12', 'p19', 'p24', 'p7', 'z15', 'gx9', 'ss-9', 'live-1', '1280', '1680', '3398', '997s', '998s', '999s', 'k5', 'u20', 'w80', 'ترايبود', 'جيمبال', 'رينج لايت', 'سيلفي'],
         },
         {
             'name': 'Charging & Audio Cables',
@@ -146,7 +148,15 @@ DEFAULT_TAXONOMY = {
             'slug': 'cables-adapters',
             'icon': '🔌',
             'order': 2,
-            'keywords': ['cable', 'cord', 'lightning', 'type-c', 'type c', 'usb-c', 'micro usb', 'aux', 'otg', 'splitter', 'converter', 'watch cable', 'ca-', 'كابل', 'وصلة'],
+            'keywords': ['cable', 'lightning', 'micro usb', 'aux', 'otg', 'splitter', 'audiobridge', 'sn-87', 'sn-88', 'sn-89', 'sn-90', 'sn-121', 'sn-122', 'sn-123', 'sn-124', 'sn-133', 'sn-134', 'sn-135', 'sn-155', 'sn-202', 'ca-', 's-a9', 's-a42', 's-a60', 'sj663', 'sj525', 'sj661', 'sj696', 'كابل', 'وصلة'],
+        },
+        {
+            'name': 'Fast Chargers & GaN',
+            'name_ar': 'شواحن سريعة وGaN',
+            'slug': 'chargers-gan',
+            'icon': '⚡',
+            'order': 1,
+            'keywords': ['charger', 'gan', 'nexode', 'wall charger', 'powerport', 'power adapter', 'nano', 'acefast a', 'mcdodo ch', 'joyroom jr-tcg', 'jr-tf4', 'cc118', 'sn-368', 'sn-398', 'sn-411', 'sn-403', 'sn-538', 'sn-547', 'w02', 'mc09', 'universal adapter', 'magsafe', '35998', 'شاحن', 'راس شاحن'],
         },
     ],
     'network': [
@@ -172,7 +182,7 @@ DEFAULT_TAXONOMY = {
             'slug': 'network-adapters',
             'icon': '🔌',
             'order': 4,
-            'keywords': ['adapter', 'usb', 'nano', 'wn725n', 'wn823n', 'wn722n', 'cat6', 'cat7', 'rj45', 'ethernet', 'patch cable', '11262', '50307', '50737', 'كارت واي فاي', 'كابل نت'],
+            'keywords': ['usb adapter', 'wireless n usb', 'wn725n', 'wn823n', 'wn722n', 'cat6', 'cat7', 'rj45', 'ethernet', 'patch cable', '11262', '50307', '50737', 'كارت واي فاي', 'كابل نت'],
         },
         {
             'name': 'Wi-Fi Routers & Mesh',
@@ -185,27 +195,26 @@ DEFAULT_TAXONOMY = {
     ],
     'graphic': [
         {
-            'name': 'Pen Displays & Stylus Pens',
-            'name_ar': 'شاشات وأقلام الرسم',
-            'slug': 'pen-displays',
-            'icon': '🖊️',
-            'order': 2,
-            'keywords': ['kamvas', 'display', 'stylus', 'pencil', 'pen', '121', 'شاشة رسم', 'قلم'],
-        },
-        {
             'name': 'Digital Drawing Tablets',
             'name_ar': 'ألواح الرسم الجرافيكي',
             'slug': 'drawing-tablets',
             'icon': '🎨',
             'order': 1,
-            'keywords': ['tablet', 'inspiroy', 'hs64', 'h640p', 'h950p', 'h430p', 'h610x', 'hs610', 'hs611', 'h320m', 'veikk', 'a30', 'a50', 'wacom', 'ctl-672', 'تابلت رسم'],
+            'keywords': ['drawing tablet', 'graphics tablet', 'graphic tablet', 'pen tablet', 'inspiroy', 'hs64', 'h640p', 'h950p', 'h430p', 'h610x', 'hs610', 'hs611', 'h320m', 'veikk', 'a30', 'a50', 'wacom', 'ctl-672', 'تابلت رسم'],
+        },
+        {
+            'name': 'Pen Displays & Stylus Pens',
+            'name_ar': 'شاشات وأقلام الرسم',
+            'slug': 'pen-displays',
+            'icon': '🖊️',
+            'order': 2,
+            'keywords': ['kamvas', 'pen display', 'stylus', 'pencil', '121', 'شاشة رسم', 'قلم'],
         },
     ],
 }
 
 CATEGORY_METADATA = {
     'apple': {'name': 'iPad & Apple', 'name_ar': 'آيباد وأجهزة أبل'},
-    'laptop': {'name': 'iPad & Apple', 'name_ar': 'آيباد وأجهزة أبل'},
     'bags': {'name': 'Laptop Bags & Sleeves', 'name_ar': 'شنط وجرابات اللابتوب'},
     'computer-accessories': {'name': 'Computer & Desk Accessories', 'name_ar': 'إكسسوارات الكمبيوتر والمكتب'},
     'mobile-accessories': {'name': 'Mobile, Charging & Content Gear', 'name_ar': 'إكسسوارات الموبايل والشحن والتصوير'},
@@ -240,6 +249,7 @@ CANONICAL_BRANDS = {
     'tplink': ('TP-Link', 'tp-link'),
     'acefast': ('Acefast', 'acefast'),
     'chantria': ('Chantria', 'chantria'),
+    'elite': ('Elite', 'elite'),
     'hollyland': ('Hollyland', 'hollyland'),
     'mcdodo': ('Mcdodo', 'mcdodo'),
     'baseus': ('Baseus', 'baseus'),
@@ -260,21 +270,59 @@ CANONICAL_BRANDS = {
     'jedel': ('Jedel', 'jedel'),
     'onikuma': ('Onikuma', 'onikuma'),
     'onten': ('Onten', 'onten'),
+    'usams': ('USAMS', 'usams'),
 }
 
 
+def _kw_matches(kw_lower: str, text: str) -> bool:
+    pattern = r'(?:^|[\s\-_/(),.|"])' + re.escape(kw_lower) + r'(?:$|[\s\-_/(),.|"])'
+    return bool(re.search(pattern, text))
+
+
+def _classify_subcategory_in_text(text: str, category_key: str, subcat_objs):
+    """Return matching SubCategory object for text inside category_key, respecting priority & disambiguation."""
+    if category_key == 'mobile' and 'charger with cable' in text:
+        for subcat, _ in subcat_objs:
+            if subcat.slug == 'chargers-gan':
+                return subcat
+
+    # In mobile category, check car chargers/holders & power banks before chargers/cables
+    for subcat, keywords in subcat_objs:
+        # Avoid 'cable' stealing 'charger with cable'
+        if subcat.slug == 'cables-adapters' and ('wall charger' in text or 'gan charger' in text or 'fast charger' in text) and 'cable' not in text.split('charger')[0]:
+            continue
+        for kw in keywords:
+            if _kw_matches(kw.lower(), text):
+                return subcat
+    return None
+
+
 class Command(BaseCommand):
-    help = "Seed standard SubCategories, migrate misclassified products, deduplicate brands, and accurately classify all 356 products."
+    help = "Seed standard SubCategories, migrate misclassified products, deduplicate brands, and accurately classify all products."
 
     def handle(self, *args, **options):
         self.stdout.write("==================================================")
-        self.stdout.write("Starting 356-Product Taxonomy Overhaul & Seeding")
+        self.stdout.write("Starting Store Category & SubCategory Taxonomy Overhaul")
         self.stdout.write("==================================================")
+
+        # 0. Remove stale audit test artifact if present
+        deleted_test, _ = Product.objects.filter(name='AuditTestLaptop').delete()
+        if deleted_test:
+            self.stdout.write(f"  - Removed {deleted_test} test artifact product(s) [AuditTestLaptop]")
+
+        # Migrate legacy 'laptops' slug to 'APPLE' if 'APPLE' doesn't exist
+        legacy_laptop_cat = Category.objects.filter(slug__iexact='laptops').first()
+        existing_apple_cat = Category.objects.filter(slug__iexact='apple').first()
+        if legacy_laptop_cat and not existing_apple_cat:
+            legacy_laptop_cat.slug = 'APPLE'
+            legacy_laptop_cat.name = 'iPad & Apple'
+            legacy_laptop_cat.name_ar = 'آيباد وأجهزة أبل'
+            legacy_laptop_cat.save(update_fields=['slug', 'name', 'name_ar'])
+            self.stdout.write("  * Migrated legacy 'laptops' category slug -> [APPLE] (iPad & Apple)")
 
         # ------------------------------------------------------------------
         # 1. Normalize Categories and Fix Misclassified Products
         # ------------------------------------------------------------------
-        # A) Standardize Category Names & Arabic Names
         for cat in Category.objects.all():
             cat_slug_lower = cat.slug.lower()
             for key, meta in CATEGORY_METADATA.items():
@@ -282,30 +330,33 @@ class Command(BaseCommand):
                     cat.name = meta['name']
                     cat.name_ar = meta['name_ar']
                     cat.save(update_fields=['name', 'name_ar'])
-                    self.stdout.write(f"  * Normalized Category: [{cat.slug}] -> {cat.name}")
+                    self.stdout.write(f"  * Normalized Category: [{cat.slug}] -> {cat.name} / {cat.name_ar}")
                     break
 
         cat_network = Category.objects.filter(slug__iexact='network').first()
         cat_mobile = Category.objects.filter(slug__iexact='mobile-accessories').first()
         cat_computer = Category.objects.filter(slug__iexact='computer-accessories').first()
         cat_apple = Category.objects.filter(slug__iexact='apple').first()
+        cat_bags = Category.objects.filter(slug__iexact='bags').first()
+        cat_graphic = Category.objects.filter(slug__iexact='graphic-tablet').first()
 
-        # B) Move Network Ethernet Cables [53, 72, 73] to Network
+        # Explicit ID migrations
         if cat_network:
             moved_net = Product.objects.filter(id__in=[53, 72, 73]).update(category=cat_network, subcategory=None)
-            self.stdout.write(f"  -> Moved {moved_net} ethernet cables to [Network]")
+            if moved_net:
+                self.stdout.write(f"  -> Moved {moved_net} ethernet cables to [Network]")
 
-        # C) Move Mobile/GaN Chargers [54, 60, 61, 66, 67, 81, 83, 122] to Mobile Accessories
         if cat_mobile:
             moved_mob = Product.objects.filter(id__in=[54, 60, 61, 66, 67, 81, 83, 122]).update(category=cat_mobile, subcategory=None)
-            self.stdout.write(f"  -> Moved {moved_mob} chargers/earbuds to [Mobile Accessories]")
+            if moved_mob:
+                self.stdout.write(f"  -> Moved {moved_mob} chargers/earbuds to [Mobile Accessories]")
 
-        # D) Move Computer Mice/Keyboards/Cables/Stands [93, 96, 98, 311, 312, 313, 314, 315, 316, 382] to Computer Accessories
         if cat_computer:
-            moved_comp = Product.objects.filter(id__in=[93, 96, 98, 311, 312, 313, 314, 315, 316, 382]).update(category=cat_computer, subcategory=None)
-            self.stdout.write(f"  -> Moved {moved_comp} mice/keyboards/cables to [Computer Accessories]")
+            moved_comp = Product.objects.filter(id__in=[62, 93, 96, 98, 311, 312, 313, 314, 315, 316, 382]).update(category=cat_computer, subcategory=None)
+            if moved_comp:
+                self.stdout.write(f"  -> Moved {moved_comp} mice/keyboards/cables/stands to [Computer Accessories]")
 
-        # E) Ensure iPad Product #304 is correctly attributed to Apple brand & APPLE category
+        # Ensure iPad Product #304 is correctly attributed to Apple brand & APPLE category
         p304 = Product.objects.filter(id=304).first()
         if p304:
             apple_brand, _ = Brand.objects.get_or_create(slug='apple', defaults={'name': 'Apple'})
@@ -314,7 +365,53 @@ class Command(BaseCommand):
                 p304.category = cat_apple
             p304.search_tags = 'apple ipad a16 tablet 11-inch wifi آيباد أبل ايباد تابلت'
             p304.save(update_fields=['brand', 'category', 'search_tags'])
-            self.stdout.write(f"  -> Successfully verified Product #304 [Apple iPad A16] with Brand [Apple]")
+            self.stdout.write("  -> Verified Product #304 [Apple iPad A16] with Brand [Apple] in [APPLE]")
+
+        # Deterministic name/brand-based cross-category checks
+        bag_brands = {'bange', 'arctic hunter', 'coolbell', 'chantria', 'elite'}
+        reassigned_cross = 0
+        for p in Product.objects.select_related('category', 'brand').all():
+            title = (p.name or '').lower()
+            brand_low = (p.brand.name if p.brand else '').lower()
+            target_cat = None
+
+            if 'ipad' in title and ('apple' in title or brand_low in {'apple', 'ipad'}) and cat_apple:
+                target_cat = cat_apple
+            elif (
+                any(k in title for k in ['backpack', 'laptop sleeve', 'crossbody', 'sling bag', 'chest bag', 'laptop handbag'])
+                or (brand_low in bag_brands and not any(k in title for k in ['earbud', 'mouse', 'charger']))
+            ) and cat_bags:
+                target_cat = cat_bags
+            elif any(k in title for k in [
+                'drawing tablet', 'graphics tablet', 'graphic tablet', 'pen tablet',
+                'inspiroy', 'kamvas', 'veikk', 'wacom', 'stylus pen'
+            ]) and cat_graphic:
+                target_cat = cat_graphic
+            elif any(k in title for k in [
+                'range extender', 'modem router', 'wi-fi router', 'mesh wi-fi',
+                'desktop switch', 'cat6', 'cat7', 'rj45', 'tl-wn', 'tl-wa', 'tl-wr', 'tl-wpa', 'archer', 'deco'
+            ]) and cat_network:
+                target_cat = cat_network
+            elif any(k in title for k in [
+                'lavalier', 'lark', 'osmo', 'tripod', 'car charger', 'powerdrive',
+                'power bank', 'powerbank', 'magsafe', 'earbud', 'hitune', 'buds4', 'r50i', 'r60i'
+            ]) and cat_mobile:
+                target_cat = cat_mobile
+            elif any(k in title for k in [
+                'mouse', 'keyboard', 'webcam', 'sata', 'hard drive enclosure', 'hdd',
+                'usb-c hub', 'docking station', 'data hub', 'displayport', 'vga', 'dvi',
+                'rs232', 'hdmi cable', 'hdmi switch', 'hdmi to', 'usb-c to hdmi',
+                'soundbar', 'condenser microphone', 'dynamic microphone', 'dynamic usb microphone',
+                'presentation remote', 'laptop stand'
+            ]) and cat_computer:
+                target_cat = cat_computer
+
+            if target_cat and p.category_id != target_cat.id:
+                p.category = target_cat
+                p.subcategory = None
+                p.save(update_fields=['category', 'subcategory'])
+                reassigned_cross += 1
+                self.stdout.write(f"  -> Cross-category fix: #{p.id} '{p.name[:45]}' -> [{target_cat.slug}]")
 
         # ------------------------------------------------------------------
         # 2. Seed Subcategories per Category Taxonomy and Clean Up Stale Ones
@@ -322,18 +419,20 @@ class Command(BaseCommand):
         total_created_subs = 0
         total_classified_prods = 0
 
-        categories = Category.objects.all()
-        for category in categories:
+        for category in Category.objects.all():
             cat_slug = category.slug.lower()
             cat_name = category.name.lower()
 
+            matched_key = None
             matched_preset = None
             for key, preset_list in DEFAULT_TAXONOMY.items():
                 if key in cat_slug or key in cat_name:
+                    matched_key = key
                     matched_preset = preset_list
                     break
 
             if not matched_preset:
+                matched_key = cat_slug
                 matched_preset = [
                     {'name': f'General {category.name}', 'name_ar': f'{category.name_ar or category.name} عام', 'slug': f'general-{category.slug.lower()}', 'icon': '⚡', 'order': 1, 'keywords': [category.name.lower()]}
                 ]
@@ -348,7 +447,7 @@ class Command(BaseCommand):
                     self.stdout.write(f"  - Deleted stale subcategory [{ss.name}] from [{category.name}] ({unassigned} prods unassigned)")
                     ss.delete()
 
-            # Ensure all valid subcategories exist and have correct name, name_ar, icon, order
+            # Ensure all valid subcategories exist and have correct metadata
             subcat_objs = []
             for sub_def in matched_preset:
                 subcat, created = SubCategory.objects.get_or_create(
@@ -373,25 +472,18 @@ class Command(BaseCommand):
 
                 subcat_objs.append((subcat, sub_def.get('keywords', [])))
 
-            # Re-classify all products of this category to ensure accurate mapping
-            cat_products = Product.objects.filter(category=category)
+            # Re-classify all products of this category (title-first priority)
+            cat_products = Product.objects.filter(category=category).prefetch_related('specs')
             for product in cat_products:
-                search_text = f"{product.name} {product.description}".lower()
-                for spec in product.specs.all():
-                    search_text += f" {spec.name} {spec.value}".lower()
+                title_text = (product.name or '').lower()
+                assigned_sub = _classify_subcategory_in_text(title_text, matched_key, subcat_objs)
 
-                assigned_sub = None
-                for subcat, keywords in subcat_objs:
-                    for kw in keywords:
-                        kw_lower = kw.lower()
-                        # Match word boundaries or substring
-                        if re.search(r'(?:^|[\s\-_/])' + re.escape(kw_lower) + r'(?:$|[\s\-_/])', search_text) or kw_lower in search_text:
-                            assigned_sub = subcat
-                            break
-                    if assigned_sub:
-                        break
+                if not assigned_sub:
+                    full_text = f"{title_text} {(product.description or '').lower()}"
+                    for spec in product.specs.all():
+                        full_text += f" {spec.name} {spec.value}".lower()
+                    assigned_sub = _classify_subcategory_in_text(full_text, matched_key, subcat_objs)
 
-                # Fallback to the first subcategory in preset if none matched
                 if not assigned_sub and subcat_objs:
                     assigned_sub = subcat_objs[0][0]
 
@@ -399,15 +491,13 @@ class Command(BaseCommand):
                     product.subcategory = assigned_sub
                     product.save(update_fields=['subcategory'])
                     total_classified_prods += 1
-                    self.stdout.write(f"    Assigned '{product.name[:35]}...' -> {assigned_sub.name}")
 
         # ------------------------------------------------------------------
-        # 3. Deduplicate and Normalize Brands
+        # 3. Deduplicate, Normalize, Prune Empty Brands & Sync Category.brands
         # ------------------------------------------------------------------
-        self.stdout.write("\nNormalizing & Deduplicating Brands...")
+        self.stdout.write("\nNormalizing, Deduplicating & Syncing Brands...")
         merged_brands_count = 0
 
-        # Step 3A: Merge known canonical aliases
         all_brands = list(Brand.objects.all())
         brand_by_canonical = {}
 
@@ -428,7 +518,6 @@ class Command(BaseCommand):
                     conflict = Brand.objects.filter(slug=canon_slug).exclude(id=b.id).first()
                     if conflict:
                         brand_by_canonical[target_key] = conflict
-                        # Merge b into conflict
                         Product.objects.filter(brand=b).update(brand=conflict)
                         for cat in b.categories.all():
                             cat.brands.add(conflict)
@@ -452,23 +541,32 @@ class Command(BaseCommand):
                     b.delete()
                     merged_brands_count += 1
 
-        # Step 3B: Ensure top canonical brands exist
-        for canon_name, canon_slug in CANONICAL_BRANDS.values():
-            Brand.objects.get_or_create(slug=canon_slug, defaults={'name': canon_name})
-
-        # Step 3C: Auto-link unassigned products to brands
+        # Auto-link unassigned products to brands (check canonical aliases too)
         linked_brands = 0
-        all_active_brands = list(Brand.objects.all())
         for p in Product.objects.filter(brand__isnull=True):
             p_name_lower = p.name.lower()
-            for b_obj in all_active_brands:
-                b_name_lower = b_obj.name.lower()
-                if len(b_name_lower) >= 3 and (b_name_lower in p_name_lower or b_obj.slug in p_name_lower):
-                    p.brand = b_obj
-                    p.save(update_fields=['brand'])
-                    linked_brands += 1
+            matched_brand_tuple = None
+            for alias_key, canon_tuple in CANONICAL_BRANDS.items():
+                if len(alias_key) >= 3 and _kw_matches(alias_key, p_name_lower):
+                    matched_brand_tuple = canon_tuple
                     break
+            if matched_brand_tuple:
+                b_name, b_slug = matched_brand_tuple
+                b_obj, _ = Brand.objects.get_or_create(slug=b_slug, defaults={'name': b_name})
+                p.brand = b_obj
+                p.save(update_fields=['brand'])
+                linked_brands += 1
+
+        # Delete orphan brands with 0 products
+        pruned_brands, _ = Brand.objects.filter(products__isnull=True).delete()
+
+        # Sync Category.brands M2M with real available products
+        for cat in Category.objects.all():
+            active_brands = Brand.objects.filter(products__category=cat, products__available=True).distinct()
+            cat.brands.set(active_brands)
 
         self.stdout.write(
-            f"\nFinished! Created {total_created_subs} subcategories, merged {merged_brands_count} duplicate brands, classified/reclassified {total_classified_prods} products, and linked {linked_brands} unbranded products."
+            f"\nFinished! Created {total_created_subs} subcategories, cross-migrated {reassigned_cross} products, "
+            f"reclassified {total_classified_prods} products, merged {merged_brands_count} duplicate brands, "
+            f"linked {linked_brands} unbranded products, and pruned {pruned_brands} empty brands."
         )

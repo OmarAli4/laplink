@@ -46,22 +46,49 @@ class Cart:
             del self.cart[product_id]
             self.save()
 
+    def _sync_live_products(self):
+        """
+        Sync session cart items with live DB products and current prices,
+        removing products that were deleted or deactivated.
+        Returns {product_id_str: Product}.
+        """
+        product_ids = [pid for pid in self.cart.keys() if str(pid).isdigit()]
+        products = Product.objects.filter(
+            id__in=product_ids,
+            available=True,
+        ).select_related('category', 'brand')
+        product_map = {str(p.id): p for p in products}
+
+        modified = False
+        for pid in list(self.cart.keys()):
+            if pid not in product_map:
+                del self.cart[pid]
+                modified = True
+            else:
+                live_price = str(product_map[pid].current_price)
+                if self.cart[pid].get('price') != live_price:
+                    self.cart[pid]['price'] = live_price
+                    modified = True
+
+        if modified:
+            self.save()
+
+        return product_map
+
     def __iter__(self):
         """
         Iterate over the items in the cart and get the products
         from the database.
         """
         import copy
-        product_ids = self.cart.keys()
-        products = Product.objects.filter(id__in=product_ids).select_related('category', 'brand')
+        product_map = self._sync_live_products()
         cart = copy.deepcopy(self.cart)
 
-        for product in products:
-            cart[str(product.id)]['product'] = product
-            # Always sync session price with current live price (in case sales expire/start)
-            cart[str(product.id)]['price'] = str(product.current_price)
-
-        for item in cart.values():
+        for pid, item in cart.items():
+            product = product_map.get(pid)
+            if not product:
+                continue
+            item['product'] = product
             item['price'] = Decimal(item['price'])
             item['total_price'] = item['price'] * item['quantity']
             yield item
@@ -71,6 +98,7 @@ class Cart:
         return sum(item['quantity'] for item in self.cart.values())
 
     def get_total_price(self):
+        self._sync_live_products()
         return sum(
             Decimal(item['price']) * item['quantity']
             for item in self.cart.values()

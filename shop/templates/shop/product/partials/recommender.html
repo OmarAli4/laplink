@@ -39,10 +39,10 @@
             </h3>
             <div class="mt-1 flex items-baseline gap-1.5">
                 <span class="text-sm font-bold text-black">
-                    L.E {{ product.current_price }}
+                    {{ product.current_price }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}
                 </span>
                 {% if product.is_on_sale %}
-                    <span class="text-[10px] font-medium text-gray-400 line-through">L.E {{ product.price }}</span>
+                    <span class="text-[10px] font-medium text-gray-400 line-through">{{ product.price }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                 {% endif %}
             </div>
         </div>

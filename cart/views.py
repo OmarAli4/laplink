@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
+from django.utils.translation import gettext as _
 from shop.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm
@@ -40,18 +41,31 @@ def cart_add(request, product_id):
                 import json
                 response['HX-Trigger'] = json.dumps({
                     'toast': {
-                        'message': f'Cannot add. Only {product.stock_quantity} left in stock.',
+                        'message': _('Cannot add. Only %(count)s left in stock.') % {'count': product.stock_quantity},
                         'type': 'error',
                     }
                 })
                 return response
             return redirect('cart:cart_detail')
-            
-        cart.add(
+
+        added = cart.add(
             product=product,
             quantity=requested_qty,
             override_quantity=cd['override'],
         )
+        if not added:
+            if request.headers.get('HX-Request'):
+                from django.http import HttpResponse
+                response = HttpResponse(status=204)
+                import json
+                response['HX-Trigger'] = json.dumps({
+                    'toast': {
+                        'message': _('Maximum cart limit (50 items) reached.'),
+                        'type': 'error',
+                    }
+                })
+                return response
+            return redirect('cart:cart_detail')
 
     # ── Check for Direct Buy Now Redirect ──
     if request.POST.get('buy_now') == 'true' or request.GET.get('buy_now') == 'true':
@@ -65,7 +79,6 @@ def cart_add(request, product_id):
 
     # ── HTMX Request → return partial ──
     if request.headers.get('HX-Request'):
-        from django.http import HttpResponse
         response = render(
             request,
             'cart/partials/cart_counter.html',
@@ -75,7 +88,7 @@ def cart_add(request, product_id):
         import json
         response['HX-Trigger'] = json.dumps({
             'toast': {
-                'message': f'"{product.name}" added to cart!',
+                'message': _('"%(name)s" added to cart!') % {'name': product.name},
                 'type': 'success',
             }
         })
@@ -106,7 +119,7 @@ def cart_update(request, product_id):
                 import json
                 response['HX-Trigger'] = json.dumps({
                     'toast': {
-                        'message': f'Cannot update. Only {product.stock_quantity} left in stock.',
+                        'message': _('Cannot update. Only %(count)s left in stock.') % {'count': product.stock_quantity},
                         'type': 'error',
                     }
                 })
@@ -178,7 +191,10 @@ def _build_cart_context(request, cart):
     and partial templates. Handles coupon discount calculation.
     """
     from coupons.forms import CouponApplyForm
+    from coupons.models import Coupon
+    from django.utils import timezone
 
+    now = timezone.now()
     coupon_apply_form = CouponApplyForm()
     coupon = None
     discount = 0
@@ -187,19 +203,30 @@ def _build_cart_context(request, cart):
     # Check if a coupon is stored in the session
     coupon_id = request.session.get('coupon_id')
     if coupon_id:
-        from coupons.models import Coupon
-        from django.utils import timezone
         try:
-            coupon = Coupon.objects.get(
+            candidate = Coupon.objects.get(
                 id=coupon_id,
-                valid_from__lte=timezone.now(),
-                valid_to__gte=timezone.now(),
+                valid_from__lte=now,
+                valid_to__gte=now,
                 active=True,
             )
-            discount = coupon.discount
-            coupon_code = coupon.code
+            if candidate.can_be_used():
+                coupon = candidate
+                discount = coupon.discount
+                coupon_code = coupon.code
+            else:
+                request.session['coupon_id'] = None
         except Coupon.DoesNotExist:
             request.session['coupon_id'] = None
+
+    active_coupons = [
+        c for c in Coupon.objects.filter(
+            active=True,
+            valid_from__lte=now,
+            valid_to__gte=now,
+        )[:6]
+        if c.can_be_used()
+    ]
 
     total_before_discount = cart.get_total_price()
 
@@ -229,4 +256,5 @@ def _build_cart_context(request, cart):
         'discount_amount': discount_amount,
         'total_before_discount': total_before_discount,
         'total_after_discount': total_after_discount,
+        'active_coupons': active_coupons,
     }

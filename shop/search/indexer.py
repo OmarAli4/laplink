@@ -32,6 +32,7 @@ def build_source(product) -> Dict[str, Any]:
         "name": product.name or "",
         "brand": product.brand.name if product.brand else "",
         "category": product.category.name if product.category else "",
+        "category_ar": getattr(product.category, 'name_ar', '') if product.category else "",
         "subcategory": product.subcategory.name if product.subcategory else "",
         "subcategory_ar": getattr(product.subcategory, 'name_ar', '') if product.subcategory else "",
         "specs": specs_list,
@@ -50,14 +51,19 @@ def build_search_text(source: Dict[str, Any], search_tags: str = "") -> str:
     Builds a weighted-field document string with field prefixes:
     N|<name>
     B|<brand>
-    C|<category> <subcategory> <subcategory_ar>
+    C|<category> <category_ar> <subcategory> <subcategory_ar>
     T|<search_tags>
     S|<specs>
     D|<description>
     """
     n_val = normalize(source.get("name", ""))
     b_val = normalize(source.get("brand", ""))
-    c_parts = [source.get("category", ""), source.get("subcategory", ""), source.get("subcategory_ar", "")]
+    c_parts = [
+        source.get("category", ""),
+        source.get("category_ar", ""),
+        source.get("subcategory", ""),
+        source.get("subcategory_ar", ""),
+    ]
     c_val = normalize(" ".join(p for p in c_parts if p))
     t_val = normalize(search_tags or "")
     s_val = normalize(" ; ".join(source.get("specs", [])))

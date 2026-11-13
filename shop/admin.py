@@ -1,4 +1,6 @@
+from decimal import Decimal
 from django.contrib import admin
+from django.db.models import Count
 from unfold.admin import ModelAdmin, TabularInline
 from .models import Category, SubCategory, Product, Banner, Brand, ProductImage, ProductSpec, Announcement
 
@@ -14,13 +16,16 @@ class SubCategoryInline(TabularInline):
 
 @admin.register(Category)
 class CategoryAdmin(ModelAdmin):
-    list_display = ['name', 'slug', 'subcategories_count']
+    list_display = ['name', 'name_ar', 'slug', 'subcategories_count']
     prepopulated_fields = {'slug': ('name',)}
-    search_fields = ['name']
+    search_fields = ['name', 'name_ar', 'slug']
     inlines = [SubCategoryInline]
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).annotate(_subcategories_count=Count('subcategories'))
+
     def subcategories_count(self, obj):
-        return obj.subcategories.count()
+        return getattr(obj, '_subcategories_count', obj.subcategories.count())
     subcategories_count.short_description = "Subcategories"
 
 
@@ -33,12 +38,15 @@ class SubCategoryAdmin(ModelAdmin):
     search_fields = ['name', 'name_ar', 'category__name']
     prepopulated_fields = {'slug': ('name',)}
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).annotate(_products_count=Count('products'))
+
     def icon_display(self, obj):
         return format_html('<span class="text-xl">{}</span>', obj.icon or '⚡')
     icon_display.short_description = "Icon"
 
     def products_count(self, obj):
-        return obj.products.count()
+        return getattr(obj, '_products_count', obj.products.count())
     products_count.short_description = "Products"
 
 
@@ -122,14 +130,14 @@ class ProductAdmin(ModelAdmin):
     @admin.action(description="Decrease Price by 10%% (Sale)")
     def apply_10_percent_discount(self, request, queryset):
         for product in queryset:
-            product.price = float(product.price) * 0.90
+            product.price = (product.price * Decimal('0.90')).quantize(Decimal('0.01'))
             product.save(update_fields=['price'])
         self.message_user(request, "10% discount applied to selected products.")
 
     @admin.action(description="Increase Price by 10%%")
     def increase_10_percent_price(self, request, queryset):
         for product in queryset:
-            product.price = float(product.price) * 1.10
+            product.price = (product.price * Decimal('1.10')).quantize(Decimal('0.01'))
             product.save(update_fields=['price'])
         self.message_user(request, "Price increased by 10% for selected products.")
 
@@ -201,7 +209,7 @@ class UserOrderInline(TabularInline):
     extra = 0
 
     def total_cost(self, obj):
-        return f"${obj.get_total_cost():.2f}"
+        return f"{obj.get_total_cost():.2f} EGP"
     total_cost.short_description = 'Total Cost'
 
     def has_add_permission(self, request, obj=None):

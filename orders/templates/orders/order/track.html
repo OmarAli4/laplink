@@ -2,10 +2,43 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %}{% trans "Track Order" %} #{{ order.id }} | Lap Link{% endblock %}
+{% block title %}{% trans "Track Order" %} #{{ order_id }} | Lap Link{% endblock %}
 
 {% block content %}
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+{% if order_locked %}
+    <div class="max-w-md mx-auto bg-white border border-slate-200 rounded-3xl p-8 shadow-lg text-center">
+        <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center text-2xl">
+            🔒
+        </div>
+        <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-2">
+            {% if LANGUAGE_CODE == 'ar' %}تأكيد ملكية الطلب #{{ order_id }}{% else %}Verify Order #{{ order_id }}{% endif %}
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-500 mb-6">
+            {% if LANGUAGE_CODE == 'ar' %}لحماية بياناتك، يرجى إدخال رقم الموبايل أو آخر 4 أرقام المسجلة بالطلب لعرض حالة الشحنة.{% else %}For your privacy, please enter the mobile number (or last 4 digits) used on this order.{% endif %}
+        </p>
+
+        {% if phone_error %}
+        <div class="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-bold">
+            {% if LANGUAGE_CODE == 'ar' %}رقم الموبايل غير مطابق لهذا الطلب. حاول مرة أخرى.{% else %}Mobile number does not match this order. Please try again.{% endif %}
+        </div>
+        {% endif %}
+
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            <input type="tel"
+                   name="phone"
+                   dir="ltr"
+                   required
+                   placeholder="010XXXXXXXX"
+                   class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-300 text-center font-mono text-sm text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none">
+            <button type="submit" class="w-full py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm transition-colors shadow-sm cursor-pointer">
+                {% if LANGUAGE_CODE == 'ar' %}عرض حالة الطلب{% else %}View Order Status{% endif %}
+            </button>
+        </form>
+    </div>
+{% else %}
 
     <!-- Header -->
     <div class="bg-white border border-slate-200 rounded-3xl p-8 text-slate-900 shadow-lg mb-8 relative overflow-hidden">
@@ -89,5 +122,6 @@
             {% endfor %}
         </div>
     </div>
+{% endif %}
 </div>
 {% endblock %}

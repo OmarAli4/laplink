@@ -50,7 +50,7 @@
                     {% if LANGUAGE_CODE == 'ar' %}الأكثر بحثاً:{% else %}Popular:{% endif %}
                 </span>
                 {% for item in quick_searches %}
-                <a href="{% url 'shop:product_list' %}?q={{ item.query|urlencode }}"
+                <a href="{% if item.url %}{{ item.url }}{% else %}{% url 'shop:product_list' %}?q={{ item.query|urlencode }}{% endif %}"
                    class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white hover:bg-slate-100 text-slate-700 hover:text-slate-950 border border-slate-200 hover:border-slate-300 text-xs font-semibold whitespace-nowrap transition-all duration-200 shadow-2xs shrink-0 group">
                     <img src="{% static item.image %}" alt="{{ item.label_en }}" class="w-4 h-4 object-contain shrink-0 group-hover:scale-110 transition-transform">
                     <span>{% if LANGUAGE_CODE == 'ar' %}{{ item.label_ar }}{% else %}{{ item.label_en }}{% endif %}</span>
@@ -129,7 +129,7 @@
                             {% else %}
                                 <!-- Slide 1: Laptop Sleeves & Bags -->
                                 <div class="swiper-slide relative h-full w-full bg-white overflow-hidden">
-                                    <a href="{% url 'shop:product_list' %}?q=backpack" class="block w-full h-full relative group">
+                                    <a href="{% url 'shop:product_list_by_category' 'bags' %}" class="block w-full h-full relative group">
                                         <picture>
                                             <source srcset="{% static 'img/banners/banner_sleeves.webp' %}" type="image/webp">
                                             <img src="{% static 'img/banners/banner_sleeves.jpg' %}" alt="Luxury Laptop Sleeves & Bags" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="eager" fetchpriority="high" decoding="async">
@@ -144,7 +144,7 @@
                                 </div>
                                 <!-- Slide 2: Computer Accessories -->
                                 <div class="swiper-slide relative h-full w-full bg-white overflow-hidden">
-                                    <a href="{% url 'shop:product_list' %}?q=accessories" class="block w-full h-full relative group">
+                                    <a href="{% url 'shop:product_list_by_category' 'Computer-accessories' %}" class="block w-full h-full relative group">
                                         <picture>
                                             <source srcset="{% static 'img/banners/banner_computer.webp' %}" type="image/webp">
                                             <img src="{% static 'img/banners/banner_computer.jpg' %}" alt="Premium Computer Accessories" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
@@ -159,7 +159,7 @@
                                 </div>
                                 <!-- Slide 3: Fast Charging -->
                                 <div class="swiper-slide relative h-full w-full bg-white overflow-hidden">
-                                    <a href="{% url 'shop:product_list' %}?q=charger" class="block w-full h-full relative group">
+                                    <a href="{% url 'shop:product_list_by_category' 'mobile-accessories' %}?subcategory=chargers-gan" class="block w-full h-full relative group">
                                         <picture>
                                             <source srcset="{% static 'img/banners/banner_mobile.webp' %}" type="image/webp">
                                             <img src="{% static 'img/banners/banner_mobile.jpg' %}" alt="Fast Charging & Mobile Accessories" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
