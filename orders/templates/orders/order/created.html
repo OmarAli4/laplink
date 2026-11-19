@@ -4,13 +4,13 @@
 {% block title %}{% if LANGUAGE_CODE == 'ar' %}تم تأكيد طلبك{% else %}Order Confirmed{% endif %} #{{ order.id }} | Lap Link{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-slate-50/70 py-12 sm:py-16">
+<div class="min-h-screen bg-[#F5F5F7] py-12 sm:py-16">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div class="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-10 shadow-sm">
+        <div class="bg-white border border-black/[0.08] rounded-3xl p-6 sm:p-10 shadow-2xs">
 
             {# ── Top Success Header ── #}
-            <div class="text-center pb-8 border-b border-slate-100">
+            <div class="text-center pb-8 border-b border-black/[0.06]">
                 <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
@@ -21,11 +21,11 @@
                     {% if LANGUAGE_CODE == 'ar' %}طلب رقم #{{ order.id }}{% else %}Order #{{ order.id }}{% endif %}
                 </span>
 
-                <h1 class="text-2xl sm:text-3xl font-extrabold font-display text-slate-900 tracking-tight">
+                <h1 class="text-2xl sm:text-3xl font-extrabold font-display text-[#111827] tracking-tight">
                     {% if LANGUAGE_CODE == 'ar' %}شكراً لك {{ order.first_name }}! تم تسجيل طلبك بنجاح{% else %}Thank you, {{ order.first_name }}! Your order is confirmed{% endif %}
                 </h1>
 
-                <p class="text-slate-500 text-xs sm:text-sm mt-2 max-w-lg mx-auto">
+                <p class="text-[#6E6E73] text-xs sm:text-sm mt-2 max-w-lg mx-auto">
                     {% if order.payment_method == 'instapay' %}
                         {% if LANGUAGE_CODE == 'ar' %}
                             اخترت الدفع عبر <strong>InstaPay ({{ instapay_number }})</strong>. إذا لم تكن قد أرفقت صورة التحويل، يمكنك إرسالها الآن بضغطة واحدة عبر واتساب لتسريع الشحن!
@@ -45,75 +45,75 @@
             {# ── Primary Action: 1-Click WhatsApp Order & InstaPay Confirmation ── #}
             <div class="my-6 p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div class="text-center sm:text-start">
-                    <h2 class="text-sm sm:text-base font-extrabold text-slate-900">
+                    <h2 class="text-sm sm:text-base font-extrabold text-[#111827]">
                         {% if order.payment_method == 'instapay' %}
                             {% if LANGUAGE_CODE == 'ar' %}أرسل إيصال InstaPay وتأكيد الطلب عبر واتساب{% else %}Send InstaPay Receipt via WhatsApp{% endif %}
                         {% else %}
                             {% if LANGUAGE_CODE == 'ar' %}تأكيد سريع للطلب عبر واتساب{% else %}Instant WhatsApp Order Confirmation{% endif %}
                         {% endif %}
                     </h2>
-                    <p class="text-xs text-slate-600 mt-0.5">
+                    <p class="text-xs text-[#6E6E73] mt-0.5">
                         {% if LANGUAGE_CODE == 'ar' %}اضغط لإرسال تفاصيل طلبك جاهزة إلى خدمة عملاء Lap Link ({{ instapay_number }}) للأولوية في التجهيز{% else %}Send pre-filled order details directly to our WhatsApp team ({{ instapay_number }}){% endif %}
                     </p>
                 </div>
                 <a href="{{ whatsapp_url }}"
                    target="_blank"
                    rel="noopener noreferrer"
-                   class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm shadow-md shadow-emerald-600/20 transition-all shrink-0">
+                   class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm shadow-sm transition-all shrink-0">
                     <span>{% if LANGUAGE_CODE == 'ar' %}تأكيد عبر واتساب الآن{% else %}Confirm on WhatsApp{% endif %}</span>
                 </a>
             </div>
 
             {# ── Order Details & Receipt Breakdown ── #}
-            <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200/70 space-y-4">
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs pb-4 border-b border-slate-200/70">
+            <div class="bg-[#F5F5F7] rounded-2xl p-5 border border-black/[0.06] space-y-4">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs pb-4 border-b border-black/[0.06]">
                     <div>
-                        <span class="text-slate-400 block">{% if LANGUAGE_CODE == 'ar' %}المستلم{% else %}Recipient{% endif %}</span>
-                        <span class="font-bold text-slate-900">{{ order.full_name }}</span>
+                        <span class="text-[#6E6E73] block">{% if LANGUAGE_CODE == 'ar' %}المستلم{% else %}Recipient{% endif %}</span>
+                        <span class="font-bold text-[#111827]">{{ order.full_name }}</span>
                     </div>
                     <div>
-                        <span class="text-slate-400 block">{% if LANGUAGE_CODE == 'ar' %}الموبايل{% else %}Mobile{% endif %}</span>
-                        <span class="font-bold text-slate-900 font-mono" dir="ltr">{{ order.phone }}</span>
+                        <span class="text-[#6E6E73] block">{% if LANGUAGE_CODE == 'ar' %}الموبايل{% else %}Mobile{% endif %}</span>
+                        <span class="font-bold text-[#111827] font-mono" dir="ltr">{{ order.phone }}</span>
                     </div>
                     <div>
-                        <span class="text-slate-400 block">{% if LANGUAGE_CODE == 'ar' %}المحافظة{% else %}Governorate{% endif %}</span>
-                        <span class="font-bold text-slate-900">{{ order.city }}</span>
+                        <span class="text-[#6E6E73] block">{% if LANGUAGE_CODE == 'ar' %}المحافظة{% else %}Governorate{% endif %}</span>
+                        <span class="font-bold text-[#111827]">{{ order.city }}</span>
                     </div>
                     <div>
-                        <span class="text-slate-400 block">{% if LANGUAGE_CODE == 'ar' %}طريقة الدفع{% else %}Payment{% endif %}</span>
-                        <span class="font-bold text-slate-900">
+                        <span class="text-[#6E6E73] block">{% if LANGUAGE_CODE == 'ar' %}طريقة الدفع{% else %}Payment{% endif %}</span>
+                        <span class="font-bold text-[#111827]">
                             {% if order.payment_method == 'instapay' %}InstaPay{% else %}{% if LANGUAGE_CODE == 'ar' %}عند الاستلام (COD){% else %}Cash on Delivery{% endif %}{% endif %}
                         </span>
                     </div>
                 </div>
 
-                <div class="divide-y divide-slate-200/60 text-xs sm:text-sm">
+                <div class="divide-y divide-black/[0.06] text-xs sm:text-sm">
                     {% for item in order.items.all %}
                     <div class="py-2.5 flex items-center justify-between">
-                        <span class="font-semibold text-slate-800">{{ item.quantity }}× {{ item.product.name }}</span>
-                        <span class="font-bold text-slate-900">{{ item.get_cost }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
+                        <span class="font-semibold text-[#1D1D1F]">{{ item.quantity }}× {{ item.product.name }}</span>
+                        <span class="font-bold text-[#111827] font-mono">{{ item.get_cost }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                     </div>
                     {% endfor %}
                 </div>
 
-                <div class="pt-3 border-t border-slate-200/80 space-y-1.5 text-xs sm:text-sm">
-                    <div class="flex justify-between text-slate-600">
+                <div class="pt-3 border-t border-black/[0.08] space-y-1.5 text-xs sm:text-sm">
+                    <div class="flex justify-between text-[#6E6E73]">
                         <span>{% if LANGUAGE_CODE == 'ar' %}المجموع الفرعي{% else %}Subtotal{% endif %}</span>
-                        <span>{{ order.get_items_subtotal }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
+                        <span class="font-mono">{{ order.get_items_subtotal }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                     </div>
                     {% if order.discount %}
-                    <div class="flex justify-between text-emerald-600 font-bold">
+                    <div class="flex justify-between text-emerald-700 font-bold">
                         <span>{% if LANGUAGE_CODE == 'ar' %}الخصم{% else %}Discount{% endif %}</span>
-                        <span>-{{ order.get_discount_amount }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
+                        <span class="font-mono">-{{ order.get_discount_amount }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                     </div>
                     {% endif %}
-                    <div class="flex justify-between text-slate-600">
+                    <div class="flex justify-between text-[#6E6E73]">
                         <span>{% if LANGUAGE_CODE == 'ar' %}مصاريف الشحن{% else %}Shipping Fee{% endif %}</span>
-                        <span>{{ order.shipping_cost }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
+                        <span class="font-mono">{{ order.shipping_cost }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                     </div>
-                    <div class="flex justify-between text-base font-black text-slate-900 pt-2 border-t border-slate-200">
+                    <div class="flex justify-between text-base font-black text-[#111827] pt-2 border-t border-black/[0.08]">
                         <span>{% if LANGUAGE_CODE == 'ar' %}الإجمالي النهائي{% else %}Grand Total{% endif %}</span>
-                        <span class="text-blue-600 font-mono">{{ order.get_total_cost }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
+                        <span class="text-[#111827] font-mono">{{ order.get_total_cost }} {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                     </div>
                 </div>
             </div>
@@ -121,12 +121,12 @@
             {# ── Bottom Navigation Buttons ── #}
             <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
                 <a href="{% url 'orders:order_track' order.id %}"
-                   class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white shadow-sm text-xs sm:text-sm font-bold transition-colors">
+                   class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#111827] hover:bg-black text-white shadow-sm text-xs sm:text-sm font-bold transition-colors">
                     <span>{% if LANGUAGE_CODE == 'ar' %}تتبع حالة الطلب مباشر{% else %}Track Order Status{% endif %}</span>
-                    <span>&rarr;</span>
+                    <span>{% if LANGUAGE_CODE == 'ar' %}&larr;{% else %}&rarr;{% endif %}</span>
                 </a>
                 <a href="{% url 'shop:product_list' %}"
-                   class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs sm:text-sm font-bold transition-colors">
+                   class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#F5F5F7] hover:bg-[#E8E8ED] text-[#111827] border border-black/[0.08] text-xs sm:text-sm font-bold transition-colors">
                     <span>{% if LANGUAGE_CODE == 'ar' %}العودة للتسوق{% else %}Continue Shopping{% endif %}</span>
                 </a>
             </div>

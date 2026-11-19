@@ -8,19 +8,19 @@
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
 {% if order_locked %}
-    <div class="max-w-md mx-auto bg-white border border-slate-200 rounded-3xl p-8 shadow-lg text-center">
-        <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center text-2xl">
+    <div class="max-w-md mx-auto bg-white border border-black/[0.08] rounded-3xl p-8 shadow-sm text-center">
+        <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-[#F5F5F7] border border-black/[0.08] text-[#111827] flex items-center justify-center text-2xl">
             🔒
         </div>
-        <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-2">
+        <h1 class="text-xl sm:text-2xl font-extrabold text-[#111827] mb-2">
             {% if LANGUAGE_CODE == 'ar' %}تأكيد ملكية الطلب #{{ order_id }}{% else %}Verify Order #{{ order_id }}{% endif %}
         </h1>
-        <p class="text-xs sm:text-sm text-slate-500 mb-6">
+        <p class="text-xs sm:text-sm text-[#6E6E73] mb-6">
             {% if LANGUAGE_CODE == 'ar' %}لحماية بياناتك، يرجى إدخال رقم الموبايل أو آخر 4 أرقام المسجلة بالطلب لعرض حالة الشحنة.{% else %}For your privacy, please enter the mobile number (or last 4 digits) used on this order.{% endif %}
         </p>
 
         {% if phone_error %}
-        <div class="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-bold">
+        <div class="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold">
             {% if LANGUAGE_CODE == 'ar' %}رقم الموبايل غير مطابق لهذا الطلب. حاول مرة أخرى.{% else %}Mobile number does not match this order. Please try again.{% endif %}
         </div>
         {% endif %}
@@ -32,8 +32,8 @@
                    dir="ltr"
                    required
                    placeholder="010XXXXXXXX"
-                   class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-300 text-center font-mono text-sm text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none">
-            <button type="submit" class="w-full py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm transition-colors shadow-sm cursor-pointer">
+                   class="w-full px-4 py-3 rounded-2xl bg-[#F5F5F7] border border-black/[0.1] text-center font-mono text-sm text-[#111827] focus:bg-white focus:border-[#111827] focus:outline-none">
+            <button type="submit" class="w-full py-3.5 rounded-full bg-[#111827] hover:bg-black text-white font-extrabold text-sm transition-colors shadow-sm cursor-pointer">
                 {% if LANGUAGE_CODE == 'ar' %}عرض حالة الطلب{% else %}View Order Status{% endif %}
             </button>
         </form>
@@ -41,18 +41,17 @@
 {% else %}
 
     <!-- Header -->
-    <div class="bg-white border border-slate-200 rounded-3xl p-8 text-slate-900 shadow-lg mb-8 relative overflow-hidden">
-        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl"></div>
+    <div class="bg-white border border-black/[0.08] rounded-3xl p-8 text-[#1D1D1F] shadow-2xs mb-8 relative overflow-hidden">
 
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-200 pb-6 mb-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-black/[0.08] pb-6 mb-6">
             <div>
                 <span class="text-xs font-bold uppercase tracking-widest text-emerald-700">⚡ {% trans "Live Tracking" %}</span>
-                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">{% trans "Order" %} #{{ order.id }}</h1>
-                <p class="text-xs text-slate-500 mt-1">{% trans "Placed on" %} {{ order.created|date:"N j, Y, P" }}</p>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-[#111827] mt-1">{% trans "Order" %} #{{ order.id }}</h1>
+                <p class="text-xs text-[#6E6E73] mt-1">{% trans "Placed on" %} {{ order.created|date:"N j, Y, P" }}</p>
             </div>
 
             <span class="px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider border
-                         {% if order.status == 'delivered' %}bg-emerald-50 border-emerald-300 text-emerald-800{% elif order.status == 'shipped' %}bg-blue-50 border-blue-300 text-blue-800{% else %}bg-amber-50 border-amber-300 text-amber-800{% endif %}">
+                         {% if order.status == 'delivered' %}bg-emerald-50 border-emerald-300 text-emerald-800{% elif order.status == 'shipped' %}bg-[#F5F5F7] border-black/15 text-[#111827]{% else %}bg-amber-50 border-amber-300 text-amber-800{% endif %}">
                 {{ order.get_status_display }}
             </span>
         </div>
@@ -61,63 +60,63 @@
         <div class="py-6">
             <div class="relative flex items-center justify-between">
                 <!-- Connecting Line -->
-                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-slate-200 z-0"></div>
-                <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-emerald-400 transition-all duration-700 z-0"
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-[#E8E8ED] z-0"></div>
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-emerald-500 transition-all duration-700 z-0"
                      style="width: {% if step == 1 %}0%{% elif step == 2 %}33%{% elif step == 3 %}66%{% else %}100%{% endif %};"></div>
 
                 <!-- Step 1: Order Placed -->
                 <div class="relative z-10 flex flex-col items-center">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 1 %}bg-emerald-600 border-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.5)]{% else %}bg-slate-100 border-slate-200 text-slate-400{% endif %}">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 1 %}bg-emerald-600 border-emerald-500 text-white shadow-sm{% else %}bg-[#F5F5F7] border-black/10 text-[#6E6E73]{% endif %}">
                         ✓
                     </div>
-                    <span class="text-xs font-bold mt-2 text-slate-900">{% trans "Order Placed" %}</span>
+                    <span class="text-xs font-bold mt-2 text-[#111827]">{% trans "Order Placed" %}</span>
                 </div>
 
                 <!-- Step 2: Quality Inspection -->
                 <div class="relative z-10 flex flex-col items-center">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 2 %}bg-emerald-600 border-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.5)]{% else %}bg-slate-100 border-slate-200 text-slate-400{% endif %}">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 2 %}bg-emerald-600 border-emerald-500 text-white shadow-sm{% else %}bg-[#F5F5F7] border-black/10 text-[#6E6E73]{% endif %}">
                         {% if step >= 2 %}✓{% else %}2{% endif %}
                     </div>
-                    <span class="text-xs font-bold mt-2 {% if step >= 2 %}text-slate-900{% else %}text-slate-500{% endif %}">{% trans "Hardware Inspection" %}</span>
+                    <span class="text-xs font-bold mt-2 {% if step >= 2 %}text-[#111827]{% else %}text-[#6E6E73]{% endif %}">{% trans "Hardware Inspection" %}</span>
                 </div>
 
                 <!-- Step 3: Out for Delivery -->
                 <div class="relative z-10 flex flex-col items-center">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 3 %}bg-emerald-600 border-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.5)]{% else %}bg-slate-100 border-slate-200 text-slate-400{% endif %}">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 3 %}bg-emerald-600 border-emerald-500 text-white shadow-sm{% else %}bg-[#F5F5F7] border-black/10 text-[#6E6E73]{% endif %}">
                         {% if step >= 3 %}✓{% else %}3{% endif %}
                     </div>
-                    <span class="text-xs font-bold mt-2 {% if step >= 3 %}text-slate-900{% else %}text-slate-500{% endif %}">{% trans "Out for Delivery" %}</span>
+                    <span class="text-xs font-bold mt-2 {% if step >= 3 %}text-[#111827]{% else %}text-[#6E6E73]{% endif %}">{% trans "Out for Delivery" %}</span>
                 </div>
 
                 <!-- Step 4: Delivered -->
                 <div class="relative z-10 flex flex-col items-center">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 4 %}bg-emerald-600 border-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.5)]{% else %}bg-slate-100 border-slate-200 text-slate-400{% endif %}">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300 {% if step >= 4 %}bg-emerald-600 border-emerald-500 text-white shadow-sm{% else %}bg-[#F5F5F7] border-black/10 text-[#6E6E73]{% endif %}">
                         {% if step >= 4 %}✓{% else %}4{% endif %}
                     </div>
-                    <span class="text-xs font-bold mt-2 {% if step >= 4 %}text-slate-900{% else %}text-slate-500{% endif %}">{% trans "Delivered" %}</span>
+                    <span class="text-xs font-bold mt-2 {% if step >= 4 %}text-[#111827]{% else %}text-[#6E6E73]{% endif %}">{% trans "Delivered" %}</span>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Order Items Summary -->
-    <div class="bg-white rounded-3xl border border-gray-200 p-8 shadow-sm">
-        <h3 class="text-lg font-bold text-gray-900 mb-6">{% trans "Package Contents" %}</h3>
-        <div class="divide-y divide-gray-100">
+    <div class="bg-white rounded-3xl border border-black/[0.08] p-8 shadow-2xs">
+        <h3 class="text-lg font-bold text-[#111827] mb-6">{% trans "Package Contents" %}</h3>
+        <div class="divide-y divide-black/[0.06]">
             {% for item in order.items.all %}
             <div class="py-4 flex items-center justify-between">
                 <div class="flex items-center gap-4">
                     {% if item.product.image %}
-                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-14 h-14 object-cover rounded-xl border border-gray-200">
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-14 h-14 object-contain rounded-xl border border-black/[0.08] bg-[#F5F5F7] p-1">
                     {% else %}
-                    <div class="w-14 h-14 rounded-xl bg-gray-100 flex items-center justify-center text-slate-500">⚡</div>
+                    <div class="w-14 h-14 rounded-xl bg-[#F5F5F7] flex items-center justify-center text-[#6E6E73]">⚡</div>
                     {% endif %}
                     <div>
-                        <h4 class="font-bold text-sm text-gray-900">{{ item.product.name }}</h4>
-                        <p class="text-xs text-gray-500">{% trans "Qty:" %} {{ item.quantity }} × {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ item.price }}</p>
+                        <h4 class="font-bold text-sm text-[#111827]">{{ item.product.name }}</h4>
+                        <p class="text-xs text-[#6E6E73] font-mono">{% trans "Qty:" %} {{ item.quantity }} × {% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ item.price }}</p>
                     </div>
                 </div>
-                <span class="font-bold text-sm text-gray-900">{% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ item.get_cost }}</span>
+                <span class="font-bold text-sm text-[#111827] font-mono">{% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %} {{ item.get_cost }}</span>
             </div>
             {% endfor %}
         </div>
