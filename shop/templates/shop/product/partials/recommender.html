@@ -10,7 +10,7 @@
 
         <div class="aspect-square bg-[#F5F5F7] overflow-hidden relative p-2">
             {% if product.is_on_sale %}
-            <span class="absolute top-2 ltr:left-2 rtl:right-2 z-10 rounded-full bg-rose-600 text-white text-[9px] font-bold tracking-widest uppercase px-2 py-0.5 shadow-2xs">
+            <span class="absolute top-2 ltr:left-2 rtl:right-2 z-10 rounded-full bg-rose-600 text-white text-[9px] font-bold tracking-widest uppercase px-2 py-0.5 shadow-sm">
                 {% trans "SALE" %} {{ product.discount_percentage }}%
             </span>
             {% endif %}

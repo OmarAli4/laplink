@@ -2,7 +2,7 @@
         hx-target="#wishlist-heart-{{ product.id }}"
         hx-swap="outerHTML"
         id="wishlist-heart-{{ product.id }}"
-        class="group flex items-center justify-center p-3 rounded-full border {% if in_wishlist %}border-rose-500 bg-rose-50{% else %}border-black/[0.08] bg-white hover:border-black/25{% endif %} transition-all duration-200 shadow-2xs"
+        class="group flex items-center justify-center p-3 rounded-full border {% if in_wishlist %}border-rose-500 bg-rose-50{% else %}border-black/[0.08] bg-white hover:border-black/25{% endif %} transition-all duration-200 shadow-sm"
         title="{% if in_wishlist %}Remove from Wishlist{% else %}Add to Wishlist{% endif %}">
     <svg class="w-6 h-6 {% if in_wishlist %}text-rose-600 fill-current{% else %}text-[#6E6E73] group-hover:text-rose-600{% endif %} transition-colors"
          {% if not in_wishlist %}fill="none" stroke="currentColor" stroke-width="2"{% endif %}

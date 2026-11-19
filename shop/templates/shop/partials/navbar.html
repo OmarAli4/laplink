@@ -3,23 +3,23 @@
 <nav class="sticky top-0 w-full z-50 bg-white/85 glass-header border-b border-black/[0.08] transition-colors duration-300 font-sans"
      x-data="{ isMenuOpen: false, isBrandMenuOpen: false, isMobileMenuOpen: false, menuTimeout: null, brandTimeout: null }"
      x-effect="document.body.classList.toggle('overflow-hidden', isMobileMenuOpen)">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-20">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 sm:h-20 gap-2">
 
             <!-- Logo -->
             <div class="flex-shrink-0">
-                <a href="{% url 'shop:home' %}" class="flex items-center gap-2.5 group">
-                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-[#111827] flex items-center justify-center border border-[#111827] group-hover:bg-black group-hover:scale-105 transition-all duration-300 shadow-xs shrink-0">
+                <a href="{% url 'shop:home' %}" class="flex items-center gap-2 sm:gap-2.5 group">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-[#111827] flex items-center justify-center border border-[#111827] group-hover:bg-black group-hover:scale-105 transition-all duration-300 shadow-sm shrink-0">
                         <svg width="20" height="20" class="sm:w-5 sm:h-5 text-white" viewBox="14 14 112 82" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linejoin="miter" stroke-linecap="butt">
                             <path class="logo-path" stroke-dasharray="180" stroke-dashoffset="0" d="M 50 50 L 20 50 L 20 90 L 80 90 L 80 50 L 70 50" />
                             <path class="logo-path" stroke-dasharray="180" stroke-dashoffset="0" d="M 70 60 L 60 60 L 60 20 L 120 20 L 120 60 L 90 60" />
                         </svg>
                     </div>
                     <div class="flex flex-col items-center justify-center shrink-0 leading-tight gap-1">
-                        <span class="font-display text-[#111827] text-lg sm:text-xl font-black tracking-wider uppercase group-hover:opacity-85 transition-opacity shrink-0">
+                        <span class="font-display text-[#111827] text-base sm:text-xl font-black tracking-wider uppercase group-hover:opacity-85 transition-opacity shrink-0">
                             LAP LINK
                         </span>
-                        <span class="inline-flex items-center justify-center px-2 py-0.5 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.22em] text-[#6E6E73] border border-black/[0.08] rounded-full bg-[#F5F5F7] whitespace-nowrap shrink-0">
+                        <span class="hidden sm:inline-flex items-center justify-center px-2 py-0.5 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.22em] text-[#6E6E73] border border-black/[0.08] rounded-full bg-[#F5F5F7] whitespace-nowrap shrink-0">
                             {% if LANGUAGE_CODE == 'ar' %}متجر التقنية{% else %}TECH STORE{% endif %}
                         </span>
                     </div>
@@ -152,11 +152,11 @@
             </div>
 
             <!-- Actions (Cart, Wishlist, Tech Finder, Language, Auth) -->
-            <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <div class="flex items-center gap-1 sm:gap-2 shrink-0">
 
                 <!-- AI Finder Trigger Button -->
                 <button @click="$dispatch('open-tech-finder')"
-                        class="flex items-center gap-1.5 whitespace-nowrap px-2.5 sm:px-3 py-1.5 rounded-full bg-[#F5F5F7] hover:bg-[#E8E8ED] border border-black/[0.08] text-[#111827] text-xs font-bold uppercase tracking-wider transition-colors shrink-0"
+                        class="flex items-center gap-1.5 whitespace-nowrap px-2 sm:px-3 py-1.5 rounded-full bg-[#F5F5F7] hover:bg-[#E8E8ED] border border-black/[0.08] text-[#111827] text-xs font-bold uppercase tracking-wider transition-colors shrink-0"
                         title="{% if LANGUAGE_CODE == 'ar' %}المساعد الذكي لاختيار المنتجات{% else %}AI Tech Matchmaker{% endif %}">
                     <span>🤖</span>
                     <span class="hidden md:inline whitespace-nowrap">{% if LANGUAGE_CODE == 'ar' %}المساعد الذكي{% else %}AI Finder{% endif %}</span>
@@ -164,7 +164,7 @@
 
                 <!-- Product Battle Arena Trigger Button -->
                 <a href="{% url 'shop:product_battle' %}"
-                   class="flex items-center gap-1.5 whitespace-nowrap px-2.5 sm:px-3 py-1.5 rounded-full bg-[#F5F5F7] hover:bg-[#E8E8ED] border border-black/[0.08] text-[#111827] text-xs font-bold uppercase tracking-wider transition-colors shrink-0"
+                   class="hidden sm:flex items-center gap-1.5 whitespace-nowrap px-2.5 sm:px-3 py-1.5 rounded-full bg-[#F5F5F7] hover:bg-[#E8E8ED] border border-black/[0.08] text-[#111827] text-xs font-bold uppercase tracking-wider transition-colors shrink-0"
                    title="{% if LANGUAGE_CODE == 'ar' %}قارن المواصفات وجهاً لوجه{% else %}Compare Product Specs Head-to-Head{% endif %}">
                     <span>⚔️</span>
                     <span class="hidden md:inline whitespace-nowrap">{% trans "Battle" %}</span>
@@ -173,11 +173,11 @@
                 {% if request.user.is_authenticated %}
                 <!-- Wishlist -->
                 <a href="{% url 'shop:wishlist_detail' %}"
-                   class="relative group flex items-center gap-1.5 hover:bg-[#F5F5F7] px-2.5 py-1.5 rounded-full transition-colors shrink-0">
-                    <svg class="w-4.5 h-4.5 text-[#1D1D1F]/70 group-hover:text-rose-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                   class="relative group flex items-center gap-1.5 hover:bg-[#F5F5F7] px-2 sm:px-2.5 py-1.5 rounded-full transition-colors shrink-0">
+                    <svg class="w-[18px] h-[18px] text-[#1D1D1F]/70 group-hover:text-rose-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                     </svg>
-                    <span id="wishlist-counter" class="px-1.5 py-0.5 min-w-[18px] text-center text-[10px] font-bold rounded-full bg-[#111827] text-white transition-colors shadow-2xs {% if not request.user.wishlist.count %}hidden{% endif %}">
+                    <span id="wishlist-counter" class="px-1.5 py-0.5 min-w-[18px] text-center text-[10px] font-bold rounded-full bg-[#111827] text-white transition-colors shadow-sm {% if not request.user.wishlist.count %}hidden{% endif %}">
                         {{ request.user.wishlist.count }}
                     </span>
                 </a>
@@ -194,7 +194,7 @@
                         {% trans "Cart" %}
                     </span>
                     <span id="cart-counter"
-                          class="px-1.5 py-0.5 min-w-[18px] text-center text-[10px] font-extrabold rounded-full bg-white text-[#111827] transition-colors shadow-xs {% if not cart|length %}hidden{% endif %}">
+                          class="px-1.5 py-0.5 min-w-[18px] text-center text-[10px] font-extrabold rounded-full bg-white text-[#111827] transition-colors shadow-sm {% if not cart|length %}hidden{% endif %}">
                         {{ cart|length }}
                     </span>
                 </a>
@@ -241,14 +241,14 @@
                         <a href="{% url 'shop:login' %}" class="whitespace-nowrap text-xs font-semibold uppercase tracking-wider text-[#1D1D1F]/80 hover:text-[#111827] transition-colors px-2.5 py-1.5 shrink-0">
                             {% trans "Sign In" %}
                         </a>
-                        <a href="{% url 'shop:register' %}" class="whitespace-nowrap text-xs font-extrabold uppercase tracking-wider bg-[#111827] text-white hover:bg-black px-3.5 py-1.5 rounded-full transition-colors shadow-2xs shrink-0">
+                        <a href="{% url 'shop:register' %}" class="whitespace-nowrap text-xs font-extrabold uppercase tracking-wider bg-[#111827] text-white hover:bg-black px-3.5 py-1.5 rounded-full transition-colors shadow-sm shrink-0">
                             {% trans "Register" %}
                         </a>
                     {% endif %}
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button @click="isMobileMenuOpen = !isMobileMenuOpen" type="button" class="lg:hidden flex-shrink-0 text-[#111827] hover:bg-[#F5F5F7] p-2 rounded-full transition-colors duration-300 focus:outline-none">
+                <button @click="isMobileMenuOpen = !isMobileMenuOpen" type="button" class="lg:hidden flex-shrink-0 text-[#111827] hover:bg-[#F5F5F7] p-1.5 sm:p-2 rounded-full transition-colors duration-300 focus:outline-none">
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path x-show="!isMobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path x-show="isMobileMenuOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -266,14 +266,14 @@
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100 translate-y-0"
          x-transition:leave-end="opacity-0 -translate-y-4"
-         class="lg:hidden absolute top-full left-0 w-full bg-white border-b border-black/[0.08] shadow-2xl h-screen overflow-y-auto pb-32">
+         class="lg:hidden absolute top-full left-0 w-full bg-white border-b border-black/[0.08] shadow-2xl h-[calc(100dvh-4rem)] sm:h-[calc(100dvh-5rem)] overscroll-contain overflow-y-auto pb-32">
         <div class="px-4 pt-4 pb-6 space-y-2 max-w-lg mx-auto">
             <!-- Mobile Language & Auth Bar -->
             <div class="flex items-center justify-between p-3 rounded-2xl bg-[#F5F5F7] border border-black/[0.06] mb-3">
                 <form action="{% url 'set_language' %}" method="post" class="flex items-center">
                     {% csrf_token %}
                     <input name="next" type="hidden" value="{{ redirect_to|default:request.path }}">
-                    <button type="submit" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white text-[#111827] font-bold text-xs uppercase tracking-wider hover:bg-[#E8E8ED] border border-black/[0.08] shadow-2xs transition-colors">
+                    <button type="submit" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white text-[#111827] font-bold text-xs uppercase tracking-wider hover:bg-[#E8E8ED] border border-black/[0.08] shadow-sm transition-colors">
                         <span>🌐</span>
                         {% if LANGUAGE_CODE == 'en' %}
                             <input name="language" type="hidden" value="ar">

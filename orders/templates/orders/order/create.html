@@ -72,7 +72,7 @@
                     {% endif %}
 
                     {# ── STEP 1: Shipping & Contact Info ── #}
-                    <div class="bg-white rounded-3xl border border-black/[0.08] p-6 sm:p-8 shadow-2xs">
+                    <div class="bg-white rounded-3xl border border-black/[0.08] p-4 sm:p-8 shadow-sm">
                         <div class="flex items-center gap-3 mb-6 pb-4 border-b border-black/[0.06]">
                             <span class="w-8 h-8 rounded-full bg-[#111827] text-white font-extrabold text-sm flex items-center justify-center shrink-0">1</span>
                             <div>
@@ -190,7 +190,7 @@
                     </div>
 
                     {# ── STEP 2: Payment Method Selector (COD vs InstaPay) ── #}
-                    <div class="bg-white rounded-3xl border border-black/[0.08] p-6 sm:p-8 shadow-2xs">
+                    <div class="bg-white rounded-3xl border border-black/[0.08] p-4 sm:p-8 shadow-sm">
                         <div class="flex items-center gap-3 mb-6 pb-4 border-b border-black/[0.06]">
                             <span class="w-8 h-8 rounded-full bg-[#111827] text-white font-extrabold text-sm flex items-center justify-center shrink-0">2</span>
                             <div>
@@ -209,7 +209,7 @@
                             {# Option 1: Cash on Delivery #}
                             <button type="button"
                                     @click="paymentMethod = 'cod'"
-                                    :class="paymentMethod === 'cod' ? 'border-[#111827] bg-[#F5F5F7] text-[#111827] shadow-xs' : 'border-black/[0.08] bg-white text-[#1D1D1F] hover:border-black/25'"
+                                    :class="paymentMethod === 'cod' ? 'border-[#111827] bg-[#F5F5F7] text-[#111827] shadow-sm' : 'border-black/[0.08] bg-white text-[#1D1D1F] hover:border-black/25'"
                                     class="p-4 rounded-2xl border-2 text-start transition-all duration-200 flex items-start gap-3.5">
                                 <div :class="paymentMethod === 'cod' ? 'bg-[#111827] text-white' : 'bg-[#F5F5F7] text-[#111827]'"
                                      class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5 transition-colors">
@@ -232,7 +232,7 @@
                             {# Option 2: InstaPay Instant Transfer #}
                             <button type="button"
                                     @click="paymentMethod = 'instapay'"
-                                    :class="paymentMethod === 'instapay' ? 'border-[#111827] bg-[#F5F5F7] text-[#111827] shadow-xs' : 'border-black/[0.08] bg-white text-[#1D1D1F] hover:border-black/25'"
+                                    :class="paymentMethod === 'instapay' ? 'border-[#111827] bg-[#F5F5F7] text-[#111827] shadow-sm' : 'border-black/[0.08] bg-white text-[#1D1D1F] hover:border-black/25'"
                                     class="p-4 rounded-2xl border-2 text-start transition-all duration-200 flex items-start gap-3.5">
                                 <div :class="paymentMethod === 'instapay' ? 'bg-[#111827] text-white' : 'bg-[#F5F5F7] text-[#111827]'"
                                      class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5 font-extrabold text-xs transition-colors">
@@ -269,7 +269,7 @@
                                         <span class="text-xl sm:text-2xl font-black font-mono text-[#111827] tracking-wider" dir="ltr">{{ instapay_number }}</span>
                                         <button type="button"
                                                 @click="copyText('{{ instapay_number }}', 'number')"
-                                                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#111827] hover:bg-black text-white text-xs font-bold transition-colors shadow-2xs">
+                                                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#111827] hover:bg-black text-white text-xs font-bold transition-colors shadow-sm">
                                             <span x-show="!copiedNumber">{% if LANGUAGE_CODE == 'ar' %}نسخ الرقم{% else %}Copy Number{% endif %}</span>
                                             <span x-show="copiedNumber" class="text-emerald-400">✓ {% if LANGUAGE_CODE == 'ar' %}تم النسخ{% else %}Copied!{% endif %}</span>
                                         </button>
@@ -291,7 +291,7 @@
                                            name="payment_proof"
                                            id="id_payment_proof"
                                            accept="image/*"
-                                           class="w-full text-xs text-[#6E6E73] file:mr-3 file:py-2 file:px-3.5 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#111827] file:text-white hover:file:bg-black cursor-pointer bg-white rounded-xl border border-black/[0.08] p-1.5">
+                                           class="w-full text-xs text-[#6E6E73] ltr:file:mr-3 rtl:file:ml-3 file:py-2 file:px-3.5 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#111827] file:text-white hover:file:bg-black cursor-pointer bg-white rounded-xl border border-black/[0.08] p-1.5">
                                 </div>
                                 <div>
                                     <label for="id_instapay_reference" class="block text-xs font-bold text-[#111827] mb-1">
@@ -326,7 +326,7 @@
 
             {# ── Right Column: Order Summary & Coupon Sidebar (5 Cols) ── #}
             <div class="lg:col-span-5 space-y-5">
-                <div class="sticky top-24 bg-white rounded-3xl border border-black/[0.08] p-6 sm:p-7 shadow-2xs">
+                <div class="sticky top-24 bg-white rounded-3xl border border-black/[0.08] p-5 sm:p-7 shadow-sm">
                     <h3 class="text-base font-extrabold text-[#111827] pb-4 border-b border-black/[0.06] flex items-center justify-between">
                         <span>{% if LANGUAGE_CODE == 'ar' %}ملخص الطلب{% else %}Order Summary{% endif %}</span>
                         <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-[#F5F5F7] text-[#111827]">{{ cart|length }} {% if LANGUAGE_CODE == 'ar' %}منتج{% else %}Items{% endif %}</span>

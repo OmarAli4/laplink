@@ -1,13 +1,13 @@
 {% load i18n %}
 
 <!-- Out of Band Swap for the Navigation Cart Icon Counter -->
-<span id="cart-counter" hx-swap-oob="true" class="px-1.5 py-0.5 min-w-[18px] text-center text-[10px] font-extrabold rounded-full bg-white text-[#111827] transition-colors shadow-xs {% if not cart|length %}hidden{% endif %}" style="animation: badgePop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);">{{ cart|length }}</span>
+<span id="cart-counter" hx-swap-oob="true" class="px-1.5 py-0.5 min-w-[18px] text-center text-[10px] font-extrabold rounded-full bg-white text-[#111827] transition-colors shadow-sm {% if not cart|length %}hidden{% endif %}" style="animation: badgePop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);">{{ cart|length }}</span>
 
 {% if cart|length > 0 %}
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 fade-me-in">
 
     <div class="lg:col-span-2">
-        <div class="bg-white rounded-3xl border border-black/[0.08] overflow-hidden shadow-2xs">
+        <div class="bg-white rounded-3xl border border-black/[0.08] overflow-hidden shadow-sm">
             <!-- Mobile Cart View -->
             <div class="md:hidden divide-y divide-black/[0.06]">
                 {% for item in cart %}
@@ -191,7 +191,7 @@
 
     <div class="lg:col-span-1 space-y-6">
 
-        <div class="bg-white rounded-3xl border border-black/[0.08] p-6 shadow-2xs" x-data="{ couponCode: '' }">
+        <div class="bg-white rounded-3xl border border-black/[0.08] p-4 sm:p-6 shadow-sm" x-data="{ couponCode: '' }">
             <h3 class="text-xs font-bold uppercase tracking-wider text-[#6E6E73] mb-4">
                 {% trans "Coupon Code" %}
             </h3>
@@ -202,14 +202,14 @@
                 {% csrf_token %}
                 <input type="text" name="code" x-model="couponCode"
                        placeholder="{% trans 'Enter code' %}"
-                       class="flex-1 px-4 py-2.5 rounded-full bg-[#F5F5F7] border border-black/[0.1]
+                       class="flex-1 min-w-0 px-4 py-2.5 rounded-full bg-[#F5F5F7] border border-black/[0.1]
                               text-[#111827] text-sm placeholder-[#6E6E73]
                               focus:bg-white focus:border-[#111827] focus:ring-2 focus:ring-black/10
                               focus:outline-none transition-all duration-200">
                 <button type="submit"
-                        class="px-5 py-2.5 rounded-full text-sm font-semibold text-white
+                        class="shrink-0 px-4 sm:px-5 py-2.5 rounded-full text-sm font-semibold text-white
                                bg-[#111827] hover:bg-black
-                               shadow-xs
+                               shadow-sm
                                transition-all duration-200">
                     {% trans "Apply" %}
                 </button>

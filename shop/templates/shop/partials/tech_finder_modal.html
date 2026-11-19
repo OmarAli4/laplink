@@ -85,7 +85,7 @@
 
     <!-- Modern Clean White Modal Container -->
     <div x-show="isOpen"
-         x-transition:enter="transition ease-out duration-250 cubic-bezier(0.16, 1, 0.3, 1)"
+         x-transition:enter="transition ease-out duration-300 cubic-bezier(0.16, 1, 0.3, 1)"
          x-transition:enter-start="opacity-0 scale-95 -translate-y-2"
          x-transition:enter-end="opacity-100 scale-100 translate-y-0"
          x-transition:leave="transition ease-in duration-150"
@@ -96,7 +96,7 @@
         <!-- Top Bar Header -->
         <div class="flex items-center justify-between pb-4 border-b border-black/[0.06] shrink-0">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-2xl bg-[#111827] text-white flex items-center justify-center font-bold text-lg shadow-2xs">
+                <div class="w-10 h-10 rounded-2xl bg-[#111827] text-white flex items-center justify-center font-bold text-lg shadow-sm">
                     🤖
                 </div>
                 <div>
@@ -130,7 +130,7 @@
 
                     <button @click="askAI()"
                             :disabled="!prompt.trim() || isLoading"
-                            class="absolute ltr:right-1.5 rtl:left-1.5 p-2.5 rounded-full bg-[#111827] text-white hover:bg-black disabled:opacity-20 disabled:cursor-not-allowed transition-all active:scale-95 shadow-2xs flex items-center justify-center"
+                            class="absolute ltr:right-1.5 rtl:left-1.5 p-2.5 rounded-full bg-[#111827] text-white hover:bg-black disabled:opacity-20 disabled:cursor-not-allowed transition-all active:scale-95 shadow-sm flex items-center justify-center"
                             title="{% if LANGUAGE_CODE == 'ar' %}ابحث الآن{% else %}Find My Device{% endif %}">
                         <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -280,7 +280,7 @@
                                                 {% csrf_token %}
                                                 <input type="hidden" name="quantity" value="1">
                                                 <input type="hidden" name="override" value="False">
-                                                <button type="submit" name="buy_now" value="true" class="px-4 py-1.5 rounded-full bg-[#111827] hover:bg-black text-white text-xs font-extrabold tracking-wide uppercase transition-all shadow-2xs active:scale-95">
+                                                <button type="submit" name="buy_now" value="true" class="px-4 py-1.5 rounded-full bg-[#111827] hover:bg-black text-white text-xs font-extrabold tracking-wide uppercase transition-all shadow-sm active:scale-95">
                                                     {% trans "Buy Now ⚡" %}
                                                 </button>
                                             </form>

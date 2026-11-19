@@ -128,7 +128,7 @@
 
         <!-- Banner Header -->
         <div class="text-center space-y-3">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-black/[0.08] text-[#111827] text-xs font-mono font-bold uppercase tracking-widest shadow-2xs">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-black/[0.08] text-[#111827] text-xs font-mono font-bold uppercase tracking-widest shadow-sm">
                 <span class="animate-pulse">⚔️</span> {% trans "AI HARDWARE DUEL ARENA" %}
             </div>
             <h1 class="text-3xl sm:text-5xl font-black text-[#111827] font-display tracking-tight">
@@ -148,7 +148,7 @@
                           {% if selected_category.id == cat.id %}
                             bg-[#111827] text-white border-[#111827] shadow-sm scale-105
                           {% else %}
-                            bg-white text-[#1D1D1F] border-black/[0.08] hover:text-black hover:border-black/25 shadow-2xs
+                            bg-white text-[#1D1D1F] border-black/[0.08] hover:text-black hover:border-black/25 shadow-sm
                           {% endif %}">
                     <span>
                         {% if 'apple' in cat.name|lower or 'ipad' in cat.name|lower %}📱
@@ -234,7 +234,7 @@
                             {% csrf_token %}
                             <input type="hidden" name="quantity" value="1">
                             <input type="hidden" name="override" value="False">
-                            <button type="submit" name="buy_now" value="true" class="w-full py-2.5 bg-[#111827] hover:bg-black text-white rounded-full text-xs font-extrabold uppercase tracking-wide transition-all active:scale-95 shadow-xs">
+                            <button type="submit" name="buy_now" value="true" class="w-full py-2.5 bg-[#111827] hover:bg-black text-white rounded-full text-xs font-extrabold uppercase tracking-wide transition-all active:scale-95 shadow-sm">
                                 {% trans "Buy Now ⚡" %}
                             </button>
                         </form>
@@ -306,7 +306,7 @@
                             {% csrf_token %}
                             <input type="hidden" name="quantity" value="1">
                             <input type="hidden" name="override" value="False">
-                            <button type="submit" name="buy_now" value="true" class="w-full py-2.5 bg-[#111827] hover:bg-black text-white rounded-full text-xs font-extrabold uppercase tracking-wide transition-all active:scale-95 shadow-xs">
+                            <button type="submit" name="buy_now" value="true" class="w-full py-2.5 bg-[#111827] hover:bg-black text-white rounded-full text-xs font-extrabold uppercase tracking-wide transition-all active:scale-95 shadow-sm">
                                 {% trans "Buy Now ⚡" %}
                             </button>
                         </form>
@@ -470,9 +470,9 @@
         </div>
 
         <!-- DETAILED SPEC MATRIX -->
-        <div class="bg-white border border-black/[0.08] rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xs text-[#1D1D1F]">
+        <div class="bg-white border border-black/[0.08] rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm text-[#1D1D1F]">
 
-            <div class="flex items-center justify-between border-b border-black/[0.06] pb-4">
+            <div class="flex flex-wrap items-center justify-between border-b border-black/[0.06] pb-4 gap-3">
                 <h2 class="text-lg sm:text-xl font-extrabold text-[#111827] font-display uppercase tracking-wider flex items-center gap-2">
                     📊 {% trans "Hardware Spec Matrix" %}
                 </h2>
@@ -487,13 +487,13 @@
                     <div class="space-y-2 bg-[#F5F5F7] p-4 rounded-2xl border border-black/[0.06]">
 
                         <!-- Header Line: Name & Values -->
-                        <div class="flex items-center justify-between text-xs font-bold">
-                            <span class="text-[#111827] font-mono flex items-center gap-1.5 font-bold">
+                        <div class="grid grid-cols-2 sm:grid-cols-3 items-center gap-x-2 gap-y-1.5 text-xs font-bold">
+                            <span class="text-[#111827] font-mono flex items-center gap-1.5 font-bold min-w-0 break-words">
                                 <span x-text="row.iconA"></span>
                                 <span x-text="row.valueA"></span>
                             </span>
-                            <span class="text-[#111827] uppercase font-display tracking-widest text-center font-extrabold" x-text="row.name"></span>
-                            <span class="text-[#6E6E73] font-mono flex items-center gap-1.5 font-bold">
+                            <span class="col-span-2 order-first sm:col-span-1 sm:order-none text-[#111827] uppercase font-display tracking-widest text-center font-extrabold" x-text="row.name"></span>
+                            <span class="text-[#6E6E73] font-mono flex items-center justify-end gap-1.5 font-bold min-w-0 break-words">
                                 <span x-text="row.valueB"></span>
                                 <span x-text="row.iconB"></span>
                             </span>

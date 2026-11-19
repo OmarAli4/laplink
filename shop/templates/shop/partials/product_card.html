@@ -1,10 +1,10 @@
 {% load i18n %}
 <div @mouseenter="$dispatch('robot-start', { title: '{{ product.name|escapejs }}' })"
      @mouseleave="$dispatch('robot-stop')"
-     class="group relative bg-white border border-black/[0.08] hover:border-black/20 rounded-3xl p-4 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 hover:shadow-[0_16px_36px_rgba(0,0,0,0.07)] shadow-2xs">
+     class="group relative bg-white border border-black/[0.08] hover:border-black/20 rounded-2xl sm:rounded-3xl p-2.5 sm:p-4 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 hover:shadow-[0_16px_36px_rgba(0,0,0,0.07)] shadow-sm">
 
     <!-- Top Image & Badges Area -->
-    <div class="aspect-square w-full rounded-2xl bg-[#F5F5F7] overflow-hidden relative mb-4 flex items-center justify-center p-3">
+    <div class="aspect-square w-full rounded-xl sm:rounded-2xl bg-[#F5F5F7] overflow-hidden relative mb-2.5 sm:mb-4 flex items-center justify-center p-2 sm:p-3">
         <a href="{% url 'shop:product_detail' product.id product.slug %}" class="w-full h-full flex items-center justify-center">
             {% if product.image %}
             <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy">
@@ -15,23 +15,23 @@
 
         <!-- Sale / Hot Drop Badge -->
         {% if product.is_on_sale %}
-        <span class="pointer-events-none absolute top-2.5 ltr:left-2.5 rtl:right-2.5 px-2.5 py-0.5 rounded-full bg-rose-600 text-white text-[10px] font-bold tracking-wide uppercase shadow-xs">
+        <span class="pointer-events-none absolute top-2 ltr:left-2 rtl:right-2 sm:top-2.5 sm:ltr:left-2.5 sm:rtl:right-2.5 px-2 sm:px-2.5 py-0.5 rounded-full bg-rose-600 text-white text-[9px] sm:text-[10px] font-bold tracking-wide uppercase shadow-sm">
             -{{ product.discount_percentage }}%
         </span>
         {% elif product.is_featured %}
-        <span class="pointer-events-none absolute top-2.5 ltr:left-2.5 rtl:right-2.5 px-2.5 py-0.5 rounded-full bg-[#111827] text-white text-[10px] font-bold uppercase shadow-2xs">
+        <span class="pointer-events-none absolute top-2 ltr:left-2 rtl:right-2 sm:top-2.5 sm:ltr:left-2.5 sm:rtl:right-2.5 px-2 sm:px-2.5 py-0.5 rounded-full bg-[#111827] text-white text-[9px] sm:text-[10px] font-bold uppercase shadow-sm">
             {% trans "Featured" %}
         </span>
         {% endif %}
 
         <!-- Wishlist Button -->
-        <div class="absolute top-2.5 ltr:right-2.5 rtl:left-2.5 z-20">
+        <div class="absolute top-2 ltr:right-2 rtl:left-2 sm:top-2.5 sm:ltr:right-2.5 sm:rtl:left-2.5 z-20">
             <button type="button"
                     hx-post="{% url 'shop:wishlist_toggle' product.id %}"
                     hx-target="#wishlist-{{ card_prefix|default:'home' }}-btn-{{ product.id }}"
                     id="wishlist-{{ card_prefix|default:'home' }}-btn-{{ product.id }}"
                     hx-swap="outerHTML"
-                    class="flex items-center justify-center w-8 h-8 rounded-full border {% if product.id in wishlisted_product_ids %}border-rose-500 bg-rose-50{% else %}border-black/[0.08] bg-white/95 backdrop-blur-sm hover:border-black/25{% endif %} transition-all duration-200 shadow-2xs hover:scale-110"
+                    class="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full border {% if product.id in wishlisted_product_ids %}border-rose-500 bg-rose-50{% else %}border-black/[0.08] bg-white/95 backdrop-blur-sm hover:border-black/25{% endif %} transition-all duration-200 shadow-sm hover:scale-110"
                     title="{% if product.id in wishlisted_product_ids %}{% trans 'Remove from Wishlist' %}{% else %}{% trans 'Add to Wishlist' %}{% endif %}">
                 <svg class="w-4 h-4 {% if product.id in wishlisted_product_ids %}text-rose-600 fill-current{% else %}text-[#6E6E73] hover:text-rose-600{% endif %} transition-colors"
                      {% if product.id not in wishlisted_product_ids %}fill="none" stroke="currentColor" stroke-width="2"{% endif %}
@@ -45,24 +45,24 @@
     <!-- Product Info & 1-Click Add to Cart -->
     <div class="flex-1 flex flex-col justify-between">
         <div>
-            <span class="text-[11px] text-[#6E6E73] uppercase tracking-wider font-bold block">
+            <span class="text-[10px] sm:text-[11px] text-[#6E6E73] uppercase tracking-wider font-bold block truncate">
                 {{ product.brand.name|default:"Lap Link" }}
             </span>
             <a href="{% url 'shop:product_detail' product.id product.slug %}" class="block mt-0.5">
-                <h4 class="text-sm font-semibold text-[#1D1D1F] group-hover:text-[#0066CC] transition-colors line-clamp-2 min-h-[2.5rem]">
+                <h4 class="text-xs sm:text-sm font-semibold text-[#1D1D1F] group-hover:text-[#0066CC] transition-colors line-clamp-2 min-h-[2rem] sm:min-h-[2.5rem]">
                     {{ product.name }}
                 </h4>
             </a>
         </div>
 
-        <div class="mt-4 flex items-center justify-between pt-3 border-t border-black/[0.06]">
-            <div class="flex items-baseline gap-1.5 flex-wrap">
-                <span class="text-base sm:text-lg font-extrabold text-[#111827] font-mono tracking-tight">
+        <div class="mt-2.5 sm:mt-4 flex items-center justify-between gap-1.5 pt-2.5 sm:pt-3 border-t border-black/[0.06]">
+            <div class="min-w-0 flex items-baseline gap-1 sm:gap-1.5 flex-wrap">
+                <span class="text-sm sm:text-lg font-extrabold text-[#111827] font-mono tracking-tight">
                     {{ product.formatted_current_price }}
-                    <span class="text-xs font-bold text-[#6E6E73] font-sans">{% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
+                    <span class="text-[10px] sm:text-xs font-bold text-[#6E6E73] font-sans">{% if LANGUAGE_CODE == 'ar' %}ج.م{% else %}EGP{% endif %}</span>
                 </span>
                 {% if product.is_on_sale %}
-                <span class="text-[11px] text-[#6E6E73] line-through">
+                <span class="text-[10px] sm:text-[11px] text-[#6E6E73] line-through">
                     {{ product.formatted_base_price }}
                 </span>
                 {% endif %}
@@ -72,12 +72,12 @@
             <form hx-post="{% url 'cart:cart_add' product.id %}"
                   hx-target="#cart-counter"
                   hx-swap="outerHTML"
-                  class="inline-block">
+                  class="inline-block shrink-0">
                 {% csrf_token %}
                 <input type="hidden" name="quantity" value="1">
                 <input type="hidden" name="override" value="False">
                 <button type="submit"
-                        class="w-9 h-9 rounded-full bg-[#111827] hover:bg-black text-white flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105 active:scale-95"
+                        class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#111827] hover:bg-black text-white flex items-center justify-center transition-all duration-200 shadow-sm hover:scale-105 active:scale-95 shrink-0"
                         title="{% trans 'Quick Add to Cart' %}">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 4v16m8-8H4"/>

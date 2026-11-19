@@ -14,7 +14,7 @@
 
             <div class="relative z-10">
                 <a href="{% url 'shop:home' %}" class="flex items-center gap-3 group">
-                    <div class="w-10 h-10 rounded-2xl bg-[#111827] flex items-center justify-center border border-[#111827] group-hover:bg-black shadow-2xs transition-colors duration-300">
+                    <div class="w-10 h-10 rounded-2xl bg-[#111827] flex items-center justify-center border border-[#111827] group-hover:bg-black shadow-sm transition-colors duration-300">
                         <svg class="w-5 h-5 text-white animate-draw-logo" viewBox="14 14 112 82" fill="none" stroke="currentColor" stroke-width="12">
                             <path class="logo-path" stroke-dasharray="180" stroke-dashoffset="0" d="M 50 50 L 20 50 L 20 90 L 80 90 L 80 50 L 70 50" />
                             <path class="logo-path" stroke-dasharray="180" stroke-dashoffset="0" d="M 70 60 L 60 60 L 60 20 L 120 20 L 120 60 L 90 60" />
@@ -103,7 +103,7 @@
 
                         <div class="relative">
                             <!-- Input Field Icon -->
-                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#6E6E73]">
+                            <div class="absolute inset-y-0 ltr:left-0 ltr:pl-4 rtl:right-0 rtl:pr-4 flex items-center pointer-events-none text-[#6E6E73]">
                                 {% if "password" in field.name %}
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                                 {% else %}
@@ -116,13 +116,13 @@
                                    :type="{% if 'password' in field.name %}showPassword ? 'text' : 'password'{% else %}'{{ field.field.widget.input_type|default:'text' }}'{% endif %}"
                                    autocomplete="on"
                                    required
-                                   class="appearance-none rounded-2xl relative block w-full pl-11 {% if 'password' in field.name %}pr-11{% else %}pr-4{% endif %} py-3.5 bg-[#F5F5F7] border border-black/[0.1] placeholder-[#6E6E73] text-[#111827] focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#111827] focus:bg-white transition-all text-sm font-medium"
+                                   class="appearance-none rounded-2xl relative block w-full ltr:pl-11 rtl:pr-11 {% if 'password' in field.name %}ltr:pr-11 rtl:pl-11{% else %}ltr:pr-4 rtl:pl-4{% endif %} py-3.5 bg-[#F5F5F7] border border-black/[0.1] placeholder-[#6E6E73] text-[#111827] focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-[#111827] focus:bg-white transition-all text-sm font-medium"
                                    placeholder="{{ field.label }}">
 
                             {% if "password" in field.name %}
                             <button type="button"
                                     @click="showPassword = !showPassword"
-                                    class="absolute inset-y-0 right-0 pr-4 flex items-center text-[#6E6E73] hover:text-[#111827] transition-colors focus:outline-none">
+                                    class="absolute inset-y-0 ltr:right-0 ltr:pr-4 rtl:left-0 rtl:pl-4 flex items-center text-[#6E6E73] hover:text-[#111827] transition-colors focus:outline-none">
                                 <svg x-show="!showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                                 <svg x-show="showPassword" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858-5.908a10.03 10.03 0 013.682-.733c4.478 0 8.268 2.943 9.542 7a10.025 10.025 0 01-4.132 5.411m-4.692-4.692a3 3 0 00-4.243-4.243m4.243 4.243L3 3l18 18" /></svg>
                             </button>

@@ -11,14 +11,14 @@
         <!-- Dashboard Header -->
         <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-black/[0.08] pb-8">
             <div>
-                <h1 class="text-4xl sm:text-5xl font-extrabold text-[#111827] tracking-tight font-display uppercase">
+                <h1 class="text-3xl sm:text-5xl font-extrabold text-[#111827] tracking-tight font-display uppercase">
                     {% trans "My Dashboard" %}
                 </h1>
                 <p class="mt-3 text-[#6E6E73] text-lg">
                     {% trans "Welcome back," %} <span class="text-[#111827] font-bold tracking-wide">{{ request.user.first_name|default:request.user.username }}</span>.
                 </p>
             </div>
-            <a href="{% url 'shop:product_list' %}" class="inline-flex items-center px-8 py-3 text-sm font-bold tracking-widest uppercase rounded-full text-white bg-[#111827] hover:bg-black transition-colors shadow-sm">
+            <a href="{% url 'shop:product_list' %}" class="inline-flex justify-center w-full sm:w-auto items-center px-6 sm:px-8 py-3 text-sm font-bold tracking-widest uppercase rounded-full text-white bg-[#111827] hover:bg-black transition-colors shadow-sm">
                 {% trans "Continue Shopping" %}
             </a>
         </div>
@@ -26,8 +26,8 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Left Column: Account Details -->
             <div class="lg:col-span-1">
-                <div class="bg-white border border-black/[0.08] rounded-3xl p-8 relative overflow-hidden hover:border-black/20 transition-colors duration-300 shadow-2xs">
-                    <h2 class="text-lg font-bold text-[#111827] mb-8 uppercase tracking-widest flex items-center gap-3">
+                <div class="bg-white border border-black/[0.08] rounded-3xl p-5 sm:p-8 relative overflow-hidden hover:border-black/20 transition-colors duration-300 shadow-sm">
+                    <h2 class="text-lg font-bold text-[#111827] mb-5 sm:mb-8 uppercase tracking-widest flex items-center gap-3">
                         <span class="w-8 h-8 rounded-full bg-[#F5F5F7] border border-black/[0.08] flex items-center justify-center">
                             <svg class="w-4 h-4 text-[#111827]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                         </span>
@@ -57,8 +57,8 @@
 
             <!-- Right Column: Order History -->
             <div class="lg:col-span-2">
-                <div class="bg-white border border-black/[0.08] rounded-3xl p-8 relative overflow-hidden hover:border-black/20 transition-colors duration-300 shadow-2xs">
-                    <h2 class="text-lg font-bold text-[#111827] mb-8 uppercase tracking-widest flex items-center gap-3">
+                <div class="bg-white border border-black/[0.08] rounded-3xl p-5 sm:p-8 relative overflow-hidden hover:border-black/20 transition-colors duration-300 shadow-sm">
+                    <h2 class="text-lg font-bold text-[#111827] mb-5 sm:mb-8 uppercase tracking-widest flex items-center gap-3">
                         <span class="w-8 h-8 rounded-full bg-[#F5F5F7] border border-black/[0.08] flex items-center justify-center">
                             <svg class="w-4 h-4 text-[#111827]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                         </span>
